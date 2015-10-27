@@ -1,0 +1,56 @@
+long get_token(char *s,char *fir_word,long *rest_address);
+long get_token2(char *s,char *fir_word,long *rest_address);
+long frm_compute(long f_id,char *express,double *result);
+long level2(long f_id,double *result,long *tok_type,char *token,long *sit);
+long level3(long f_id,double *result,long *tok_type,char *token,long *sit);
+long level4(long f_id,double *result,long *tok_type,char *token,long *sit);
+long level5(long f_id,double *result,long *tok_type,char *token,long *sit);
+long primitive(long f_id,double *result,long *tok_type,char *token,long *sit);
+long unary(char o,double *r);
+long arith(char o,double *r,double *h);
+long l_level0(long f_id,double *result,long *tok_type,char *token,long *sit);
+long l_level1(long f_id,double *result,long *tok_type,char *token,long *sit);
+long l_level2(long f_id,double *result,long *tok_type,char *token,long *sit);
+long l_level3(long f_id,double *result,long *tok_type,char *token,long *sit);
+long l_level4(long f_id,double *result,long *tok_type,char *token,long *sit);
+long l_level5(long f_id,double *result,long *tok_type,char *token,long *sit);
+long logical_arith(char *o,double *r,double *h);
+
+/*****************************************************************************
+
+                 THE HEAD OF EDITING THE WINDOW       .*.
+                                                            *.*
+*****************************************************************************/
+
+struct line {
+         struct line *next;
+         struct line *previous;
+         char *l;
+  } ;
+
+long jsys_compute(long f_id,char *express,double *result);
+long primitive(long f_id,double *result,long *tok_type,char *token,long *sit);
+
+long unary(char o,double *r);
+
+long arith(char o,double *r,double *h);
+
+long get_token2(char *s,char *fir_word,long *rest_address);
+
+long jsys_logical_compute(long f_id,char *express);
+
+long l_level0(long f_id,double *result,long *tok_type,char *token,long *sit);
+
+long l_level1(long f_id,double *result,long *tok_type,char *token,long *sit);
+
+long l_level2(long f_id,double *result,long *tok_type,char *token,long *sit);
+
+long l_level3(long f_id,double *result,long *tok_type,char *token,long *sit);
+
+long l_level4(long f_id,double *result,long *tok_type,char *token,long *sit);
+
+long l_level5(long f_id,double *result,long *tok_type,char *token,long *sit);
+
+long logical_arith(char *o,double *r,double *h);
+
+
