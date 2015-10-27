@@ -1,0 +1,32 @@
+# rm ncsrv.a
+# rm ncsrvw.a
+# Make ncsrv.a
+# Make ncsrvw.a  
+./mkccw ncmodulem
+./mkccw ncm_sysman
+./mkccw ncm_sysset
+./mkccw ncm_web
+./mkccw ncm_realtime
+./mkccw ncm_group
+./mkccw ncm_plate
+./mkccw ncm_smslog
+./mkccw ncm_mall
+./mkccw ncm_userlog
+./mkccw ncm_blackuser
+./mkccw ncm_routeinfo
+./mkccw ncm_string
+./mkccw ncmcommunicate
+./mkccw ncmprocess
+./mkccw ncm_appreport
+./mkccw ncm_webshopinfo_list
+./mkccw ncm_webplaceinfo_list
+./mkccw ncm_report_mail
+./mkccw ncm_userman
+./mkccw ncm_report
+./mkccw ncm_chart
+./mkccw ncm_webplaceinfo_log_list
+./mkccw ncmMd5Sha
+./mkccw ncmweixin
+./mkccw ncmcomhttps
+./mkccw ncmcomlibxml
+

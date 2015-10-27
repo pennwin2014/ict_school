@@ -1,0 +1,7 @@
+killall -9 $1
+killall -9 $1
+gcc -DPAS_ORACLE -I/usr/include/oracle/11.2/client  \
+ -g -o  $1 $1.c \
+-I$PAS_HOME/include \
+ $PAS_HOME/lib/libpasv40_oracle.a $PAS_HOME/lib/pasoci.a    \
+ $ORACLE_HOME/lib/libclntsh.so  

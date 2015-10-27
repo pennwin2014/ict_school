@@ -1,0 +1,29 @@
+./mkcc ncmodulem
+./mkcc ncm_sysman
+./mkcc ncm_sysset
+./mkcc ncm_web
+./mkcc ncm_realtime
+./mkcc ncm_group
+./mkcc ncm_plate
+./mkcc ncm_smslog
+./mkcc ncm_mall
+./mkcc ncm_userlog
+./mkcc ncm_blackuser
+./mkcc ncm_routeinfo
+./mkcc ncm_string
+./mkcc ncmcommunicate
+./mkcc ncmprocess
+./mkcc ncm_appreport
+./mkcc ncm_webshopinfo_list
+./mkcc ncm_webplaceinfo_list
+./mkcc ncm_report_mail
+./mkcc ncm_userman
+./mkcc ncm_report
+./mkcc ncm_chart
+./mkcc ncm_webplaceinfo_log_list
+./mkcc ncmMd5Sha
+./mkcc ncmweixin
+./mkcc ncmcomhttps
+./mkcc ncmcomlibxml
+
+

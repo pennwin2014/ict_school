@@ -1,0 +1,2 @@
+tar zcvf ncm_$1.tgz ncm*.c ncm*.h ncportalweb.h
+scp ncm_$1.tgz root@192.168.20.38:/home/ncmysql/ncsrv/src/

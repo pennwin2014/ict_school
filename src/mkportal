@@ -1,0 +1,7 @@
+gcc -g  -DPAS_MYSQL -o proportal  -I/home/lym/pas36/include \
+ -I$MYSQL_HOME/include -I/usr/include/libxml2/ \
+ proportal.c  ncsrv.a ncsrvw.a nc.a libpcap.a $PAS_HOME/lib/maillib.a  $PAS_HOME/lib/libpasv40_x32.a \
+ $MYSQL_HOME/lib/libmysqlclient.a  libgnokii.a libpcsclite.a libglib-2.0.a \
+`xml2-config --cflags --libs` -lxml2 \
+     -lm -lnet -lcrypt -lz  -lc -lpthread -lc -lresolv   -ldl   -liconv -lssl
+

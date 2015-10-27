@@ -1,0 +1,11 @@
+gcc -g  -DPAS_MYSQL -o $1  -I$PAS_HOME/include \
+ -I$MYSQL_HOME/include -I/usr/include/libxml2/ \
+ $1.c  ncsrvw.a ncsrv.a nc.a libpcap.a $PAS_HOME/lib/maillib.a  $PAS_HOME/lib/libpasv40_x32.a \
+ $MYSQL_HOME/lib/libmysqlclient.a  libgnokii.a libpcsclite.a libglib-2.0.a libssh2.so.1.0.1 libz.a \
+`xml2-config --cflags --libs` -lxml2 \
+     -lm -lnet -lcrypt -lz  -lc -lpthread -lc -lresolv   -ldl   -liconv -lssl
+paskillproc  $1
+cp $1  ../bin/
+cd /home/ncmysql/ncsrv/bin
+#./proportal
+

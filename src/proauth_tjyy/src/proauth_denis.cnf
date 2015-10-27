@@ -1,0 +1,26 @@
+#     nc version 7.x  ProEIM-100
+#     Memory  1024 MB
+#     This File is the Configuration of Proeim  Server.
+#     Last Modified by Liyunming, 2007/11
+#     Writen by LiYunming, 2000/1/1
+***************************************************************
+MsgCode = 990118
+ShmKey =  984744
+ShmMaxPages = 20
+# 基本共享内存数
+ShmBaseSize =18960793
+# 每次可扩充共享内存
+ShmExtendSize = 16777216
+MaxShareData = 40
+ShmMaxLnk =  100
+MaxTcpBuffer = 1024000
+dbname = "proauth"
+dbuser = "proauth"
+dbpassword = "proauth"
+TcpPort = "6699"
+MinTcpProcess = "8"
+MaxTcpProcess = "32"
+radius_ip="203.148.15.227"
+radius_port="9995"
+
+

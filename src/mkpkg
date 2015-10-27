@@ -1,0 +1,4 @@
+tar zcvf /data/package/PORTALV2.02.$1.tgz  proportal portalonline  ncsrv.str changelog_lib.txt
+scp /data/package/PORTALV2.02.$1.tgz pronetway@192.168.0.99:/home/pronetway/portal/
+
+

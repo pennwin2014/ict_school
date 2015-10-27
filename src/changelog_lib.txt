@@ -1,0 +1,426 @@
+# 更新记录         Portal服务器
+# 本文件主要描述Portal中库文件 ncsrv.a 的更新情况
+# 
+V2.02.087          2015/07/02
+  1.修改日志文件删除问题
+  
+V2.02.086          2015/05/12
+  1.上网时长控制，当新的一天来的时候会有问题
+  
+
+V2.02.085          2015/05/07
+  1.针对香港广场验收修正了部分BUG
+    组的变化导致用户无效
+    用户ID值超出设置范围
+    
+V2.02.090          2015/07/27
+  1.修改二次免认证中的BUG
+
+V2.02.087          2015/07/16
+  1.App解除绑定问题的修改
+  
+
+V2.02.084          2015/05/04
+  1.流控在用户信息变化时自动加载控制
+  
+V2.02.083          2015/04/30
+  1.针对APP的优化, 某些通过AC重定向过来的连接，无法识别APP，将APP的UA修改成PROEIM, 达到修改的目的
+  
+
+V2.02.082          2015/04/13
+  1.支持APP快捷认证
+  2.修改流控联动的BUG
+  
+V2.02.080          2015/03/28
+  1.增加和流控系统的联动
+  2.增加对每日流量、每日上网时间的控制
+  
+
+V2.02.079          2015/03/24
+  1.修改ncSrvSetApIndex
+  2.锐捷AP的支持
+  3.MAC嗅探的完善
+  
+V2.02.078          2015/03/19
+  1.MAC采集中人流统计
+
+V2.02.077          2015/03/02
+  1.修改新用户认证失败的问题
+  
+
+V2.02.076          2015/03/02
+  1.支持美禄AC直接认证
+  
+
+V2.02.072          2015/01/24
+  1.对Mac地址为 "00:00:00:00:00"的处理
+
+V2.02.070          2015/01/15
+  1.对Ssh长时间不正常的检测
+  2.对Mac地址为 "00:00:00:00:00"的处理
+  3.针对APP验证，AcName和Web认证区分
+  4.修改集中认证中的BUG
+  
+
+
+V2.02.067          2015/01/05
+  1.增加了网络督察通过Portal的认证
+  2.增加APP的认证
+  
+
+V2.02.066          2015/01/05
+  1.增加了定时将AP,Group信息同步到数据库的功能
+
+V2.02.065          2014/12/30
+  1.增加了登录的Cookies PASTSID
+  2.ncPortalOnline *ncSrvGetOnlineByMsg(utShmHead *psShmHead,utMsgHead *psMsgHead);
+  
+  
+
+V2.02.064          2014/12/26
+  1.修改在登录页面中当tsid不存在时，显示错误界面, statusCode=10000
+  
+
+V2.02.063          2014/12/22
+  1.修改Meru AC,当MAC地址不存在时使用IP来获取接入信息
+  
+V2.02.061          2014/12/17
+  1.审计设备和Portal之间AP信息的同步
+  
+  
+
+V2.02.061          2014/12/17
+  1.Start报文增加 Acct-Delay-Time 属性
+  2.获取AP地址使用 show station  mac-address 40:88:e0:10:59:1e
+  3.增加一个参数，使 Ap名称可以动态变化
+    SynApDynamic = "Yes"
+    
+
+V2.02.060          2014/12/10
+  1. SSH AC可以支持多个AC的连接
+     针对多个AC的配置
+
+系统中处理进程   SshAc1—SshAc2
+StartAcSsh = “Yes”
+# SshAC总数  
+SumSshAc = 2
+
+SshAcName1 = "Meru001"
+SshHostMeru001 = "192.168.20.100"
+SshUserMeru001 = "admin"
+SshPassMeru001 = "admin"
+DoMainMeru001="yuyuan.dynamic@yuyuan"
+
+SshAcName2 = "Meru002"
+SshHostMeru002 = "192.168.20.100"
+SshUserMeru002 = "admin"
+SshPassMeru002 = "admin"
+DoMainMeru002="yuyuan.dynamic@yuyuan"
+
+   2. 通过Portal发送Radius请求的支持
+   
+
+
+V2.02.059          2014/12/09
+   1.支持美禄AC的认证
+   
+
+V2.02.058          2014/12/05
+   1.WifiDog环境下
+     SessionTimeOut=86400
+     IdelTimeOut=600
+     
+
+V2.02.057          2014/11/26
+    1.WifiDog验证时出现不存在的手机号，不管是否通过验证都产生在线信息的问题
+    
+
+V2.02.056          2014/11/12
+    1.超时检查增加一个参数
+      DoLogoutWithAc = "Yes"  | "No"
+        对和AC不能联动处理的可以用参数 "No"
+
+V2.02.055          2014/10/25
+    1.无感知认证中的BUG的修改
+    2. PORTAL报文req_logout，类型为 0x05 需增加用户MAC字段：
+        该字段格式为，总长度为 8：
+        Attr(属性字段)	AttrType	属性值长度	属性取值
+        SessionID(MacAddress)	0x0B	6(固定)	取值为客户端MAC如0016ec9d4142
+
+V2.02.054          2014/10/19
+    1.Stype错误的BUG
+    2.无感知认证用户在在线用户中不出现
+    3.Mac地址格式不一致，nasid不一致的BUG
+
+V2.02.053          2014/10/17
+    1.Mac地址针对WifiDog的数据上传到管理中心中出现的BUG
+    
+
+V2.02.052          2014/10/16
+    1.修改会员用户接口中部分BUG
+    
+V2.02.051          2014/10/11
+    1.修改WifiDog, 增加AP自动分组功能
+    2.漫游中BUG的修改
+    
+V2.02.050          2014/10/08
+    1.将显示页面合并为一个API
+    2.微信二次免认证功能
+    
+V2.02.049          2014/09/30
+    1.修改在线信息检查中的BUG
+    
+V2.02.048          2014/09/28
+    1.增加一种定位方式,从文件中读取定位信息
+      LocationServer = "Yes"
+      LocationFrom = "File"
+      LoadLocMark = "Yes"
+      LocationFile="/home/ncmysql/ncsrv/log/locationmac.log"
+    
+
+V2.02.047          2014/09/26
+    1.AP属地的修改，在AP信息中增加安装地址,表 ncsrvsmslog中增加字段apmac
+    
+    
+    
+
+V2.02.046          2014/09/15
+    1.有关wlanacname参数中的BUG的修正
+    2.针对Mac地址扫描中BUG的修改，使系统更加稳定
+    
+
+V2.02.045          2014/09/11
+    1.针对三维，Portal登录的优化
+
+V2.02.044          2014/09/03
+    1.短信发送日志增加utype字段
+    2.系统刷新功能，增加重新装载参数
+    
+V2.02.043          2014/09/01
+    1.短消息为空时处理的BUG
+    
+
+V2.02.042          2014/08/27
+    1.修改 ncsrvsmslog 中 usermac,ip地址等信息的BUG
+    2.黑白名单检查中的BUG, 可以控制某个商家或全局
+      MAC地址黑名单问题
+      
+    
+
+V2.02.041          2014/08/23
+    AuthSsidCheck="Yes"     // 验证时检查SSID，若SSID不匹配则不允许上网
+    
+    SynRadLocBy = "Ip"   --- 和Radius中认证信息，计费信息同步，按IP地址定位
+                  "Mac"  --- 按Mac地址定位
+                  
+        
+V2.02.040          2014/08/20
+    1. ncSrvOnline中增加 caGroupCode
+
+V2.02.039          2014/08/19
+    1. stype 中的BUG的修正
+    
+
+V2.02.038          2014/08/14
+    1.针对华为AC，重定向时无参数传送，结合Radius进行认证的修改
+      ncSrvUpdateOnlineUserByIp
+      增加参数:
+          SynRadLocBy="Ip"     -- Radius认证同步时，采用IP地址定位
+          SynRadLocBy="Mac"    -- Radius认证同步时，采用MAC地址定位(缺省)
+
+V2.02.037          2014/08/06
+    1.增加登录日志
+    2.ncmautotype 表增加字段  ucode
+    
+V2.02.036          2014/07/31
+    1.增加了基于Radius验证的Mac认证
+      参数:
+       AcMacAuth="MacAuthServer"     --- 基于Mac认证中心的无感知
+       AcMacAuth="RadiusServer"      --- 基于Radius认证的无感知
+       
+       修正：更新radius中的用户信息 （该功能需要测试)
+       
+
+V2.02.035          2014/07/28
+    1.优化了一些参数,日志增加了group字段
+    2.内存结构进行了一些调整，需要更新 portalonline
+    
+    
+V2.02.034          2014/07/27
+    1.增加和Rasiud计费信息进行同步
+    2.Mac无感知认证，增加了SSID,APMAC等属性
+    3.MAC无感知认证中对退出上网的处理
+    4.数据库结构发生变化
+    5.内存结构 ncsrvuser 和 Online发生变化
+    6.Proradius的修改
+    7.Radius服务器的修改 acct.c，版本进行了更新
+    8.PortalOnline 的更新
+      -t Tsid/Username
+    9.强制离线功能API
+
+V2.02.033          2014/07/19
+    1.重大结构调整 groupid ==> stype  groupname ==> groupcode
+    2.完善对MAC绑定的处理，超出后禁止
+    
+
+V2.02.032          2014/07/18
+    1.在线用户检查修改
+    2.WifiDOG中微信认证的修改 
+    
+V2.02.031          2014/07/17
+    1.微信认证 openid ==> ProOpenid
+    2.对Wifidog中某些BUG的修改    
+
+V2.02.030          2014/07/15
+    1.修改无感知认证的日志信息
+    
+V2.02.029          2014/07/14
+    1.修改添加用户中的BUG
+    2.Mac认证问题,在不同SSID下的使用
+
+V2.02.028          2014/07/11
+    1.增加强制离线功能
+    2.自动检查在线信息
+    3.修正一些BUG
+    
+
+V2.02.027          2014/07/09
+    1.认证中增加同步用户信息
+
+V2.02.026          2014/07/09
+    1.psUser->cStatus   的值为2时，为待处理状态
+    2.将本地用户信息自动同步到Radius服务器中，若有多个Radius服务器，将同时同步
+    3.增加同步参数，用户信息到Radius服务器
+    
+
+V2.02.025          2014/07/08
+    1.认证出错，页面重定向到 login_error.htm,若 该页面不存在，再重定向到 login_main.htm
+    2.AC认证中的BUG
+    
+
+V2.02.023          2014/07/05
+　　1. ncsrvpar    参数增加字段
+          checksum           int unsigned default 0,  
+          用来判断参数有没有变更
+          
+    2. 参数和Radius服务器之间的同步       
+          SessionTimeOut,Idetimeout等参数同步到Radius中
+          同步部门信息到Radius中
+          修正部门信息和SSID的组合
+           
+    3. API ncSrvSynUserInfo 的更新，增加参数 pDisp--显示名, 在更新内存的同时更新本地表的内容
+    
+       ncPortalUser *ncSrvSynUserInfo(utShmHead *psShmHead,
+                               uchar *pGroupCode,         // 部门编码, NULL, lGroupid =0
+                               uchar *pSsid,              // SSID, NULL -- 无SSID
+                               char *pUserName,           // 用户名
+                               char *pPassword,           // 密码
+                               char *pMark,               // NULL 表示Mark不变
+                               char *pDisp,               // 显示名
+                               int  iUsrType,             // 用户类别  9--固定用户  1--短信验证  2--QQ  33--微信
+                               int  *iStatus0);
+                                   
+
+V2.02.022          2014/07/04
+    int ncSrvSysReset(utShmHead *psShmHead);   用户刷新API
+    1.将配置信息重新装载
+    2.Tcp进程，定时进程重新启动
+      
+
+V2.02.021          2014/07/03
+    同步用户信息
+    将用户信息同步到内存和Radius服务器中。
+
+
+    ncPortalUser *ncSrvSynUserInfo(utShmHead *psShmHead,
+                               uchar *pGroupCode,         // 部门编码, NULL, lGroupid =0
+                               uchar *pSsid,              // SSID, NULL -- 无SSID
+                               char *pUserName,           // 用户名
+                               char *pPassword,           // 密码
+                               char *pMark,               // NULL 表示Mark不变
+                               int  iUsrType,             // 用户类别  9--固定用户  1--短信验证  2--QQ  33--微信
+                               int  *iStatus)             // 返回的操作状态  0--添加成功  1--用户已存在，更新其中的内容 
+                                                          //    <0 添加不成功
+
+    返回值:
+        用户信息的结构指针，
+        若该值为NULL，表示同步不成功
+
+V2.02.020          2014/6/30
+   -- 对  Aroba 的支持， acid=Aruba001
+      在 acinfo.cnf 配置中加
+      
+V2.02.019          2014/6/26
+   -- 数据结构调整  
+V2.02.018          2014/6/25
+   -- 增加Aruba的接入
+   -- 修改部分BUG
+   
+V2.02.017          2014/6/18
+   -- 根据标签投放广告
+
+V2.02.016          2014/6/17
+   -- 增加定位功能
+   -- LocationServer="Yes"  // 是否启动位置服务器
+   -- LocationPort=61111    // 位置服务器端口
+   -- SumLocatProc = 4      // 位置服务器进程数
+   -- 
+V2.02.015          2014/6/16
+   -- 支持MAC地址无感知认证
+   -- 不同SSID显示不同的界面
+   -- ncsrv.sql更新
+   -- 不同SSID的用户只能在自己的SSID中使用
+   -- 修改参数
+   -- MacAuthPort=50100    // 端口号
+   -- SumMacBindProc=4     // 并发进程数
+   -- AcMacAuth = "Yes"    // 是否启动MAC认证服务器
+   
+   
+V2.02.014          2014/6/12
+   -- 针对WIFIDOG类型的AP进行优化
+
+V2.02.013          2014/6/10
+   -- 增加金信
+V2.02.012          2014/5/26
+   -- QQ登录
+   -- 支持寰创AP直接接入
+   -- 修改Portal和网络督察的同步
+   
+
+V2.02.011          2014/5/23
+   -- portalonline 修正删除用户功能
+V2.02.010          2014/5/20
+   -- portalonline 增加显示进程，单位，AP信息等功能
+   -- 修改 groupid 为0的BUG
+   
+V2.02.009          2014/5/17
+   -- 密码超时出现的BUG,去掉将密码更新到Radius
+   -- 短信发送日志中增加 groupid等字段
+   
+V2.02.007          2014/5/09
+   -- 第一次认证是出现Sys Busy等信息
+   -- portalonline 中增加参数  -s  显示当前进程信息，便于调试
+   
+   
+V2.02.006          2014/5/5
+   -- 修改了系统中若干BUG
+
+V2.02.005          2014/5/4
+   -- 增加QQ、微信认证功能
+   
+V2.02.004          2014/4/29
+   --  针对二次免认证进行修改
+   --  
+V2.02.003          2014/4/19
+   -- 支持和寰创云平台对接
+   --  proportal.c 的修改
+       * UseWeiXin = "Yes"   控制微信使用， Yes支持微信认证  No不支持
+       * 在线用户信息中增加了 nasid, 用来区分不同AP, 加此参数的目的是在下面的AP中有可能IP地址是重复的
+       * ncSrvGetOnlineUserByIp  增加了一个参数 nasid
+       * 和网络督察同步在线信息，增加了 nasid字段
+       * ncSrvGetPass 参数中应增加 nasid 字段
+   
+   -- 修改数据结构 ncsrv.sql 
+   
+
+ 

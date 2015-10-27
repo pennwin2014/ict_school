@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<xml><ToUserName><![CDATA[gh_8df4367b0e47]]></ToUserName>
+<FromUserName><![CDATA[oUw_CjqJnZBxi__DjIIEuwcxmIhQ]]></FromUserName>
+<CreateTime>1396246541</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[ncm_wifi_net]]></EventKey>
+</xml>
