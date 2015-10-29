@@ -1,0 +1,129 @@
+<html>
+<head>
+<title>Groupinfo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<script>
+function winclose(){
+    var win = parent.Ext.getCmp('windr');
+		if (win) {
+			win.close();
+		}
+}
+</script>
+
+</head>
+
+
+<body bgcolor="#DEE8FA">
+<form action="/pronline/upload" method="post" enctype="multipart/form-data" name="form1" id="form1">
+<input type="hidden" name="cid" value="[#cid#]">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+  <tr>
+    <td valign="top">
+    	<table width="100%" height="24" border="0" cellpadding="0" cellspacing="0" >
+    	   <tr> 
+            <td >               
+               <table width="100%" height="30" border="0" align="center" cellpadding="0" cellspacing="0" >
+                  <tr >              
+                    <td valign="middle">
+                      <div align="center"><strong><b> <font size="3">[#title_name#]</b></font> </strong></div>
+                    </td>                  
+                  </tr>
+               </table>
+            </td>
+         </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+        <table width="100%" border="0" cellspacing="0" bordercolorlight=#89ACED   bordercolordark=#ffffff cellpadding="0">
+          <tr> 
+            <td> 
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr> 
+                  <td>
+                    <table width="100%" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#DEE8FA">
+                      <tr> 
+                        <td height="20">&nbsp;</td>
+                      </tr>
+                      <tr height="32"> 
+                        <td  valign="middle">&nbsp;商品名称</td>
+                        <td >&nbsp;<input type="text" name="name" value="" style="width:140px"></td>
+                        <td >&nbsp;场所代码</td>
+                        <td >&nbsp;<input type="text" name="scode" value="" style="width:140px"></td>
+                      </tr>
+                      <tr height="32">
+                        <td  valign="middle">&nbsp;商标编码</td>
+                        <td >&nbsp;<input type="text" name="sgroupid" value="" style="width:140px"></td>
+                        <td  valign="middle">&nbsp;分类编码</td>
+                        <td >&nbsp;<input type="text" name="groupid" value="" style="width:140px"></td>
+                      </tr>
+                      <tr height="32"> 
+                        <td  valign="middle">&nbsp;商店名称</td>
+                        <td >&nbsp;<input type="text" name="shopname" value="" style="width:140px"></td>
+                        <td  valign="middle">&nbsp;厂家</td>
+                        <td >&nbsp;<input type="text" name="factory" value="" style="width:140px"></td>
+                      </tr>
+                      <tr height="32"> 
+                        <td  valign="middle">&nbsp;商品型号</td>
+                        <td >&nbsp;<input type="text" name="type" value="" style="width:140px"></td>
+                        <td  valign="middle">&nbsp;售价</td>
+                        <td >&nbsp;<input type="text" name="fee" value="" style="width:140px"></td>
+                      </tr>
+                      <tr height="32"> 
+                        <td  valign="middle">&nbsp;库存</td>
+                        <td >&nbsp;<input type="text" name="reserve" value="" style="width:140px"></td>
+                        <td  valign="middle">&nbsp;是否参与活动</td>
+                        <td >&nbsp;<select name="active" style="width:140px"><option value="0">参与</option><option value="1">不参与</option></select></td>
+                      </tr>
+                      <tr height="32"> 
+                        <td  valign="middle">&nbsp;积分</td>
+                        <td >&nbsp;<input type="text" name="integral" value="" style="width:140px"></td>
+                        <td  valign="middle">&nbsp;优惠劵</td>
+                        <td >&nbsp;<input type="text" name="coupon" value="" style="width:140px"></td>
+                      </tr>
+                      <tr> 
+                        <td width="16%" height="32"><div align="left">&nbsp;上传图片名</div><input type="hidden" name="UploadPath" value="/home/ncmysql/ncsrv/upload"></td>
+                        <td width="84%" height="32" colspan="4"><input type="file" name="fname" style="width:350px"></td>
+                      </tr>
+                      <tr>
+                      	<td >&nbsp;简述</td>
+                      	<td colspan="3"><input type="text" name="descr" value="" style="width:300px">
+                        </td>
+                      </tr>
+                      <tr>
+                      	<td >&nbsp;描述</td>
+                      	<td colspan="3"><input type="text" name="detail" value="" style="width:300px">
+                        </td>
+                      </tr>
+                      <tr bgcolor="#DEE8FA"> 
+                        <td height="120" colspan="4"> 
+                          <div align="center" valign="bottom"> 
+                            <input name="ok" type="submit" class="an3" id="ok2" value="确 认">
+                            &nbsp; 
+                            <input name="return" type="button" onClick="winclose();" class="an3" value="关闭">
+                            <input name="FunName" type="hidden" value="[#funname#]">
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+						</td>
+          </tr>
+        </table>
+    </td>
+  </tr>
+</table>
+</form>
+<br>
+</body>
+</html>

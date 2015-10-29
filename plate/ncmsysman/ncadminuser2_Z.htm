@@ -1,0 +1,222 @@
+<html>
+<head>
+<title>用户信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="/css/alert/jquery.alert.css"/>
+<script type="text/javascript" src="/js/alert/jquery.js"></script>
+<script type="text/javascript" src="/js/alert/jquery.alert.js"></script>
+<style type="text/css">
+*{ margin:0; padding:0;}
+.wrap{ width:640px; margin:0 auto; border:1px solid;}
+.tit{ width:80px; float:left; height:22px; line-height:22px;}
+.inp{ width:210px; clear:both; height:22px; line-height:22px;}
+</style>
+<script language="javascript">
+function changservice(){
+
+  callServer();
+//document.all.service.options[0].value='1';
+//document.all.service.options[0].text="111";
+
+
+}
+	var xmlHttp = false;
+ 	//创建XMLHttpRequest对象       
+function createXMLHttpRequest() {
+	var C=null;
+		if(window.XMLHttpRequest) { //Mozilla 浏览器
+			C = new XMLHttpRequest();
+		}
+		else if (window.ActiveXObject) { // IE浏览器
+			try {
+				C = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					C = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {}
+			}
+		}
+		return C;
+	}
+	//解析字符串  ins-输入字符串，   names-开始字符串 namee -结束字符串 返回值 （names 和namee 之间的字符串 可用于解析简单的XML
+	function getxmlbyname(ins,names,namee){
+	var start;
+	var end;
+	var ret='';
+
+	start=ins.indexOf(names);
+	end=ins.indexOf(namee);
+	
+	if(start!=-1&&end!=-1){
+		ret=ins.substr(start+names.length,end-start-names.length);
+	}
+	return ret;	
+}
+
+//调用AJAX
+ function callServer() 
+ { 
+
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+    xmlHttp.abort();
+   }
+  
+   xmlHttp = createXMLHttpRequest();
+ 
+   if(xmlHttp )
+   {
+    var web_url='/pronline/Msg?FunName@ncmWebShowAreaDet&rollevel@'+document.getElementById("form1").rollevel.value+'&xx@'+Math.random()*999+'&opt@'+document.getElementById("form1").opt.value;
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+  
+  }
+
+
+ }
+	
+		 //ajax回调处理函数
+ function updatePage() 
+ {
+  
+   if (xmlHttp.readyState == 4) 
+   {
+    var response = xmlHttp.responseText;
+//alert(response);         
+//    document.getElementById("result").innerHTML = response;
+var temp_id=getxmlbyname(response,"<sid>","</sid>");
+var temp_name=getxmlbyname(response,"<sname>","</sname>");
+var aid=new Array();
+var aname=new Array();
+aid=temp_id.split("|");
+aname=temp_name.split("|");
+var i;
+document.all.opt.length=aid.length;
+for(i=0;i<aid.length;i++){
+	document.all.opt.options[i].value=aid[i];
+ document.all.opt.options[i].text=aname[i];
+	}
+
+   }
+ 
+ }
+	
+	
+	
+	
+	function ckeckSame(str){
+		var strf=str.slice(0,1);
+		var arr=str.split(strf);
+		return arr.length-1;
+
+	}
+	
+	
+function checkNum(str)
+{return str.match(/\D/)==null}  
+	
+function ckf(){
+	var sum = document.getElementById("form1").privilege.length;
+  for(var i = 0; i < sum; i++){
+			if(document.getElementById("form1").privilege[i].checked){
+				  //alert(document.getElementById("form1").privilege[i].value);
+					document.getElementById("form1").ckid.value= document.getElementById("form1").privilege[i].value;	
+			}
+  }	
+	  
+	var ps=form1.password.value;
+	if(ps.length==0){
+		return true;
+	}
+	if(ps.length>0&&ps.length<7){
+		alert('密码长度不能小于7位');
+		return false;
+	}
+	
+	if(checkNum(ps)){
+		alert('密码不能全部是数字');
+	  return false;
+	}
+	var len2=ckeckSame(ps);
+
+	if(ps.length>0&&ps.length==len2){
+		alert('密码不能用相同字符');
+		return false;
+	}
+	return true;
+}
+
+function init(){
+	//	alert(document.getElementById("form1").cflag.value);
+		if(document.getElementById("form1").cflag.value==1){
+				parent.gbck();	
+				document.getElementById("form1").cflag.value="";
+		}
+}
+
+	function opselectfac()
+	{
+			jIframe("/ncmm/check_fac_tree.htm", "选择厂商",'300','400');
+	}
+	
+	function opselectpriv()
+	{
+			jIframe("/ncmm/check_priv_tree.htm", "选择权限",'400','500');
+	}
+	
+  function deldiv(){
+  		var ddiv=document.getElementById("popup_container");
+  		ddiv.style.display="none";	
+  		ddiv.parentNode.removeChild(ddiv);   
+  	  
+  	  var ddiv9=document.getElementById("popup_overlay");
+  		ddiv9.style.display="none";	
+  		ddiv9.parentNode.removeChild(ddiv9);
+  }
+	</script>
+
+
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="overflow:hidden" onLoad="init();">
+<div align="center"></div>
+<form id="form1" name="form1" method="post" action="/pronline/Msg" >
+        <input type="hidden" name="FunName" value="ncmAdminUserSave">
+        <input type="hidden" name="userid"  value="[#userid#]">
+        <input type="hidden" name="ckid"  value="[#ckid#]">
+        <input type="hidden" name="sumright"  value="[#sumright#]">
+        <input type="hidden" name="cflag" value="[#cflag#]">
+        <input type="hidden" name="fac" value="[#fac#]">
+        <input type="hidden" name="priv" value="[#priv#]">
+        <input type="hidden" name="cid" value="[#cid#]">
+        <input type="hidden" name="styped" value="[#styped#]">
+        <div class="wrap">
+        <p style="height:10px; clear:both;"></p>
+        <p style="text-align:center;color:#00237e; font-weight:bold;">系统用户信息</p>
+        <p style="height:10px; clear:both;"></p>
+        <div style="float:left;"><p class="tit">登录名<a style="color:#f00;">*</a></p><p style="float:left;"><input type="text" class="inp"></p></div><div style="float:left; margin-left:60px;"><p class="tit">姓名</p><p style="float:left;"><input type="text" class="inp"></p></div>
+        </div>
+        <div style="height:1px; clear:both;"></div>
+         <div style="float:left;"><p class="tit">口令<a style="color:#f00;">*</a></p><p style="float:left;"><input type="text" class="inp"></p></div><div style="float:left; margin-left:60px;"><p class="tit">确认口令</p><p style="float:left;"><input type="text" class="inp"></p></div>
+        </div>
+        <div>提示：口令必须是字母和数字，口令长度不能小于7位</div>
+        <div style="float:left;"><p class="tit">用户级别<a style="color:#f00;">*</a></p><p style="float:left;"><input type="text" class="inp"></p></div><div style="float:left; margin-left:60px;"><p class="tit">权限管理</p><p style="float:left;"><input type="text" class="inp"></p></div>
+        </div>
+        <div style="float:left;"><p class="tit">加入时间<a style="color:#f00;">*</a></p><p style="float:left;"><input type="text" class="inp"></p></div><div style="float:left; margin-left:60px;"><p class="tit">修改时间</p><p style="float:left;"><input type="text" class="inp"></p></div>
+        </div>
+      
+</form>
+<script >
+	document.getElementById("form1").opt.value="[#opt#]";
+	</script>
+</body>
+</html>

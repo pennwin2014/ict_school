@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<style type="text/css">
+body {
+	margin:0 auto;
+	padding:0px;
+	height:100%;
+	width:400px;
+}
+#detail {
+	width:100%;
+}
+#levels {
+	width:320px;
+	font:1.5em;
+	background:#f1f1f1;
+	overflow:scroll;
+}
+#level {
+	width:1000px;
+	overflow:auto;
+}
+#level_introduce {
+	color:#ffffff;
+	background:#0088cc;
+	width:100%;
+	float:right;
+}
+.introduce {
+	padding:6px;
+	color:#666;
+	border-bottom:1px solid #CCC;
+	background:#fff;
+}
+#level_logos {
+	width:100%;
+	float:right;
+}
+.level_logos img {
+	width:100%;
+}
+.levels1 {
+	background:#E6E6E6;
+	text-align:center;
+	padding-top:10px;
+	padding-bottom:10px;
+	font:1.5em;
+	width:70px;
+	float:left;
+	color:#444;
+}
+#iframe1 {
+	height:100%;
+}
+@media screen and (max-width:400px){
+	body{ width:100%;}
+	
+	}
+@media screen and (min-width:400px){
+	#levels {
+	width:400px;
+	font:1.5em;
+	background:#f1f1f1;
+	overflow:scroll;
+}
+}
+.top_menu {
+	border-top:1px solid #dedede;
+	border-bottom:1px solid #dedede;
+}
+.top_menu p {
+	float:left;
+	text-align:center;
+	cursor:pointer;
+}
+.p1 {
+	width:25%;
+	color:#666;
+	height:24px;
+	line-height:24px;
+}
+.p2 {
+	color:#666;
+	width:24%;
+	border-left:1px solid #ccc;
+	height:24px;
+	line-height:24px;
+}
+.px{ width:14%;}
+.p_fy1{ width:80%; margin:0 auto; border:1px solid #ccc; color:#666; cursor:pointer; text-align:center; height:24px; line-height:24px; display:none;}
+.p_fy2{ width:24%; float:left; border:1px solid #666; color:#666; cursor:pointer; text-align:center; margin-left:16%; }
+.p_fy3{ width:80%; margin:0 auto; border:1px solid #ccc; color:#666; cursor:pointer; text-align:center; height:24px; line-height:24px; display:none;}
+</style>
+<script type="text/javascript">
+
+var limit1=0;
+var limit2=10;
+
+function loadProducts(mark,name,number){
+$(document).ready(function(){
+
+$(".levels1").css('color','#444');
+$(".levels1").css('background','#E6E6E6');
+$(".levels1").css('border','');
+$(".levels1").css('border-color','');
+$(".levels1").css('box-shadow','');
+$(".levels1").css('border-top','2px solid #e6e6e6');
+
+$('#'+mark).css('color','#08c');
+$('#'+mark).css('background','#ffffff');
+$('#'+mark).css('border-top','2px solid #08c');
+//$('#'+mark).css('border','1px solid');
+//$('#'+mark).css('border-color','#000000');
+//$('#'+mark).css('box-shadow',' 1px 1px 1px #000000');
+
+});
+
+	
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmProducts";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe1").contentWindow.document.getElementById("groupid").value= mark;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit1").value=limit1;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit2").value=limit2;
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+
+
+}
+
+
+var ids= new Array();
+var level_width=0;
+function init(){
+
+[#SLPB#] 
+ids[[#iNum#]]=[#id#] 
+level_width = [#iNum#];
+[#SLPE#] 
+
+$('#level').css('width',70*level_width+'px');
+loadProducts(ids[1],'',1);
+}
+</script>
+</head>
+
+<body onload="init()">
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+<input type="hidden" id="FunName" name="FunName" value="">
+<input type="hidden" id="id" name="id" value="">
+<input type="hidden" id="sid" name="sid" value="">
+<input type="hidden" id="logoid" name="logoid" value="">
+<input type="hidden" id="shopid" name="shopid" value="">
+<input type="hidden" name="plateName" id="plateName" value="newshop"/>
+<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+</form>
+<div class="wrap">
+
+
+  <div id="levels">
+    <div id="level"> [#SLPB#]
+      <div id="[#id#]" class="levels1" onClick="loadProducts([#id#],'[#name#]','[#iNum#]')">[#name#]</div>
+      [#SLPE#] </div>
+  </div>
+	   <div style="height:5px; clear:both;"></div>
+  <div class="top_menu">
+  <div style="height:7px; clear:both;"></div>
+    <p class="p1">综合</p>
+    <p class="p2">销量<img class="px" src="/images/zhengzhoudianxin/products/02.png" /></p>
+    <p class="p2">人气<img class="px" src="/images/zhengzhoudianxin/products/02.png" /></p>
+    <p class="p2">价格<img class="px" src="/images/zhengzhoudianxin/products/02.png" /></p>
+      <div style="height:7px; clear:both;"></div>
+  </div>
+   <div style="height:7px; clear:both;"></div>
+	<p id="pervious" class="p_fy1" onClick="pervious()">显示更多...</p>
+       <div style="height:7px; clear:both;"></div>
+  	<iframe id="iframe1" frameborder="no" scrolling="No"  width="100%" height="1400px" src="/newshop/ncm_levels_logos_shops_products.htm" ></iframe>
+     <div style="height:10px; clear:both;"></div>
+       <div style=" margin:0 auto;"><p id="next" class="p_fy3" onClick="next()">显示更多...</p></div>
+     <div style="height:10px; clear:both;"></div>
+   </div>
+
+
+ 
+</div>
+</body>
+</html>

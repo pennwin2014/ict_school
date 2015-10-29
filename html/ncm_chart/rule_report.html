@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>香港广场管理-统计报表-到店规律统计</title>
+<link rel="stylesheet" type="text/css" href="css/kalendae.css">
+<link rel="stylesheet" type="text/css" href="css/public.css"/>
+<link rel="stylesheet" type="text/css" href="css/statistics.css"/>
+<link rel="stylesheet" type="text/css" href="css/loading.css"/>
+<!-- 使用ExtJS -->
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/js/ext-all.js"></script>
+<script type="text/javascript" src="js/kalendae.standalone.min.js"></script>
+
+<script type="text/javascript" src="js/last_min.js"></script>
+<script type="text/javascript" src="js/nc_data.js"></script>
+<script type="text/javascript" src="js/rule_report.js"></script>
+<script type="text/javascript" src="js/loading.js"></script>
+<!--script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="js/shCircleLoader.js"></script-->
+<style type="text/css">
+	.Content{ width:700px;}
+	.time_con{ border: 1px solid #CDCDCD; border-radius: 5px; box-shadow: 0px 0px 3px #A7A7A7; background:#fff;}
+	.l_dataMap,.Date { width:700px;}
+	.data_tit1{ padding:10px 5px 10px 10px;}
+	.data_tit1 input{ margin-right:5px;}
+	.law,.time,.week{ padding:20px 0; width:700px; font:14px "微软雅黑";}
+	.law input,.time input{ margin:0 10px;}
+	.Start_data,.Stop_data{ width:220px;}
+	.btn{ text-align:center;}
+</style>
+
+
+</head>
+<body>
+	<form id="formfrequency" action="/pronline/Msg?FunName@ncm_web_Place_smslog_rule" method="post">
+		<input type="hidden" id="sdate" name="sdate"/>
+		<input type="hidden" id="edate" name="edate"/>
+		<input type="hidden" id="binary_week" name="binary_week"/>
+		<input type="hidden" id="start_sday" name="start_sday"/>
+		<input type="hidden" id="stop_sday" name="stop_sday"/>
+		<input type="hidden" id="is_export" name="is_export"/>
+		</form>
+	<div class="loading">
+        <div id="background" class="background"></div>
+        <div id="loader" class="loader"></div>
+    </div>
+	<div class="Pro_Sys">
+	
+		
+		<!---------------Content--------------->
+		<div class="Content">
+        
+        	
+        	<div class="clear"></div>
+            
+            <div class="top_data">
+            	<!--date-->
+               	<div class="Date fleft">
+                    <div class="Start_data fleft">
+                        <label class="data_tit">开始日期：</label><input class="auto-kal" id="start_txt" type="text" value="" readonly="readonly"/>
+                        <img class="data_img" src="js/data_ico_33.jpg" alt="开始日期" />     
+                  </div>
+                    <div class="Stop_data fleft">
+                        <label class="data_tit">结束时间：</label><input class="auto-kal" id="stop_txt" type="text" value="" readonly="readonly"/>
+                        <img class="data_img" src="js/data_ico_33.jpg" alt="结束时间" />
+                  </div>
+                </div>
+                
+            </div>
+            
+            <div class="clear10"></div>
+            
+            <div class="time_con">
+                <div class="law">
+                    <label class="data_tit1">到店规律：</label>
+                    <input id="start_moods" style="width:30px; height:15px" type="text"/>次&nbsp;&nbsp;&nbsp;——<input id="stop_moods" style="width:30px; height:15px" type="text"/>次（空缺为不限次数）
+                </div>
+                <div class="time">
+                    <label class="data_tit1">到店时间：</label>
+                    <input id="start_hour" style="width:30px; height:15px" type="text"/>时<input id="start_minute" style="width:30px; height:15px" type="text"/>分&nbsp;&nbsp;&nbsp;——
+                    <input id="stop_hour" style="width:30px; height:15px" type="text"/>时<input id="stop_minute" style="width:30px; height:15px" type="text"/>分（空缺为不限时间）
+                </div>
+                <div class="week">
+                    <label class="data_tit1"><input name="week" type="checkbox" value="星期日" />星期日</label> 
+                    <label class="data_tit1"><input name="week" type="checkbox" value="星期一" />星期一</label> 
+                    <label class="data_tit1"><input name="week" type="checkbox" value="星期二" />星期二</label> 
+                    <label class="data_tit1"><input name="week" type="checkbox" value="星期三" />星期三</label> 
+                    <label class="data_tit1"><input name="week" type="checkbox" value="星期四" />星期四</label>
+                    <label class="data_tit1"><input name="week" type="checkbox" value="星期五" />星期五</label>
+                    <label class="data_tit1"><input name="week" type="checkbox" value="星期六" />星期六</label>
+                    
+                </div>
+            </div>
+            
+            <div class="clear10"></div>
+            
+            <div class="l_dataMap fleft">
+                <div class="l_StatisticsMap">
+                	<h4>到店规律统计
+                        <a  class="select"><img onclick="reflash();" src="js/update_03.jpg" /></a>
+                        <img class="derive" onclick="Loadexport()" src="js/derive.jpg" width="45" height="20" />
+                    </h4>
+                    <!--div class="t_Map">
+                       
+                       	<div class="clear10"></div>
+                        <div id="pie" class="pie" style="height:360px;"></div>
+                    </div-->
+                    
+                    <div class="index_statis">
+                    	<h4>到店规律</h4> 
+                    	<div class="btn">
+                            <span>    						
+                                <span>(第<span id="nowPageNum">0</span>页，共</span><span id="allPageNum">0</span>页,<span id="allcount">0</span>条)</span>
+                                <a class="first"  onclick="Navigate(0)"><img src="js/first_09.png" width="28" height="24" /></a>
+                                <a class="prev"  onclick="Navigate(-1)"><img src="js/prev.png" width="28" height="24" /></a>			
+                                <a class="last"  onclick="Navigate(2)"><img src="js/last.png" width="28" height="24" /></a>
+                                <a class="next"  onclick="Navigate(1)"><img src="js/next_09.png" width="28" height="24" /></a>
+                                <!--div class="select_list1 fright">
+                                    <select>
+                                        <option>123456789</option>
+                                        <option>123456789</option>
+                                        <option>123456789</option>
+                                        <option>123456789</option>
+                                    </select>
+                                </div-->
+                            </span>
+                        </div>
+                        <div class="clear"></div>
+                        <table id="user_count" class="user_count" cellpadding="0" cellspacing="0">
+                        	
+                           
+                        </table>
+                	</div>
+                </div>
+            </div>
+           
+            <div class="clear"></div>
+		</div>
+		<!-----------end Content--------------->
+        
+		<div class="clear"></div>
+        
+           
+            
+        </div>
+        <!-------end footer----------->
+        
+	</div>
+
+</body>
+</html>

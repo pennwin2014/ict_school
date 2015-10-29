@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html" />
+<title>新网程登录门户管理系统</title>
+<style type="text/css">
+	*{margin:0; padding:0; border:0px solid red;}
+	body{background:#FFFFFF; font-family:"微软雅黑"}
+	.outline{background:url(/images/enterimages/out_bg.jpg) no-repeat; width:1000px; height:400px; margin:0 auto; padding-top:300px;}
+	.login{width:400px; height:300px;  margin:0 auto;}
+	.username{font-size:20px; color:#444; height:30px; width:150px; line-height:30px; vertical-align:middle; }
+	.password{font-size:20px; color:#444; height:30px; width:150px;line-height:30px; vertical-align:middle; }
+	.username_txt{height:30px; width:300px; line-height:30px; vertical-align:middle; border:1px solid #888; font-size:16px; text-indent:5px;}
+	.password_txt{height:30px; width:300px; line-height:30px; vertical-align:middle; border:1px solid #888; font-size:16px; text-indent:5px; margin-left:20px;}
+    .p1{ margin-bottom:5px;}
+	.p2{ margin-top:15px; margin-bottom:5px;}
+	.p3{ margin-top:15px; margin-bottom:5px; margin-left:65px;}
+	#submit{width:130px; height:50px;}
+	#reset{width:130px; height:50px;}
+	#submit{ background:url(/images/enterimages/login.png) no-repeat;}
+	#reset{ background:url(/images/enterimages/cancel.png) no-repeat;}
+	.foot{margin-top:0px; margin-left:460px; font-size:16px; color:#444;}
+</style>
+<script  type="text/javascript">
+	function spylogin()
+	{
+			if (document.getElementById("username").value=="" || document.getElementById("password").value=="") 
+			{
+					window.alert("用户名或密码不能为空！");
+					return ;
+			}
+			var scwidth = screen.width - 30;
+			document.getElementById('screenwidth').value = scwidth;
+			document.getElementById('form1').submit();
+	}
+	function ss(e)
+	{
+			var key = window.event ? e.keyCode:e.which;
+			if(key==13)spylogin();
+	}
+	function error_timeout()
+	{
+	    document.getElementById("message").innerHTML = "";
+	}
+	function body_load()
+	{
+	    var err = document.getElementById("message");
+	    if(err != null)
+	    {
+	        if(err.innerHTML.length == 11)
+	        {
+	            err.innerHTML = "";
+	        }
+	        else
+	        {
+	            setTimeout("error_timeout()", 5000);
+	        }
+	    }
+	    document.getElementById("username").focus();
+	}
+</script>
+</head>
+<body onload = "body_load();">
+    <form id="form1" name="form1" method="post" action="/pronline/Msg">
+        <input type="hidden" name="FunName" value="ncmWebAuth" />
+        <input type="hidden" name="screenwidth" id="screenwidth" value="" />
+        <div class="outline">
+            <div id = "message" style ="text-align:center; color:Red;">[#message#]</div>
+            <div class="login">
+                <p class="p1"><span class="username">用户名</span><span >&nbsp;&nbsp;<input type="text" name="username" id="username" class="username_txt"/></span></p>
+                <p class="p2"><span class="username">密码</span><span >&nbsp;&nbsp;<input type="password" name="password" id="password" class="password_txt"/></span></p>
+                <p class="p3"><input type="submit" id="submit" value="" onclick="spylogin();" />
+                <input type="reset" id="reset" value="" /></p>
+            </div>
+            <div class="foot">上海新网程信息技术股份有限公司</div>
+        </div>
+    </form>
+</body>
+</html>

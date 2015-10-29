@@ -1,0 +1,3 @@
+{"totalCount":[#TotRec#],"eimdata": [[#SLPB#][#dh#]{"ruleid": '[#ruleid#]', "priority": '[#priority#]', "plateid": "[#plateid#]",  "platename": "[#platename#]", "groupid": '[#groupid#]',  "dispname": "[#dispname#]", "ssid": "[#ssid#]", "nasid": "[#nasid#]", "mark": "[#mark#]", "dotime": "[#dotime#]", "dateid": '[#dateid#]', "datename": "[#datename#]", "starttime": "[#starttime#]", "endtime": "[#endtime#]", "addtime": "[#addtime#]", "moditime": "[#moditime#]", "status": '[#status#]', "s_status": "[#s_status#]"}[#SLPE#]
+
+]}

@@ -1,0 +1,183 @@
+<html>
+<head>
+<title>Auth</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+	.but3-1 { font-size: 9pt;  background-image:url(/images/portalImages/00000017/but02.gif);
+   height: 32px; width: 180px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand} 
+  	.but3-2 { font-size: 9pt;  background-image:url(/images/portalImages/00000017/contract.gif);
+   height: 32px; width: 221px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand} 
+  
+    	.but_login { font-size: 9pt;  background-image:url(/images/portalImages/00000017/login.png);
+   height: 22px; width: 180px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand}
+  
+    .but_nosee { font-size: 9pt;  background-image:url(/images/portalImages/00000017/nosee.png);
+   height: 30px; width: 80px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand}
+  
+</style>
+
+<script language="javascript" src="/js/cetisfy/JSCode_IMG.js"></script>
+<script language="javascript" type="text/javascript">
+	function spylogin(){
+		
+		if(document.getElementById("Code").value.toLowerCase() != CheckCode)
+		{
+		  alert("验证码错误！");
+		  return ;
+		}
+		
+		if (document.getElementById("username").value=="" || document.getElementById("password").value=="") {
+			window.alert("用户名或密码不能为空！");
+			return ;
+		}
+	
+	
+		document.getElementById("nclogin").submit();
+	}
+	function ss(e){
+		var key = window.event ? e.keyCode:e.which;
+
+		if(key==13)
+		spylogin();
+	}
+		var p_flag='1';
+		function restore(){
+	  document.getElementById("gpss").disabled="";
+	  document.getElementById("imgm").style.display="none";
+    p_flag='1';
+    document.getElementById("imgm").src='/images/sjimage/smspad.gif';
+	}
+
+function chk(tel)
+{
+
+if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel)))
+        {
+           return 0;
+         }
+else
+        {
+          return 1;
+         }
+}
+
+	function getpasswd(){		
+	   if(p_flag=='0') return false;
+	   
+		  document.getElementById("msgs").innerHTML="";
+
+		  if(document.getElementById("nclogin").username.value==''){
+		    alert('请输入手机号');
+		    return false;
+		  }
+		  
+		    var telno=document.getElementById("nclogin").username.value;
+		    if(telno.length!=11){
+		    alert('手机号格式不对');
+		    return false;
+		    } 
+		  if(chk(telno)!='0'){
+		    alert('请输入正确的手机号!');
+		  	return false;
+		  }
+		  
+		
+		  
+		  temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value;
+		  
+		  document.getElementById("ifhide").src=temp_html;
+
+	document.getElementById("imgm").src='/images/authimage/donghua.gif';
+  document.getElementById("gpss").disabled="true";
+  document.getElementById("imgm").style.display="";
+ p_flag='0';
+
+setTimeout('restore()',50000);
+		  return false;
+		
+		
+	}
+	
+	 function changlogin(flag){  
+//alert(flag); 
+	 	var temp='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&userip@[#userip#]&wlanacname@[#wlanacname#]&lang@'+flag+'&switch_url@[#posturl#]&redirect@[#redirect#]&ap_mac@[#apmac#]&userip@[#userip#]&usermac@[#usermac#]';
+//alert(temp);	 
+		self.location=temp;
+	 		
+
+   //   	self.location='http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebDispLogin&eng_flag@'+flag;
+    }
+</script>
+
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+        <form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+   <input TYPE="hidden" NAME="buttonClicked" SIZE="16" MAXLENGTH="15" value="4">
+   <input TYPE="hidden" NAME="redirect_url" SIZE="255" MAXLENGTH="255" VALUE="[#redirect#]">
+   <input TYPE="hidden" NAME="err_flag" SIZE="16" MAXLENGTH="15" value="0">
+   <input TYPE="hidden" NAME="err_msg" SIZE="16" MAXLENGTH="31" value="">
+   <input TYPE="hidden" NAME="info_msg" SIZE="31" MAXLENGTH="31" value="">
+   <input type="hidden" name="ModiPass" value="">
+   <input type="hidden" name="ap_mac" value="[#apmac#]">
+   <input type="hidden" name="lang" value="[#lang#]">
+   <input type="hidden" name="redirect" value="[#redirect#]">
+   <input type="hidden" name="switch_url" value="[#posturl#]">
+<table id="__01" width="1360" height="720" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td colspan="4">
+			<img src="/images/portalImages/00000017/pc_01_01.jpg" width="1360" height="62" alt=""></td>
+	</tr>
+	<tr>
+		<td rowspan="3">
+			<img src="/images/portalImages/00000017/pc_01_02.jpg" width="186" height="658" alt=""></td>
+		<td colspan="2" background="/images/portalImages/00000017/pc_4_03.jpg" width="1000" height="60">
+			<table width="1000" height="60">
+				<tr >
+					<td width="850"></td>
+					<td>&nbsp;</td>
+					</tr>
+					<tr>
+					<td ></td>
+					<td><span><input type="button" style="cursor:hand;background-image: url('/images/portalImages/00000017/china02.png'); width: 53px; height: 31px; border: 0px;" id=chinese  onclick="changlogin('zh')" ></span><span style="position:relative;top:0px"><input type="button" style="cursor:hand;background-image: url('/images/portalImages/00000017/english01.png'); width: 80px; height: 31px; border: 0px;" id=chinese  onclick="changlogin('eng')" ></span></td>
+					</tr>
+					
+			</table>
+			</td>
+		<td rowspan="3">
+			<img src="/images/portalImages/00000017/pc_01_04.jpg" width="174" height="658" alt=""></td>
+	</tr>
+	<tr>
+		<td background="/images/portalImages/00000017/pc_4_06.jpg" width="500" height="540">
+		<table width="500" height="540">
+			<tr><td colspan="2" height="135">&nbsp;</td>
+			<tr><td width="90" height="32"> &nbsp;</td><td><input type="text" id="username" name="username" value="" style="width:160px;height:32px;position:relative;top:5px;" >&nbsp;&nbsp;<input type="button" id=gpss class="but3-1" onclick="getpasswd()">	<img border="0" src="/images/sjimage/smspad.jpg" width="80" height="25" id="imgm" style="display:none" ></td></tr>
+		  <tr><td colspan="2" height="172">&nbsp;</td>
+		  <tr><td  height="32"> &nbsp;</td><td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button"  class="but3-2" ></td></tr>
+			<tr><td  height="40"> &nbsp;</td><td ><!--<input name="chaccept" type="checkbox" value="1" style="width:25px;height:30px">--><img src="/images/portalImages/00000017/accept.gif" width="373" height="32" alt=""></td></tr>
+			<tr><td  height="24"> &nbsp;</td><td ><input type="password" id="password" name="password" style="width:160px;height:22px;position:relative;top:2px;" onKeyPress="ss(event)">&nbsp;<input type="button" class="but_login" onClick="return spylogin();"> </td></tr>
+			<tr  ><td  height="30"> &nbsp;</td><td><input type="text" style="width:160px;height:30px;position:relative;top:0px;"  id="Code" onKeyPress="ss(event)">&nbsp;<tt id="CheckHere" style="vertical-align:bottom;height:30px; "></tt>&nbsp;&nbsp;&nbsp;<a href="javascript:makeCode('CheckHere',4)"><font style="font-size:14px;color:red;">看不清</font></a>  </td>
+			</tr>
+			<script language="javascript">makeCode("CheckHere",4);</script>
+			
+			<tr><td colspan="2" height="50" align="center" id="msgs">&nbsp;<font color="red">[#message#]</font></td></tr>
+		</table>
+			
+</td>
+		<td>
+			<img src="/images/portalImages/00000017/pc_4_06-06.jpg" width="500" height="540" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<img src="/images/portalImages/00000017/pc_01_07.jpg" width="1000" height="54" alt=""></td>
+	</tr>
+</table>
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+
+</form>
+</body>
+</html>

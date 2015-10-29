@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>OK</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<script language="javascript" type="text/javascript">
+		function init(){
+
+		var u = navigator.userAgent.toLowerCase();  
+//		alert(u);
+				if(u.indexOf('iphone')>-1||u.indexOf('android')>-1||(u.match(/applewebKit.*mobile.*/))){
+			alert("mobile phone");
+		}
+	else{
+		alert("pc");
+	}
+
+		return;
+	}
+	/*	
+		return {//移动终端浏览器版本信息   
+  
+		trident: u.indexOf('trident') > -1, //IE内核  
+		  
+		presto: u.indexOf('presto') > -1, //opera内核  
+		  
+		webKit: u.indexOf('applewebkit') > -1, //苹果、谷歌内核  
+		  
+		gecko: u.indexOf('gecko') > -1 && u.indexOf('khtml') == -1, //火狐内核  
+		  
+	//	mobile: !!u.match(/applewebKit.*mobile.)||!!u.match(/applewebkit/), //是否为移动终端  
+/*		  
+		ios: !!u.match(/\(i[^;]+;( u;)? cpu.+mac os x/), //ios终端  
+		  
+		android: u.indexOf('android') > -1 || u.indexOf('linux') > -1, //android终端或者uc浏览器  
+		  
+		iPhone: u.indexOf('iphone') > -1 || u.indexOf('mac') > -1, //是否为iPhone或者QQHD浏览器  
+		  
+		iPad: u.indexOf('ipad') > -1, //是否iPad  
+		  
+		webApp: u.indexOf('safari') == -1 //是否web应该程序，没有头部与底部  
+  
+}; 
+	*/	
+//	}
+</script>
+
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="init()">
+	
+
+</body>
+</html>

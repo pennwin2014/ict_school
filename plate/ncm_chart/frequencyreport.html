@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>豫园平台管理 - 统计分析-手机品牌统计</title>
+<link rel="stylesheet" type="text/css" href="/ncm_chart/css/kalendae.css">
+<link rel="stylesheet" type="text/css" href="/ncm_chart/css/public.css"/>
+<link rel="stylesheet" type="text/css" href="/ncm_chart/css/statistics.css"/>
+<!-- 使用ExtJS -->
+<script type="text/javascript" src="/js/ext-all.js"></script>
+<script type="text/javascript" src="/ncm_chart/js/kalendae.standalone.min.js"></script>
+
+<script type="text/javascript" src="/ncm_chart/js/last_min.js"></script>
+<script type="text/javascript" src="/ncm_chart/js/nc_data.js"></script>
+<script type="text/javascript" src="/ncm_chart/js/device_brand.js"></script>
+
+
+</head>
+<body>
+	<div class="Pro_Sys">
+	
+		
+		<!---------------Content--------------->
+		<div class="Content">
+        
+        	<!--div class="statistics_list">
+            	<ul>
+                	<li><a href="../statistics.html" target="_self">页面点击统计&amp;热门景点统计</a><span>|</span></li>
+                    <li><a class="cur" href="phone_local.html" target="_self">热门接入区域统计&amp;手机归属地排行</a><span>|</span></li>
+                    <li><a href="#" target="_self">上网人数排行&amp;上、下线峰值统计</a><span>|</span></li>
+                    <li><a href="flow_stats.html" target="_self">上网流量统计&amp;接入次数统计排行</a><span>|</span></li>
+                    <li><a href="#" target="_self">广告数据分析&amp;广告页面停留时间分析</a></li>
+                    <li><a href="#" target="_self">Portel关注度排行& 在线时长统计</a></li>
+                </ul>
+            </div-->
+        	<div class="clear"></div>
+            
+            <div class="top_data">
+            	<!--date-->
+               	<div class="Date fleft">
+                    <div class="Start_data fleft">
+                                  <label class="data_tit">开始日期：</label><input class="auto-kal" id="start_txt" type="text" value="" readonly="readonly"/>
+                                  <img class="data_img" src="js/data_ico_33.jpg" alt="开始日期" />
+                                  <!--
+                                  <select class="hour"></select>:
+                                  <select class="minute">
+                                        <option>00</option>
+                                  </select>
+                                  <select id="am">
+                                        <option>am</option>
+                                  </select>
+                                  -->
+                  </div>
+                    <div class="Stop_data fleft">
+                        <label class="data_tit">结束时间：</label><input class="auto-kal" id="stop_txt" type="text" value="" readonly="readonly"/>
+                                  <img class="data_img" src="js/data_ico_33.jpg" alt="结束时间" />
+                                  <!--
+                                  <select class="hour"></select>:
+                                  <select class="minute">
+                                        <option>00</option>
+                                  </select>
+                                  <select id="am">
+                                        <option>am</option>
+                                  </select>
+                                  -->
+                  </div>
+                </div>
+                <!--end date-->
+                
+            	<!--date1-->
+               	<div class="Date fright">
+                    <div class="Start_data fleft">
+                                  <label class="data_tit">开始日期：</label><input class="auto-kal" id="start_txt1" type="text" value="" readonly="readonly"/>
+                                  <img class="data_img" src="js/data_ico_33.jpg" alt="开始日期" />
+                                  <!--
+                                  <select class="hour"></select>:
+                                  <select class="minute">
+                                        <option>00</option>
+                                  </select>
+                                  <select id="am">
+                                        <option>am</option>
+                                  </select>
+                                  -->
+                  </div>
+                    <div class="Stop_data fleft">
+                        <label class="data_tit">结束时间：</label><input class="auto-kal" id="stop_txt1" type="text" value="" readonly="readonly"/>
+                                  <img class="data_img" src="js/data_ico_33.jpg" alt="结束时间" />
+                                  <!--
+                                  <select class="hour"></select>:
+                                  <select class="minute">
+                                        <option>00</option>
+                                  </select>
+                                  <select id="am">
+                                        <option>am</option>
+                                  </select>
+                                  -->
+                  </div>
+                </div>
+                <!--end date1-->
+                
+                
+            </div>
+            
+            <div class="clear10"></div>
+            
+            
+            <div class="l_dataMap fleft">
+                <div class="l_StatisticsMap">
+                	<h4>到店频次统计
+                        <a href="javascript:void(0)" class="update">
+                            <img onclick="reflash_devicebrand()" src="js/update_03.jpg" width="19" height="19" />
+                        </a>
+                    </h4>
+                    <div class="t_Map">
+                        <!--form class="Form_spot" action="" method="post">
+                            <div class="fright select_spot">
+                            	<select>
+                                	<option>九曲桥</option>
+                                    <option>九狮楼</option>
+                                    <option>得月楼</option>
+                                    <option>龙雕</option>
+                                    <option>四牌楼</option>
+                                </select>
+                            </div>
+                        </form-->
+                       	<div class="clear10"></div>
+                        <div id="pie" class="pie" style="height:360px;"></div>
+                    </div>
+                    
+                    <div class="index_statis">
+                    	<h4>景点接入次数-九曲桥</h4> 
+                    	<div class="btn">
+                            <span class="fleft" id="ckb_all"><input class="ckb" type="checkbox" /></span>
+                            <span class="fleft"><input class="derive1" type="button" value="导出" /></span>
+                            <span class="page_btn fright">
+                                <a class="first" href="javascript:void(0)" onclick="Navigate('first')"><img src="js/first_09.png" width="28" height="24" /></a>
+                                <a class="prev" href="javascript:void(0)" onclick="Navigate('prev')"><img src="js/prev.png" width="29" height="24" /></a>				    						<!--<span>( 0 - 0的0 )</span>-->
+                                <span id="tip">(第几页，共几页)</span>
+                                <a class="next" href="javascript:void(0)" onclick="Navigate('next')"><img src="js/next_09.png" width="28" height="24" /></a>
+                                <a class="last" href="javascript:void(0)" onclick="Navigate('last')"><img src="js/last.png" width="28" height="24" /></a>
+                            </span>
+                        </div>
+                        <div class="clear"></div>
+                        <table id="user_count" class="user_count" cellpadding="0" cellspacing="0">
+                        	<tr>
+                            		<td>序号</td>
+                                <td>终端品牌</td>
+                                <td>数量</td>
+                                <td>百分比</td>
+                            </tr>
+                            <!--tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr-->
+                        </table>
+                	</div>
+                </div>
+            </div>
+            
+            <div class="r_dataMap fright">
+                <div class="r_StatisticsMap">
+                	<h4>页面点击统计</h4>
+                    <div class="t_Map" style="border-bottom:1px solid #cdcdcd;">
+                        <form class="Form_Search" action="" method="post">
+                            <div class="fright search">
+                            <input id="search_txt" type="text" value="输入页面" title="输入页面" onfocus="if(this.value==this.title){this.value='';}" onblur="if(!this.value){this.value=this.title;}" />
+                            <input id="search_btn" type="submit" value="搜索" />
+                            </div>
+                        </form>
+                        <div class="clear10"></div>
+                        <div id="pie1" class="pie" style="height:360px;"></div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="index_statis">
+                    	<h4>手机归属地排行-杭州</h4> 
+                    	<div class="btn">
+                            <span class="fleft" id="ckb_all"><input class="ckb" type="checkbox" /></span>
+                            <span class="fleft"><input class="derive1" type="button" value="导出" /></span>
+                            <span class="page_btn fright">
+                                <a class="first" href="javascript:void(0)" onclick="Navigate('first')"><img src="../images/first_09.png" width="28" height="24" /></a>
+                                <a class="prev" href="javascript:void(0)" onclick="Navigate('prev')"><img src="../images/prev.png" width="29" height="24" /></a>				    						<!--<span>( 0 - 0的0 )</span>-->
+                                <span id="tip">(第几页，共几页)</span>
+                                <a class="next" href="javascript:void(0)" onclick="Navigate('next')"><img src="../images/next_09.png" width="28" height="24" /></a>
+                                <a class="last" href="javascript:void(0)" onclick="Navigate('last')"><img src="../images/last.png" width="28" height="24" /></a>
+                            <span>
+                        </div>
+                        <div class="clear"></div>
+                        <table id="rate_count" class="user_count1" cellpadding="0" cellspacing="0">
+                        	<tr>
+                            		<td>时间段</td>
+                                <td>数量</td>
+                                <td>流量</td>
+                            </tr>
+                            <!--tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr>
+                            <tr>
+                            	<td><input type="checkbox" /></td>
+                                <td class="blue">13646641213</td>
+                                <td>56</td>
+                            </tr-->
+                        </table>
+                	</div>
+                </div>
+            </div>
+            <div class="clear"></div>
+		</div>
+		<!-----------end Content--------------->
+        
+		<div class="clear"></div>
+        <!-------footer------->
+        <div class="footer">
+            <div class="fright right_link">
+                <a href="#" target="_blank"><img src="../images/daying_45.png" width="16" height="14" />打印</a>&nbsp;&nbsp;&nbsp;
+                <a href="#" target="_self"><img src="../images/fanhui_45.png" width="13" height="14" />返回顶部</a>
+            </div>
+            <div class="clear"></div>
+            <div class="footer_log">
+                <!--<p>服务器响应时间：0.96秒</p>-->
+                <h4>上海新网程信息技术股份有限公司</h4>
+                <img src="../images/footer_log_45.jpg" width="132" height="25" />
+            </div>
+        </div>
+        <!-------end footer----------->
+        
+	</div>
+
+</body>
+</html>

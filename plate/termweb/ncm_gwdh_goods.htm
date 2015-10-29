@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="/css/flexslider.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>
+<title>丹尼斯欢迎您</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:100%;
+	margin:0 auto;
+	position:relative;
+	
+}
+.top_tit{ width:100%; height:50px; margin:0 auto;
+FILTER:progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#21a9dd,endColorStr=#1163b5); /*IE*/ 
+background:-moz-linear-gradient(top,# 21a9dd,#1163b5);/*火狐*/ 
+background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#21a9dd), to(#1163b5));/*谷歌*/ }
+.top_tit{ font-size:1.5em; color:#FFF; text-align:center; line-height:50px;}
+.top_tit img{ height:25px; width:auto;}
+.right_p{ position:relative; padding-left:100px;}
+.left_p{ position:relative; padding-right:100px;}
+.goods_info{ text-align:center;}
+.goods_info img{width:80%;}
+.price_info{ width:50%; height:50px; position:absolute; left:50%; top:0; background-color:#F60;}
+.text_sty{ color:#fff;}
+.current_price{color:#fff; font-size:1.2em; font-weight:bold; padding-left:5%;}
+
+.cost_price{ color:#fff; font-size:0.8em; padding-left:25%;}
+
+.shop_info01{ width:50%; position:absolute; left:50%; top:50px; background-color:#CCC;}
+.list_div{ width:100%; height:40px; border-bottom:1px solid #999;-o-text-overflow:ellipsis;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+.title_sty{color:#BFBFBF; font-size:1em; margin-left:5%; line-height:30px;-o-text-overflow:ellipsis;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+.intr_text{-o-text-overflow:ellipsis;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+.goods_info2{ width:100%; background-color:#FFF;}
+.list_div_d{ width:100%; height:80px; border-bottom:1px solid #999;-o-text-overflow:ellipsis;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+</style>
+
+</head>
+<body>
+
+    <div style="height:20px; clear:both;"></div>
+    <div class="wrap">
+    	<div class="goods_info">
+    	<img src="[#imgpath#]"/>
+        </div>
+        <!--div class="price_info">
+        	<div>
+            	<div style="height:10px; clear:both;"></div>
+            	<span class="text_sty">&nbsp;商标名称</span>
+                <span class="current_price">[#name#]</span>
+             </div>  
+            
+            </div>
+        <div class="shop_info01">
+        	<div class="list_div">
+            	
+            	<span class="title_sty">商品类别:</span>
+                <span class="intr_text">[#gtype#]</span>
+            </div>
+            <div style="height:10px; clear:both;"></div>
+             <div class="list_div">
+            	<span class="title_sty">楼层:</span>
+                <span class="intr_text">[#fname#]</span>
+            </div>
+            <div style="height:10px; clear:both;"></div>
+             <div class="list_div">
+            	<span class="title_sty">商店名称:</span>
+                <span class="intr_text">[#shopname#]</span>
+            </div>
+            <div style="height:10px; clear:both;"></div-->
+        	
+           
+        </div>   
+        	 <div style="height:20px; clear:both;"></div>
+         <div class="goods_info2">
+        	<div style="text-align:center; font-size:1.4em; font-weight:bold; border-bottom:1px solid #CCC; line-height:40px; color:#D93202;"><span style="color:#000">[#name#]</span>详情</div>
+            <div  class="list_div">
+            	<span class="title_sty">商标楼层:</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="intr_text">[#fname#]</span>
+            </div>
+               <div  class="list_div">
+            	<span class="title_sty">楼层描述:</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="intr_text">[#detail#]</span>
+            </div>
+            <div  class="list_div">
+            	<span class="title_sty">商品类别:</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="intr_text">[#gtype#]</span>
+            </div>
+            <div  class="list_div">
+            	<span class="title_sty">商店名称:</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="intr_text">[#shopname#]</span>
+            </div>
+            <div  class="list_div">
+            	<span class="title_sty">商品楼层:</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="intr_text">[#fname#]</span>
+            </div>
+            
+            <div  class="list_div">
+            	<span class="title_sty">商品地址:</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="intr_text">[#address#]</span>
+            </div>
+
+            <div  class="list_div">
+            	<span class="title_sty">联系电话:</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="intr_text">[#tel#]</span>
+            </div>
+             <div  class="list_div">
+            	<span class="title_sty">链接网址:</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="intr_text">[#url#]</span>
+            </div>
+            
+             <div  class="list_div_d">
+            	<span class="title_sty">商品描述:</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="intr_text">[#descr#]</span>
+            </div>
+        </div> 
+        </div>
+        
+  
+    </div>
+</body>
+</html>

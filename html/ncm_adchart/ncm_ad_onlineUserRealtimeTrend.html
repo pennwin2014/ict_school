@@ -1,0 +1,326 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title></title>
+	<!-- <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>  -->
+	 <script type="text/javascript" src="/newver/ext-4.2.1.883/ext-all.js"></script> 
+	<link rel="stylesheet" type="text/css" href="/newver/ext-4.2.1.883/resources/css/ext-all-gray.css" /> 
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/toolbars.css" />
+     <script type="text/javascript">  
+  
+
+var store1;
+var chart_max=1000; //初始图Y坐标最大值
+var number = 0; //启动，暂停 标签
+var refresh_time = 3000; //刷新时间间隔
+function reflash(){
+	var systime=document.getElementById("form1").systime.value;
+	store1.removeAll();      
+	store1.load({params: {update:"update",systime:systime,refresh_time:refresh_time},
+	callback: function(records, options, success){ 
+	if(records[0].get('regcount')>chart_max){ 
+	//重新设置坐标轴
+	chart_max= records[0].get('regcount');
+	if(records[0].get("regcount")>100){chart_max = (parseInt(records[0].get("regcount")/10)+1)*10}
+	if(records[0].get("regcount")>1000){chart_max = (parseInt(records[0].get("regcount")/100)+1)*100}
+	if(records[0].get("regcount")>10000){chart_max = (parseInt(records[0].get("regcount")/1000)+1)*1000}
+	if(records[0].get("regcount")>100000){chart_max = (parseInt(records[0].get("regcount")/10000)+1)*10000}
+	if(records[0].get("regcount")>1000000){chart_max = (parseInt(records[0].get("regcount")/100000)+1)*100000}
+	Ext.getCmp('onlineuser').destroy();	
+			var   chart = Ext.create('Ext.chart.Chart', {
+					xtype:'chart', store:'store3',
+					legend:{position:'top'
+					},
+					axes:[{type:'Numeric',grid:true, position:'left', 
+					fields:['访问次数'],title:'访问次数',minimum:0,maximum:chart_max,majorTickSteps:9}
+					,
+					{type:'Category',position:'bottom',fields:'systime',title:'时间(分:秒)'}
+					],
+					series:[{
+						type:'line',
+						axis:'left',
+						xField:'systime',
+						yField:'访问次数',
+						highlight:true,
+						showMarkers:false,
+						showInLegend:true,
+						style: {
+						'stroke-width': 2 //线条粗细
+						},
+						smooth:true,
+						tips:{//字段渲染，移到坐标点显示什么信息
+						renderer:function(rec){
+							this.update("时间 "+rec.get('systime')+"  访问 "+rec.get('访问次数'));
+							}
+						}
+					}]
+					});
+		Ext.create(Ext.panel.Panel,{
+			renderTo:Ext.getBody(), width:'100%', height:500,
+			layout:'fit',
+			frame:false,
+			border:false,
+		//	title:'在线用户趋势图',
+			id:'onlineuser',	tbar:[{text:'刷新',iconCls: 'repeat',handler:function(){
+				refresh();
+			}},
+			{text:'暂停',iconCls: 'pause',handler:function(){
+				if(this.text=='开始'){
+					this.setText('暂停');
+					this.setIconCls('pause');
+					if( number == 0){
+					number = setInterval("reflash()",refresh_time);}
+				
+					
+				}else{
+					this.setText('开始');
+					this.setIconCls('play');
+					clearInterval(number);
+					number =0;
+				}
+			}
+			}],
+			items:chart
+		});
+  
+  }else{
+  	var v=store1.getAt(0).get('regcount');
+					//alert(v);
+					store = Ext.StoreManager.lookup('store3'); //读取Store3的数据
+					if(store.count()>100){ //记录大于20，删除第一个记录
+						store.remove(store.getAt(0));
+					}
+					store.add({
+					systime:store1.getAt(0).get('systime'),
+					访问次数:v});
+		
+  Ext.getCmp('onlineuser').destroy();	
+			var   chart = Ext.create('Ext.chart.Chart', {
+					xtype:'chart', store:'store3',
+					legend:{position:'top'
+					},
+					axes:[{type:'Numeric',grid:true, position:'left', 
+					fields:['访问次数'],title:'访问次数',minimum:0,maximum:chart_max,majorTickSteps:9}
+					,
+					{type:'Category',position:'bottom',fields:'systime',title:'时间(分:秒)'}
+					],
+					series:[{
+						type:'line',
+						axis:'left',
+						xField:'systime',
+						yField:'访问次数',
+						highlight:true,
+						showMarkers:false,
+						showInLegend:true,
+						style: {
+						'stroke-width': 2 //线条粗细
+						},
+						smooth:true,
+						tips:{//字段渲染，移到坐标点显示什么信息
+						renderer:function(rec){
+							this.update("时间 "+rec.get('systime')+"  访问 "+rec.get('访问次数'));
+							}
+						}
+					}]
+					});
+		Ext.create(Ext.panel.Panel,{
+			renderTo:Ext.getBody(), width:'100%', height:500,
+			frame:false,
+			border:false,
+			layout:'fit',
+		//	title:'在线用户趋势图',
+			id:'onlineuser',	tbar:[{text:'刷新',iconCls: 'repeat',handler:function(){
+				refresh();
+			}},
+			{text:'暂停',iconCls: 'pause',handler:function(){
+				if(this.text=='开始'){
+					this.setText('暂停');
+					this.setIconCls('pause');
+					if( number == 0){
+					number = setInterval("reflash()",refresh_time);}
+				}else{
+					this.setText('开始');
+					this.setIconCls('play');
+					clearInterval(number);
+					number =0;
+				}
+			}
+			}],
+			items:chart
+		});
+  }
+ }
+ })
+ 
+ }
+function refresh() {
+		clearInterval(number);
+		number = 0;
+		
+		number = setInterval("reflash()",refresh_time);	
+
+		Ext.getCmp('onlineuser').destroy();	
+		var   chart = Ext.create('Ext.chart.Chart', {
+					xtype:'chart', store:'store3',
+					legend:{position:'top'
+					},
+					axes:[{type:'Numeric',grid:true, position:'left', 
+					fields:['访问次数'],title:'访问次数',minimum:0,maximum:chart_max,majorTickSteps:9}
+					,
+					{type:'Category',position:'bottom',fields:'systime',title:'时间(分:秒)'}
+					],
+					series:[{
+						type:'line',
+						axis:'left',
+						xField:'systime',
+						yField:'访问次数',
+						highlight:true,
+						showMarkers:false,
+						showInLegend:true,
+						style: {
+						'stroke-width': 2 //线条粗细
+						},
+						smooth:true,
+						tips:{//字段渲染，移到坐标点显示什么信息
+						renderer:function(rec){
+							this.update("时间 "+rec.get('systime')+"  访问 "+rec.get('访问次数'));
+							}
+						}
+					}]
+					});
+		Ext.create(Ext.panel.Panel,{
+			renderTo:Ext.getBody(), width:'100%', height:500,
+			frame:false,
+			border:false,
+			layout:'fit',
+		//	title:'在线用户趋势图',
+			id:'onlineuser',	tbar:[
+			{text:'刷新',iconCls: 'repeat',handler:function(){
+				refresh();
+			}},
+			{text:'暂停',iconCls: 'pause',handler:function(){
+				if(this.text=='开始'){
+					this.setText('暂停');
+					this.setIconCls('pause');
+					if( number == 0){
+					number = setInterval("reflash()",refresh_time);}
+					
+				}else{
+					this.setText('开始');
+					this.setIconCls('play');
+					clearInterval(number);
+					number = 0;
+				}
+			}
+			}
+			],
+			items:chart
+		});
+
+}
+
+	Ext.onReady (function(){
+	
+	Ext.create(Ext.data.ArrayStore,{
+		id:'store3',
+		fields:[
+			{name:'systime',type:'string'},{name:'访问次数',type:'int'}
+		]
+	});
+	
+	Ext.define('EimData', {
+        extend: 'Ext.data.Model',
+        fields: [
+				{name:'systime',type:'string'},{name:'regcount',type:'int'}
+        ],
+        idProperty: 'id'
+    });
+		store1 = Ext.create('Ext.data.Store', {
+		id:'store1',
+		autoLoad:true,
+        model: 'EimData',
+//        remoteSort: true,
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@ncm_Ad_OnlineUserNumber',
+            reader: {
+                type:'json',
+                root: 'eimdata'//,
+//                totalProperty: 'totalCount'
+            }         
+
+        }
+    });
+	
+		var   chart = Ext.create('Ext.chart.Chart', {
+					xtype:'chart', store:'store3',
+					legend:{position:'top'
+					},
+					axes:[{type:'Numeric',grid:true, position:'left', 
+					fields:['访问次数'],title:'访问次数',minimum:0,maximum:chart_max,majorTickSteps:9}
+					,
+					{type:'Category',position:'bottom',fields:'systime',title:'时间(分:秒)'}
+					],
+					series:[{
+						type:'line',
+						axis:'left',
+						xField:'systime',
+						yField:'访问次数',
+						highlight:true,
+						showMarkers:false,
+						showInLegend:true,
+						style: {
+						'stroke-width': 2 //线条粗细
+						},
+						smooth:true,
+						tips:{//字段渲染，移到坐标点显示什么信息
+						renderer:function(rec){
+							this.update("时间 "+rec.get('systime')+"  访问 "+rec.get('访问次数'));
+							}
+						}
+					}]
+					});
+		Ext.create(Ext.panel.Panel,{
+			renderTo:Ext.getBody(), width:'100%', height:500,
+			layout:'fit',
+			frame:false,
+			border:false,
+		//	title:'在线用户趋势图',
+			id:'onlineuser',	tbar:[{text:'刷新',iconCls: 'repeat',handler:function(){
+				refresh();
+			}},
+			{text:'暂停',iconCls: 'pause',handler:function(){
+				
+				if(this.text=='开始'){
+					this.setText('暂停');
+					this.setIconCls('pause');
+						if( number == 0){
+					number = setInterval("reflash()",refresh_time);}
+				}else{
+					this.setText('开始');
+					this.setIconCls('play');
+					clearInterval(number);
+					number = 0;
+				}
+			}
+			}],
+			items:chart
+		});
+
+number = setInterval("reflash()",refresh_time);
+
+	})
+</script>
+</head>
+<body>
+<div id="hello"></div>
+<form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="ncm_Ad_OnlineUserNumber">
+		<input type="hidden" name="systime" value="">
+		<input type="hidden" name="regcount" value="">
+		<input type="hidden" name="firu_ip" value="">
+		<input type="hidden" name="firu_bytes" value="">
+	</form>
+</body>
+</html>

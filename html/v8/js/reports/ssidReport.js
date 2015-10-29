@@ -1,0 +1,143 @@
+/*SSID统计报表*/	
+Ext.define('reports.ssidReport',{
+    extend: 'Ext.grid.Panel',
+    
+    initComponent : function(){
+				if(store_reports_ssidreport.alreadyload !=1){
+						store_reports_ssidreport.slogdate = today;
+						store_reports_ssidreport.elogdate = today;
+						store_reports_ssidreport.ssid='';
+						store_reports_ssidreport.num='';
+						store_reports_ssidreport.keyword='';
+						store_reports_ssidreport.caExport='';
+						store_reports_ssidreport.new_params ={slogdate:store_reports_ssidreport.slogdate,elogdate:store_reports_ssidreport.elogdate,ssid:store_reports_ssidreport.ssid,num:store_reports_ssidreport.num,keyword:store_reports_ssidreport.keyword,caExport:store_reports_ssidreport.caExport};
+				}
+				
+				function reflash(){
+						store_reports_ssidreport.new_params ={slogdate:store_reports_ssidreport.slogdate,elogdate:store_reports_ssidreport.elogdate,ssid:store_reports_ssidreport.ssid,num:store_reports_ssidreport.num,keyword:store_reports_ssidreport.keyword,caExport:store_reports_ssidreport.caExport};
+						//store_reports_ssidreport.currentPage=1;
+						store_reports_ssidreport.load();
+				}
+				
+				Ext.define('SsidData', {
+				    extend: 'Ext.data.Model',
+				    fields: ['groupid', 'ssid', 'addtime', 'flags', 's_flags']
+				    //idProperty: 'uid'
+				});
+				var store_ssid = Ext.create('Ext.data.Store', {
+					 model:'SsidData',
+					 pageSize: 10000,
+					 autoLoad:true,
+					 proxy:{
+					 		type:'ajax',
+					 		url:'/pronline/Msg?FunName@ncm_websrvgroupssid_list',
+					 		reader:{
+					 				type:'json',
+					 				root:'eimdata',
+					 				totalProperty:'totalCount'	
+					 		},
+					 		simplleSortMode:true	
+					 }
+				});
+				var ssidCombo = Ext.create('Ext.form.field.ComboBox', {
+					 fieldLabel:'SSID',
+					 labelWidth:40,
+					 width:200,
+					 valueField:'ssid',
+					 displayField:'ssid',
+					 hidden:false,
+					 store:store_ssid,
+					 triggerAction:'all',
+					 queryMode:'local',
+					 typeAhead:true,
+					 allowBlank:true, //是否允许为空 
+					 listeners:	{
+					 		'change':function(){
+					 				store_reports_ssidreport.ssid=this.value;
+					 				reflash();
+					 		}	
+					 },
+					 listConfig:{
+					 		loadingText:'Searching...',
+					 		emptyText:'No matching found.'	
+					 }
+				});
+
+        Ext.apply(this, {   
+		        border:false,
+		        frame:false,
+				    autoScroll: true,
+		        store: store_reports_ssidreport,
+		        viewConfig:{
+			        	loadMask : false
+			      },
+            columns:[{
+		            text: "SSID",
+		            dataIndex: 'ssid',
+		            width: 150,
+		            //align: 'center',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "数量",
+		            dataIndex: 'num',
+		            width: 150,
+		            align: 'right',
+		            hidden: false,
+		            sortable: false
+		        },{
+		        	  flex: 1	
+		        }],
+          
+            columnLines: true,
+            tbar:{items:[
+								'-',ssidCombo,
+								'-',{
+									  fieldLabel:'开始时间',
+								  	xtype: 'datefield',
+								  	format: "Y/m/d",
+								  	value:store_reports_ssidreport.slogdate,
+								  	id:'ssidreport_slogdated',
+								  	name:'ssidreport_slogdated',
+								  	labelWidth:55, //标签宽度
+								    width:170 //字段宽度 
+								},'-',{
+									  fieldLabel:'结束时间',
+								  	xtype: 'datefield',
+								  	format: "Y/m/d",
+								  	value:store_reports_ssidreport.elogdate,
+								  	id:'ssidreport_elogdated',
+								  	name:'ssidreport_elogdated',
+								  	labelWidth:55, //标签宽度
+								    width:170 //字段宽度 
+								},'-',{
+								    text:'查询',
+								    //itemId: 'moveButton',
+									  iconCls:'accept',
+								    //disabled: true,
+								    handler:function(){
+										    store_reports_ssidreport.slogdate=DateUtil.Format("yyyy/MM/dd",Ext.getCmp('ssidreport_slogdated').value);
+										    store_reports_ssidreport.elogdate=DateUtil.Format("yyyy/MM/dd",Ext.getCmp('ssidreport_elogdated').value);
+										    store_reports_ssidreport.currentPage=1;         
+										    reflash();  
+								    }
+								},'-',{
+								    text:'导出',
+								    iconCls:'exp',
+								    handler:function(){
+								   			document.getElementById('form1').caExport.value = 'exp';
+								   			document.getElementById("form1").ssid.value = store_reports_ssidreport.ssid;
+		                		document.getElementById("form1").slogdate.value = DateUtil.Format("yyyy/MM/dd",Ext.getCmp('ssidreport_slogdated').value);
+					            	document.getElementById("form1").elogdate.value = DateUtil.Format("yyyy/MM/dd",Ext.getCmp('ssidreport_elogdated').value);
+					            	document.getElementById("form1").action = "/pronline/Msg?FunName@ncm_web_App_intSsidReport_list?r="+Math.random();
+		  									document.getElementById("form1").method = "POST";
+			                	document.getElementById("form1").submit();
+			                	document.getElementById("form1").caExport.value="";
+								    }
+								}]
+           	}
+        });
+	      store_reports_ssidreport.alreadyload = 1;
+        this.callParent(arguments);
+    }
+})

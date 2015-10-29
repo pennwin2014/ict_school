@@ -1,0 +1,402 @@
+<html>
+<head>
+<title>ԃ»§ҩ֤</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312"> <!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>˖»�</title>-->
+<style type="text/css">
+*{
+	margin:0;
+	padding:0;
+	font-size:16px;
+}
+#main{
+	width:480px;
+	height:518px;
+	margin:0 auto;
+}
+/*img{
+	float:left;
+}*/
+#header{
+	width:480px;
+	height:62px;
+	background-image:url(../../images/applesms/sms4_01.jpg);
+	position:relative;
+}
+.header_ul li{
+			 list-style:none;
+			 float:left;
+			 display:block;
+			 height:31px;
+			 line-height:31px;
+			 font-family:'ºی㥠'̎ͥ';
+			 font-size:16px;	
+   }
+   .china{
+	   width:53px;
+	   position:absolute;
+	   top:31px;
+	   left:330px;
+   }
+   .eng{
+	   width:80px;
+	   position:absolute;
+	   top:31px;
+	   left:383px;
+	   color:#06F;
+   }
+   #login_area{
+	   width:480px;
+	   height:518px;
+	   background-image:url(../../images/applesms/sms4_03.png);
+	   position:relative;
+   }
+   input{
+	   border:0;
+   }
+   #explain{
+	   position:absolute;
+	   top:150px;
+	   left:85px;
+	   text-decoration:none;
+	   color:red;
+   }
+   #username{
+	   position:absolute;
+	   top:110px;
+	   left:85px;
+	   
+   }
+   .input_div{
+	    height:32px;
+		width:160px; 
+		border: 1px solid #B4B4B4;
+		line-height:32px;
+		background-color:#FFF;
+		border:0;
+   }
+  
+   .getpasswd{ 
+         height: 32px; 
+		 line-height:32px;
+		 width: 180px;
+		 background-image:url(../../images/applepc/but02.gif);
+		 border:0;
+		 cursor:pointer;
+		 position:absolute;
+	     top:110px;
+	     left:270px;
+	 }
+	 .disclaime{  
+		background-image:url(../../images/applepc/contract.gif);
+        height: 32px; 
+		width: 221px;
+		position:absolute;
+		top:316px;
+		left:235px;
+		border:0;
+		cursor:pointer;
+	 }
+	 .chaccept{
+		background-image:url(../../images/applepc/accept.gif);
+	    width:373px;
+		height:32px;
+		border:0;
+		position:absolute;
+		top:360px;
+		left:85px;
+		cursor:pointer;
+	}
+	.chaccept2{
+		background-image:url(../../images/applepc/accept2.gif);
+	    width:373px;
+		height:32px;
+		border:0;
+		position:absolute;
+		top:360px;
+		left:85px;
+	}
+	#password{
+	   position:absolute;
+	   top:412px;
+	   left:85px;	
+	}
+	#Code{
+	   position:absolute;
+	   top:460px;
+	   left:85px;
+	}
+	.but_login{
+	  background-image:url(../../images/appceti/login.png);
+      height: 22px;
+	  width: 180px; 
+	  position:absolute;
+	  top:412px;
+	  left:270px;
+	  cursor:pointer;
+	  border:0;
+	}
+	#CheckHere{
+	   height:32px;
+	   width:150px;
+	   vertical-align:middle;
+	   line-height:32px;
+	   position:absolute;
+	   top:460px;
+	   left:260px;
+	   
+	}
+	#change{
+	   height:32px;
+	   width:60px;
+	   vertical-align:middle;
+	   line-height:32px;
+	   position:absolute;
+	   top:460px;
+	   left:400px;
+	   text-decoration:none;
+	   font-size:18px;
+	   
+   }
+	
+</style>
+<script language="javascript" src="/js/cetisfy/JSCode_IMG.js"></script>
+
+<script src="/js/ajax.js"></script>
+
+
+<script language="javascript" type="text/javascript">
+	
+  /*
+  //  0 -- 不合法
+//  86--中国
+//  其它区号                    输入手机     输出
+int ncPortalCheckMobileNumBer2(char *pIn,char *pOut,char *pArea)
+{
+    uint4 lAreaCode;
+    char  caTemp[32],caOut[32];
+    char *p,*p1;
+    int i,j;
+    // +86-123445 
+    lAreaCode = 86;
+    p = utStrSkipSpaces(pIn);
+    if(*p == '+') {
+        p++;
+        while(*p == '+' || *p == '0') {
+            p++;
+        }
+        strcpy(caTemp,"\0");
+        p1 = utStrGetWord(p,caTemp,7,"-");
+        if(*p1 == '-') {
+            if(utStrIsDigital(caTemp)) {
+                lAreaCode = atol(caTemp);
+                p = p1 + 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        else {
+            return 0;
+        }
+    }
+    j=0;
+    for(i=0;p[i];i++) {
+       if(p[i] == '-' || p[i] == ' ') {
+       }
+       else if(p[i] >= '0' || p[i] <= '9') {
+           caOut[j] = p[i];
+           j++;
+       }
+       else {
+           return 0;
+       }
+    }
+    caOut[j] = 0;
+    if(j > 11) {
+        return 0;
+    }
+    if(lAreaCode == 86) {
+        int iRet;
+        if(strlen(caOut)!=11) {
+            return 0;
+        }
+        iRet = pasCheckMobileArea(caOut,NULL,NULL,pArea);
+        if(iRet == 0) {
+            return 0;
+        }
+        else {
+            if(iRet < 0) {  
+                strcpy(pArea,"\0");
+            }
+            strcpy(pOut,caOut);
+            return lAreaCode;
+        }
+    }
+    else {
+        sprintf(pArea,"%u",lAreaCode);
+        sprintf(pOut,"%u%s",lAreaCode,caOut);
+        return lAreaCode;
+    }
+}
+*/
+String.prototype.Trim = function() { 
+   return this.replace(/(^\s*)|(\s*$)/g, ""); 
+}
+//去除字符串左侧空格
+String.prototype.LTrim = function() { 
+   return this.replace(/(^\s*)/g, ""); 
+}
+//去除字符串右侧空格
+String.prototype.RTrim = function() { 
+   return this.replace(/(\s*$)/g, ""); 
+}
+function ncPortalCheckMobileNumBer(pInarea,pInphone)
+{
+    var lAreaCode = 86;
+    var caTemp[32] = "";
+    var caOut[32] = "";
+    
+    var caIn[32] = "";
+    var caInph[32] = "";
+//    char *p,*p1;
+    var i = 0;
+    var j = 0;
+    var t = 0;
+    // +86-123445 
+    
+//    p = utStrSkipSpaces(pIn);
+    pInarea.Trim();
+    pInarea.LTrim(); 
+    pInarea.RTrim();
+    
+   
+    for (i = 0 ;i < pInarea.length;i++) 
+    {
+    	 i(pInarea[i] == '+' || pInarea[0] == '0' || pInarea[i] == '-')
+    	 {
+    	 	
+    	 }
+    	 else
+    	 {
+    	    caIn[t] = pInarea[i];	
+    	    t++;
+    	 }
+    }
+    pInphone.Trim();
+    pInphone.LTrim(); 
+    pInphone.RTrim();
+    for (i = 0 ;i < pInphone.length;i++) 
+    {
+    	 i(pInphone[i] == '+' || pInphone[0] == '0' || pInphone[i] == '-')
+    	 {
+    	 	
+    	 }
+    	 else
+    	 {
+    	    caInph[t] = pInphone[i];	
+    	    t++;
+    	 }
+    }
+    
+    if(pInarea == 86)
+    {
+    	caOut = caInph;
+    }
+    else
+    {
+    	caOut = caIn + caInph;
+    }
+    
+    return caOut;
+//    if(*p == '+') {
+//        p++;
+//        while(*p == '+' || *p == '0') {
+//            p++;
+//        }
+//        strcpy(caTemp,"\0");
+//        p1 = utStrGetWord(p,caTemp,7,"-");
+//        if(*p1 == '-') {
+//            if(utStrIsDigital(caTemp)) {
+//                lAreaCode = atol(caTemp);
+//                p = p1 + 1;
+//            }
+//            else {
+//                return 0;
+//            }
+//        }
+//        else {
+//            return 0;
+//        }
+//    }
+//    j=0;
+//    for(i=0;p[i];i++) {
+//       if(p[i] == '-' || p[i] == ' ') {
+//       }
+//       else if(p[i] >= '0' || p[i] <= '9') {
+//           caOut[j] = p[i];
+//           j++;
+//       }
+//       else {
+//           return 0;
+//       }
+//    }
+//    caOut[j] = 0;
+//    if(j > 11) {
+//        return 0;
+//    }
+//    if(lAreaCode == 86) {
+//        int iRet;
+//        if(strlen(caOut)!=11) {
+//            return 0;
+//        }
+//        iRet = pasCheckMobileArea(caOut,NULL,NULL,pArea);
+//        if(iRet == 0) {
+//            return 0;
+//        }
+//        else {
+//            if(iRet < 0) {  
+//                strcpy(pArea,"\0");
+//            }
+//            strcpy(pOut,caOut);
+//            return lAreaCode;
+//        }
+//    }
+//    else {
+//        sprintf(pArea,"%u",lAreaCode);
+//        sprintf(pOut,"%u%s",lAreaCode,caOut);
+//        
+//        pOut = lAreaCode + caOut;
+//        
+//        return lAreaCode;
+//    }
+}	
+
+functtion test(){
+	
+   var aa =document.getElementById("areacode").value;	
+   var bb =document.getElementById("phonenum").value;	
+   ncPortalCheckMobileNumBer(aa,bb);
+   alert(ncPortalCheckMobileNumBer(aa,bb););
+}
+</script>
+</head>
+
+<body>
+<center>
+
+         
+     <table boder = "1"><tr> <td>      
+      areanum <input tpye = "text" id = "areacode" size = "20" name = "areacode" value ="" >  
+      telnum <input tpye = "text" id = "phonenum" size = "20" name = "phonenum" value ="" >     
+            <input tpye = "button"  size = "20" name = "test" onClick = "test();" >     
+	   </td></tr></table>
+
+</center>
+</body>
+</html>

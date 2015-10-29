@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>新网程登录门户管理系统</title>
+<link href="/css/css_main.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/toolbars.css" />
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script> 
+<style type="text/css">
+.accept {
+    background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+}	
+</style>
+<script> 
+Ext.onReady(function(){
+			Ext.define('EimData1', {
+	    		extend:'Ext.data.Model',
+	    		fields:[
+	    				{name: 'text',    type: 'string'},
+		          {name: 'id',      type: 'string'},
+		          {name: 'compid',  type: 'string'},
+		          {name: 'ctext',   type: 'string'},
+		          {name: 'did',   type: 'string'}
+	    		]	
+	    });
+	    var doorStore = Ext.create('Ext.data.TreeStore', {
+	    		model:'EimData1',
+	    		proxy:{
+	    				type:'ajax',
+	    				url:'/pronline/Msg?FunName@ncsTreeUser_corp'	
+	    		},
+	    		root:{
+           		text:'全部',
+           		id:0,
+           		expanded:true
+          },
+          folderSort:true,
+          sorters:[{
+          		//property:'text',
+          		//direction:'ASC'	
+          }],
+	    		listeners:{
+	    				'load':function(thisStore, node, records, successful, e0pts){
+	    						//console.log(node);
+	    				}
+	    		}
+	    });
+    
+	    var tree = Ext.create('Ext.tree.TreePanel',{                      	
+            //renderTo:Ext.getBody(),
+           	rootVisible:true,
+           	store:doorStore,
+           	autoScroll:true,
+           	listeners:{
+           			'itemclick':function(view, record, item, index, e){
+           				 
+					    			parent.doreflashTab1(record.get("id"),record.get("did"),'');
+					    	}
+           	},
+           	dockedItems:[{
+           			xtype:'toolbar',
+           			items:[{
+           					xtype:'textfield',
+										id:'keyword',
+										name:'keyword',
+										style:'color:#7aa7d5',
+										width:120,
+										emptyText:'单位名称',
+										enableKeyEvents:true,
+										listeners:{
+												'focus':function(){
+														if(this.value=='单位名称'){                
+																this.setValue('');
+														}
+												},
+												'keydown' : function(i,e){
+														var aae=e.getKey() ; 
+														if(aae==13){
+																var aa=Ext.getCmp('keyword').value;
+																if(aa!='单位名称'){
+																		var vkeyword=Ext.getCmp('keyword').value;
+																}else{
+																		var vkeyword='';	
+																}
+																doorStore.load({params: {keyword:vkeyword}});
+														}
+												}
+										}	
+           			},{
+		                itemId: 'moveButton',
+		                iconCls:'accept',
+		 								id:"treeBtn",
+		                listeners: {
+			                	'click': function(){
+				                		var aa=Ext.getCmp('keyword').value;
+				                		if(aa!='单位名称'){
+						                    var vkeyword=Ext.getCmp('keyword').value;
+								            }else{
+								            	  var vkeyword='';		
+								            }
+								            doorStore.load({params: {keyword:vkeyword}});
+			                	}
+		                }
+                }]	
+           	}]         
+      });
+      
+      var panel = Ext.create('Ext.panel.Panel', {
+	        margins: '0 0 0 0',
+	        renderTo:Ext.getBody(),
+			    height: parent.Ext.get("layout_center").getHeight()-55,
+	        border:false,
+	        frame: false,
+	        layout: 'fit',
+			    autoScroll: true,
+	        items:tree
+      });
+});
+</script>
+</head>
+<body>
+</body>
+</html>

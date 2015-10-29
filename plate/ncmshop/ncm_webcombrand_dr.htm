@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>IndexInfo</title>
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" />
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+<script type="text/css">
+	body{font-family:"微软雅黑"}
+	.accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+</script>
+
+<script type="text/javascript">
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*'
+]);
+
+Ext.onReady(function(){
+	  Ext.define('FloorData', {
+        extend: 'Ext.data.Model',
+        fields: ['fid', 'groupid', 'name', 'imgpath', 'flags']
+    });
+	  var store_floor = Ext.create('Ext.data.Store', {
+	  	 model:'FloorData',
+	  	 pageSize: 10000,
+	  	 autoLoad:true,
+	  	 proxy:{
+	  	 		type:'ajax',
+	  	 		url:'/pronline/Msg?FunName@ncm_webreadfloor_list&flags@1',
+	  	 		reader:{
+	  	 				type:'json',
+	  	 				root:'eimdata'	
+	  	 		},
+	  	 		simplleSortMode:true	
+	  	 }
+	  });
+		var floorCombo = Ext.create('Ext.form.field.ComboBox', {
+				fieldLabel: '楼层',
+        labelWidth: 100,
+        width: 300,
+        valueField: 'groupid',
+        displayField: 'name',
+        value: '[#floor#]',
+        id: 'floor',
+        name: 'floor',      
+        allowBlank: true,
+        store: store_floor,
+        triggerAction: 'all',
+        queryMode: 'local',
+        typeAhead: true,
+        listeners: {
+          'change':function(){
+          }
+        },
+				listConfig:{
+      			loadingText: 'Searching...',
+      			emptyText: 'No matching found.'
+        }
+		});
+		
+	  Ext.define('TypeData', {
+        extend: 'Ext.data.Model',
+        fields: ['sid', 'name', 'groupname', 'descr', 'systime', 'imgpath', 'flags']
+        //idProperty: 'uid'
+    });
+	
+	  var store_type = Ext.create('Ext.data.Store', {
+	  	 model:'TypeData',
+	  	 pageSize: 10000,
+	  	 autoLoad:true,
+	  	 proxy:{
+	  	 		type:'ajax',
+	  	 		url:'/pronline/Msg?FunName@ncm_webcomtype_list',
+	  	 		reader:{
+	  	 				type:'json',
+	  	 				root:'eimdata',
+	  	 				totalProperty:'totalCount'	
+	  	 		},
+	  	 		simplleSortMode:true	
+	  	 }
+	  });
+	
+	  var typeCombo = Ext.create('Ext.form.field.ComboBox', {
+	  	 fieldLabel:'商品小类名称',
+	  	 labelWidth:100,
+	  	 width:300,
+	  	 valueField:'sid',
+	  	 value:'[#sgroupid#]',
+	  	 displayField:'name',
+	  	 id:'tyid',
+	  	 name:'tyid',
+	  	 allowBlank:false,
+	  	 store:store_type,
+	  	 triggerAction:'all',
+	  	 queryMode:'local',
+	  	 typeAhead:true,
+	  	 listeners:{
+	  	 		'change':function(){
+	  	 		}	
+	  	 },
+	  	 listConfig:{
+	  	 		loadingText:'Searching...',
+	  	 		emptyText:'No matching found.'	
+	  	 }
+	  });
+	  
+	  Ext.define('ShopData', {
+        extend: 'Ext.data.Model',
+        fields: ['iNum', 'id', 'name', 'service_code', 'sgroupid', 'imgpath', 'floor', 'url', 'code', 'tel', 'address', 'level', 'plevel', 'type', 'stype', 'descr', 'detail', 'systime', 'flags']
+        //idProperty: 'uid'
+    });
+	
+	  var store_shop = Ext.create('Ext.data.Store', {
+	  	 model:'ShopData',
+	  	 pageSize: 10000,
+	  	 autoLoad:true,
+	  	 proxy:{
+	  	 		type:'ajax',
+	  	 		url:'/pronline/Msg?FunName@ncm_webcomshop_list',
+	  	 		reader:{
+	  	 				type:'json',
+	  	 				root:'eimdata',
+	  	 				totalProperty:'totalCount'	
+	  	 		},
+	  	 		simplleSortMode:true	
+	  	 }
+	  });
+	  var shopCombo = Ext.create('Ext.form.field.ComboBox', {
+	  	 fieldLabel:'商店名称',
+	  	 labelWidth:100,
+	  	 width:300,
+	  	 valueField:'id',
+	  	 value:'[#shopid#]',
+	  	 displayField:'name',
+	  	 id:'shid',
+	  	 name:'shid',
+	  	 allowBlank:false,
+	  	 store:store_shop,
+	  	 triggerAction:'all',
+	  	 queryMode:'local',
+	  	 typeAhead:true,
+	  	 listeners:{
+	  	 		'change':function(){
+	  	 		}	
+	  	 },
+	  	 listConfig:{
+	  	 		loadingText:'Searching...',
+	  	 		emptyText:'No matching found.'	
+	  	 }
+	  });
+	  
+	  var store_type1 = Ext.create('Ext.data.Store', {
+	  	 fields:['groupid', 'groupname'],
+	  	 data:[
+	  	 		{groupid:"1", groupname:"广告"},
+	        {groupid:"2", groupname:"品牌"},
+	        {groupid:"3", groupname:"促销"},
+	        {groupid:"4", groupname:"视频"}
+	  	 ]
+	  });
+	  
+		var form1 = Ext.create('Ext.FormPanel', {
+				frame:true,
+				width:758,
+	      renderTo: 'grid-corp',
+				bodyPadding:10,
+				defaultType:'textfield', //设置表单字段的默认类型  
+				fieldDefaults:{ //统一设置表单字段默认属性
+						labelSeparator:':', //分隔符
+						labelWidth:100, //标签宽度
+						width:300, //字段宽度
+						msgTarget:'side'
+				},
+				layout:'hbox',
+				items:[{
+						xtype:'fieldset',
+						width:350,
+						title:'基本信息',
+						items:[{
+								xtype:'textfield',
+								fieldLabel:'增/改',
+								id:'key',
+								name:'key',
+								hidden:true,
+								value:'[#key#]'		
+						},{
+								xtype:'textfield',
+								fieldLabel:'模版',
+								id:'plateid',
+								name:'plateid',
+								hidden:true,
+								value:'[#plateid#]'		
+						},{
+								xtype:'textfield',
+								fieldLabel:'序号',
+								id:'sid',
+								name:'sid',
+								hidden:true,
+								value:'[#sid#]'		
+						},{
+								xtype:'textfield',
+								fieldLabel:'商标名称',
+								id:'name',
+								name:'name',
+								value:'[#name#]'		
+						},{
+								xtype:'textfield',
+								fieldLabel:'商标序列号',
+								id:'serno',
+								name:'serno',
+								value:'[#serno#]'		
+						},
+						typeCombo,
+						shopCombo,
+						//floorCombo,
+						{
+								fieldLabel:'楼层',
+								//xtype:'displayfield',
+								id:'floor',
+								name:'floor',
+								hidden:true,
+								value:'[#floor#]'		
+						},{
+								xtype:'numberfield',
+								fieldLabel:'广告优先级',
+								id:'level',
+								name:'level',
+								value:'[#level#]',
+								hidden:true,
+								hideTrigger:false, //隐藏微调按钮
+		        		allowDecimals:false, //不允许输入小数
+		        		maxValue:100, //最大值
+		        		minvalue:0, //最小值
+		        		nanText:'请输入有效范围内的整数' //无效数字提示	
+						},{
+								xtype:'numberfield',
+								fieldLabel:'促销优先级',
+								id:'plevel',
+								name:'plevel',
+								value:'[#plevel#]',
+								hidden:true,
+								hideTrigger:true, //隐藏微调按钮
+		        		allowDecimals:false, //不允许输入小数
+		        		maxValue:100, //最大值
+		        		minvalue:0, //最小值
+		        		nanText:'请输入有效范围内的整数' //无效数字提示	
+						},{
+								xtype:'combobox',
+								fieldLabel:'活动类型',
+		      		  id:'type',
+		      		  name:'type',
+		      		  value:'[#type#]',
+		      		  hidden:true,
+		      		  triggerAction:'all',
+		      		  store:store_type1,
+		      		  displayField:'groupname',
+		      		  valueField:'groupid',
+		      		  queryMode:'local',
+		      		  forceSelection:true,
+		      		  typeAhead:true,
+		      		  allowBlank:true	
+						},{
+								xtype:'textarea',
+								fieldLabel:'描述',
+								id:'descr',
+								name:'descr',
+								value:'[#descr#]'
+						}]	
+				},{
+						xtype: 'component',
+            width: 25	
+				},{
+						xtype:'fieldset',
+						title:'预览',
+						width:350,
+						items:[{
+								xtype:'image',
+								id:'img',
+								name:'img',
+								autoWidth:true,
+								autoHeight:true,
+								width:350,
+								height:200,
+								src:'[#imgpath#]'
+						},{
+								xtype: 'component',
+					  		height:15	
+						},{
+								xtype:'filefield',
+								fieldLabel:'上传图片',
+								id:'fname',
+								name:'fname',
+								hidden:false,
+								buttonText: '选择图片'
+						},{
+								xtype:'displayfield',
+								fieldLabel:'提示',
+								id:'imgsize',
+								name:'imgsize',
+								value:'您要上传的图片大小 (600*450)'	
+						}]
+				}],
+				buttons:[{
+					  text:'确定',
+            handler: function() {
+	             form1.form.doAction('submit',{
+			             url:'/pronline/upload',
+			             method:'post',
+			             enctype:'multipart/form-data',
+			             params:{FunName:'ncm_webComBrandImg_dr', UploadPath:'/home/ncmysql/ncsrv/upload'},   
+			             success:function(form,action){
+			             		alert(action.result.success);
+			             		Ext.getCmp('img').setSrc(action.result.imgpath);
+			             }   
+	             })
+            }
+				},{
+					  text:'取消',
+					  handler:function(){
+					  		winclose();
+					  }
+				}]
+		});
+});
+
+function winclose(){
+    var win = parent.Ext.getCmp('windr');
+		if (win) {
+			win.close();
+		}
+}
+
+</script>	
+</head>
+<body bgcolor="#DEE8FA">
+<div id="grid-corp"></div>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" class="wifi-login">
+<head>
+	<meta charset="UTF-8">
+	<title>欢迎使用无限余姚免费无线网络</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link rel="stylesheet" href="/css/yuyao/christmas.css">
+	<script src="/js/yuyao/jquery.js"></script>
+	<script type="text/javascript">
+	function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp;
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";
+	}
+var p_flag = '1';
+	
+	function restore(){
+		document.getElementById("gpss").disabled = "";
+		p_flag='1';	
+	}
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+var i = 59;
+function fun() {
+       	 if (i == 0) {
+			 document.getElementById("gpss").innerHTML="获取密码";
+             clearInterval(intervalid);
+			 i=59;
+         }
+		 else{
+         document.getElementById("gpss").innerHTML = i;
+		
+         i--;
+		 }
+}
+function getpasswd(){
+		if(p_flag=='0') return false;	
+		if(document.getElementById("username").value==''||document.getElementById("username").value=='手机号'){
+		    alert('请输入用户名');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("username").value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&tsid@[#tsid#]&lang@[#lang#]&username@"+document.getElementById("username").value+"&tsid@"+document.getElementById("tsid").value;
+
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		 document.getElementById("gpss").innerHTML= "已发送";
+	   intervalid= setInterval("fun()", 1000);//写在document.getElementById("gpss").disabled="true";的后面
+
+		p_flag='0';
+        setTimeout('restore()',60000);
+		return false;
+	}
+	
+	var mz;
+	function xianshi(){
+	mz=1;
+	document.getElementById("password").style.width="100%";
+	document.getElementById("bo").style.display="block";
+	document.getElementById("ok1").style.display="none";
+	document.getElementById("ok2").style.display="block";
+	
+	}
+	
+	function spylogin()
+	{
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="手机号"||document.getElementById("password").value==""||document.getElementById("password").value=="密码") 
+		{
+		    window.alert("用户名或密码不能为空!");
+			  return false;
+		}
+		/*if(document.getElementById("radio1").checked!=1)
+		{
+			window.alert("请确认接受免责声明！");			
+			return false;
+		}*/
+    document.getElementById("nclogin").submit();
+		/*var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}*/
+		
+    return true;
+	}
+	function mr(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").style.color="#aaa";
+		}
+		if(document.getElementById("password").value="密码"){
+			 document.getElementById("password").style.color="#aaa";
+		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+  	function init()
+	{
+		//alert('[#statusCode#]');
+		if('[#statusCode#]' == '2')
+		{
+			/*document.getElementById('err5').innerHTML = '账号与SSID不匹配。';*/
+			alert('账号与SSID不匹配');
+		}	
+		if('[#statusCode#]' == '3')
+		{
+			/*document.getElementById('err5').innerHTML = '用户账号已过期。';*/
+			alert('用户账号已过期');
+		}	
+		if('[#statusCode#]' == '4')
+		{
+			/*document.getElementById('err5').innerHTML = '您登录的账号在黑名单中。';*/
+			alert('您登录的账号在黑名单中');
+		}	
+		if('[#statusCode#]' == '5')
+		{
+			/*document.getElementById('err5').innerHTML = '请输入正确的密码。';*/
+			alert('请输入正确的密码');
+		}	
+		if('[#statusCode#]' == '6')
+		{
+			/*document.getElementById('err5').innerHTML = '该用户不存在。';*/
+			alert('该用户不存在');
+		}	
+    if('[#statusCode#]' == '7')
+		{
+			/*document.getElementById('err5').innerHTML = '超出Mac最大绑定数量。';*/
+			alert('超出Mac最大绑定数量');
+		}	
+}
+
+function changlogin(flag){
+        self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+
+</script>
+</head>
+<body onload="init();">
+<div  style="max-width:640px;text-align:center;" id="adv"></div>
+	<div class="main" id="main">
+		<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+		<input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+		[#postarg#]
+		<h1 style="font-family:'Microsoft YaHei';font-weight:900;">欢迎使用无限余姚免费无线网络</h1>
+		<h2 style="padding-top: 7px;font-family:'Microsoft YaHei';font-weight:900;">welcome to i-yuyao’s free wifi</h2>
+		<div class="slider">
+			<div class="idx-focus" id="j_idx_focus">
+				<div class="idx-foc-tmp">
+					<ul class="focus-pic" rel="xtaberItems">
+						<li class="xtaber-item" id="xtaber-item1">
+							<img src="/images/yuyao/1.png"/>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	
+		<div class="content">
+		
+			<div class="form-groups">
+				
+				<h3 style="color:#283d05;"><b>登陆密码获取</b> login password obtain</h3>
+				<div class="form get-password">
+					<div class="form-item" style="color:#283d05;">
+						<label>
+							<b>手机号码</b>mobile
+						</label>
+						<input type="text" class="text" id="username" name="username">
+					</div>
+					<div class="form-item buttons" id="getCode">
+						<a href="javascript:;" class="button" id="gpss" onclick ="getpasswd();">获取密码</a>
+						<a href="javascript:;" class="button" onclick ="getpasswd();">obtail the password</a>
+					</div>
+					<div class="form-item buttons" id="codeTishi" style="display: none;">
+						<a href="javascript:;" class="button" onclick ="getpasswd();" id="tishi"></a>
+					</div>
+				</div>
+
+				<h3 style="color:#283d05;"><b>登陆无线网络</b> login in wireless network</h3>
+				<div class="form login-network">
+					<div class="form-item" style="color:#283d05;">
+						<label>
+							<b>登陆密码</b>password
+						</label>
+						<input type="password" class="text" id="password" name="password">
+					</div>
+					<span role="alert" class="errormsg" id="errormsg"></span>
+					<div class="form-item buttons">
+						<a href="javascript:;" class="button" name="signIn" onclick ="return spylogin();">登 陆</a>
+						<a href="javascript:;" class="button" name="signIn" onclick ="return spylogin();">login</a>
+					</div>
+				</div>
+				
+			</div>
+		
+		<div class="copyright" style="color:#283d05;">上海安晟广告传媒有限公司</div>
+		</div>
+			<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+		</form>
+	</div>
+</body>
+
+<!-- 
+<script>
+document.write = function(html_txt){
+		var txt = html_txt.split('_');
+		$("#xtaber-item1").html(txt[0]);
+		$("#xtaberTabItem1").html(txt[0]);
+		$("#xtaber-item2").html(txt[1]);
+		$("#xtaberTabItem2").html(txt[1]);
+		$("#xtaber-item3").html(txt[2]);
+		$("#xtaberTabItem3").html(txt[2]);
+		$("#xtaber-item4").html(txt[3]);
+		$("#xtaberTabItem4").html(txt[3]);
+		$("#xtaber-item5").html(txt[4]);
+		$("#xtaberTabItem5").html(txt[4]);
+		$("#xtaber-item6").html(txt[5]);
+		$("#xtaberTabItem6").html(txt[5]);
+		$("#adv").html(txt[6]);
+	}
+</script>
+<script type="text/javascript" src="http://adv1.ansunad.com/renzheng/cpm/ad/getall?mobile=[$uname$]&city=nbyy&xclientip=[$xclientip$]"></script>
+-->
+<!--script  type="text/javascript">
+
+var req;
+var req0;
+var smssendreturn;
+
+var T = 60;  
+var handle = null;  
+//document.getElementById ("getCode").onclick = countDown;  
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}		      
+function countDown() {
+	document.getElementById ("errormsg").innerHTML ="";
+	if(T == 0){
+		clearTimeout(handle);  
+		handle = null;  
+		$("#getCode").show();
+		$("#codeTishi").hide();
+		T = 60;
+	}else{  
+		$("#getCode").hide();
+		$("#tishi").html(T + "秒后可重新获取");
+		$("#codeTishi").show();
+		T --;  
+		handle = handle ? handle : setInterval(arguments.callee, 1000);  
+	}  
+} 
+//获取短信验证码				
+function sednsms(){		
+	var uname=gaia_loginform.username.value;
+	if(uname=="" ){
+		document.getElementById ("errormsg").innerHTML ="手机号码不能为空";
+		return;
+	}
+	//调用短信接口
+	if(uname.length!=11){
+		document.getElementById ("errormsg").innerHTML ="手机号格式不对";
+		return;
+	}
+	if(chk(uname)!='0'){
+		document.getElementById ("errormsg").innerHTML ="请输入正确地手机号";
+		 return;
+	}
+	
+	//document.getElementById("ifhide").src=temp_html;	
+	countDown();
+}
+        
+				
+function creatReq()
+{	
+	  var pwd=gaia_loginform.password.value;
+	  var uname=gaia_loginform.username.value;
+ 
+	  if(uname=="" ){
+		document.getElementById ("errormsg").innerHTML ="用户不能为空";
+		return;
+	  }
+	  if(pwd=="" ){
+		document.getElementById ("errormsg").innerHTML ="密码不能为空";
+		return;
+	  }
+	  
+
+	  //登陆跳转
+   
+}
+</script-->
+</html>

@@ -1,0 +1,373 @@
+// 楼层
+drop table if exists ncmmall;  
+create table ncmmall (
+    fid        int unsigned auto_increment primary key,
+    groupid    int  ,                                    -- 类别编码
+    name       char(32),                                 -- 名称
+    imgpath    char(128),                                -- 图片路径
+    detail     text,                                     -- 描述
+    flags      int  default 0                            -- 
+);
+ 
+insert into ncmmall(groupid,name,flags) values(0,"楼层详情",0);
+insert into ncmmall(groupid,name,flags) values(1,"商品分类",0);
+insert into ncmmall(groupid,name,flags) values(2,"促销优惠",0);
+insert into ncmmall(groupid,name,flags) values(3,"个人中心",0);
+ 
+insert into ncmmall(groupid,name,flags,detail) values(0,"B2层",1,"停车场");
+insert into ncmmall(groupid,name,flags,detail) values(1,"B1层",1,"食品超市");
+insert into ncmmall(groupid,name,flags,detail) values(2,"一层",1,"奢侈品，化妆品，珠宝");
+insert into ncmmall(groupid,name,flags,detail) values(3,"二层",1,"衣服，包包，女装");
+insert into ncmmall(groupid,name,flags,detail) values(4,"三层",1,"男装，皮鞋");
+insert into ncmmall(groupid,name,flags,detail) values(5,"四层",1,"电器，家具");
+insert into ncmmall(groupid,name,flags,detail) values(6,"五层",1,"床上用品");
+insert into ncmmall(groupid,name,flags,detail) values(7,"六层",1,"大食代，电影院");
+ 
+
+insert into ncmmall(groupid,name,flags) values(0,"B2层",1);
+insert into ncmmall(groupid,name,flags) values(1,"B1层",1);
+insert into ncmmall(groupid,name,flags) values(2,"一层",1);
+insert into ncmmall(groupid,name,flags) values(3,"二层",1);
+insert into ncmmall(groupid,name,flags) values(4,"三层",1);
+insert into ncmmall(groupid,name,flags) values(5,"四层",1);
+insert into ncmmall(groupid,name,flags) values(6,"五层",1);
+insert into ncmmall(groupid,name,flags) values(7,"六层",1);
+insert into ncmmall(groupid,name,flags) values(8,"七层",1);
+insert into ncmmall(groupid,name,flags) values(9,"八层",1);
+insert into ncmmall(groupid,name,flags) values(10,"九层",1);
+insert into ncmmall(groupid,name,flags) values(11,"十层",1);
+
+insert into ncmmall(groupid,name,flags) values(0,"00:00:00",3);
+insert into ncmmall(groupid,name,flags) values(1,"00:30:00",3);
+insert into ncmmall(groupid,name,flags) values(2,"01:00:00",3);
+insert into ncmmall(groupid,name,flags) values(3,"01:30:00",3);
+insert into ncmmall(groupid,name,flags) values(4,"02:00:00",3);
+insert into ncmmall(groupid,name,flags) values(5,"02:30:00",3);
+insert into ncmmall(groupid,name,flags) values(6,"03:00:00",3);
+insert into ncmmall(groupid,name,flags) values(7,"03:30:00",3);
+insert into ncmmall(groupid,name,flags) values(8,"04:00:00",3);
+insert into ncmmall(groupid,name,flags) values(9,"04:30:00",3);
+insert into ncmmall(groupid,name,flags) values(10,"05:00:00",3);
+insert into ncmmall(groupid,name,flags) values(11,"05:30:00",3);
+insert into ncmmall(groupid,name,flags) values(12,"06:00:00",3);
+
+insert into ncmmall(groupid,name,flags) values(13,"06:30:00",3);
+insert into ncmmall(groupid,name,flags) values(14,"07:00:00",3);
+insert into ncmmall(groupid,name,flags) values(15,"07:30:00",3);
+insert into ncmmall(groupid,name,flags) values(16,"08:00:00",3);
+insert into ncmmall(groupid,name,flags) values(17,"08:30:00",3);
+insert into ncmmall(groupid,name,flags) values(18,"09:00:00",3);
+insert into ncmmall(groupid,name,flags) values(19,"09:30:00",3);
+insert into ncmmall(groupid,name,flags) values(20,"10:00:00",3);
+insert into ncmmall(groupid,name,flags) values(21,"10:30:00",3);
+insert into ncmmall(groupid,name,flags) values(22,"11:00:00",3);
+insert into ncmmall(groupid,name,flags) values(23,"11:30:00",3);
+insert into ncmmall(groupid,name,flags) values(24,"12:00:00",3);
+insert into ncmmall(groupid,name,flags) values(25,"12:30:00",3);
+insert into ncmmall(groupid,name,flags) values(26,"13:00:00",3);
+insert into ncmmall(groupid,name,flags) values(27,"13:30:00",3);
+insert into ncmmall(groupid,name,flags) values(28,"14:00:00",3);
+insert into ncmmall(groupid,name,flags) values(29,"14:30:00",3);
+insert into ncmmall(groupid,name,flags) values(30,"15:00:00",3);
+insert into ncmmall(groupid,name,flags) values(31,"15:30:00",3);
+insert into ncmmall(groupid,name,flags) values(32,"16:00:00",3);
+insert into ncmmall(groupid,name,flags) values(33,"16:30:00",3);
+insert into ncmmall(groupid,name,flags) values(34,"17:00:00",3);
+insert into ncmmall(groupid,name,flags) values(35,"17:30:00",3);
+insert into ncmmall(groupid,name,flags) values(36,"18:00:00",3);
+insert into ncmmall(groupid,name,flags) values(37,"18:30:00",3);
+insert into ncmmall(groupid,name,flags) values(38,"19:00:00",3);
+insert into ncmmall(groupid,name,flags) values(39,"19:30:00",3);
+insert into ncmmall(groupid,name,flags) values(40,"20:00:00",3);
+insert into ncmmall(groupid,name,flags) values(41,"20:30:00",3);
+insert into ncmmall(groupid,name,flags) values(42,"21:00:00",3);
+insert into ncmmall(groupid,name,flags) values(43,"21:30:00",3);
+insert into ncmmall(groupid,name,flags) values(44,"22:00:00",3);
+insert into ncmmall(groupid,name,flags) values(45,"22:30:00",3);
+insert into ncmmall(groupid,name,flags) values(46,"23:00:00",3);
+insert into ncmmall(groupid,name,flags) values(47,"23:30:00",3);
+
+
+
+-- 商品大类名称
+drop table if exists ncmcomgroup;  
+create table ncmcomgroup (
+    groupid    int  primary key,           -- 类别编码
+    name       char(32),                   -- 商品大类名称
+    descr      char(128) default ' ',      -- 描述
+    systime    int unsigned,               -- 加入时间
+    imgpath    char(128),                  -- 图片路径
+    flags      int  default 0              -- 
+);
+
+
+
+-- 商品小类名称
+drop table if exists ncmcomtype;  
+create table ncmcomtype (
+    sid        int  primary key,           -- 类别编码
+    name       char(32),                   -- 商品小类名称
+    groupid    int  default 0,             -- 分类编码
+    descr      char(128) default ' ',      -- 描述
+    systime    int unsigned,               -- 加入时间
+    imgpath    char(128),                  -- 图片路径
+    flags      int  default 0              -- 
+);
+
+
+-- 商标细表
+drop table if exists ncmcomindex;
+create table ncmcomindex (
+    sid        int  primary key,                -- 商标ID
+    name       char(32) default ' ',            -- 商标名称
+    sgroupid   int  default 0,                  -- 分类编码
+    descr      char(128) default ' ',           -- 描述
+    imgpath    char(128),                       -- 图片路径
+    serno      char(32),                        -- 商标序列号
+    floor      char(32),                        -- 楼层
+    level      int unsigned default 0,          -- 广告优先级
+    plevel     int unsigned default 0,          -- 促销优先级
+    type       int unsigned default 0,          -- 1 广告 2 品牌 3促销  4视频
+    systime    int unsigned,                    -- 加入时间
+    shopid     int unsigned default 0,          -- 商店id
+    flags      int  default 0                   -- 
+);
+
+Select i.sid, i.name, t.name, s.name from ncmcomindex i left join ncmcomt
+ype t on i.sgroupid = t.sid left join ncmshop s on i.shopid = s.id;
+
+
+
+-- 商品细表
+drop table if exists ncmcomodity;
+create table ncmcomodity (
+    sid          int  primary key,                -- 商品ID
+    name         char(32) default ' ',            -- 商品名称
+    dispname     char(32) default ' ',            -- 商品显示名称
+    servicecode char(16) ,                        -- 场所代码
+    sgroupid     int  default 0,                  -- 商标编码
+    groupid      int  default 0,                  -- 分类编码
+    shgroupid    int  default 0,                  -- 商店id
+    imgpath      char(128),                       -- 图片路径        
+    shopname     char(32) default ' ',            -- 商店名称
+    shimgpath    char(128),                       -- 商店图片
+    factory      char(32) default ' ',            -- 厂家
+    type         char(128),                       -- 商品型号
+    url          char(255),                       -- 网址
+    floor        char(32),                        -- 楼层
+    fldetail     char(255),                       -- 楼层介绍
+    fee          float(10,2) default 0,           -- 售价
+    discount     float(10,2) default 0,                  -- 折扣   
+    code         char(12) default '',             -- 国内区号/国家代码
+    tel          char(32) default '',             -- 电话
+    address      char(255) default ' ',           -- 地址
+    reserve      int unsigned,                    -- 库存
+    active       char(64) default ' ',            -- 是否参与活动
+    plevel       int unsigned default 0,          -- 活动优先级
+    level        int unsigned default 0,          -- 广告优先级
+    descr        char(255) default ' ',           -- 简述
+    detail       text ,                           -- 描述
+    integral     int unsigned default 0,          -- 积分    
+    coupon       int unsigned default 0,          -- 优惠券    
+　　systime      int unsigned,                    -- 加入时间
+　　atype        int unsigned default 0,          -- 关注 默认0  关注 1
+    flags        int  default 0                   -- 0默认存在  1 删除   
+);
+
+
+
+-- 商店表
+drop table if exists ncmshop;
+create table ncmshop (
+    id           int  primary key,                 -- 商店ID
+    name         char(32) default ' ',             -- 商店名称
+    service_code char(16) ,                        -- 场所代码
+    sgroupid     int  default 0,                   -- 分类编码
+    imgpath      char(128),                        -- 图片路径
+    floor        char(32),                         -- 楼层
+    url          char(255),                        -- 网址
+    code         char(12) default '',              -- 国内区号/国家代码
+    tel          char(32) default '',              -- 电话
+    address      char(255) default ' ',            -- 地址
+    level        int unsigned default 0,           -- 广告优先级
+    plevel       int unsigned default 0,           -- 促销优先级
+    type         int unsigned default 0,           -- 1 广告 2 品牌
+    stype        int unsigned default 0,           -- 商店类型
+    descr        char(255) default ' ',            -- 简述
+    detail       text ,                            -- 描述
+    systime      int unsigned,                     -- 加入时间
+    flags        int  default 0                    -- 
+);
+
+
+
+-- 商城用户信息
+drop table if exists ncmshopuser;
+create table if not exists ncmshopuser (
+    uid                int  primary key,                -- 商城用户id
+    username           char(32)  default '',            -- 用户登录名
+    dispname           char(32)  default '',            -- 显示名
+    groupname          char(16)  default '',            -- 用户组
+    proname            char(16)  default '',            -- Portal名称
+    usermac            char(18)  default '',            -- 用户MAC
+    password           char(32)  default '',            -- 密码
+    nickname           char(32)  default '',            -- 昵称
+    membernum          char(32)  default '',            -- 会员号
+    integral           int unsigned default 0,          -- 积分
+    coupon             int unsigned default 0,          -- 优惠券
+    address            char(128) default '',            -- 地址
+    decript            text,                            -- 个人关注
+    lcount             int unsigned default 0,          -- 访问次数
+    imgpath            char(128),                       -- 图片路径
+    addtime            int unsigned default 0,          -- 加入时间
+    lasttime           int unsigned default 0,          -- 最后访问时间
+    flags              int                              -- 0--没有访问  1--已经访问过
+);
+
+
+
+-- 用户消费表drop table if exists ncmconsump;
+create table if not exists ncmconsump (
+    cid                int  primary key,                -- id
+    username           char(32)  default '',            -- 用户登录名
+    dispname           char(32)  default '',            -- 显示名
+    usermac            char(18)  default '',            -- 用户MAC
+    sname              char(64)  default '',            -- 商品名称
+    sid                int unsigned default 0,          -- 商品id
+    fee                float(10,2) default 0,           -- 售价
+    date               int unsigned default 0,          -- 消费日期
+    uid                int unsigned default 0,          -- 用户id
+    lasttime           int unsigned default 0           -- 最后访问时间
+);
+
+
+
+-- 商城用户关注       品牌
+drop table if exists ncmshopattent;
+create table if not exists ncmshopattent (
+    id                 int  primary key,                -- id
+    servicecode        char(16)  ,                      -- 场所代码
+    username           char(32)  ,                      -- 用户登录名
+    uid                int unsigned default 0,          -- 用户id
+    aid                int unsigned default 0,          -- 活动id 
+    sid                int unsigned default 0,          -- 商标(品牌id)
+    shopid             int unsigned default 0,          -- 商店id
+    integral           int unsigned default 0,          -- 积分
+    decript            text,                            -- 描述
+    imgpath            char(128),                       -- 图片路径
+    addtime            int unsigned default 0,          -- 关注时间                 
+    lasttime           int unsigned default 0,          -- 最后访问时间                
+    flags              int                              -- 0--  1--删除
+);
+
+
+
+-- 商城用户收藏   
+drop table if exists ncmshopcollect;
+create table if not exists ncmshopcollect (
+    id                 int  primary key,                -- id
+    servicecode        char(16)  ,                      -- 场所代码
+    username           char(32)  ,                      -- 用户登录名
+    nickname           char(32)  default '',            -- 昵称
+    membernum          char(32)  default '',            -- 会员号
+    uid                int unsigned default 0,          -- 用户id
+    sid                int unsigned default 0,          -- 商品id
+    aid                int unsigned default 0,          -- 活动id
+    imgpath            char(128),                       -- 图片路径
+    decript            text,                            -- 描述
+    addtime            int unsigned default 0,          -- 收藏时间                  
+    lasttime           int unsigned default 0,          -- 最后访问时间                 
+    flags              int                              -- 0--  1--删除
+);
+
+
+
+-- 商城活动表
+drop table if exists ncmactive;
+create table if not exists ncmactive (
+    id                 int  primary key,                -- id
+    servicecode        char(16)  ,                      -- 场所代码
+    aname              char(64)  ,                      -- 活动名称
+    shopid             int unsigned default 0,          -- 品牌id
+    sid                int unsigned default 0,          -- 商品id
+    cid                int unsigned default 0,          -- 优惠劵id
+    discount           float(10,2) default 0,           -- 折扣
+    address            char(255) default ' ',           -- 活动地址
+    decript            text,                            -- 活动描述
+    imgpath            char(128),                       -- 图片路径
+    plevel             int unsigned default 0,          -- 活动优先级
+    type               int unsigned default 0,          -- 图片层次 1 第一个 2 点进去图片
+    xid                int unsigned default 0,          -- 系列id  
+    stime              int unsigned default 0,          -- 开始时间    
+    etime              int unsigned default 0,          -- 结束时间            
+    flags              int  default 0                   -- 0--  1--删除
+);
+
+
+
+-- 优惠券表
+drop table if exists ncmcoupon;
+create table if not exists ncmcoupon (
+    cid                int  primary key,                -- id
+ --   servicecode        char(16)  ,                      -- 场所代码
+--    username           char(32)  ,                      -- 用户登录名
+--    aid                int unsigned default 0,          -- 活动id 
+ --   aname              char(32)  default '',            -- 活动名
+--    serno              char(32)  default '',            -- 优惠劵编码 md5值
+--    sname              char(64)  default '',            -- 商品名称
+    fee                float(10,2) default 0,           -- 面值
+    counum             int unsigned default 0,          -- 发行数量
+    addtime            int unsigned default 0,          -- 发行时间
+--    feetime            int unsigned default 0,          -- 消费日期
+--    uid                int unsigned default 0,          -- 用户id
+--    sid                int unsigned default 0,          -- 商品id
+    imgpath            char(128),                       -- 图片路径
+    effetime           int unsigned default 0           -- 有效期
+);
+
+insert into ncmcoupon(cid,fee,counum,addtime,imgpath,effetime) values
+(1,10,100,1386082809,"/images/suning/10.jpg",1388102809),
+(2,50,0,1386082809,"/images/suning/50.jpg",1388102809),
+(3,100,10,1386082809,"/images/suning/100.jpg",1388102809),
+(4,200,10,1386082809,"/images/suning/200.jpg",1388102809),
+(5,500,10,1386082809,"/images/suning/500.jpg",1388102809),
+(6,1000,10,1386082809,"/images/suning/1000.jpg",1388102809);
+
+
+
+-- 优惠劵使用表
+drop table if exists ncmcouponuse;
+create table if not exists ncmcouponuse (
+    id                 int  auto_increment primary key, -- id
+    servicecode        char(16)  ,                      -- 场所代码
+    username           char(32)  ,                      -- 用户登录名
+    aid                int unsigned default 0,          -- 活动id 
+    aname              char(32)  default '',            -- 活动名
+    serno              char(32)  default '',            -- 优惠劵编码 md5值
+    usermac            char(18)  default '',            -- 用户MAC
+    sname              char(64)  default '',            -- 商品名称
+    feetime            int unsigned default 0,          -- 消费日期
+    uid                int unsigned default 0,          -- 用户id
+    sid                int unsigned default 0,          -- 商品id
+    cid                int unsigned default 0,          -- 优惠劵id
+    imgpath            char(128),                       -- 图片路径
+    systime            int unsigned default 0,          -- 加入时间
+    flags              int unsigned default 0           -- 0--  1--删除
+);
+
+
+
+商品分类图 600*450
+商标图 200*120
+商品图 600*400
+
+广告
+5: 400*240
+6 7 8:  200*120
+
+促销
+5: 400*240
+6 7 8:  200*120
+
+优惠劵 500*100
+

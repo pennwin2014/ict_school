@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/css/flexslider1.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>
+<title>同济医院</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap {
+	width:1024px;
+	margin:0 auto;
+}
+.logo_wrap {
+	width:1024px;
+	margin:0 auto;
+}
+.main_left {
+	background:#f3f3f3;
+	min-height:416px;
+	width:560px;
+	float:left;
+}
+.main_right {
+	background:#f3f3f3;
+	float:left;
+	width:463px;
+	min-height:416px;
+	border-left:1px solid #409f97;
+}
+.left_top {
+	width:70%;
+	margin:0 auto;
+}
+.left_bottom {
+	width:100%;
+	margin:0 auto;
+	color:#333;
+	font-size:14px;
+}
+.left_bottom p{line-height:22px;}
+.username {
+	text-indent:4px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	border:1px solid #409f97;
+	width:100%;
+	height:30px;
+	line-height:30px;
+	color:#999;
+}
+.password {
+	text-indent:4px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	border:1px solid #409f97;
+	width:100%;
+	height:30px;
+	line-height:30px;
+	color:#999;
+}
+.phone_num {
+	text-indent:4px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	border:1px solid #409f97;
+	width:100%;
+	height:30px;
+	line-height:30px;
+	color:#999;
+}
+.btn_ok1 {
+	cursor:pointer;
+	width:60%;
+	height:36px;
+	line-height:36px;
+	border:none;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #409f97), color-stop(1, #409f97));/*谷歌浏览器渐变*/
+ filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#409f97", EndColorStr="#409f97");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #409f97 10%, #409f97 100%);/*火狐内核渐变*/
+	color:#fff;
+	font-size:16px;
+}
+.top img {
+	width:100%;
+}
+.right_p1{ text-align:center;}
+.right_p2{ margin-top:30px; border-top:1px solid #409f97; padding-top:20px;}
+.right_p2 img{ margin-left:2px; cursor:pointer; width:52px;}
+</style>
+<script language="javascript" src="https://1.1.1.1/loginscript.js"></script>
+<script>
+function checkUserStatus(){
+// Check Illegal Access of logout Page
+// if userStatus == 0, it means user hasn't logged in
+// so just redirect the user to login.html page
+    if(document.forms[0].userStatus.value == 0){
+        location.href = "login.html";
+    }
+}
+</script>
+</head>
+
+<body onload="init();">
+<div style="width:100%; height:59px; background:#409f97;">
+  <div class="logo_wrap"><img src="/images/tongji/logo.png" /></div>
+</div>
+<div class="wrap">
+  <form method="post" action="https://1.1.1.1/logout.html">
+  <div class="top"> <img src="/images/tongji/pc_top.png" /> </div>
+  <div class="main">
+    <div class="main_left">
+      <div class="left_top">
+        <div class="left_bottom" id="bo">
+          <p style="height:70px;"></p>
+         <p style="text-align:center; font-size:24px;">您已经成功登录</p>
+          <p style="height:20px;"></p>
+         <p style="text-align:center; font-size:24px;">同济医院的免费无线wifi！</p>
+          <p style="height:30px;"></p>
+         <p style="text-align:center; color:#666; font-size:14px;">上网时间为：2小时</p>
+          <p style="height:30px;"></p>
+         <p  style="text-align:center;"> <a style="display:none;"><script>getHtmlForButton("Logout","Logout","button","document.forms[0].submit()"); </script></a><input type="button" name="Logout" value="退出上网" class="btn_ok1" onClick="document.forms[0].submit()"></p>
+        </div>
+        <p style="height:20px;"></p>
+      </div>
+    </div>
+    <div class="main_right">
+      <div style="width:70%; margin:0 auto;">
+        <p style="height:70px;"></p>
+		<div>
+        	<p class="right_p1" ><img src="/images/tongji/jinrizhuanjia.png" /></p>
+            <p class="right_p2"><img src="/images/tongji/tongjitijian.png" /><img src="/images/tongji/zhuanjia.png" /><img src="/images/tongji/yuyue.png" /><img src="/images/tongji/jiuyi.png" /><img src="/images/tongji/baogao.png" /><img src="/images/tongji/manyidu.png" /></p>
+        </div>
+      </div>
+    </div>
+  </div>
+   <input type="hidden" name="userStatus" size="16" maxlength="15" value="1">
+  <input type="hidden" name="err_flag" size="16" maxlength="15" value="0">
+  <input type="hidden" name="err_msg" size="32" maxlength="31" value="">
+  </form>
+</div>
+</body>
+</html>

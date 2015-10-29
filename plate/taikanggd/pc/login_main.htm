@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/css/flexslider1.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>
+<title>无标题文档</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap {
+	width:1024px;
+	margin:0 auto;
+	background:#f3f3f3;
+}
+
+.main_left {
+	background:#f3f3f3;
+	min-height:416px;
+	width:560px;
+	float:left;
+}
+
+.left_top {
+	width:70%;
+	margin:0 auto;
+}
+.left_bottom {
+	width:80%;
+	margin:0 auto;
+	color:#666;
+	font-size:14px;
+	border-top:1px dashed #CCC;
+	display:none;
+}
+.btn_ok {
+	cursor:pointer;
+	width:150px;
+	height:28px;
+	line-height:28px;
+	border:none;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #0066cc), color-stop(1, #0066cc));/*谷歌浏览器渐变*/
+    filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#0066cc", EndColorStr="#0066cc");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #0066cc 10%, #0066cc 100%);/*火狐内核渐变*/
+	color:#fff;
+	margin-left:60px;
+}
+.username {
+	color:#666;
+	text-indent:5px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	 border:1px solid #666;
+	 height:22px;
+	 line-height:22px;
+	 width:220px;
+}
+.password {
+	color:#666;
+	text-indent:5px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	 border:1px solid #666;
+	 height:22px;
+	 line-height:22px;
+	 width:220px;
+}
+#check1 {
+	cursor:pointer;
+}
+img{ border:none;}
+</style>
+<script type="text/javascript">
+	function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp;
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";
+	}
+var p_flag = '1';
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+function getpasswd(){
+		if(p_flag=='0') return false;
+		
+		
+			
+		if(document.getElementById("nclogin").username.value==''||document.getElementById("nclogin").username.value=='账号'){
+		    alert('请输入账号');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('账号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地账号！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&tsid@"+document.getElementById("tsid").value;
+		          
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		p_flag='0';
+    setTimeout('restore()',50000);
+		return false;
+	}
+	
+	var mz=0;
+	function xianshi(){
+	mz=1;
+	document.getElementById("bo").style.display="block";
+	document.getElementById("ok1").style.display="none";
+	document.getElementById("ok2").style.display="block";
+	}
+	function spylogin()
+	{
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="账号"||document.getElementById("password").value==""||document.getElementById("password").value=="密码") 
+		{
+		    window.alert("账号或密码不能为空!");
+			  return false;
+		}
+		if( mz==0)
+		{window.alert("请点击管理细则确认接受管理细则条款和条件！");
+		return false;
+			}
+    document.getElementById("nclogin").submit();
+		/*var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('账号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地账号！');
+		  	return false;
+		}*/
+		
+    return true;
+	}
+		function init()
+	{
+		if('[#statusCode#]' == '2')
+		{
+			document.getElementById('err5').innerHTML = '账号与SSID不匹配。';
+		}	
+		if('[#statusCode#]' == '3')
+		{
+			document.getElementById('err5').innerHTML = '用户账号已过期。';
+		}	
+		if('[#statusCode#]' == '4')
+		{
+			document.getElementById('err5').innerHTML = '您登录的账号在黑名单中。';
+		}	
+		if('[#statusCode#]' == '5')
+		{
+			document.getElementById('err5').innerHTML = '请输入正确的密码。';
+		}	
+		if('[#statusCode#]' == '6')
+		{
+			document.getElementById('err5').innerHTML = '该用户不存在。';
+		}	
+    if('[#statusCode#]' == '7')
+		{
+			document.getElementById('err5').innerHTML = '超出Mac最大绑定数量。';
+		}
+}
+	function mr(){
+		if( document.getElementById("username").value=="账号"){
+			 document.getElementById("username").style.color="#aaa";
+		}
+		if(document.getElementById("password").value="密码"){
+			 document.getElementById("password").style.color="#aaa";
+		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="账号"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+</script>
+</head>
+
+<body onload="init();">
+<div class="wrap">
+  <form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+  <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+  [#postarg#]
+  <div class="top"><img src="/images/taikang/pc-login_r1_c1.jpg" /></div>
+  <div class="banner">
+    <section class="slider">
+      <div class="flexslider">
+        <ul class="slides">
+          <!-- 循环解析广告图片 -->
+         <li> <a href=""><img src="/images/taikang/pc_img/taikang1.jpg"/> </a> </li>
+        <li> <a href=""><img src="/images/taikang/pc_img/taikang2.jpg"/> </a> </li>
+        <li> <a href=""><img src="/images/taikang/pc_img/taikang3.jpg"/> </a> </li>
+        <li> <a href=""><img src="/images/taikang/pc_img/taikang4.jpg"/> </a> </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+  <div class="main">
+    <div class="main_left">
+      <div class="left_top">
+        <p style="height:30px;"></p>
+        <p>
+        <p style="width:60px; height:22px; line-height:22px;  float:left;">账号：</p>
+        <input type="text" value="账号" id="username" name="username" class="username" onFocus="if(document.getElementById('nclogin').username.value=='账号'){this.value=''; this.style.color='#000';document.getElementById('err5').style.display='none';}" />
+        <!--&nbsp;&nbsp;<input style="cursor:pointer;" type="button" id="gpss" onClick="getpasswd();" class="btn_hq" value="获取密码" /></p>-->
+        <p style="height:10px;"></p>
+        <p>
+        <p style="width:60px; height:22px; line-height:22px; float:left;">密码：</p>
+        <input type="text" value="密码" id="password" name="password" class="password" onFocus="if(document.getElementById('nclogin').password.value=='密码'){this.value=''; this.style.color='#000'; this.type='password';document.getElementById('err5').style.display='none';}" />
+        </p>
+        <p style="height:25px;"></p>
+        <p >
+          <input type="button" class="btn_ok" id="ok1" value="连接上网啦！" onClick="return spylogin();"/>
+        </p>
+        <p style="height:10px;"></p>
+        <p style="font-size:14px; color:#666;">泰康人寿无线网络<a style="font-family:'黑体';font-style:italic; color:#000;  cursor:pointer;" onclick="xianshi();">免责声明</a>。</p>
+        <p style="height:10px;"></p>
+        <div id="err5" style="color:#F00; text-align:center; font-size:12px;"></div>
+        <p style="height:10px;"></p>
+      </div>
+      <div class="left_bottom" id="bo">
+        <p style="height:20px;"></p>
+        <p style="text-align:center; color:#333; font-size:18px;">泰康人寿无线网络管理细则</p>
+        <p style="height:20px;"></p>
+        <p>各位同事：</p>
+        <p style="height:10px;"></p>
+       <p style="text-indent:2em;">1. 无线网络使用人仅限公司内部员工。新员工入司后，经分公司人力资源部审核并办理入司手续后，方可授予WiFi使用账号；</p><p style="text-indent:2em;">
+  2. 任何用户不得将上网帐号转借他人使用，如有违反，将取消其上网帐号；</p><p style="text-indent:2em;">
+3. 无线网络仅供手机、平板电脑等移动设备使用， 笔记本电脑和台式电脑不得接入无线网络使用；</p><p style="text-indent:2em;">
+4. 用户第一次登入无线网络时，系统自动将账号和该设备MAC进行绑定，无特殊原因不得更换；</p><p style="text-indent:2em;">
+5. 每用户仅能使用一台终端接入无线网络；</p><p style="text-indent:2em;">
+6. 所有无线网络用户必须严格遵守国家相关法律，保守公司机密，并对使用互联网的所有行为承担法律责任。</p><p style="text-indent:2em;">
+7. 用户若在网上散布和传播反动、色情或其他违反国家法律的信息；本系统记录有可能作为用户违反法律的证据；</p>
+        <p style="height:10px;"></p>
+        <p style=" text-align:right;">泰康人寿</p>
+        <p style="height:20px;"></p>
+        <p style="padding-left:40px;">
+          <input type="button" class="btn_ok" id="ok2" value="连接上网啦！" onclick="return spylogin();" />
+        </p>
+        <p style="height:10px;"></p>
+      </div>
+    </div>
+    <div class="main_right"><img src="/images/taikang/pc-login_r2_c2.jpg" /></div>
+
+  </div>
+ 
+ <!-- <div class="foot"><img src="/images/taipingyang/pc-login_r3_c1.jpg"/></div>-->
+  <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+  </form>
+</div>
+</body>
+</html>

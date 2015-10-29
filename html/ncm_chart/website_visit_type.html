@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>香港广场管理-统计报表-到店频次统计</title>
+<link rel="stylesheet" type="text/css" href="css/kalendae.css">
+<link rel="stylesheet" type="text/css" href="css/public.css"/>
+<link rel="stylesheet" type="text/css" href="css/statistics.css"/>
+<link rel="stylesheet" type="text/css" href="css/loading.css"/>
+<!-- 使用ExtJS -->
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/js/ext-all.js"></script>
+<script type="text/javascript" src="js/kalendae.standalone.min.js"></script>
+
+<script type="text/javascript" src="js/last_min.js"></script>
+<script type="text/javascript" src="js/nc_data.js"></script>
+<script type="text/javascript" src="js/website_visit_type.js"></script>
+<script type="text/javascript" src="js/loading.js"></script>
+<!--script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="js/shCircleLoader.js"></script-->
+<style type="text/css">
+	.Content,.Date,.l_dataMap{ width:700px;}
+</style>
+</head>
+<body>
+	<form id="formfrequency" action="/pronline/Msg?FunName@ncm_web_Place_smslog_count" method="post">
+		<input type="hidden" id="sdate" name="sdate"/>
+		<input type="hidden" id="edate" name="edate"/>
+		<input type="hidden" id="is_export" name="is_export"/>
+		</form>
+    <div class="loading">
+        <div id="background" class="background"></div>
+        <div id="loader" class="loader"></div>
+    </div>
+    
+	<div class="Pro_Sys">
+	
+		
+		<!---------------Content--------------->
+		<div class="Content">
+        
+        	
+        	<div class="clear"></div>
+            
+            <div class="top_data">
+            	<!--date-->
+               	<div class="Date">
+                    <div class="Start_data ">
+                                  <label class="data_tit">开始日期：</label><input class="auto-kal" id="start_txt" type="text" value="" readonly="readonly"/>
+                                  <img class="data_img" src="js/data_ico_33.jpg" alt="开始日期" />
+                                 
+                  </div>
+                    <div class="Stop_data">
+                        <label class="data_tit">结束时间：</label><input class="auto-kal" id="stop_txt" type="text" value="" readonly="readonly"/>
+                                  <img class="data_img" src="js/data_ico_33.jpg" alt="结束时间" />
+                                
+                  </div>
+                </div>
+                
+            </div>
+            
+            <div class="clear10"></div>
+             
+            <div class="clear10"></div>
+            
+            <div class="l_dataMap">
+                <div class="l_StatisticsMap">
+                	<h4>访问网站类型
+                        <a class="select" href="javascript:void(0)"><img onclick="reflash();" src="js/update_03.jpg" /></a>
+                        <!--img class="derive" onclick="Loadexport()" src="js/derive.jpg" width="45" height="20" /-->
+                    </h4>
+                    <div class="t_Map">
+                       
+                       	<div class="clear10"></div>
+                        <div id="pie" class="pie" style="height:360px;"></div>
+                    </div>
+                    
+                    <div class="index_statis">
+                    	<h4>访问类型</h4> 
+                    	<div class="btn">
+                            <span>    						
+                                <span>(第<span id="nowPageNum">0</span>页，共</span><span id="allPageNum">0</span>页)</span>
+                                <a class="first"  onclick="Navigate(0)"><img src="js/first_09.png" width="28" height="24" /></a>
+                                <a class="prev"  onclick="Navigate(-1)"><img src="js/prev.png" width="28" height="24" /></a>			
+                                <a class="last"  onclick="Navigate(2)"><img src="js/last.png" width="28" height="24" /></a>
+                                <a class="next"  onclick="Navigate(1)"><img src="js/next_09.png" width="28" height="24" /></a>
+                                <!--div class="select_list1 fright">
+                                    <select>
+                                        <option>123456789</option>
+                                        <option>123456789</option>
+                                        <option>123456789</option>
+                                        <option>123456789</option>
+                                    </select>
+                                </div-->
+                            </span>
+                        </div>
+                        <div class="clear"></div>
+                        <table id="user_count" class="user_count" cellpadding="0" cellspacing="0">
+                        	
+                           
+                        </table>
+                	</div>
+                </div>
+            </div>
+            
+            
+           
+            <div class="clear"></div>
+		</div>
+		
+		<!-----------end Content--------------->
+        
+		<div class="clear"></div>
+        <!-------footer------->
+        <!--div class="footer">
+            <div class="right_link fright">
+                <a href="#" target="_blank"><img src="../images/daying_45.png" width="16" height="14" />打印</a>&nbsp;&nbsp;&nbsp;
+                <a href="#" target="_self"><img src="../images/fanhui_45.png" width="13" height="14" />返回顶部</a>
+            </div>
+            <div class="clear"></div-->
+            <!--div class="footer_log">
+                <p>服务器响应时间：0.96秒</p>
+                <h4>上海新网程信息技术股份有限公司</h4>
+                <img src="../images/footer_log_45.jpg" width="132" height="25" />
+            </div-->
+        </div>
+        <!-------end footer----------->
+        
+	</div>
+
+</body>
+</html>

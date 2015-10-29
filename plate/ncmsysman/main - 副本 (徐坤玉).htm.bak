@@ -1,0 +1,225 @@
+﻿<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>中国电信登录门户管理系统</title>
+<!-- <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>  -->
+
+<script type="text/javascript" src="/newver/ext-4.2.1.883/ext-all.js"></script> 
+<link rel="stylesheet" type="text/css" href="/newver/ext-4.2.1.883/resources/css/ext-all.css" />  
+
+<!-- <link rel="stylesheet" type="text/css" href="/newver/ext-4.2.1.883/resources/css/ext-all-access.css" />  -->
+<!-- <link rel="stylesheet" type="text/css" href="/newver/ext-4.2.1.883/resources/css/ext-all-gray.css" />  -->
+
+<!-- <link rel="stylesheet" type="text/css" href="/newver/ext-4.2.1.883/resources/css/ext-all-neptune.css" /> -->
+
+<!-- <link rel="stylesheet" type="text/css" href="[#skintheme#]" /> -->
+
+<script type="text/javascript" src="/newver/ext-4.2.1.883/locale/ext-lang-zh_CN.js"></script> 
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/toolbars.css" />
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/wubin.css" />
+
+<style type="text/css">
+
+</style>
+  
+<script type="text/javascript">
+    var ncapp;
+    function dhsrc(url,title,id){
+	      var obj = {
+		      	srcurl:url,
+		      	text:title,
+		      	itemid:id
+	      };
+	     	ncapp.onItemClick(obj);
+    }
+       
+    Ext.Loader.setConfig({enabled: true});	// 开启异步加载模式
+    Ext.Loader.setPath('Ext.ux', '/newver/ux/');	// 设置文件寻找的映射目录
+ 
+    // Ext.Loader.setPath('Ext.app', 'classes');
+	// Loads all classes by the given names and all their direct dependencies; optionally executes the given callback function when finishes, within the optional scope.
+    Ext.require([
+		    'Ext.tip.QuickTipManager',
+		    'Ext.container.Viewport',
+		    'Ext.layout.*',
+		    'Ext.form.Panel',
+		    'Ext.form.Label',
+		    'Ext.grid.*',
+		    'Ext.data.*',
+		    'Ext.tree.*',
+		    'Ext.panel.*',
+		    'Ext.toolbar.*',
+		    'Ext.button.*',
+		    'Ext.selection.*',
+		    'Ext.tab.Panel',
+		    'Ext.tab.*',
+		    'Ext.ux.TabCloseMenu',
+		    'Ext.ux.layout.Center',
+		    'Ext.chart.*',
+		    'Ext.ux.statusbar.StatusBar'
+		]);
+        
+    var fptest = Ext.create('Ext.FormPanel', { 
+    });
+    var wintest='';
+    var timeout_count=0;
+
+    function testright(){
+				fptest.getForm().doAction('submit',{
+				    url:'/pronline/Msg',
+				    method:'post',
+				    params:{FunName:'ncsTestRight_v4'},
+				
+				    success:function(form,action){                
+				  			timeout_count=0;
+				 		    var msgaa=action.result.reason;
+				 		    if(msgaa=='license'){
+				 		    		if(!wintest){
+				 	           		msgaa=action.result.id;
+				          			wintest=Ext.create('Ext.Window', {
+										       	title: '系统提示',
+										       	id:'wintest',     
+										 				//header:false,
+										        width: 250,
+										        x:600,
+										        y:210,
+										        height: 90,
+										        closable: true,
+										        modal: false,
+										  			//closeAction: 'hide',
+										        bodyPadding: 10,
+										        html:msgaa
+								    		});
+				            		wintest.show();
+				           	}
+				 		    }
+				    },
+				   	failure:function(form,action){
+				   			timeout_count++;
+				   		 	if(timeout_count>5) return;
+				   		  if(!wintest){
+				        		wintest=Ext.create('Ext.Window', {
+								        title: '系统提示',
+								        id:'wintest',     
+									 			//header:false,
+								        width: 250,
+								        x:600,
+								        y:210,
+								        height: 90,
+								        closable: true,
+								        modal: false,
+									  		//closeAction: 'hide',
+								        bodyPadding: 10,
+								        html:'登录超时，请重新登录！'
+									  });
+							      wintest.on("beforeclose", function() {
+				               	self.location='/enter.html';
+				            });
+									  wintest.show();
+				        } 
+				 		}
+				})
+    }
+    
+		var groupid='';
+		var userid=''; 
+		var dxtitle='';
+		var bStart=0;
+		var new_params;
+		Ext.onReady(function(){
+				Ext.QuickTips.init();
+				
+				ncapp = new ncViewer.App();
+				// ncapp = new ncViewer_taibao.App();
+				setInterval('testright()',8000000);   
+				// alert(222);
+				
+				//setTimeout("Ext.getCmp('header').collapse()",10000); 
+				accountLimit(username);
+		});
+         
+    function accountLimit(name){//权限显示组件
+				//alert(right_sy+","+right_fun);
+				//alert(right_sy);
+				//alert(right_fun);
+				//alert(right_fun.indexOf("在线信息"))
+				//alert(right_sy.indexOf("在线信息"))
+				if(right_fun.indexOf("在线信息")>=0){
+						if(right_sy.indexOf("在线信息")>=0){
+								Ext.getCmp('page_main').bind(Ext.StoreManager.lookup("store_online_onlineinfo"));  
+								Ext.getCmp('page_main').setVisible(true); 
+								Ext.getCmp("layout_center").add({autoScroll:true,id:'online_onlineinfo',iconCls: 'onlineinfo',border:false,frame:false,title: "在线信息", items:[Ext.create('online.onlineInfo')]});
+						    if(right_sfun.indexOf("在线Mac")>0)Ext.getCmp("layout_center").add({autoScroll:true,id:'online_onlinemac',iconCls: 'onlineinfo',border:false,frame:false,title: "在线Mac"});
+						}
+				}
+				//alert(right_fun.indexOf("AP管理"));
+				
+				if(right_fun.indexOf("在线信息")<0)Ext.getCmp('tb').getComponent('online').destroy();
+				if(right_fun.indexOf("用户管理")<0)Ext.getCmp('tb').getComponent('users').destroy();	
+				//if(right_fun.indexOf("AP管理")<0)Ext.getCmp('tb').getComponent('users_ap').destroy();	
+				if(right_fun.indexOf("商城管理")<0)Ext.getCmp('tb').getComponent('shops').destroy();	
+				if(right_fun.indexOf("商店管理")<0)Ext.getCmp('tb').getComponent('shops_shop').destroy();	
+				if(right_fun.indexOf("商品管理")<0)Ext.getCmp('tb').getComponent('shops_product').destroy();	
+				if(right_fun.indexOf("广告管理")<0)Ext.getCmp('tb').getComponent('shops_ad').destroy();	
+				if(right_fun.indexOf("统计报表")<0)Ext.getCmp('tb').getComponent('reports').destroy();
+				if(right_fun.indexOf("业务感知")<0)Ext.getCmp('tb').getComponent('charts').destroy();			
+				if(right_fun.indexOf("日志查询")<0)Ext.getCmp('tb').getComponent('logs').destroy();	
+				if(right_fun.indexOf("规则设置")<0)Ext.getCmp('tb').getComponent('rules').destroy();	
+				if(right_fun.indexOf("系统配置")<0)Ext.getCmp('tb').getComponent('settings').destroy();	
+				if(right_fun.indexOf("系统管理")<0)Ext.getCmp('tb').getComponent('systems').destroy();	
+				if(right_fun.indexOf("我的账号")<0)Ext.getCmp('tb').getComponent('myaccount').destroy();	
+				
+				if(name !="admin"){
+						Ext.getCmp('tb').getComponent('search').destroy();
+						Ext.getCmp('tb').getComponent('searchimg').destroy();
+						Ext.getCmp('tb').getComponent('skintheme').destroy();
+				}	
+		}       
+</script>
+<script type="text/javascript" src="/v8/js/nc_data.js"></script> 
+<script type="text/javascript" src="/v8/js/ncViewer.js"></script> 
+<!-- <script type="text/javascript" src="/v8/js/ncViewer_taibao.js"></script>  -->
+<script type="text/javascript" src="/v8/js/treecomp.js"></script> 
+<script type="text/javascript">
+		var right_fun="";
+		var right_sy="";
+		var right_sfun = "";
+		var now=new Date();
+		var number = now.getYear().toString()+now.getMonth().toString()+now.getDate().toString()+now.getHours().toString()+now.getMinutes().toString()+now.getSeconds().toString(); 
+		document.write("\<script language=\"javascript\" type=\"text/javascript\" src=\"/pronline/Msg?FunName@ncmSysUserRoleConfig&time@"+number+"\"><\/script\>");
+	
+		
+		var username = "[#username#]";
+		var sy = "[#sy#]";
+		var fun = "[#fun#]";
+		//alert(username+sy+fun);
+</script>
+</head>
+<body >
+<form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="">
+		<input type="hidden" name="caExport" value="">
+		<input type="hidden" name="slogdate" value="">
+		<input type="hidden" name="elogdate" value="">
+		<input type="hidden" name="slogtime" value="">
+		<input type="hidden" name="elogtime" value="">
+		<input type="hidden" name="flags" value="">
+		<input type="hidden" name="ssid" value="">
+		
+		<input type="hidden" name="sdate" value="">
+		<input type="hidden" name="edate" value="">
+		<input type="hidden" name="stime" value="">
+		<input type="hidden" name="etime" value="">
+		<input type="hidden" name="exppdf" value="">
+		<input type="hidden" name="expexcel" value="">
+		<input type="hidden" name="start" value="">
+		<input type="hidden" name="limit" value="">
+		<input type="hidden" name="type" value="">
+		
+		<input type="hidden" name="plateid" value="">
+		<input type="hidden" name="groupcode" value="">
+		
+</form>
+</body>
+</html>

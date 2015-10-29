@@ -1,0 +1,119 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+
+<style type="text/css">
+
+body{
+margin:0px;
+padding:0px;
+height:100%;
+width:100%;
+font-family: arial;
+}
+
+		#detail{
+		width:100%;
+		float:left;
+		}
+			
+		#level_introduce{
+		background:#E0E6F8;
+		height:100%;
+		width:100%;
+		
+		}
+			
+	#info{
+	width:100%;
+	margin:5px;
+	text-align:center;
+	line-height:30px;
+	}
+	.title{
+	width:32%;
+	float:left;
+	border-bottom:1px solid;
+	border-color:#000000;
+	
+	}
+	.title1{
+	position:relative;
+	text-align:center;
+	background:#0088cc;
+	color:#ffffff;
+	font-size:1.2em;
+	font-weight:Bold;
+	border-color:#000000;
+	border-radius:5px;
+	padding-top:5px;
+	padding-bottom:5px;
+	margin-bottom:1px;
+	}
+</style>
+
+<script type="text/javascript">
+
+function switchlevels(mark){
+$(document).ready(function(){
+
+$(".levels1").css('color','#000000');
+$(".levels1").css('background','#E6E6E6');
+$(".levels1").css('border','');
+$(".levels1").css('border-color','');
+$(".levels1").css('box-shadow','');
+
+$('#'+mark).css('color','#ffffff');
+$('#'+mark).css('background','#0088cc');
+$('#'+mark).css('border','1px solid');
+$('#'+mark).css('border-color','#000000');
+$('#'+mark).css('box-shadow',' 2px 2px 5px #000000');
+
+});
+//alert(mark);
+
+//document.getElementById(mark).className = 'levels2';
+
+
+
+}
+
+</script>
+<body >
+
+	<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="uid" name="uid" value="">
+		</form>
+	<div id="detail">
+	<div id="level_introduce">
+	<div class="title1">消费记录</div>
+	<div id="info">
+	<div>
+	<div class="title">日期</div>
+	<div class="title">品牌</div>
+	<div class="title">价格</div>
+	</div>
+		<div>
+	[#SLPB#]  
+<div class="title">[#date#]</div>
+<div class="title">[#sname#]</div>
+<div class="title">[#fee#]</div>
+	[#SLPE#]
+	</div>
+	</div>
+	</div>
+		
+	
+	</div>
+</body>
+
+
+</html>
+

@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="/css/flexslider1.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap {
+	width:1024px;
+	margin:0 auto;
+}
+.main_left{ background:#f3f3f3; height:416px; width:560px; float:left;}
+.left_top{ width:70%; margin:0 auto;}
+.left_bottom{ width:80%; margin:0 auto; color:#666; font-size:14px; border-top:1px dashed #CCC;}
+.btn_exit{  cursor:pointer;
+	width:80px;
+	height:28px;
+	line-height:28px;
+	border:none;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #0066cc), color-stop(1, #0066cc));/*谷歌浏览器渐变*/
+    filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#0066cc", EndColorStr="#0066cc");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #0066cc 10%, #0066cc 100%);/*火狐内核渐变*/
+	color:#fff;}
+li a img{ border:none;}
+.top img{ width:100%;}
+</style>
+<script type="text/javascript">
+function init(){
+	  parent.document.getElementById("i").src = "/e.png"; 
+	  parent.document.getElementById("logo").innerHTML = "退出上网"; 
+	}
+	function change(mark){
+//	alert(111);
+	if(mark ==1 ){
+	
+	parent.document.getElementById("iframe1").src="http://kh.htsec.com/";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==2 ){
+	parent.document.getElementById("iframe1").src="http://www.htsec.com/static/jifen/f/chggl/index.html";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==3 ){
+	parent.document.getElementById("iframe1").src="http://www.htsec.com/htsec/Info/3910135";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==4 ){
+	parent.document.getElementById("iframe1").src="http://www.eshanghai.cn/";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==5 ){
+	parent.document.getElementById("iframe1").src="http://3g.sina.com.cn/?vt=4";
+//	document.getElementById("nclogin_0").submit();
+	}
+	
+	if(mark ==6 ){
+	parent.document.getElementById("iframe1").src="http://t.3g.qq.com";
+//	document.getElementById("nclogin_0").submit();
+	}
+if(mark ==7 ){
+	parent.document.getElementById("iframe1").src="http://wap.htsec.com/htwap/Stock_gt_Pro-hait.apk";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==8 ){
+	parent.document.getElementById("iframe1").src="https://itunes.apple.com/us/app/id554910048";
+//	document.getElementById("nclogin_0").submit();
+	}
+	
+	if(mark ==9 ){
+	parent.document.getElementById("iframe1").src="https://itunes.apple.com/cn/app/hai-tong-zheng-quan-cai-hong/id554913695?mt=8";
+//	document.getElementById("nclogin_0").submit();
+	}
+}
+	function tuichu(){
+			document.getElementById("nclogin_0").submit();
+	}
+</script>
+</head>
+
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload = "init()">
+<div class="wrap" >
+<form name="nclogin_0" id="nclogin_0" method="post" action="http://[#ip#]:[#port#]/pronline/Msg" >
+  <input type="hidden" name="sid" value="[#sid#]">
+  <input type="hidden" name="FunName" value="ncSrvLogOut">
+  <input type="hidden" name="ModiPass" value="">
+  <input type="hidden" name="username" value="[#username#]">
+  <input type="hidden" name="userip" value="[#userip#]">
+  <input type="hidden" name="usermac" value="[#usermac#]">
+  <input type="hidden" name="serialno" value="[#serialno#]">
+  <div class="top"><img src="/images/texi/791.jpg" /></div>
+ <!-- <div class="banner">
+  <section class="slider">
+    <div class="flexslider">
+      <ul class="slides">
+     
+        <li> <a href=""><img src="/images/taikang/pc_img/taikang1.jpg"/> </a> </li>
+        <li> <a href=""><img src="/images/taikang/pc_img/taikang2.jpg"/> </a> </li>
+        <li> <a href=""><img src="/images/taikang/pc_img/taikang3.jpg"/> </a> </li>
+        <li> <a href=""><img src="/images/taikang/pc_img/taikang4.jpg"/> </a> </li>
+      </ul>
+    </div>
+  </section>
+</div>-->
+  <div class="main">
+    <div class="main_left">
+    	<p style="height:90px;"></p>
+    	<p style="text-align:center; font-size:20px; color:#06C;">连接成功！</p>
+        <p style="height:30px;"></p>
+        <p style="text-align:center; font-size:20px; color:#000;">访问互联网请点击"开始上网"！</p>
+        <p style="height:50px;"></p>
+        <p style="text-align:center;"><input type="button" class="btn_exit" value="开始上网" onClick=" window.open('http://www.baidu.com')" /></p>
+    </div>
+    <div class="main_right"><img src="/images/texi/right.jpg" /></div>
+  </div>
+  <!--<div class="foot"><img src="/images/taipingyang/pc-login_r3_c1.jpg"/></div>-->
+  </form>
+</div>
+</body>
+</html>

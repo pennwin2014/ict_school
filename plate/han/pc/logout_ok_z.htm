@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>exit</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<meta name="viewport" content="width=device-width" />
+<script language="javascript" type="text/javascript">
+	function init(){ //alert("我要上网");
+	  parent.document.getElementById("i").src = "/b.png"; 
+//	  var httphost= "http://[#ip#]:[#port#]";
+		parent.document.getElementById("i").onclick = function()
+	  {  
+//		  alert("我要上网3");
+        self.location.href = "http://www.baidu.com";
+//		    parent.document.getElementById("iframe1").src = "http://192.168.21.192:9080/pronline/Msg?FunName@ncSrvPlate&html@/alogin_main_auto.htm";
+//		    alert(parent.document.getElementById("iframe1").src);
+		    parent.document.getElementById("logo").innerHTML = "我要上网"; 
+	    	parent.document.getElementById("i").src = httphost+"/c.png"; 
+	   //Js修改函数调用
+	  };
+	 
+	}
+</script>	
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload = "init()">
+<br>
+<br>
+<br>
+			<div style="text-align:center; font-size:2em;">你已经成功退出上网</div>
+
+<!-- End Save for Web Slices -->
+</body>
+</html>

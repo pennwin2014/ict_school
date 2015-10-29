@@ -1,0 +1,3 @@
+{"totalCount":[#TotRec#],"eimdata": [[#SLPB#][#dh#]{"sid": '[#sid#]', "refer": "[#refer#]", "url": '[#url#]', "ncname": "[#ncname#]", "username": "[#username#]", "sip": "[#sip#]", "mac": "[#mac#]", "adcod": "[#adcod#]", "apname": "[#apname#]","apssid": "[#apssid#]", "phtype": '[#phtype#]',"os": "[#os#]","sptype": '[#sptype#]',"devtype": '[#devtype#]',"browser": '[#browser#]',"areacode": '[#areacode#]',"areaname": "[#areaname#]","contrycode": '[#contrycode#]',"lasttime": '[#lasttime#]',"lcount": '[#lcount#]'}[#SLPE#]
+
+]}

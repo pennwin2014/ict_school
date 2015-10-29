@@ -1,0 +1,144 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+
+<style type="text/css">
+
+body{
+margin:0px;
+padding:0px;
+height:100%;
+width:100%;
+}
+
+		#detail{
+		width:100%;
+		float:left;
+		}
+		
+		#levels{
+		width:100%;
+		height:100%;
+		float:left;
+		font:1.5em;
+		}
+		
+		#level_introduce{
+		background:#E0E6F8;
+		width:70%;
+		float:right;
+		}
+		#level_logos{
+		width:70%;
+		float:right;
+		}
+		
+		.level_logos img{
+		
+		width:100%;
+		}
+		.level_logos{
+		float:left;
+		width:33%;
+		
+		}
+		
+		.levels3{
+		width:20%;
+		float:left;
+		height:30px;
+		background:#E6E6E6;
+		text-align:center;
+		padding-top:15px;
+		padding-bottom:5px;
+		margin:5px;
+		border:1px solid;
+		border-color:#000000;
+		border-radius:15px; 	
+		box-shadow: 5px 5px 5px #888888;
+		font:1.5em;
+		}
+		.levels1{
+		width:25%;
+		float:left;
+		height:60px;
+		background:#E6E6E6;
+		white-space:nowrap;
+		border-bottom:1px solid #BDBDBD;
+		
+		}
+		
+		.text1{
+		text-align:center;
+		padding-top:20px;
+		padding-bottom:20px;
+		white-space:nowrap;
+		float:left;
+		width:100%;
+		height:100%;
+		font:1.5em;
+		border:1px solid;
+		border-color:#ffffff;
+		
+		}
+
+	
+</style>
+
+<script type="text/javascript">
+
+function switchlevels(mark){
+$(document).ready(function(){
+
+$(".levels1").css('color','#000000');
+$(".levels1").css('background','#E6E6E6');
+
+$('#'+mark).css('color','#ffffff');
+$('#'+mark).css('background','#0088cc');
+
+
+});
+//alert(mark);
+
+document.getElementById("id").value = mark;
+document.getElementById("FunName").value = "ncmCategories_Types";
+document.getElementById("form1").submit();
+
+
+}
+
+</script>
+<body>
+
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="id" name="id" value="">
+		
+		
+</form>		
+	<div id="detail">
+	
+	<div id="levels">
+	
+
+	[#SLPB#]  
+	<div id="[#id#]" class="levels1" onclick="switchlevels([#id#])"><div class="text1">[#name#]</div></div>
+	
+	[#SLPE#] 
+
+	
+	</div>
+		
+		
+	</div>
+</body>
+
+
+</html>
+

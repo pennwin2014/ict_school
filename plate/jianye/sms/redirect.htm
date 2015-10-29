@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<script type="text/javascript" charset="gbk">
+
+// 跳到注册页
+function GoToRegister()
+{
+	var temp='http://[#ip#]:9080/pronline/Msg?FunName@ncm_sms_send_register_list&postarg@[#postarg#]';
+
+	window.location.href= '/pronline/Msg?FunName@ncm_sms_send_register_list&postarg@[#postarg#]';
+}
+
+// 跳到登录页
+function GoToLogin()
+{
+	window.location.href = 'http://[#ip#]:9080/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#getarg#]';
+}
+
+// 开始上网
+function SurfTheNet()
+{
+	// 模拟用户点击登录按钮
+//	alert(document.getElementById("login_form").password.value);
+	document.getElementById("login_form").submit();	
+}
+
+// 根据后台返回的状态确定跳转页面
+function Redirect()
+{
+
+	var res = '[#status#]';
+
+	if (res == 'successful')
+	{
+		// 直接上网
+		SurfTheNet();
+	}
+	else if (res == 'failed')
+	{
+		// 注册失败
+		alert('当前注册人数较多，请稍后重试！');
+		GoToRegister();
+	}
+	else if (res == 'forbidden')
+	{
+		// 跳到注册页
+		//setTimeout("GoToRegister()",2000);
+		alert('用户未注册！');	
+		//alert('Not member！');	
+		GoToRegister();
+	}
+	else if ((res == 'user_black') || (res == 'mac_black'))
+	{
+		alert('用户在黑名单中！');
+		GoToRegister();
+	}
+
+}
+
+
+</script>
+</head>
+<body onload="Redirect()">
+<div>
+<form name="login_form" id="login_form" method="post" action="[#posturl#]">			
+			[#postarg#]
+			<input type="hidden" name="username" value="[#username#]">
+			<input type="hidden" name="password" value="[#password#]">
+</form>
+</div>
+
+</body>
+</html>

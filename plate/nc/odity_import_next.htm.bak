@@ -1,0 +1,191 @@
+<html>
+<head>
+<title>Groupinfo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+
+<script language="javascript">
+function goBack()
+{
+	history.back();
+	return false;
+}
+</script>
+
+<body bgcolor="#DEE8FA">
+<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0" bgcolor="#DEE8FA">
+  <tr> 
+    <td align="center"> 
+    	<form action="/pronline/Msg" method="post"  name="form1" >
+    	<input name="FunName" type="hidden" value="ncm_userimp">
+    	<input type="hidden" name="fname" value="[#fname#]">
+    	<input type="hidden" name="plateid" value="[#plateid#]">
+        <table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">
+          <tr> 
+            <td align="center"> 
+              <table width="100%" border="0" align="center" bordercolorlight=#89ACED   bordercolordark=#ffffff cellspacing="0" cellpadding="0">
+
+                <tr> 
+                  <td align="center">
+                    <table width="100%" border="0" align="center" cellpadding="0"  bgcolor="#DEE8FA">
+                      <tr>
+                        <td height="25"><div align="right">序号&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="sid" style="width:300px">
+                        <option value="[#sid_num#]">[#sid#]</option>
+            			      [#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="">无</option>
+                         </select>
+                        </td>
+                      </tr>
+                     
+                      <tr>
+                        <td height="25"><div align="right">出版社&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="shopname" style="width:300px">
+                        <option value="[#shopname_num#]">[#shopname#]</option>
+            			      [#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="">无</option>
+                         </select>
+                        </td>
+                      </tr>
+                     
+                      <tr>
+                        <td height="25"><div align="right">书名&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="name" style="width:300px">
+                        <option value="[#name_num#]">[#name#]</option>
+            			      [#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="">无</option>
+                         </select>
+                        </td>
+                      </tr>
+                     
+                      <tr>
+                        <td height="25"><div align="right">作者&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="dispname" style="width:300px">
+                        <option value="[#dispname_num#]">[#dispname#]</option>
+            			      [#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="">无</option>
+                         </select>
+                        </td>
+                      </tr>
+                      
+                      <tr>
+                        <td height="25"><div align="right">出版时间&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="descr" style="width:300px">
+                        <option value="[#descr_num#]">[#descr#]</option>
+            			      [#SLPB#]
+                        <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+                        <option value="">无</option>
+                         </select>
+                        </td>
+                      </tr>
+                      
+                      
+                      <tr>
+                        <td height="25"><div align="right">内容简介&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="detail" style="width:300px">
+                        <option value="[#detail_num#]">[#detail#]</option>
+            			      [#SLPB#]
+                         <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+												<option value="">无</option>
+                        </select>
+                        </td>
+                      </tr>
+                     
+                      <tr>
+                        <td height="25"><div align="right">封面&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="cover" style="width:300px">
+                        <option value="[#cover_num#]">[#cover#]</option>
+            			      [#SLPB#]
+                         <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+												<option value="">无</option>
+                        </select>
+                        </td>
+                      </tr>
+                      
+                      <tr>
+                        <td height="25"><div align="right">展馆&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="address" style="width:300px">
+                        <option value="[#address_num#]">[#address#]</option>
+            			      [#SLPB#]
+                         <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+												<option value="">无</option>
+                        </select>
+                        </td>
+                      </tr>
+                      
+                      <tr>
+                        <td height="25"><div align="right">子展馆&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="url" style="width:300px">
+                        <option value="[#url_num#]">[#url#]</option>
+            			      [#SLPB#]
+                         <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+												<option value="">无</option>
+                        </select>
+                        </td>
+                      </tr>
+                      
+                      <tr>
+                        <td height="25"><div align="right">展台&nbsp;</div></td>
+                        <td height="25" valign="baseline">
+                        <select name="floor" style="width:300px">
+                        <option value="[#floor_num#]">[#floor#]</option>
+            			      [#SLPB#]
+                         <option value="[#iNum#]">[#caTemp#]</option>
+                        [#SLPE#]
+												<option value="">无</option>
+                        </select>
+                        </td>
+                      </tr>
+                                
+                      <tr>
+                        <td height="25"><div align="right">忽略第一行</div></td>
+                        <td height="25" valign="baseline"><input type="checkbox" name="first" value="checkbo"  >
+                        	当CSV文件中存在标题行时，勾选后将忽略该行。
+
+                        	</td>
+                      </tr>
+                      <tr>
+                        <td height="25"><div align="right"> </div></td>
+                        <td height="25" valign="baseline"> <input name="ok" type="button" class="anuse3" id="ok" value="确 认" onclick="if(form1.username.value==''){ alert('请选择登录名对应文件中的列'); return;};form1.submit();document.all.ok.disabled=1;">
+                        <input name="return" type="button" onClick="javascript:history.back();"   class="anuse3" value="返 回"></td>
+                      </tr>
+                    </table></td>
+                </tr>
+              </table>
+					  </td>
+          </tr>
+        </table>
+      </form></td>
+  </tr>
+</table>
+<br>
+</body>
+</html>

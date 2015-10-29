@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset="GBK">
+<title>模板管理</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+       
+    <script type="text/javascript" src="/newver/resources/js/ext-all_n.js"></script>
+    
+    <style type="text/css">
+        .upload-icon {
+            background: url('/js/wlan_upload/mage_add.png') no-repeat 0 0 !important;
+        }
+        #fi-button-msg {
+            border: 2px solid #ccc;
+            padding: 5px 10px;
+            background: #eee;
+            margin: 5px;
+            float: left;
+        }
+        .x-debug .x-form-file-wrap .x-form-file-input {
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0.6);
+            opacity: 0.6;
+            background-color: gray;
+        }
+    </style>
+    <script>
+       function init()
+       {
+           document.getElementById("preview_list").src = "/pronline/Msg?FunName@ncmWebReplaceOne&platepage@" + "[#module_result#]"+"login_main.htm";	
+       }
+       function CheckAll() 
+			 { 
+			        var radios;
+			        radios = document.getElementById("form1").reflect;	 
+			        for(var i = 0; i < radios.length; i++){ 
+			                if(radios[0].checked)
+			                { 
+			                    document.getElementById("preview_list").src = "/pronline/Msg?FunName@ncmWebReplaceOne&platepage@" + "[#module_result#]"+"login_main.htm";	
+//			            				alert(document.getElementById("preview_list").src);
+			                }else if(radios[1].checked)
+			                {			
+			                    document.getElementById("preview_list").src = "/pronline/Msg?FunName@ncmWebReplaceOne&platepage@" + "[#module_result#]"+"login_ok.htm";	
+//			            			//break; 	
+			            		}
+			            		else if(radios[2].checked)
+			            		{				
+			                    document.getElementById("preview_list").src = "/pronline/Msg?FunName@ncmWebReplaceOne&platepage@" + "[#module_result#]"+"logout_ok.htm";
+			            		}					
+			    	} 
+			 }
+
+   	</script>
+</head>
+<body onload = "init();">
+<form name="form1" id="form1" action="/pronline/Msg">
+	  </br>
+    <div  align = "center" height = "30px">
+     认证页面&nbsp;<input type="radio" name="reflect" id = "reflect"  value="1" onclick="CheckAll()"/>                        
+          &nbsp;&nbsp;   
+         认证成功页面&nbsp;<input type="radio" name="reflect" id = "reflect"  value="2" onclick="CheckAll()"/>   
+         &nbsp;&nbsp;   
+         认证退出成功页面&nbsp;<input type="radio" name="reflect" id = "reflect"  value="3" onclick="CheckAll()"/>    
+    </div>
+    </br>
+    <div id="corp_edit" style="background-color:#dfe9f5;" > 
+	    	<iframe  height="900" align="center" name="preview_list" scrolling="no" id="preview_list" style="border:0px solid #d8d8d8;border-top:0;" width="1090"  border="0" frameborder="0" src="" scrolling="yes" > </iframe>    
+	  </div>
+	  
+ </form>
+</body>
+</html>

@@ -1,0 +1,860 @@
+/*广告管理*/
+var ua = navigator.userAgent.toLowerCase();  
+function check(r){  
+  return r.test(ua);  
+}  
+function getBrowserName()  
+{  
+  var browserName;  
+  var isOpera = check(/opera/);  
+  var isChrome = check(/chrome/);  
+  var isFirefox = check(/firefox/);  
+  var isWebKit = check(/webkit/);  
+  var isSafari = !isChrome && check(/safari/);  
+  var isIE = !isOpera && check(/msie/);  
+  var isIE7 = isIE && check(/msie 7/);  
+  var isIE8 = isIE && check(/msie 8/);  
+  var isIE9 = isIE && check(/msie 9/);
+  var isIE10 = isIE && check(/msie 10/);     
+  
+  if(isIE10)  
+  {  
+    browserName = "IE10";    
+  }
+  else if(isIE9)  
+  {  
+    browserName = "IE9";    
+  }
+  else if(isIE8)  
+  {  
+    browserName = "IE8";    
+  }else if(isIE7)  
+  {  
+    browserName = "IE7";  
+  }else if(isIE)  
+  {  
+    browserName = "IE";  
+  }else if(isChrome)  
+  {  
+    browserName = "Chrome";  
+  }else if(isFirefox)  
+  {  
+    browserName = "Firefox";  
+  }else if(isOpera)  
+  {  
+    browserName = "Opera";  
+  }else if(isWebKit)  
+  {  
+    browserName = "WebKit";  
+  }else if(isSafari)  
+  {  
+    browserName = "Safari";  
+  }else  
+  {  
+    browserName = "Others";  
+  }  
+  return browserName;  
+}   
+
+//alert(getBrowserName());
+
+Ext.define('shops.advManager2',{
+    extend: 'Ext.panel.Panel',
+	  autoScroll: false,
+    frame: false,
+    initComponent : function(){
+				if(store_shops_advmanager2.alreadyload !=1){
+					  store_shops_advmanager2.flag = '';
+					  store_shops_advmanager2.sid = '';
+				    store_shops_advmanager2.name = '';
+				    store_shops_advmanager2.sgroupid = '';
+				    store_shops_advmanager2.descr = '';
+				    store_shops_advmanager2.imgpath = '';
+				    store_shops_advmanager2.serno = '';
+				    store_shops_advmanager2.floor ='';
+				    store_shops_advmanager2.level = '';
+				    store_shops_advmanager2.plevel = '';
+				    store_shops_advmanager2.type = '';
+				    store_shops_advmanager2.systime = '';
+				    store_shops_advmanager2.shopid = '';
+				    store_shops_advmanager2.plateid = plateid;
+				    store_shops_advmanager2.img_long = '';
+				    store_shops_advmanager2.img_width = '';
+				    store_shops_advmanager2.flags = '';
+				    store_shops_advmanager2.keyword = '';
+				    store_shops_advmanager2.caExport = ''; //导出
+					  store_shops_advmanager2.new_params={advmanager2_flag:store_shops_advmanager2.flag,advmanager2_sid:store_shops_advmanager2.sid,advmanager2_name:store_shops_advmanager2.name,advmanager2_sgroupid:store_shops_advmanager2.sgroupid,advmanager2_descr:store_shops_advmanager2.descr,advmanager2_imgpath:store_shops_advmanager2.imgpath,advmanager2_serno:store_shops_advmanager2.serno,advmanager2_floor:store_shops_advmanager2.floor,advmanager2_level:store_shops_advmanager2.level,advmanager2_plevel:store_shops_advmanager2.plevel,advmanager2_type:store_shops_advmanager2.type,advmanager2_systime:store_shops_advmanager2.systime,advmanager2_shopid:store_shops_advmanager2.shopid,advmanager2_plateid:store_shops_advmanager2.plateid,advmanager2_flags:store_shops_advmanager2.flags,advmanager2_img_long:store_shops_advmanager2.img_long,advmanager2_img_width:store_shops_advmanager2.img_width,keyword:store_shops_advmanager2.keyword,caExport:store_shops_advmanager2.caExport};
+			  }
+			  
+				function reflash(){
+						store_shops_advmanager2.new_params={advmanager2_flag:store_shops_advmanager2.flag,advmanager2_sid:store_shops_advmanager2.sid,advmanager2_name:store_shops_advmanager2.name,advmanager2_sgroupid:store_shops_advmanager2.sgroupid,advmanager2_descr:store_shops_advmanager2.descr,advmanager2_imgpath:store_shops_advmanager2.imgpath,advmanager2_serno:store_shops_advmanager2.serno,advmanager2_floor:store_shops_advmanager2.floor,advmanager2_level:store_shops_advmanager2.level,advmanager2_plevel:store_shops_advmanager2.plevel,advmanager2_type:store_shops_advmanager2.type,advmanager2_systime:store_shops_advmanager2.systime,advmanager2_shopid:store_shops_advmanager2.shopid,advmanager2_plateid:store_shops_advmanager2.plateid,advmanager2_flags:store_shops_advmanager2.flags,advmanager2_img_long:store_shops_advmanager2.img_long,advmanager2_img_width:store_shops_advmanager2.img_width,keyword:store_shops_advmanager2.keyword,caExport:store_shops_advmanager2.caExport};
+						//store_shops_advmanager2.currentPage=1;
+						store_shops_advmanager2.load();
+				}
+				
+				function gotoedit3(img_long, img_width){
+						var htmlvar='<iframe src="/pronline/Msg?FunName@ncmWebReplace&plate@ncmshop/ncm_webcomindex3_dr_img.htm&img_long@'+img_long+'&img_width@'+img_width+'" scrolling="no" name="drIframe" frameborder="no" style="width:100%;height:100%;"></iframe>';      
+				    var windr2 = new Ext.Window ({
+				                           id:"advmanager2_windr2",
+				                           title:"上传图片",
+				                           //x:0,
+				                           y:100,
+				                           width:420,
+				                           height:120,
+				                           bodyPadding: 0,
+				                           modal:true,
+																	 //headerPosition: 'bottom',
+				                           resizable:true,
+				                           closable :true,
+				                           draggable:true,
+				                           html:htmlvar
+				    })
+					  windr2.show();
+				}
+				
+				function gotoedit2(img_long, img_width, view_long, view_width){
+						var htmlvar='<iframe src="/pronline/Msg?FunName@ncmWebReplace&plate@ImgCropper/ImgCropper2.htm&img_long@'+img_long+'&img_width@'+img_width+'&view_long@'+view_long+'&view_width@'+view_width+'" scrolling="no" name="drIframe" frameborder="no" style="width:100%;height:100%;"></iframe>';      
+				    var windr2 = new Ext.Window ({
+				                           id:"advmanager2_windr2",
+				                           title:"上传图片",
+				                           //x:0,
+				                           y:0,
+				                           width:window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+				                           height:window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
+				                           autoScroll:true,
+				                           bodyPadding: 0,
+				                           modal:true,
+																	 //headerPosition: 'bottom',
+				                           resizable:true,
+				                           closable :true,
+				                           draggable:true,
+				                           html:htmlvar
+				    })
+					  windr2.show();
+				}
+				
+				function gotoedit1(pos, view_long, view_width){
+					  Ext.getCmp('advmanager2_detail').setVisible(true);
+					  Ext.getCmp('advmanager2_intro').setVisible(false);
+					  for(i=1; i<store_shops_advmanager2.getCount()+1; i++){
+							  Ext.getCmp('advmanager2_ads'+i).removeCls('stripes');  // 移除背景
+					  		if(pos==store_shops_advmanager2.getAt(i-1).get('level')){
+									  Ext.getCmp('advmanager2_ads'+pos).addCls('stripes');  // 添加背景
+					  				Ext.getCmp('advmanager2_sid').setValue(store_shops_advmanager2.getAt(i-1).get('sid'));
+							  		Ext.getCmp('advmanager2_update').setValue('update');
+							  		Ext.getCmp('advmanager2_name').setValue(store_shops_advmanager2.getAt(i-1).get('name'));
+							  		Ext.getCmp('advmanager2_serno').setValue(store_shops_advmanager2.getAt(i-1).get('serno'));
+							  		Ext.getCmp('advmanager2_tyid').setValue(store_shops_advmanager2.getAt(i-1).get('sgroupid'));
+							  		Ext.getCmp('advmanager2_shid').setValue(store_shops_advmanager2.getAt(i-1).get('shopid'));
+							  		Ext.getCmp('advmanager2_floor').setValue(store_shops_advmanager2.getAt(i-1).get('floor'));
+							  		Ext.getCmp('advmanager2_level').setValue(store_shops_advmanager2.getAt(i-1).get('level'));
+							  		Ext.getCmp('advmanager2_plevel').setValue(store_shops_advmanager2.getAt(i-1).get('plevel'));
+							  		Ext.getCmp('advmanager2_type').setValue(store_shops_advmanager2.getAt(i-1).get('type'));
+							  		Ext.getCmp('advmanager2_plateid').setValue(store_shops_advmanager2.getAt(i-1).get('plateid'));
+							  		Ext.getCmp('advmanager2_flags').setValue(store_shops_advmanager2.getAt(i-1).get('flags'));
+							  		Ext.getCmp('advmanager2_descr').setValue(store_shops_advmanager2.getAt(i-1).get('descr'));
+							  		Ext.getCmp('advmanager2_imgpath').setValue(store_shops_advmanager2.getAt(i-1).get('imgpath'));
+							  		Ext.getCmp('advmanager2_img').setSrc(store_shops_advmanager2.getAt(i-1).get('imgpath'));
+							  		Ext.getCmp('advmanager2_img_long').setValue(store_shops_advmanager2.getAt(i-1).get('img_long'));
+							  		Ext.getCmp('advmanager2_img_width').setValue(store_shops_advmanager2.getAt(i-1).get('img_width'));
+							  		Ext.getCmp('advmanager2_view_long').setValue(view_long);
+							  		Ext.getCmp('advmanager2_view_width').setValue(view_width);	
+					  		}	
+					  }
+		    }
+		    
+				Ext.define('TypeData', {
+				    extend: 'Ext.data.Model',
+				    fields: ['sid', 'name', 'groupname', 'descr', 'systime', 'imgpath', 'flags']
+				    //idProperty: 'uid'
+				});
+				var store_type = Ext.create('Ext.data.Store', {
+					 model:'TypeData',
+					 pageSize: 10000,
+					 autoLoad:true,
+					 proxy:{
+					 		type:'ajax',
+					 		url:'/pronline/Msg?FunName@ncm_webcomtype_list&plateid@'+plateid,
+					 		reader:{
+					 				type:'json',
+					 				root:'eimdata',
+					 				totalProperty:'totalCount'	
+					 		},
+					 		simpleSortMode:true	
+					 }
+				});
+				var typeCombo = Ext.create('Ext.form.field.ComboBox', {
+					 fieldLabel:'商品小类名称',
+					 labelWidth:100,
+					 width:320,
+					 valueField:'sid',
+					 displayField:'name',
+					 id:'advmanager2_tyid',
+					 name:'advmanager2_tyid',
+					 allowBlank:true,
+					 store:store_type,
+					 triggerAction:'all',
+					 queryMode:'local',
+					 typeAhead:true,
+					 hidden:true,
+					 listeners:{
+					 		'change':function(){
+					 		}	
+					 },
+					 listConfig:{
+					 		loadingText:'Searching...',
+					 		emptyText:'No matching found.'	
+					 }
+				});
+				
+				Ext.define('ShopData', {
+				    extend: 'Ext.data.Model',
+				    fields: ['iNum', 'id', 'name', 'service_code', 'sgroupid', 'imgpath', 'floor', 'url', 'code', 'tel', 'address', 'level', 'plevel', 'type', 'stype', 'descr', 'detail', 'systime', 'flags']
+				    //idProperty: 'uid'
+				});
+				var store_shop = Ext.create('Ext.data.Store', {
+					 model:'ShopData',
+					 pageSize: 10000,
+					 autoLoad:true,
+					 proxy:{
+					 		type:'ajax',
+					 		url:'/pronline/Msg?FunName@ncm_webcomshop_list&plateid@'+plateid,
+					 		reader:{
+					 				type:'json',
+					 				root:'eimdata',
+					 				totalProperty:'totalCount'	
+					 		},
+					 		simplleSortMode:true	
+					 }
+				});
+				var shopCombo = Ext.create('Ext.form.field.ComboBox', {
+					 fieldLabel:'商店名称',
+					 afterLabelTextTpl: required,
+					 labelWidth:100,
+					 width:320,
+					 valueField:'id',
+					 displayField:'name',
+					 id:'advmanager2_shid',
+					 name:'advmanager2_shid',
+					 hidden:false,
+					 store:store_shop,
+					 triggerAction:'all',
+					 queryMode:'local',
+					 typeAhead:true,
+					 allowBlank:false, //是否允许为空
+			     blankText:'商店名称不能为空！',	
+			     msgTarget:'qtip', //显示一个浮动的提示信息 
+					 listeners:	{
+					 		'change':function(){
+					 			 	//document.getElementById('form1').shopid.value = this.value;
+					 		}	
+					 },
+					 listConfig:{
+					 		loadingText:'Searching...',
+					 		emptyText:'No matching found.'	
+					 }
+				});
+				
+				var store_type1 = Ext.create('Ext.data.Store', {
+					 fields:['groupid', 'groupname'],
+					 data:[
+					 		{groupid:"1", groupname:"广告"},
+				      {groupid:"2", groupname:"品牌"},
+				      {groupid:"3", groupname:"促销"},
+				      {groupid:"4", groupname:"视频"}
+					 ]
+				});
+					    
+		    var fp = Ext.create('Ext.FormPanel', {
+						id:'advmanager2_detail',
+						hidden:true,
+						frame:false,
+						border:false,
+						margins:'0 0 0 20',
+						bodyPadding:0,
+						defaultType:'textfield', //设置表单字段的默认类型  
+						fieldDefaults:{ //统一设置表单字段默认属性
+								labelSeparator:':', //分隔符
+								labelWidth:100, //标签宽度
+								width:320, //字段宽度
+								msgTarget:'side'
+						},
+						items:[{
+								xtype:'fieldset',
+								width:350,
+								title:'基本信息',
+								collapsible: true,
+								items:[{
+										xtype:'textfield',
+										fieldLabel:'增/改',
+										id:'advmanager2_update',
+										name:'advmanager2_update',
+										hidden:true	
+								},{
+										xtype:'textfield',
+										fieldLabel:'序号',
+										id:'advmanager2_sid',
+										name:'advmanager2_sid',
+										hidden:true	
+								},{
+										xtype:'textfield',
+										fieldLabel:'商标名称',
+										id:'advmanager2_name',
+										name:'advmanager2_name',
+										afterLabelTextTpl: required,
+										allowBlank:false, //是否允许为空
+								    blankText:'商标名称不能为空！',	
+								    msgTarget:'qtip' //显示一个浮动的提示信息 	
+								},{
+										xtype:'textfield',
+										fieldLabel:'商标序列号',
+										id:'advmanager2_serno',
+										name:'advmanager2_serno',
+										hidden:true		
+								},
+								typeCombo,
+								shopCombo,
+								{
+										xtype:'textfield',
+										fieldLabel:'楼层',
+										id:'advmanager2_floor',
+										name:'advmanager2_floor',
+										hidden:true	
+								},{
+										xtype:'numberfield',
+										fieldLabel:'广告优先级',
+										id:'advmanager2_level',
+										name:'advmanager2_level',
+										hidden:true,
+										hideTrigger:false, //隐藏微调按钮
+				        		allowDecimals:false, //不允许输入小数
+				        		maxValue:100, //最大值
+				        		minvalue:0, //最小值
+				        		nanText:'请输入有效范围内的整数' //无效数字提示	
+								},{
+										xtype:'numberfield',
+										fieldLabel:'促销优先级',
+										id:'advmanager2_plevel',
+										name:'advmanager2_plevel',
+										hidden:true,
+										hideTrigger:false, //隐藏微调按钮
+				        		allowDecimals:false, //不允许输入小数
+				        		maxValue:100, //最大值
+				        		minvalue:0, //最小值
+				        		nanText:'请输入有效范围内的整数' //无效数字提示	
+								},{
+										xtype:'combobox',
+										fieldLabel:'活动类型',
+				      		  id:'advmanager2_type',
+				      		  name:'advmanager2_type',
+				      		  hidden:true,
+				      		  triggerAction:'all',
+				      		  store:store_type1,
+				      		  displayField:'groupname',
+				      		  valueField:'groupid',
+				      		  queryMode:'local',
+				      		  forceSelection:true,
+				      		  typeAhead:true,
+				      		  allowBlank:true	
+								},{
+										xtype:'textfield',
+										fieldLabel:'模板',
+										id:'advmanager2_plateid',
+										name:'advmanager2_plateid',
+										hidden:true	
+								},{
+										xtype:'textfield',
+										fieldLabel:'标记',
+										id:'advmanager2_flags',
+										name:'advmanager2_flags',
+										hidden:true	
+								},{
+										xtype:'textfield',
+										fieldLabel:'图片路径',
+										id:'advmanager2_imgpath',
+										name:'advmanager2_imgpath',
+										hidden:true
+								},{
+										xtype:'textarea',
+										fieldLabel:'描述',
+										id:'advmanager2_descr',
+										name:'advmanager2_descr'
+								}]	
+						},{
+								xtype:'fieldset',
+								title:'预览',
+								collapsible: true,
+								width:350,
+								height:200,	
+								items:{
+										xtype:'image',
+										id:'advmanager2_img',
+										name:'advmanager2_img',
+										autoWidth:true,
+										autoHeight:true,
+										width:350,
+										height:200
+								}	
+						},{
+								xtype:'button',
+					  		text:'上传图片',
+					  		handler:function(){
+					  			  if(Ext.getCmp('advmanager2_sid').value==''){
+					  			  		alert("请先点击左边页面模板图片位置");
+					  			  		return 0;	
+					  			  }
+					  			  if(window.navigator.userAgent.indexOf("MSIE")>=1){
+					  			  	  gotoedit3(Ext.getCmp('advmanager2_img_long').value, Ext.getCmp('advmanager2_img_width').value);
+					  			  }else if(window.navigator.userAgent.indexOf("Firefox")>=1){
+					  						gotoedit2(Ext.getCmp('advmanager2_img_long').value, Ext.getCmp('advmanager2_img_width').value, Ext.getCmp('advmanager2_view_long').value, Ext.getCmp('advmanager2_view_width').value);	
+					  				}else{
+					  						gotoedit2(Ext.getCmp('advmanager2_img_long').value, Ext.getCmp('advmanager2_img_width').value, Ext.getCmp('advmanager2_view_long').value, Ext.getCmp('advmanager2_view_width').value);		
+					  				}
+					  		}	
+						},{
+								xtype:'textfield',
+								fieldLabel:'图片宽度',
+								id:'advmanager2_img_width',
+								name:'advmanager2_img_width',
+								hidden:true
+						},{
+								xtype:'textfield',
+								fieldLabel:'图片高度',
+								id:'advmanager2_img_long',
+								name:'advmanager2_img_long',
+								hidden:true
+						},{
+								xtype:'textfield',
+								fieldLabel:'框宽度',
+								id:'advmanager2_view_width',
+								name:'advmanager2_view_width',
+								hidden:true
+						},{
+								xtype:'textfield',
+								fieldLabel:'框高度',
+								id:'advmanager2_view_long',
+								name:'advmanager2_view_long',
+								hidden:true
+						}/*{
+								xtype:'fieldset',
+								title:'上传图片',
+								collapsible: true,
+								width:350,
+								items:[{
+										xtype:'filefield',
+										fieldLabel:'上传图片',
+										id:'fname',
+										name:'fname',
+										hidden:false,
+										buttonText: '选择图片'
+								},{
+										xtype:'displayfield',
+										fieldLabel:'提示',
+										id:'imgsize',
+										name:'imgsize',
+										value:'您要上传的图片大小 (600*450)'	
+								}]
+						}*/],
+						buttons:[{
+								text:'保存',
+		            handler: function() {
+		            	 if(Ext.getCmp('advmanager2_name').value==''){
+		            	 		alert('商标名称不能为空！');	
+		            	 }else if(Ext.getCmp('advmanager2_shid').value==''){
+		            	 		alert('商店不能为空！');
+		            	 }else{
+					             fp.form.doAction('submit',{
+							             url:'/pronline/Msg',
+							             method:'post',
+							             params:{FunName:'ncm_webcomindex3_list'},
+							             success:function(form,action){
+							             	  for(i=1; i<store_shops_advmanager2.getCount()+1; i++){
+							             				if(action.result.level == store_shops_advmanager2.getAt(i-1).get('level')){
+							             					  store_shops_advmanager2.getAt(i-1).set('sid', action.result.sid);
+							             					  store_shops_advmanager2.getAt(i-1).set('name', action.result.name);
+							             					  store_shops_advmanager2.getAt(i-1).set('sgroupid', action.result.sgroupid);
+							             					  store_shops_advmanager2.getAt(i-1).set('descr', action.result.descr);
+							             					  store_shops_advmanager2.getAt(i-1).set('imgpath', action.result.imgpath);
+							             					  store_shops_advmanager2.getAt(i-1).set('serno', action.result.serno);
+							             					  store_shops_advmanager2.getAt(i-1).set('floor', action.result.floor);
+							             					  store_shops_advmanager2.getAt(i-1).set('level', action.result.level);
+							             					  store_shops_advmanager2.getAt(i-1).set('plevel', action.result.plevel);
+							             					  store_shops_advmanager2.getAt(i-1).set('type', action.result.type);
+							             					  store_shops_advmanager2.getAt(i-1).set('shopid', action.result.shopid);
+							             						store_shops_advmanager2.getAt(i-1).set('plateid', action.result.plateid);
+							             						store_shops_advmanager2.getAt(i-1).set('flags', action.result.flags);
+							             						store_shops_advmanager2.getAt(i-1).set('img_long', action.result.img_long);
+							             						store_shops_advmanager2.getAt(i-1).set('img_width', action.result.img_width);
+							             				}	
+							             		}
+							             		Ext.getCmp('advmanager2_ads'+action.result.level).setSrc(action.result.imgpath);
+							             		fp.getForm().reset();
+															Ext.getCmp('advmanager2_img').setSrc('');	
+							             } 
+					             })
+			             }
+		            }	
+						},{
+								text:'删除',
+								handler:function(){
+									  if(confirm('您真的要执行删除操作吗？')){
+									  	  var selsid;
+									  	  selsid = Ext.getCmp('advmanager2_sid').getValue();
+									  	  var alev = Ext.getCmp('advmanager2_level').value;
+											  store_shops_advmanager2.load({
+											  		params: {del: "del",selsid:selsid},
+											  		
+											  		callback:function(records, options, success){
+											  				eval(shops.advManager2).init();
+											  		}
+											  });
+				             		fp.getForm().reset();
+												Ext.getCmp('advmanager2_img').setSrc('');
+												Ext.getCmp('advmanager2_ads'+alev).removeCls('stripes');  // 移除背景	
+									  }	
+								}	
+						},{
+								text:'重置',
+								handler:function(){
+									  var alev = Ext.getCmp('advmanager2_level').value;
+										fp.getForm().reset();
+										Ext.getCmp('advmanager2_img').setSrc('');
+										Ext.getCmp('advmanager2_ads'+alev).removeCls('stripes');  // 移除背景	
+								}	
+						}]
+				});
+		    var fp2 = Ext.create('Ext.FormPanel', {
+						id:'advmanager2_intro',
+						hidden:false,
+						frame:false,
+						border:false,
+						margins:'0 0 0 20',
+						bodyPadding:0,
+						defaultType:'textfield', //设置表单字段的默认类型  
+						fieldDefaults:{ //统一设置表单字段默认属性
+								labelSeparator:':', //分隔符
+								labelWidth:320, //标签宽度
+								width:320, //字段宽度
+								msgTarget:'side'
+						},
+						items:[{
+								xtype:'fieldset',
+								width:350,
+								title:'操作说明',
+								collapsible: true,
+								items:[{
+										xtype:'label',
+										html:'<div style="height:80px"><br>1.&nbsp;&nbsp;&nbsp;&nbsp;请先点击左边页面模板图片位置<br><br>2.&nbsp;&nbsp;&nbsp;&nbsp;再对其信息进行操作<br></div><br>'
+								}]
+						}]
+				});
+				
+		    Ext.apply(this, {
+		        border:false,
+						frame:false,
+						autoScroll: true,
+						bodyPadding:"5 10 5 10",
+		        //store: store_shops_advmanager2,
+		        layout: { pack: 'center', type: 'hbox' } ,
+			      items:[{
+		        	  layout: 'vbox',
+			       		width:400,
+			       		//height:642,
+			       		items:[{
+			       			layout:"hbox",
+			       			width:400,
+			       			height:220,
+			       			autoScroll: true,
+			       			items:[{
+			     					xtype: 'image',
+			     					width:400,
+			       				height:200,
+			     					id: "advmanager2_ads1",
+			     					listeners:{       			
+					         				el:{ 
+															click:function(){
+																  gotoedit1(1, 200, 400);
+					         						}
+					         				}
+				         		}
+			       			},{
+			     					xtype: 'image',
+			     					width:400,
+			       				height:200,
+			     					id: "advmanager2_ads2",
+			       				listeners:{       			
+					         				el:{ 
+															click:function(){
+																 	gotoedit1(2, 200, 400);		
+					         						}
+					         				}
+				         		}
+			       			},{
+			     					xtype: 'image',
+			     					width:400,
+			       				height:200,
+			     					id: "advmanager2_ads3",
+			       				listeners:{       			
+					         				el:{ 
+															click:function(){
+																  gotoedit1(3, 200, 400);		
+					         						}
+					         				}
+				         		}
+			       			},{
+			     					xtype: 'image',
+			     					width:400,
+			       				height:200,
+			     					id: "advmanager2_ads4",
+			       				listeners:{       			
+					         				el:{ 
+															click:function(){
+																 gotoedit1(4, 200, 400);			
+					         						}
+					         				}
+				         		}
+			       			}]
+			       		},{
+			       			layout: 'hbox',
+			       			width:400,
+			       			height:120,
+			       			//autoScroll: true,
+			       			items:[{
+			       				xtype:'image',
+			       				width:130,
+			       				height:120,
+			       				src:'/images/newshop/tubiao01.png'
+			       			},{
+			       					xtype: 'image',
+			       					width:135,
+			       					height:120,
+			       					id: "advmanager2_ads5",
+			       					listeners:{       			
+					         				el:{ 
+															click:function(){
+																 gotoedit1(5, 120, 200);				
+					         						}
+					         				}
+				         			}
+			       			},
+			       			{
+			       					xtype: 'image',
+			       					width:135,
+			       					height:120,
+			       					id: "advmanager2_ads6",
+			       					listeners:{       			
+					         				el:{ 
+															click:function(){
+																 gotoedit1(6, 120, 200);			
+					         						}
+					         				}
+				         			}
+			       			}
+			       			
+			       			]
+			       		},{
+			       			layout: 'hbox',
+			       			width:400,
+			       			height:120,
+			       			//autoScroll: true,
+			       			items:[
+			       			
+			       			
+			       			{
+			       				xtype:'image',
+			       				width:200,
+			       				height:120,
+			       				id: "advmanager2_ads7",
+			       				listeners:{       			
+				         				el:{ 
+														click:function(){
+															 gotoedit1(7, 120, 200);			
+				         						}
+				         				}
+				         		}
+			       			},{
+			       					xtype: 'image',
+			       					width:200,
+			       					height:120,
+			       					id: "advmanager2_ads8",
+			       					listeners:{       			
+					         				el:{ 
+															click:function(){
+																 gotoedit1(8, 120, 200);				
+					         						}
+					         				}
+				         			}
+			       			}]
+			       		},{
+			       			layout: 'hbox',
+			       			width:400,
+			       			height:120,
+			       			//autoScroll: true,
+			       			items:[{
+			       				xtype:'image',
+			       				width:130,
+			       				height:120,
+			       				src:'/images/shangcheng/daohang2_r10_c8.jpg'
+			       			},{
+			       					xtype: 'image',
+			       					width:135,
+			       					height:120,
+			       					id: "advmanager2_ads9",
+			       					listeners:{       			
+					         				el:{ 
+															click:function(){
+																 gotoedit1(9, 120, 200);				
+					         						}
+					         				}
+				         			}
+			       			},
+			       			{
+			       				xtype:'image',
+			       				width:135,
+			       				height:120,
+			       				id: "advmanager2_ads10",
+			       				listeners:{       			
+				         				el:{ 
+														click:function(){
+															 gotoedit1(10, 120, 200);			
+				         						}
+				         				}
+				         		}
+			       			}
+			       			
+			       			]
+			       		},{
+			       			layout: 'hbox',
+			       			width:400,
+			       			height:120,
+			       			//autoScroll: true,
+			       			items:[{
+			       					xtype: 'image',
+			       					width:200,
+			       					height:120,
+			       					id: "advmanager2_ads11",
+			       					listeners:{       			
+					         				el:{ 
+															click:function(){
+																 gotoedit1(11, 120, 200);			
+					         						}
+					         				}
+				         			}
+			       			},{
+			       					xtype: 'image',
+			       					width:200,
+			       					height:120,
+			       					id: "advmanager2_ads12",
+			       					listeners:{       			
+					         				el:{ 
+															click:function(){
+																 gotoedit1(12, 120, 200);	
+					         						}
+					         				}
+				         			}
+			       			}]
+			       		},{
+			       			layout: 'hbox',
+			       			width:400,
+			       			height:120,
+			       			//autoScroll: true,
+			       			items:[{
+			       				xtype:'image',
+			       				width:130,
+			       				height:120,
+			       				src:'/images/shangcheng/daohang2_r16_c2.jpg'
+			       			},{
+			       					xtype: 'image',
+			       					width:135,
+			       					height:120,
+			       					id: "advmanager2_ads13",
+			       					listeners:{       			
+					         				el:{ 
+															click:function(){
+																 gotoedit1(13, 120, 200);		
+					         						}
+					         				}
+				         			}
+			       			},{
+			       					xtype: 'image',
+			       					width:135,
+			       					height:120,
+			       					id: "advmanager2_ads14",
+			       					listeners:{       			
+					         				el:{ 
+															click:function(){
+																 gotoedit1(14, 120, 200);			
+					         						}
+					         				}
+				         			}
+			       			}]
+			       		},{
+			       			layout: 'hbox',
+			       			width:400,
+			       			height:120,
+			       			//autoScroll: true,
+			       			items:[{
+			       				xtype:'image',
+			       				width:200,
+			       				height:120,
+			       				id: "advmanager2_ads15",
+			       				listeners:{       			
+				         				el:{ 
+														click:function(){
+															 gotoedit1(15, 120, 200);			
+				         						}
+				         				}
+				         		}
+			       			},{
+			       					xtype: 'image',
+			       					width:200,
+			       					height:120,
+			       					id: "advmanager2_ads16",
+			       					listeners:{       			
+					         				el:{ 
+															click:function(){
+																 gotoedit1(16, 120, 200);				
+					         						}
+					         				}
+				         			}
+			       			}]
+			       		}]
+		        },fp,fp2]
+		    });
+		    
+			  store_shops_advmanager2.alreadyload = 1;
+		    this.callParent(arguments);
+		   	
+		    
+    },
+    inheritableStatics : {
+    		init:function(){
+    		
+						for(j=1; j<store_shops_advmanager2.getCount()+1; j++){
+
+								switch(store_shops_advmanager2.getAt(j-1).get('level')){
+			  	      		case "1":	Ext.getCmp('advmanager2_ads1').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "2":	Ext.getCmp('advmanager2_ads2').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "3":	Ext.getCmp('advmanager2_ads3').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "4":	Ext.getCmp('advmanager2_ads4').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "5":	Ext.getCmp('advmanager2_ads5').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "6":	Ext.getCmp('advmanager2_ads6').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "7":	Ext.getCmp('advmanager2_ads7').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "8":	Ext.getCmp('advmanager2_ads8').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "9":	Ext.getCmp('advmanager2_ads9').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "10":	Ext.getCmp('advmanager2_ads10').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "11":	Ext.getCmp('advmanager2_ads11').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "12":	Ext.getCmp('advmanager2_ads12').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "13":	Ext.getCmp('advmanager2_ads13').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "14":	Ext.getCmp('advmanager2_ads14').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "15":	Ext.getCmp('advmanager2_ads15').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "16":	Ext.getCmp('advmanager2_ads16').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "17":	Ext.getCmp('advmanager2_ads17').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		case "18":	Ext.getCmp('advmanager2_ads18').setSrc(store_shops_advmanager2.getAt(j-1).get('imgpath')); break;
+			  	      		default:break;
+			  	      }	
+						}
+    		}
+    }
+});
+

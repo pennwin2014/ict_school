@@ -1,0 +1,356 @@
+var userlog_time_list = ["1次","2次","3次","4次","4次以上"];
+var userlog_time_rate = new Array();
+var store_charts_devicebrand_sdate=0;
+var store_charts_devicebrand_edate=0;
+var store_reports_webreport_slogdate = "";
+var store_reports_webreport_elogdate = "";
+var reports_webreport_list = [];
+var ary_count = new Array();
+
+var all_array =new Array();
+var oneRate = "";
+var twoRate = "";
+var threeRate = "";
+var fourRate = "";
+var otherRate = "";
+var PageNum	 = 0;
+
+var store_logs_userlog_frequency = Ext.create('Ext.data.Store', {id:'store_logs_userlog_frequency',fields: ['sid', 'portalname', 'userid', 'groupid', 'groupname', 'username', 'dispname', 'ssid', 'apname', 'mac', 'ip', 'dev', 'os', 'bro', 'devtype', 'ubytes', 'dbytes', 'starttime', 'endtime', 'conntime', 'cause'],
+                                   proxy:
+{
+type: 'ajax'
+,url: '/pronline/Msg?FunName@ncm_web_Place_smslog_count'
+,reader:
+    {
+type:'json'
+,root: 'eimdata'
+,totalProperty: 'totalCount'
+    }
+}
+,sorters: []
+                                                                });
+
+
+
+function reflash()
+{
+
+    var start_date = document.getElementById('start_txt').value;
+    var stop_date  = document.getElementById('stop_txt').value;
+    if (start_date == "" || stop_date == "")
+    {
+        start_date = "null";
+        stop_date = "null";
+    }
+    else
+    {
+        var start_dates = start_date.split('/');
+        var stop_dates = stop_date.split('/');
+        var start_d = Date.UTC(start_dates[2],(start_dates[0]-1),start_dates[1]);
+
+        var stop_d =Date.UTC(stop_dates[2],(stop_dates[0]-1),stop_dates[1],23,59,59);
+
+        store_charts_devicebrand_sdate =  start_d/1000;
+
+        store_charts_devicebrand_edate =   stop_d/1000;
+
+
+    }
+    ary_count = new Array();
+    all_array = new Array();
+    userlog_time_rate = new Array();
+    userlog_time_list = ["1次","2次","3次","4次","4次以上"];
+    store_logs_userlog_frequency.load(
+    {
+params:
+        {
+sdate:
+            store_charts_devicebrand_sdate,
+edate:
+            store_charts_devicebrand_edate
+
+        },
+callback: function(records, options, success)
+        {
+
+
+            if (success)
+            {
+
+                alert("成功");
+                alert(records.length);
+                for (var k = 0 ; k < records.length;k++)
+                {
+                    ary_count[k] = records[k].get("username");
+
+
+                }
+
+                ary_count.sort();
+
+                for (var i = 0;i<ary_count.length;)
+                {
+
+                    var count = 0;
+                    for (var j=i;j<ary_count.length;j++)
+                    {
+
+                        if (ary_count[i] == ary_count[j])
+                        {
+                            count++;
+                        }
+
+                    }
+
+                    all_array.push([ary_count[i],count]);
+                    i+=count;
+
+                }
+                for (var i=0;i<all_array.length-1;i++)
+                {
+                    for (var j=i+1;j<all_array.length;j++)
+                    {
+                        if (all_array[i][1]<all_array[j][1])
+                        {
+                         temp=all_array[i];
+                            all_array[i]=all_array[j];
+                            all_array[j]=temp;
+                        }
+                    }
+                }
+                alert("out for");
+                var total = all_array.length;
+                var oneNum = 0;
+                var twoNum = 0;
+                var threeNum = 0;
+                var fourNum = 0;
+                var otherNum = 0;
+                for (var i = 0 ; i < all_array.length ; i++)
+                {
+                    if (1 == all_array[i][1])
+                    {
+                        oneNum++;
+                    }
+                    else if (2 == all_array[i][1])
+                    {
+                        twoNum++;
+                    }
+                    else if (3 == all_array[i][1])
+                    {
+                        threeNum++;
+                    }
+                    else if (4 == all_array[i][1])
+                    {
+                        fourNum++;
+                    }
+                    else if (all_array[i][1] > 4)
+                    {
+                        otherNum++;
+                    }
+
+                }
+
+                oneRate = Math.round(oneNum/ total * 10000) / 100.00 + "%";
+                twoRate = Math.round(twoNum/ total * 10000) / 100.00 + "%";
+                threeRate = Math.round(threeNum/ total * 10000) / 100.00 + "%";
+                fourRate = Math.round(fourNum/ total * 10000) / 100.00 + "%";
+                otherRate = Math.round(otherNum/ total * 10000) / 100.00 + "%";
+                userlog_time_rate = [oneRate,twoRate,threeRate,fourRate,otherRate];
+                alert("1次"+oneRate+"2次"+twoRate+"3次"+threeRate+"4次"+fourRate+"4次以上"+otherRate);
+                show_device_brand_pie();
+                CreateTab()
+            }
+            else
+            {
+                alert("获取失败");
+            }
+        }
+    });
+}
+
+
+
+window.onload = function()
+{
+
+
+
+};
+function CreateTab()
+{
+    var newTable = document.getElementById("user_count");
+    var t = 0;
+    var temp;
+
+    for (var i = 9*PageNum ; i < 9*(PageNum+1) ; i++ )
+    {
+        var newTr = document.createElement("tr");
+        var newTd1= document.createElement("td");
+        var newTd2= document.createElement("td");
+        var newTd3= document.createElement("td");
+
+        newTd1.innerHTML = ""+(++t)+"";
+        newTd2.innerHTML = ""+all_array[i][0]+"";
+
+        newTd3.innerHTML = ""+all_array[i][1]+"";
+
+        newTr.appendChild(newTd1);
+        newTr.appendChild(newTd2);
+        newTr.appendChild(newTd3);
+
+        newTable.appendChild(newTr);
+    }
+}
+
+function show_device_brand_pie()
+{
+
+    var data = new Array();
+    var obj  = new Object();
+    var color = ["#ed8c25","#e6a34c","#e6b87a","#e4cea7","#b9c1ce","#90a0c4","#6185b9","#ed8c25","#e6a34c","#e6b87a","#e4cea7","#b9c1ce","#90a0c4","#6185b9","#ed8c25","#e6a34c","#e6b87a","#e4cea7","#b9c1ce","#90a0c4","#6185b9","#ed8c25","#e6a34c","#e6b87a","#e4cea7","#b9c1ce","#90a0c4","#6185b9"]
+                for (var j = 0 ; j < userlog_time_list.length ; j++)
+    {
+        obj = new Object();
+        obj.name = userlog_time_list[j];
+        obj.value= userlog_time_rate[j];
+        obj.color= color[j];
+        data[j]  = obj;
+
+    }
+
+
+
+    var chart = new iChart.Pie2D(
+    {
+render : 'pie',
+data: data,
+sub_option :
+        {
+label :
+            {
+background_color:
+                null,
+sign:
+                true,//设置禁用label的小图标
+padding:'0 4'
+                ,
+border:
+                {
+enable:
+                    false,
+color:'#666666'
+                },
+fontsize:
+                14,
+fontweight:
+                600,
+color : '#e68f1b'
+                ,
+font : '宋体'
+            },
+border :
+            {
+width :
+                0,
+color : '#fff'
+            }
+        },
+
+shadow : false,
+shadow_blur : 0,
+shadow_color : '#aaaaaa',
+shadow_offsetx : 0,
+shadow_offsety : 0,
+background_color:'#fefefe',
+offsetx:10,//设置向x轴负方向偏移位置60px
+offset_angle:0,//初始位置不偏转
+showpercent:true,
+decimalsnum:2,
+width : 560,
+height : 370,
+radius: 100,
+border: 0
+    });
+
+    chart.draw();
+}
+
+function Navigate(num)
+{
+    alert("已点击");
+    if (0 == num)
+    {
+        PageNum = 0;
+    }
+    else if (1 == num)
+    {
+        PageNum += num;
+    }
+    else if (-1 == num)
+    {
+        PageNum += num;
+    }
+    else if (2 == num)
+    {
+
+    }
+    CreateTab();
+}
+//$(function(){
+//
+//	var data = [
+//				{name : '杭州',value : 38.0,color:'#ed8c25'},
+//				{name : '南京',value : 24.0,color:'#e6a34c'},
+//				{name : '苏州',value : 7.0,color:'#e6b87a'},
+//				{name : '扬州',value : 6.0,color:'#e4cea7'},
+//				{name : '无锡',value : 6.0,color:'#b9c1ce'},
+//				{name : '绍兴',value : 4.0,color:'#90a0c4'},
+//				{name : '乌镇',value : 3.0,color:'#6185b9'},
+//				{name : '同里',value : 3.0,color:'#2765ae'},
+//				{name : '昆山',value : 3.0,color:'#65709d'},
+//				{name : '青岛',value : 3.0,color:'#9c7a78'},
+//				{name : '宁波',value : 3.0,color:'#c38451'}
+//			];
+//
+//
+//	var chart = new iChart.Pie2D({
+//		render : 'pie1',
+//		data: data,
+//		sub_option : {
+//			label : {
+//				background_color:null,
+//				sign:true,//设置禁用label的小图标
+//				padding:'0 4',
+//				border:{
+//					enable:false,
+//					color:'#666666'
+//				},
+//				fontsize:14,
+//				fontweight:600,
+//				color : '#e68f1b',
+//				font : '宋体'
+//			},
+//			border : {
+//				width : 0,
+//				color : '#fff'
+//			}
+//		},
+//
+//		shadow : false,
+//		shadow_blur : 0,
+//		shadow_color : '#aaaaaa',
+//		shadow_offsetx : 0,
+//		shadow_offsety : 0,
+//		background_color:'#fefefe',
+//		offsetx:10,//设置向x轴负方向偏移位置60px
+//		offset_angle:-200,//逆时针偏移120度
+//		showpercent:true,
+//		decimalsnum:2,
+//		width : 560,
+//		height : 370,
+//		radius: 100,
+//		border: 0
+//	});
+//
+//	chart.draw();
+//});

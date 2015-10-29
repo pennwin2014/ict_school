@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="/css/flexslider.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>
+
+<title>郑州电信欢迎您</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	background:#f1f1f1;
+	position:relative;
+}
+.wrap img{ width:100%;}
+img{ border:none;}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+}
+
+
+</style>
+
+<script type="text/javascript">
+function autoload(){
+
+setTimeout("loadAddress('shbook')",5000);
+}
+function loadAddress(address){
+document.getElementById("FunName").value="ncm_yuyuan_home";
+document.getElementById("plateName").value= address;
+document.getElementById("form1").submit();
+}
+</script>
+</head>
+<body onload = "autoload()">
+<div id="top"></div>
+<input type="hidden" name="rg" id="rg" value="[#getarg#]"/>
+<input type="hidden" name="rl" id="rl" value="[#posturl#]"/>
+
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="id" name="id" value="">
+		<input type="hidden" id="uid" name="uid" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+		<input type="hidden" id="keyword" name="keyword" value="">
+		<input type="hidden" name="plateName" id="plateName" value="shbook"/>	
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+		<!-- <input type="hidden" name="plateid" id="plateid" value="1007178698"/> -->
+		<input type="hidden" id="logoid" name="logoid" value="">	
+		<input type="hidden" id="detail" name="detail" value="">
+		<input type="hidden" id="limit1" name="limit1" value="[#limit1#]">	
+		<input type="hidden" id="limit2" name="limit2" value="[#limit2#]">			
+		<input type="hidden" id="groupid" name="groupid" value="">	
+		<input type="hidden" id="sid" name="sid" value="">	
+		<input type="hidden" id="flag" name="flag" value="">	
+		<input type="hidden" name="httphost" id="httphost" value="[#httphost#]"/>	
+	
+</form>		
+<div class="wrap" id="wrap">
+	<img src="/images/shbook/tijiao_s1.jpg">
+	
+</div>
+
+</body>
+</html>

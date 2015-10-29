@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>登录认证</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	font-family:"微软雅黑";
+}
+.content {
+	width:90%;
+	margin:0 auto;
+	color:#2350a1;
+}
+.main {
+	background:#fff;
+}
+.main_con {
+	width:70%;
+	margin:0 auto;
+	color:#2350a1;
+}
+.username {
+	width:100%;
+	border:1px solid #2350a1;
+	border-radius: 0px; /* css 3标准 */
+	-moz-border-radius: 0px;  /* mozilla */
+	-webkit-border-radius: 0px;/*webkit*/
+	height:28px;
+	line-height:28px;
+	text-indent:5px;
+	font-size:1em;
+}
+.code {
+	width:50%;
+	border:1px solid #2350a1;
+	border-radius: 0px; /* css 3标准 */
+	-moz-border-radius: 0px;  /* mozilla */
+	-webkit-border-radius: 0px;/*webkit*/
+	height:28px;
+	line-height:28px;
+	text-indent:5px;
+	font-size:1em;
+	float:left;
+}
+.yz {
+	font-family:Bradley Hand ITC, "黑体";
+	float:right;
+	width:30%;
+	background:#CCC;
+	text-align:center;
+	border:none;
+	color:#f00;
+	border-radius: 0px; /* css 3标准 */
+	-moz-border-radius: 0px;  /* mozilla */
+	-webkit-border-radius: 0px;/*webkit*/
+	height:28px;
+	line-height:28px;
+	text-indent:5px;
+	font-size:22px;
+	font-weight:bold;
+}
+.password {
+	width:100%;
+	border:1px solid #2350a1;
+	border-radius: 0px; /* css 3标准 */
+	-moz-border-radius: 0px;  /* mozilla */
+	-webkit-border-radius: 0px;/*webkit*/
+	height:28px;
+	line-height:28px;
+	text-indent:5px;
+	font-size:1em;
+}
+.btn_hq {
+	height:28px;
+	line-height:28px;
+	border-radius: 0px; /* css 3标准 */
+	-moz-border-radius: 0px;  /* mozilla */
+	-webkit-border-radius: 0px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #00477f), color-stop(1, #00477f));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#00477f", EndColorStr="#00477f");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #00477f 10%, #00477f 100%);/*火狐内核渐变*/
+	background:#00477f;
+	border:1px solid #00477f;
+	width:100%;
+	color:#fff;
+}
+.btn_ok {
+	height:28px;
+	line-height:28px;
+	border-radius: 0px; /* css 3标准 */
+	-moz-border-radius: 0px;  /* mozilla */
+	-webkit-border-radius: 0px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #00477f), color-stop(1, #00477f));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#00477f", EndColorStr="#00477f");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #00477f 10%, #00477f 100%);/*火狐内核渐变*/
+	background:#00477f;
+	border:1px solid #00477f;
+	width:100%;
+	color:#fff;
+}
+.radio1 {
+}
+.radio2 {
+	margin-left:5px;
+}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+}
+</style>
+<script type="text/javascript">
+var code; //在全局定义验证码
+	function createCode()
+	{
+		code = "";
+		var codeLength = 4; //验证码的长度
+		var selectChar = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'); //所有候选组成验证码的字符，当然也可以用中文的
+		
+		for(var i=0;i<codeLength;i++){
+			var charIndex = Math.floor(Math.random()*9);
+			code += selectChar[charIndex];	
+		}
+		document.getElementById("nclogin").ver.value=code;
+	}
+	function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp;
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";
+	}
+var p_flag = '1';
+	
+	function restore(){
+		document.getElementById("gpss").disabled = "";
+		p_flag='1';	
+	}
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+var i = 59;
+function fun() {
+       	 if (i == 0) {
+			 document.getElementById("gpss").value="获取密码";
+             clearInterval(intervalid);
+			 i=59;
+         }
+		 else{
+         document.getElementById("gpss").value = i;
+		
+         i--;
+		 }
+}
+function getpasswd(){
+		if(p_flag=='0') return false;	
+		if(document.getElementById("nclogin").username.value==''||document.getElementById("nclogin").username.value=='手机号'){
+		    alert('请输入手机号');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&tsid@[#tsid#]&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&tsid@"+document.getElementById("tsid").value;
+
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		 document.getElementById("gpss").value= "已发送";
+	   intervalid= setInterval("fun()", 1000);//写在document.getElementById("gpss").disabled="true";的后面
+
+		p_flag='0';
+        setTimeout('restore()',60000);
+		return false;
+	}
+	
+	var mz;
+	function xianshi(){
+	mz=1;
+	document.getElementById("password").style.width="100%";
+	document.getElementById("bo").style.display="block";
+	document.getElementById("ok1").style.display="none";
+	document.getElementById("ok2").style.display="block";
+	
+	}
+	
+	function spylogin()
+	{
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="手机号"||document.getElementById("password").value==""||document.getElementById("password").value=="密码") 
+		{
+		    window.alert("手机号或密码不能为空!");
+			  return false;
+		}
+		var temp=document.getElementById("yzm").value;
+		if(temp!=code){
+		alert('验证码输入错误!');
+		return false;
+		}
+		if(document.getElementById("check1").checked!=1)
+		{
+			window.alert("请确认接受免责声明！");			
+			return false;
+		}
+	
+    document.getElementById("nclogin").submit();
+		/*var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}*/
+		
+    return true;
+	}
+	function mr(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").style.color="#aaa";
+		}
+		if(document.getElementById("password").value="密码"){
+			 document.getElementById("password").style.color="#aaa";
+		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+  	function init()
+	{
+		//alert('[#statusCode#]');
+		if('[#statusCode#]' == '2')
+		{
+			/*document.getElementById('err5').innerHTML = '账号与SSID不匹配。';*/
+			window.alert("账号与SSID不匹配");
+		}	
+		if('[#statusCode#]' == '3')
+		{
+			/*document.getElementById('err5').innerHTML = '用户账号已过期。';*/
+			window.alert("用户账号已过期");
+		}	
+		if('[#statusCode#]' == '4')
+		{
+			/*document.getElementById('err5').innerHTML = '您登录的账号在黑名单中。';*/
+			window.alert("您登录的账号在黑名单中");
+		}	
+		if('[#statusCode#]' == '5')
+		{
+			/*document.getElementById('err5').innerHTML = '请输入正确的密码。';*/
+			window.alert("请输入正确的密码");
+		}	
+		if('[#statusCode#]' == '6')
+		{
+			/*document.getElementById('err5').innerHTML = '该用户不存在。';*/
+			window.alert("该用户不存在");
+		}	
+    if('[#statusCode#]' == '7')
+		{
+			/*document.getElementById('err5').innerHTML = '超出Mac最大绑定数量。';*/
+			window.alert("超出Mac最大绑定数量");
+		}	
+}
+
+function changlogin(flag){
+        self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+
+</script>
+</head>
+
+<body onload="createCode();init();">
+<div class="wrap">
+  <form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+  <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+  [#postarg#]
+  <div class="content">
+    <div style="height:10px; clear:both;"></div>
+    <div style="font-size:0.8em; text-align:right; margin-right:5%;"><a>中文</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a onclick="changlogin('eng')">English</a></div>
+    <div style="height:10px; clear:both;"></div>
+    <img style=" height:50px; margin-bottom:-25px;" src="/images/gap/tubiao.jpg" /><div style="font-size:1.2em; text-align:center;">欢迎使用GAP无线网络</div>
+    <div style="height:10px; clear:both; border-bottom:1px solid #36C;"></div>
+    <div style="height:10px; clear:both;"></div>
+    <div class="main">
+      <div style="height:30px; clear:both;"></div>
+      <div class="main_con">
+        <div>手机号：</div>
+        <div style="height:5px; clear:both;"></div>
+        <div>
+          <input type="text" class="username" value=""  name="username" id="username"/>
+        </div>
+        <div style="height:10px; clear:both;"></div>
+        <div>验证码：</div>
+        <div style="height:5px; clear:both;"></div>
+        <div>
+          <input type="text" id="yzm" class="code" name="yzm" />
+          <input id="ver" name="ver" class="yz" readonly onselectstart="return false" onclick="createCode();"/>
+        </div>
+        <div style="height:10px; clear:both;"></div>
+        <div>
+          <input type="button" value="获取密码" class="btn_hq" id="gpss" onClick="getpasswd();"/>
+        </div>
+        <div style="height:10px; clear:both;"></div>
+        <div>密码：</div>
+        <div style="height:5px; clear:both;"></div>
+        <div>
+          <input type="text" class="password" value="" name="password" id="password"  />
+        </div>
+        <div style="height:10px; clear:both;"></div>
+        <div>
+          <input type="button" value="登录" class="btn_ok" onClick="return spylogin();"/>
+        </div>
+        <div style="height:10px; clear:both;"></div>
+        <div style="font-size:0.8em;">
+          <input type="checkbox" id="check1" checked="checked" />
+          &nbsp;&nbsp;<a target="_blank" style="text-decoration:underline;" href="/images/gap/sj/mzsm.htm">我同意 GAP 无线网络使用条款</a></div>
+        <div style="font-size:0.8em;"><a>24小时客服热线：400-6500-311</a></div>
+        <div style="height:10px; clear:both;"></div>
+        <div id="err5" style="color:#F00; text-align:center; font-size:12px;"></div>
+        <div style="height:10px; clear:both;"></div>
+      </div>
+      <div style="height:20px; clear:both;"></div>
+    </div>
+     <div style="height:10px; clear:both; border-bottom:1px solid #36C;"></div>
+  </div>
+ 
+    <div style="height:20px; clear:both;"></div>
+    <div><img style="width:100%;" src="/images/gap/logo.jpg" /></div>
+    <div style="height:10px; clear:both;"></div>
+  <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+  </form>
+</div>
+</body>
+</html>

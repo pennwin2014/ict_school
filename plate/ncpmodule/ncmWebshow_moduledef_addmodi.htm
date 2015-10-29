@@ -1,0 +1,244 @@
+<html>
+<head>
+<title>模板定义</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="/css/alert/jquery.alert.css"/>
+<script type="text/javascript" src="/js/alert/jquery.js"></script>
+<script type="text/javascript" src="/js/alert/jquery.alert.js"></script>
+
+
+<script language="javascript">
+	function ckeckSame(str){
+		var strf=str.slice(0,1);
+		var arr=str.split(strf);
+		return arr.length-1;
+
+	}
+	
+	
+function checkNum(str)
+{return str.match(/\D/)==null}  
+	
+function ckf(){
+		
+//	var ps=form1.password.value;
+//	if(ps.length==0){
+//		return true;
+//	}
+//	if(ps.length>0&&ps.length<7){
+//		alert('密码长度不能小于7位');
+//		return false;
+//	}
+//	
+//	if(checkNum(ps)){
+//		alert('密码不能全部是数字');
+//	  return false;
+//	}
+//	var len2=ckeckSame(ps);
+//
+//	if(ps.length>0&&ps.length==len2){
+//		alert('密码不能用相同字符');
+//		return false;
+//	}
+	return true;
+}
+
+
+function init(){
+//	alert(document.getElementById("form1").cflag.value);
+//	if(document.getElementById("form1").cflag.value==1){
+//		parent.gbck();	
+//		document.getElementById("form1").cflag.value="";
+//	}
+}
+
+	function opselectfac()
+	{
+//		showModalDialog("/v4/check_fac_tree.htm", window, 'status:no;center:yes;help:no;minimize:no;maximize:yew;border:thick;statusbar:no;dialogWidth:300px;scroll:yes;dialogHeight:520px');
+
+				jIframe("/ncmm/check_fac_tree.htm", "选择厂商",'300','510');
+
+		
+	}
+  function deldiv(){
+  	  
+  		var ddiv=document.getElementById("popup_container");
+  		ddiv.style.display="none";	
+  		ddiv.parentNode.removeChild(ddiv);   
+  	  
+  	  var ddiv9=document.getElementById("popup_overlay");
+  		ddiv9.style.display="none";	
+  		ddiv9.parentNode.removeChild(ddiv9);
+
+  }
+  
+function getmoduleValue(){
+	var i,j;
+	var module_se="";
+	var keyID="";
+	var moneynulID="";
+	var oTbl=document.getElementById("DataTable");
+	var nLength=oTbl.rows.length;
+	
+	var ua = navigator.userAgent.split(";");
+	
+	for(i=1,j=0;i<nLength;i++)
+	{       // 第一行    第3列   
+		if(navigator.userAgent.indexOf("MSIE")>0) 
+		{
+	     if(oTbl.rows[i].cells[2].childNodes[0].value!="")
+		   {
+			    module_se+=oTbl.rows[i].cells[2].childNodes[0].value+"^";
+  		    keyID+=oTbl.rows[i].cells[1].childNodes[0].value+"^";
+			}else{
+	//			  moneynulID+=oTbl.rows[i].cells[0].childNodes[0].value+"^";
+			}
+	  }
+	  else
+	  {
+	  	if(oTbl.rows[i].cells[2].childNodes[1].value!="")
+			{
+					module_se+=oTbl.rows[i].cells[2].childNodes[1].value+"^";
+	  		  keyID+=oTbl.rows[i].cells[1].childNodes[0].value+"^";
+			}else{
+	//			moneynulID+=oTbl.rows[i].cells[0].childNodes[0].value+"^";
+			}
+	  } 
+		
+	}
+
+	document.getElementById("module_se").value=module_se;//.slice(0,-1)
+	document.all.keyID.value=keyID;//.slice(0,-1)
+//	document.all.moneynulID.value=moneynulID;
+//	alert(module_se);
+//	alert(keyID);
+	//alert(moneynulID);
+}
+
+</script>
+
+<style>
+ .titlef
+  {
+     font-weight:bolder;	
+  }	
+</style>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="overflow:hidden" onload="init();">
+<div align="center"></div>
+<form id="form1" name="form1" method="post" action="/pronline/Msg" >
+	
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">模板编辑</div></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td height="108"> 
+        <input type="hidden" name="FunName" value="ncmModuleDefInfoSave">
+        <input type="hidden" name="userid"  value="[#userid#]">
+        <input type="hidden" name="sumright"  value="[#sumright#]">
+        <input type="hidden" name="mgid" value="[#mgid#]">
+        <input type="hidden" id = "module_se" name="module_se" value="">
+        <input type="hidden" name="keyID" value="[#keyID#]">
+        <table width="95%" border="0"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0">
+          <!--
+           <tr width="95%"> 
+                  <td  valign="bottom" height="21" align="center" class = "titlef">模板名称&nbsp;
+                  	<input type="text" name="mname" size="20" maxlength="31" value="[#mname#]"> &nbsp;
+                  </td>
+          </tr>-->
+          <tr width="95%"> 
+            
+            <td valign="top" width="27%"><br>
+            	<table  border="0" align="center" cellspacing="0" >
+                <tr> 
+                	 <td  valign="bottom" height="21" align="center" class = "titlef"> <div align="center">模板名称&nbsp;</div>
+                	 </td>
+                </tr>	
+                <tr>  
+                   <td  valign="bottom" height="21" >
+                  	<input type="text" name="mname" size="20" maxlength="31" value="[#mname#]">&nbsp;
+                  </td>
+                </tr>
+                 </table>
+            </td>
+                
+           <td valign="top" width="70%"><br>  	
+        <table  border="0" align="left" cellspacing="0" id="DataTable">
+                <tr> 
+            <!--      <td width="30%" valign="bottom" height="21" align="center" class = "titlef"> <div align="center">模板名称&nbsp;</div></td>-->
+                  <td width="30%" valign="bottom" height="21" align="center" class = "titlef"> 终端类型 
+                  </td>
+                  <td width="30%" valign="bottom" height="21" align="center" class = "titlef"> <div align="center">语言&nbsp;</div></td>
+                  <td width="40%" height="21"  valign="bottom" align="center" class = "titlef"> <div align="left"> 模板类型</div></td>
+                </tr>
+                [#SLPB#]   
+                [#SLPB#]
+                <tr> 
+                  <!--  <td width="30%" valign="bottom" height="21" >
+                  	<input type="text" name="mname" size="20" maxlength="31" value="[#mname#]"> &nbsp;
+                  </td>-->
+                  <td width="30%" valign="bottom" height="21" > <input type="text" name="temname" size="10" maxlength="31" value="[#temname#]" readonly > 
+                  </td>
+                  
+                  <td width="30%" valign="bottom" height="21" ><input type="hidden" name="se_mid" size="10"  value="[#se_mid#]"  >  <input type="text" name="lanname" size="10" maxlength="31" value="[#lanname#]" readonly > 
+                  </td>
+                 
+                  <td width="40%" height="21" colspan="2" valign="bottom" > 
+                  	[#mtype#]
+                  		
+                  </td>
+                  
+                </tr>
+                [#SLPE#]
+                [#SLPE#]
+          <!--      <select name="mid" onchange="getmoduleValue();">
+<option value="0">请选择您需要的模板</option>
+<option value="1">applen</option>
+<option value="4" >默认</option>
+<option value="2">苹果测试</option>
+</select>
+                -->
+                
+                
+              </table>
+            </td>
+          </tr>
+                
+                
+                
+              </table>
+            </td>
+          </tr>
+        </table>
+        <div align="center"></div>
+      </td>
+  </tr>
+  <tr>
+    <td height="70"><table width="50%" border="0" align="center">
+    	<tr> 
+                  <td height="12" > <div align="left"> </div></td>
+                </tr>
+        <tr> 
+          <td> <div align="center">
+              <input name="ok" type="submit" class="an3"   value="保存" onclick="return ckf();">
+              &nbsp; 
+              <input name="cancel" type="reset" class="an3-1"  onClick="parent.gbck()"   value="关闭">
+              &nbsp; </div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

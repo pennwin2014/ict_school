@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>auth</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- <style type="text/css">td img {display: block;}</style> -->
+<style type="text/css">
+*{
+	margin:0;
+	padding:0;
+	font-size:16px;
+}
+#main{
+	width:480px;
+	height:518px;
+	margin:0 auto;
+}
+/*img{
+	float:left;
+}*/
+#header{
+	width:480px;
+	height:62px;
+	background-image:url(/images/applesms/sms4_01.jpg);
+	position:relative;
+}
+.header_ul li{
+			 list-style:none;
+			 float:left;
+			 display:block;
+			 height:31px;
+			 line-height:31px;
+			 font-family:'黑体' '宋体';
+			 font-size:16px;	
+   }
+   .china{
+	   width:53px;
+	   position:absolute;
+	   top:31px;
+	   left:330px;
+   }
+   .eng{
+	   width:80px;
+	   position:absolute;
+	   top:31px;
+	   left:383px;
+	   color:#06F;
+   }
+   #login_area{
+	   width:480px;
+	   height:518px;
+	   background-image:url(/images/smseng/iphone480x800english-01_r3_c11.gif);
+	   position:relative;
+   }
+   #gjdm_span{
+	   height:32px;
+	   line-height:32px;
+	   font-size:18px;
+	   font-family:Arial, Helvetica, sans-serif;
+	   position:absolute;
+	   top:90px;
+	   left:85px;
+	   vertical-align:middle;
+   }
+   #gjdm_span input{
+	   position:absolute;
+	   top:0px;
+	   left:120px;
+	   
+   }
+   
+   #gjdm{
+	   position:relative;
+	   top:5px;
+	   left:0px;
+   }
+   input{
+	   border:0;
+   }
+   #explain{
+	   position:absolute;
+	   top:150px;
+	   left:85px;
+	   text-decoration:none;
+	   color:red;
+   }
+   #username{
+	   position:absolute;
+	   top:140px;
+	   left:85px;
+	   
+   }
+   .input_div{
+	    height:32px;
+		width:160px; 
+		border: 1px solid #B4B4B4;
+		line-height:32px;
+		background-color:#FFF;
+		border:0;
+   }
+  
+   .getpasswd{ 
+         height: 32px; 
+		 line-height:32px;
+		 width: 180px;
+		 background-image:url(/images/applepc/but02.gif);
+		 border:0;
+		 cursor:pointer;
+		 position:absolute;
+	     top:140px;
+	     left:270px;
+	 }
+	 #disclaime{  
+        height: 22px; 
+		width: 130px;
+		position:absolute;
+		top:308px;
+		left:310px;
+		cursor:pointer;
+	 }
+	 #disclaime1{
+		 height:22px;
+		 width:310px;
+		 position:absolute;
+		 top:325px;
+		 left:85px;
+		 cursor:pointer; 
+	 }
+	 
+	 .chaccept{
+		background-image:url(/images/applepc/373x32-01.png);
+	    width:373px;
+		height:32px;
+		border:0;
+		position:absolute;
+		top:360px;
+		left:85px;
+		cursor:pointer;
+	}
+	.chaccept2{
+		background-image:url(/images/applepc/373x32.png);
+	    width:373px;
+		height:32px;
+		border:0;
+		position:absolute;
+		top:360px;
+		left:85px;
+	}
+	#password{
+	   position:absolute;
+	   top:412px;
+	   left:85px;	
+	}
+	#Code{
+	   position:absolute;
+	   top:460px;
+	   left:85px;
+	}
+	.but_login{
+	  background-image:url(/images/appceti/login.png);
+      height: 22px;
+	  width: 180px; 
+	  position:absolute;
+	  top:412px;
+	  left:270px;
+	  cursor:pointer;
+	  border:0;
+	}
+	#CheckHere{
+	   height:32px;
+	   width:150px;
+	   vertical-align:middle;
+	   line-height:32px;
+	   position:absolute;
+	   top:460px;
+	   left:260px;
+	   
+	}
+	#change{
+	   height:32px;
+	   width:60px;
+	   vertical-align:middle;
+	   line-height:32px;
+	   position:absolute;
+	   top:460px;
+	   left:400px;
+	   text-decoration:none;
+	   font-size:18px;
+	   
+   }
+	
+</style>
+<script language="javascript" src="/js/cetisfy/JSCode_IMG.js"></script>
+<script language="javascript" type="text/javascript">
+	var agree;
+	function agree(){
+		agree = 1;
+		document.getElementById('chaccept').className = 'chaccept2';	
+	}
+	function spylogin(){
+		if(document.getElementById("Code").value.toLowerCase()==CheckCode&&document.getElementById("username").value!=""&&document.getElementById("password").value!=""&&document.getElementById("gjdm").value!="For example:1 for US,852 for HK")
+		{
+			var mobno=document.getElementById("gjdm").value+document.getElementById("nclogin").username.value;
+	        document.getElementById("nclogin").username.value=mobno;
+		    document.getElementById("nclogin").submit();
+		}
+		
+		else if(document.getElementById("Code").value.toLowerCase() != CheckCode)
+		{
+		  alert("Verification code error !");
+		  return ;
+		}
+		
+		else if (document.getElementById("username").value=="" || document.getElementById("password").value==""||document.getElementById("gjdm").value=="For example:1 for US,852 for HK") {
+			window.alert("Please fill in your phone number and password!");
+			return ;
+		}
+		
+	}
+	function ss(e){
+		var key = window.event ? e.keyCode:e.which;
+
+		if(key==13)
+		spylogin();
+	}
+		var p_flag='1';
+		function restore(){
+	  document.getElementById("gpss").disabled="";
+	  document.getElementById("imgm").style.display="none";
+    p_flag='1';
+    document.getElementById("imgm").src='/images/sjimage/smspad.gif';
+	}
+
+function chk(tel)
+{
+
+if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel)))
+        {
+           return 0;
+         }
+else
+        {
+          return 1;
+         }
+}
+
+	function getpasswd(){		
+	   if(p_flag=='0') return false;
+	   
+		  document.getElementById("msgs").innerHTML="";
+
+		  if(document.getElementById("nclogin").username.value==''||document.getElementById("gjdm").value=="For example:1 for US,852 for HK"){
+		    alert('Please inupt your phone number!');
+		    return false;
+		  }
+		  
+		    var telno=document.getElementById("nclogin").username.value;
+		    if(telno.length<6){
+		    alert('Phone number is wrong!');
+		    return false;
+		    } 
+		 
+		  var mobno=document.getElementById("gjdm").value+document.getElementById("nclogin").username.value;
+		  temp_html="http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebGetMobPass_Gj&mobno@"+ mobno;
+		  //temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+mobno;
+		      //temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value;
+		  
+		  document.getElementById("ifhide").src=temp_html;
+
+	document.getElementById("imgm").src='/images/authimage/donghua.gif';
+  document.getElementById("gpss").disabled="true";
+  document.getElementById("imgm").style.display="";
+ p_flag='0';
+
+setTimeout('restore()',50000);
+		  return false;
+		
+		
+	}
+	
+	 function changlogin(flag){
+            self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+</script>
+<!--Fireworks CS5 Dreamweaver CS5 target.  Created Wed Sep 25 15:47:24 GMT+0800 2013-->
+</head>
+<body bgcolor="#ffffff">
+<center>
+ <form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+            [#postarg#]
+     <div id="main">
+    	 <div id="msgs" style="display:none; position:absolute;top:0; left:0; z-index:1">
+        	<font>[#message#]</font>
+        </div>
+    	<div id="header">
+        	<span style="margin-left:-9999px">苹果登录页面</span>
+            <ul class="header_ul">
+             	<li class="china" id="chinese" onClick="changlogin('zh')" >中文</li>
+                <li class="eng" id="english" onClick="changlogin('eng')">English</li>
+             </ul>
+        </div><img src="/images/applesms/sms4_02.jpg" /><div id="login_area"><img border="0" src="..//images/sjimage/smspad.jpg" width="102" height="25" id="imgm" style="display:none; z-index:1; position:absolute; top:120px; left:360px" >
+            <span id="gjdm_span"><strong>Country Code:</strong><input name="gjdm" class="input_div" id="gjdm" value="For example:1 for US" style="width:150px;" onfocus="this.value=''" type="text"/></span>
+    		 <input type="text"  id="username" name="username" class="input_div" />
+           
+            <input type="button" value="" id=gpss class="getpasswd"  onClick="getpasswd()" />
+          
+            <div id="disclaime"></div>
+            <div id="disclaime1"></div>
+            <input name="chaccept" type="button" value="" id="chaccept" class="chaccept" onclick="agree();">
+            
+            <input  type="password" id="password" name="password" class="input_div" onKeyPress="ss(event)" />
+          
+            <input type="button" value=""  class="but_login" onClick="return spylogin();"/>
+            
+            	<input type="text"   id="Code" class="input_div"  onKeyPress="ss(event)"/>
+
+           
+            <div  id="CheckHere"></div>
+             <script language="javascript">makeCode("CheckHere",4);</script>
+            <a href="javascript:makeCode('CheckHere',4)" id="change"><font style="font-size:14px;color:red;">看不清</font></a>
+        </div>
+        <img src="/images/applesms/sms4_04.jpg" />
+    </div>
+    
+<!--<table style="display: inline-table;" border="0" cellpadding="0" cellspacing="0" width="480">
+  <tr>
+   <td><img src="/images/smseng/spacer.gif" width="480" height="1" border="0" alt="" /></td>
+   <td><img src="/images/smseng/spacer.gif" width="1" height="1" border="0" alt="" /></td>
+  </tr>
+
+  <tr>
+   <td background="/images/smseng/iphone480x800english-01_r1_c1.gif">
+   			<table width="480" height="61">
+				<tr >
+					<td width="330"></td>
+					<td>&nbsp;</td>
+					</tr>
+					<tr>
+					<td ></td>
+					<td><span><input type="button" style="cursor:hand;background-image: url('/images/applepc/china01.png'); width: 53px; height: 31px; border: 0px;" id=chinese  onclick="changlogin('zh')" ></span><span style="position:relative;top:0px"><input type="button" style="cursor:hand;background-image: url('/images/applepc/english02.png'); width: 80px; height: 31px; border: 0px;" id=chinese  onclick="changlogin('eng')" ></span></td>
+					</tr>
+					
+			</table>
+   	
+   	</td>
+   <td><img src="/images/smseng/spacer.gif" width="1" height="62" border="0" alt="" /></td>
+  </tr>
+  <tr>
+   <td><img name="iphone480x800english01_r2_c1" src="/images/smseng/iphone480x800english-01_r2_c1.gif" width="480" height="110" border="0" id="iphone480x800english01_r2_c1" alt="" /></td>
+   <td><img src="/images/smseng/spacer.gif" width="1" height="110" border="0" alt="" /></td>
+  </tr>
+  <tr>
+   <td background="/images/smseng/iphone480x800english-01_r3_c1.gif">
+   	
+   		<table width="480" height="518">
+			<tr><td colspan="2" height="110">&nbsp;</td>
+			<tr><td width="90" height="32">&nbsp; </td><td><input type="text" id="username" name="username" style="width:160px;height:32px;position:relative;top:-15px;" >&nbsp;<input type="button" id=gpss class="but3-1" onclick="getpasswd()">	<img border="0" src="/images/sjimage/smspad.jpg" width="102" height="25" id="imgm" style="display:none" ></td></tr>
+		  <tr><td colspan="2" height="152">&nbsp;</td>
+		  <tr><td  height="32">&nbsp; </td><td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=#xxm>the terma and conditions of wireless internet access.</a></td></tr>
+			<tr><td  height="40">&nbsp; </td><td ><!--<input name="chaccept" type="checkbox" value="1" style="width:25px;height:30px"><img src="/images/smseng/373x32.png" width="373" height="32" alt=""></td></tr>
+			<tr><td  height="22">&nbsp; </td><td ><input type="password" id="password" name="password" style="width:160px;height:22px;position:relative;top:-5px;" onKeyPress="ss(event)">&nbsp;<input type="button" class="but_login" onClick="return spylogin();"> </td></tr>
+			
+			
+			<tr  ><td  height="30">&nbsp; </td><td><input type="text" style="width:160px;height:30px;position:relative;top:0px;"  id="Code" onKeyPress="ss(event)">&nbsp;<tt id="CheckHere" style="vertical-align:bottom;height:30px; "></tt>&nbsp;&nbsp;&nbsp;<a href="javascript:makeCode('CheckHere',4)"><font style="font-size:14px;color:red;">Invisibility</font></a>  </td>
+			</tr>
+
+			<script language="javascript">makeCode("CheckHere",4);</script>	
+			<tr><td colspan="2"  align="center" id="msgs">&nbsp;<font color="red">[#message#]</font></td></tr>
+		</table>
+   	
+   	</td>
+   <td><img src="spacer.gif" width="1" height="518" border="0" alt="" /></td>
+  </tr>
+  <tr>
+   <td><img name="iphone480x800english01_r4_c1" src="/images/smseng/iphone480x800english-01_r4_c1.gif" width="480" height="110" border="0" id="iphone480x800english01_r4_c1" alt="" /></td>
+   <td><img src="/images/smseng/spacer.gif" width="1" height="110" border="0" alt="" /></td>
+  </tr>
+</table>-->
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+
+</form>
+</center>
+
+</body>
+</html>

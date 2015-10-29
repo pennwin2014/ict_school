@@ -1,0 +1,307 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>自定义权限</title>
+<link href="/css/css_main.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/toolbars.css" />
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script> 
+<style type="text/css">
+.accept {
+    background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+}	
+</style>
+<script> 
+
+Ext.onReady(function(){
+		Ext.define('treedata',{
+				extend: 'Ext.data.Model',
+				fields: [
+				    {name: 'text',      type: 'string'},
+				    {name: 'id',        type: 'string'},
+				    {name: 'groupcode', type: 'string'},
+				    {name: 'ctext',     type: 'string'}
+				]
+		});
+    var store_systems_autopri = Ext.create('Ext.data.TreeStore', {
+   	    model:'treedata',
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@ncm_autopri'
+        },
+        root: {
+            text: '全部',
+            id: '',
+            expanded: true
+        },
+        folderSort: true,
+        sorters: [{
+            property: 'text',
+            direction: 'ASC'
+        }],
+        listeners:{
+    				'load':function(thisStore, node, records, successful, e0pts){
+    				}
+    		}
+    });
+    store_systems_autopri.on('beforeload', function (store, options) {
+    			var shopcode1="";
+  				if(Ext.getCmp('autopri_typesearch')){
+  					 shopcode1=Ext.getCmp('autopri_typesearch').value;
+  				}
+	        var new_params = { shopcode: shopcode1 };
+	        Ext.apply(store.proxy.extraParams, new_params);
+	  });
+	  
+    Ext.define('CheckData', {
+			  extend: 'Ext.data.Model',
+			  fields: [
+			      'groupcode', 'groupname'
+			  ],
+			  idProperty: 'rolename'
+		});
+		//取权限check数据
+		var store_type = Ext.create('Ext.data.Store', {
+		    pageSize: 1000,
+		    model: 'CheckData',
+		    remoteSort: true,
+		    proxy: {
+		        type: 'ajax',
+		        url: '/pronline/Msg?FunName@ncm_shopgtype&type@2',
+		        reader: {
+		            type:'json',
+		            root: 'eimdata',
+		            totalProperty: 'totalCount'
+		        },         
+		        simpleSortMode: true
+		    }
+		});
+
+		//高级查询窗口
+		function gotoedit1(value, id){
+				var win3 = null;
+				var groupname = '';
+				var title='增加';
+				
+				if(value == 'update'){
+						title='修改';
+						if(Ext.getCmp("tree_autopri").getSelectionModel().getLastSelected()){
+								groupname = Ext.getCmp("tree_autopri").getSelectionModel().getLastSelected().get("text");
+								//alert(groupname)
+						}else{
+								alert("请选择一个权限")
+						}
+				}
+		
+			  if (!win3) { //判断如果不存在就创建新的
+			      win3 = new Ext.Window({
+						    title:'自定义权限窗口 - '+ title,
+						    closeAction: 'hide',
+						    layout:'form', 
+								y:100,
+						    width:300,
+						    draggable:true, //可拖动的
+							  maximizable:true, //可最大化的
+					      //resizable: true, //可改变大小
+							  modal: false,//后面的内容可以操作
+					      //plain：true,//则主体背景透明
+					      //items: fp2
+						    constrain:true, //限制窗口只能在其容器内移动
+					      //minimizable:true, //可最小化
+					      
+			          items:[new Ext.FormPanel({
+										id:'autopri_form2',
+										layout:"form",
+										baseCls:"x-plain",
+										bodyPadding: 5,
+										items:[{
+                      	fieldLabel:'权限名称',
+                      	xtype: 'textfield',
+												emptyText:'请输入权限名称',
+												value:groupname,
+						            name:'groupname'
+							      }]
+			          })],  
+				        buttons:[{
+									  text:"确定",
+									  iconCls:'icon-save',		  
+									  handler:function(){
+					        			var objectTmp = Ext.getCmp("autopri_form2").getForm().getValues();
+												var groupname1 = objectTmp.groupname;
+												var parentcode1 = "";
+												var groupcode1 = "";
+												var shopcode1="";
+												var vkeyword=Ext.getCmp('autopri_keyword').value;
+												if(Ext.getCmp('autopri_typesearch'))shopcode1=Ext.getCmp('autopri_typesearch').value;											
+												if(Ext.getCmp("tree_autopri").getSelectionModel().getLastSelected()){
+														if(value == "add"){
+																parentcode1 = Ext.getCmp("tree_autopri").getSelectionModel().getLastSelected().get("id");
+																//alert(parentcode1)
+														}
+														if(value == "update"){
+																groupcode1 = Ext.getCmp("tree_autopri").getSelectionModel().getLastSelected().get("id");
+																//alert(groupcode1)
+														}
+														//alert(parentcode1);
+														if(groupname1==""){
+																alert("请输入自定义权限名称")
+														}else{
+																store_systems_autopri.load({params: {update:value,groupname:groupname1,parentcode:parentcode1,shopcode:shopcode1,groupcode:groupcode1,keyword:vkeyword}});
+																//store_systems_autopri.load({params: {shopcode:shopcode1,keyword:vkeyword}});
+																//alert(111)
+																//reflash();
+																win3.close();
+														}
+												}else{
+														alert("请选择一个权限")
+												}
+										}
+								},{
+										text:"取消",
+										handler: function(){
+												win3.close();
+										}
+								}]
+						});
+				}
+			  win3.show();
+		}
+		
+		var root = false;
+		if(parent.admincheck == "admin") root = true;	
+		var tree = Ext.create('Ext.tree.TreePanel',{
+        rootVisible:root,
+        title: '',
+    	  id:'tree_autopri',
+        store: store_systems_autopri,
+        autoScroll: true,
+        border:false,
+		    frame:false,
+        useArrows: false,
+				listeners:{
+		      	itemclick:function(view, rcd, item, idx, event, eOpts){
+					      var groupcode1 = "";		
+								if(Ext.getCmp("tree_autopri").getSelectionModel().getLastSelected()){
+										groupcode1 = Ext.getCmp("tree_autopri").getSelectionModel().getLastSelected().get("id");
+										parent.doreflashTab1('','',groupcode1);
+								}
+		      	},
+				 		itemexpand:function(node){
+						},
+						beforeitemexpand : function(node,eOpts) {
+					 	}
+		    } 
+		});
+	 
+		var panel = Ext.create('Ext.panel.Panel', {
+		    title: '',
+		    margins: '0 0 0 0',
+		    renderTo:Ext.getBody(),
+				height: parent.Ext.get("layout_center").getHeight()-63,
+		    border:false,
+		    frame: false,
+		    layout: 'fit',
+				autoScroll: true,
+		    items:tree,
+		    dockedItems: [{
+			      xtype: 'toolbar',
+			      items: [
+			      '-',{
+								xtype:'combo',
+								valueField: 'groupcode',
+								displayField: 'groupname',
+								emptyText:'请选择类别',   
+								store: store_type,
+								forceSelection: true,
+								triggerAction: 'all',
+								msgTarget:'qtip', //显示一个浮动的提示信息 	
+							  id:'autopri_typesearch',
+								listeners: {
+										'change':function(){
+												var shopcode1 = this.value;
+												store_systems_autopri.load({params: {shopcode:shopcode1}});
+										}
+								}
+						},'-',{
+		      			labelWidth: 45,
+		      			width:200,
+		          	fieldLabel:'关键字',
+		          	xtype: 'textfield',
+		          	id:'autopri_keyword',
+		         	 	name:'autopri_keyword',
+								emptyText:'请输入自定义权限名称'
+		        },'-',{
+			          text:'查询',
+			          iconCls:'accept',
+			          handler:function(){
+			          	  var shopcode1="";
+					  				if(Ext.getCmp('autopri_typesearch')){
+					  					 shopcode1=Ext.getCmp('autopri_typesearch').value;
+					  				}
+			              var vkeyword=Ext.getCmp('autopri_keyword').value;			         
+										store_systems_autopri.load({params: {shopcode:shopcode1,keyword:vkeyword}});
+			          }
+		        }]
+		    },{
+		      xtype: 'toolbar',
+		      items: [
+		      '-',{
+		           text:'增加',
+		           iconCls:'add',
+		           handler : function() {
+		           	  gotoedit1('add', '');
+		    			 }
+		      },'-',{
+		           text:'修改',
+		           iconCls:'edit',
+		           handler : function() {
+		           	  gotoedit1('update', '');
+		           }
+		      },'-',{
+		          text:'删除',
+			        id:'srvpar_removeButton',
+		          iconCls:'remove',
+		          handler:function(){
+									if(confirm('您真的要执行删除操作吗？')){                  
+											var groupcode1= "";
+											var vkeyword=Ext.getCmp('autopri_keyword').value;			
+											if(Ext.getCmp("tree_autopri").getSelectionModel().getLastSelected()){
+													groupcode1 = Ext.getCmp("tree_autopri").getSelectionModel().getLastSelected().get("id");
+													var shopcode1="";
+													if(Ext.getCmp('autopri_typesearch')) shopcode1=Ext.getCmp('autopri_typesearch').value;
+													store_systems_autopri.load({params: {update: "del",groupcode:groupcode1,shopcode:shopcode1,keyword:vkeyword}});
+													//store_systems_autopri.load({params: {shopcode:shopcode1,keyword:vkeyword}});
+											}else{
+													alert("请选择一个权限")
+											}
+					        }
+		          }
+		      },'-',{
+		              text:'应用',
+		              iconCls:'accept',
+		              disabled: false,
+		              handler:function(){
+											var shopcode1="";
+											if(Ext.getCmp('autopri_typesearch'))shopcode1=Ext.getCmp('autopri_typesearch').value;
+											var vkeyword=Ext.getCmp('autopri_keyword').value;			         
+											store_systems_autopri.load({params: {update:"refresh",shopcode:shopcode1,keyword:vkeyword}});
+		              }
+		      }]
+		    }]
+		});
+
+		if(parent.admincheck != "admin"){
+				Ext.getCmp('autopri_typesearch').destroy();
+		}
+		
+		if(parent.Ext.getCmp('areaTab'))
+				parent.Ext.getCmp('areaTab').destroy();
+		parent.Ext.getCmp('leftAll').setWidth(0);
+		parent.Ext.getCmp('treetab').setWidth(0);
+});
+</script>
+</head>
+<body>
+</body>
+</html>

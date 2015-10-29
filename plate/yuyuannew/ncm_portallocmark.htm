@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=2" />
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.mobile-1.4.2.min.js"></script>
+<link rel="stylesheet" href="/css/jquery.mobile-1.4.2.min.css">
+
+<title>标签管理</title>
+<style type="text/css">
+
+@media screen and (max-width:450px) {
+ * {
+ margin:0;
+ padding:0;
+}
+ .wrap {
+ width:100%;
+}
+
+</style>
+<script type="text/javascript">
+function loadLogos(){
+//alert("aaaaaaaa");
+document.getElementById("FunName").value = "ncm_yuyuan_home";
+document.getElementById("form1").submit();
+}
+function save(){
+document.getElementById("FunName").value = "ncm_portallocmark";
+document.getElementById("add").value = "add";
+document.getElementById("form1").submit();
+
+}
+
+
+function createXMLHttpRequest() 
+ {
+     var C=null;
+     if(window.XMLHttpRequest) 
+     { 
+        C = new XMLHttpRequest();
+     }
+     else if (window.ActiveXObject) 
+     { 
+         try {
+               C = new ActiveXObject("Msxml2.XMLHTTP");
+         } 
+         catch (e) 
+         {
+               try 
+               {
+                    C = new ActiveXObject("Microsoft.XMLHTTP");
+               } catch (e) {}
+         }
+      }
+      return C;
+ }
+ 
+ function getxmlbyname(ins,names,namee)
+ {
+    var start;
+    var end;
+    var ret='';
+ 
+    start = ins.indexOf(names);
+    end = ins.indexOf(namee);
+  
+   if(start != -1 && end != -1)
+   {
+      ret=ins.substr(start+names.length,end-start-names.length);
+   }
+   return ret; 
+ }
+
+var statcode= null;
+var errmessage= null;   
+var xmlHttp = false;
+ 
+ function callServer()
+ { 
+   if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+     xmlHttp.abort();
+   }
+   xmlHttp = createXMLHttpRequest();
+   if(xmlHttp)
+   {
+     var web_url = "/pronline/Msg?FunName@ncm_yuyuan_home&plateName@"+document.getElementById("plateName").value+"&tsid@"+document.getElementById("tsid").value+"&update@"+Math.random()*999;
+   
+     xmlHttp.open("GET",web_url, true);
+     xmlHttp.onreadystatechange = updatePage;
+     xmlHttp.send(null);
+   }
+ }
+ 
+ 
+ //处理函数
+ function updatePage()
+ {
+   if (xmlHttp.readyState == 4)
+   {
+      var response = xmlHttp.responseText;
+	//alert(response);
+      var position_x = getxmlbyname(response,"<position_x>","</position_x>");
+      var position_y = getxmlbyname(response,"<position_y>","</position_y>");
+      //var msg = getxmlbyname(response,"<msg>","</msg>");
+	  document.getElementById('position_x').value = position_x ;
+	  document.getElementById('position_y').value = position_y;
+	 
+   }
+ }
+setInterval(callServer, 3000);
+var msg = "[#msg#]"
+if(msg){
+ alert(msg);
+}
+</script>
+</head>
+<body>
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+		<input type="hidden" id="FunName" name="FunName" value="">	
+		<input type="hidden" id="add" name="add" value="">	
+
+<div class="wrap">
+	<div data-role="page" id="pageone" data-theme="a">
+	<center>
+	<div data-role="content">
+	<label for="fname">当前坐标:</label>
+	<div  style="width:45%;float:left;margin-right:10%">
+	X:<input type="text" name="position_x" id="position_x" value="[#position_x#]" readonly="readonly"  />
+	</div>
+	<div  style="width:45%;float:left">
+	Y:<input type="text" name="position_y" id="position_y" value="[#position_y#]" readonly="readonly" />
+	</div>
+	<div style="clear:both;"></div>
+	<div data-role="content" >
+	<label for="fname">标签名：<input type="text" name="fname" id="fname" placeholder="A-1-1" ></label>
+	<label for="sname">店名：<input type="text" name="sname" id="sname" placeholder="老庙黄金" ></label>
+	</div>
+	<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup">
+				<legend>坐标位置：</legend>
+				
+				<input type="radio" name="mark" id="left" value="1" >
+				<label for="left">左上</label> 
+
+				<input type="radio" name="mark" id="right" value="2">
+				<label for="right">右下</label> 
+
+			</fieldset>
+	</div>
+	 <input type="button" value="保存" onclick="save()">
+	 </div>
+	</center>
+	</div>
+</div>
+</form>	
+</body>
+</html>

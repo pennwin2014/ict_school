@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>个人资料</title>
+<style type="text/css">
+* {
+	
+	margin:0;
+	padding:0;
+	font-family:"黑体";
+}
+body{background:#efefef;}
+.wrap {
+	width:480px;
+	margin:0 auto;
+	background:#efefef;
+}
+.main_1{ width:100%; margin:0 auto;}
+.main_1 p{ color:#069;}
+.per_photo{border-radius: 15px; /* css 3标准 */
+-moz-border-radius: 15px;  /* mozilla */
+-webkit-border-radius: 15px;/*webkit*/
+overflow:hidden; width:30%; float:left;}
+.per_photo img{ width:100%;}
+@media screen and (max-width:450px) {
+.wrap {
+ width:100%;
+}
+}
+.main_1 p {border-bottom:1px solid #e4e4e4;padding:15px;background:#fff}
+</style>
+<script type="text/javascript">
+
+function load(){
+document.getElementById("uid").value="[#username#]";
+}
+
+</script>
+</head>
+
+<body >
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="uid" name="uid" value="">
+		<input type="hidden" name="plateName" id="plateName" value="zhengzhoudianxin"/>
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>		
+        <input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+</form>
+<div class="wrap">
+<div class="main_1" >
+<p >昵称：<a style="color:#f60; font-size:22px;">[#nickname#]</a></p>
+
+<p>积分：[#integral#]</p>
+<!-- <div style="height:10px; clear:both;"></div> -->
+<p>手机号：[#username#]</p>
+
+<p>地址：[#address#]</p>
+</div>
+<div style="height:10px; clear:both;"></div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>IndexInfo</title>
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" />
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+<script type="text/css">
+	body{font-family:"微软雅黑"}
+</script>
+
+<script type="text/javascript">
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*'
+]);
+
+var temp = '';
+
+var required = '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
+
+Ext.onReady(function(){
+	  var store_flags = Ext.create('Ext.data.Store', {
+	  	 fields:['groupid', 'groupname'],
+	  	 data:[
+	  	 		{groupid:"0", groupname:"无效"},
+	        {groupid:"1", groupname:"有效"},
+	        {groupid:"9", groupname:"删除"}
+	  	 ]
+	  });
+	  
+	  Ext.define('areaData', {
+        extend: 'Ext.data.Model',
+        fields: ['aid', 'aname', 'pid', 'systime', 'lon', 'lat', 'description']
+    });
+	  var store_province = Ext.create('Ext.data.Store', {
+	  	 model:'areaData',
+	  	 pageSize: 10000,
+	  	 remoteSort: true,
+	  	 proxy:{
+	  	 		type:'ajax',
+	  	 		url:'/pronline/Msg?FunName@ncm_webarea_list&flags@1',
+	  	 		reader:{
+	  	 				type:'json',
+	  	 				root:'eimdata'	
+	  	 		},
+	  	 		simplleSortMode:true	
+	  	 }
+	  });
+	  store_province.load();
+	  Ext.define("cityIndex", {
+	  		extend:'Ext.data.Model',
+	  		proxy:{
+	  				type:'ajax',
+	  				url:'/pronline/Msg?FunName@ncm_webarea_list',
+	  				reader: new Ext.data.JsonReader({
+         				type:'json',
+          			root: 'eimdata',
+          			totalProperty: 'totalCount'
+            }),        
+            simpleSortMode: true
+	  		},
+	  		fields:['aid', 'aname', 'pid', 'systime', 'lon', 'lat', 'description']	
+	  });
+	  var store_city = Ext.create('Ext.data.Store', {
+    		pageSize: 10000,
+    		model: 'cityIndex'
+    });
+    Ext.define("areaIndex", {
+	  		extend:'Ext.data.Model',
+	  		proxy:{
+	  				type:'ajax',
+	  				url:'/pronline/Msg?FunName@ncm_webarea_list',
+	  				reader: new Ext.data.JsonReader({
+         				type:'json',
+          			root: 'eimdata',
+          			totalProperty: 'totalCount'
+            }),        
+            simpleSortMode: true
+	  		},
+	  		fields:['aid', 'aname', 'pid', 'systime', 'lon', 'lat', 'description']	
+	  });
+	  var store_area = Ext.create('Ext.data.Store', {
+    		pageSize: 10000,
+    		model: 'areaIndex'
+    });
+    
+    Ext.define('TypeData', {
+				extend:'Ext.data.Model',
+				fields:['id', 'groupname', 'groupcode', 'systime', 'type']
+		});
+		var store_type1 = Ext.create('Ext.data.Store',{
+				model:'TypeData',
+				pageSize: 10000,
+				autoLoad: true,
+      	proxy: {
+        		type: 'ajax',
+        		url: '/pronline/Msg?FunName@ncm_webshopgtype_list&type@1',
+        		reader: {
+	        			type:'json',
+	        			root: 'eimdata',
+	        			totalProperty: 'totalCount'
+        		},
+        		simpleSortMode: true
+      	}
+    });
+    var store_type2 = Ext.create('Ext.data.Store',{
+				model:'TypeData',
+				pageSize: 10000,
+				autoLoad: true,
+      	proxy: {
+        		type: 'ajax',
+        		url: '/pronline/Msg?FunName@ncm_webshopgtype_list&type@2',
+        		reader: {
+	        			type:'json',
+	        			root: 'eimdata',
+	        			totalProperty: 'totalCount'
+        		},
+        		simpleSortMode: true
+      	}
+    });
+    
+    Ext.define("fdanIndex", {
+	  		extend:'Ext.data.Model',
+	  		proxy:{
+	  				type:'ajax',
+	  				url:'/pronline/Msg?FunName@ncm_shopgroup',
+	  				reader: new Ext.data.JsonReader({
+         				type:'json',
+          			root: 'eimdata',
+          			totalProperty: 'totalCount'
+            }),        
+            simpleSortMode: true
+	  		},
+	  		fields:['iNum', 'groupname', 'groupcode', 'curcode','systime', 'pname', 'pid']	
+	  });
+	  var store_fdan = Ext.create('Ext.data.Store', {
+    		pageSize: 10000,
+    		model: 'fdanIndex'
+    });
+	
+		var form1 = Ext.create('Ext.FormPanel', {
+				frame:true,
+				width:358,
+				bodyPadding:10,
+				renderTo:'grid-corp',
+				defaultType:'textfield', //设置表单字段的默认类型  
+				fieldDefaults:{ //统一设置表单字段默认属性
+						labelSeparator:':', //分隔符
+						labelWidth:100, //标签宽度
+						width:300, //字段宽度
+						msgTarget:'side'
+				},
+				items:[{
+						xtype:'fieldset',
+						title:'基本信息',
+						items:[{
+								xtype:'textfield',
+								fieldLabel:'增/改',
+								id:'key',
+								name:'key',
+								hidden:true,
+								value:'[#key#]'		
+						},{
+								xtype:'textfield',
+								fieldLabel:'序号',
+								id:'groupid',
+								name:'groupid',
+								hidden:true,
+								value:'[#groupid#]'		
+						},{
+		            fieldLabel:'显示名称',
+		            xtype: 'textfield',
+								//emptyText:'请输入显示名称',
+								value:'[#dispname#]',
+								id:'dispname',
+		            name:'dispname'
+		        }]	
+				},{
+						xtype:'fieldset',
+						title:'单位编码',
+						items:[{
+							  xtype:'combo',
+								fieldLabel: '省份',
+				        valueField: 'aid',
+				        displayField: 'aname',
+				        value:'[#provid#]',
+				        //emptyText:'选择省份...',   
+				        store: store_province,
+				        forceSelection: true,
+				        triggerAction: 'all',
+				        afterLabelTextTpl: required,
+				        allowBlank:false, //是否允许为空
+				        blankText:'省份不能为空！',	
+						    msgTarget:'qtip', //显示一个浮动的提示信息 	
+				        id:'prov',
+				        name:'prov',
+				        listeners:{
+			        	    afterrender:function(){
+			        	    		store_city.proxy.url= "/pronline/Msg?FunName@ncm_webarea_list&province@" + this.value;  
+		                		store_city.load(); 
+		                		Ext.getCmp('city').setValue('[#cityid#]');
+			        	    },
+			        	    
+		        				select : function(combo,record,index){  
+		            				store_city.proxy.url= "/pronline/Msg?FunName@ncm_webarea_list&province@" + combo.value;  
+		                		store_city.load();
+		        				}
+		      			}
+						},{
+								fieldLabel: '城市', 
+		   					//emptyText:'选择城市...', 
+		       			xtype:'combo',  
+		       			store: store_city,  
+		       			valueField: "aid",  
+		       			displayField: "aname",
+		       			mode: 'remote',  
+		       			forceSelection: true,
+		       			editable: false,
+		       			triggerAction: 'all',
+		       			afterLabelTextTpl: required,
+		       			allowBlank:false, //是否允许为空
+				        blankText:'城市不能为空！',	
+						    msgTarget:'qtip', //显示一个浮动的提示信息
+		       			id:'city',
+		       			name: 'city',
+		       			listeners:{    
+		     				    afterrender:function(){
+			        	    		store_area.proxy.url= "/pronline/Msg?FunName@ncm_webarea_list&city@" + this.value;  
+		                		store_area.load(); 
+		                		Ext.getCmp('area').setValue('[#areaid#]');
+			        	    },
+			        	    
+		        				select : function(combo,record,index){
+		        					  if(Ext.getCmp('prov').value == ''){
+		        					  		alert('请先选择省份...');
+		        					  		Ext.getCmp('city').setValue('');	
+		        					  }else{  
+				            				store_area.proxy.url= "/pronline/Msg?FunName@ncm_webarea_list&city@" + combo.value;  
+				                		store_area.load();
+		                	  }
+		        				}
+		      			}	
+						},{  
+		   					fieldLabel: '区域', 
+		   					//emptyText:'选择区域...', 
+		       			xtype:'combo',  
+		       			store: store_area,  
+		       			valueField: "aid",  
+		       			displayField: "aname",
+		       			mode: 'remote', 
+		       			forceSelection: true,
+		       			editable: false,
+		       			afterLabelTextTpl: required,
+		       			triggerAction: 'all',
+		       			allowBlank:false, //是否允许为空
+				        blankText:'区域不能为空！',	
+						    msgTarget:'qtip', //显示一个浮动的提示信息
+		       			id:'area',
+		       			name: 'area',
+		       			listeners:{
+		       					select : function(combo,record,index){
+		       							if(Ext.getCmp('city').value == ''){
+		       									alert('请先选择城市...');
+		        					  		Ext.getCmp('area').setValue('');	
+		       							}
+		        				}	
+		       			}
+		   			}
+		/*   			
+		   			,{  
+		   					fieldLabel: '类别', 
+		       			xtype:'combo',  
+		       			store: store_type1,  
+		       			valueField: "groupcode",  
+		       			displayField: "groupname",
+		       			value:'[#typeid#]',
+		       			triggerAction: 'all',
+		       			queryMode:'local',
+								typeAhead:true,
+		       			allowBlank:true, //是否允许为空
+		       			id:'type',
+		       			name: 'type',
+		       			listeners:{
+		       					'change': function(){
+		        				}	
+		       			}
+		   			},{  
+		   					fieldLabel: '商城', 
+		       			xtype:'combo',  
+		       			store: store_type2,  
+		       			valueField: "groupcode",  
+		       			displayField: "groupname",
+		       			value:'[#shaoid#]',
+		       			queryMode:'local',
+		       			triggerAction: 'all',
+		       			typeAhead:true,
+		       			allowBlank:true, //是否允许为空
+		       			id:'shao',
+		       			name: 'shao',
+		       			listeners:{
+       						  afterrender:function(){
+			        	    		store_fdan.proxy.url= "/pronline/Msg?FunName@ncm_shopgroup&flag@" + this.value;  
+		                		store_fdan.load();
+			        	    },
+		       				
+		       				  select:function(combo,record,index){
+		       				  		store_fdan.proxy.url= "/pronline/Msg?FunName@ncm_shopgroup&flag@" + combo.value;  
+		                		store_fdan.load();
+		       				  }
+		       			}
+		   			}
+		  			   			
+		   			,{  
+		   					fieldLabel: '分公司', 
+		       			xtype:'combo',  
+		       			store: store_fdan,  
+		       			valueField: "groupcode",  
+		       			displayField: "groupname",
+		       			value:'[#fdanid#]',
+		       			queryMode:'local',
+		       			triggerAction: 'all',
+		       			typeAhead:true,
+		       			allowBlank:true, //是否允许为空
+		       			id:'fdan',
+		       			name: 'fdan',
+		       			listeners:{
+		       			}
+		   			}
+		  */		  			
+		   			
+		   			,{
+		            fieldLabel:'单位编码',
+		            xtype: 'textfield',
+								readOnly:false,
+								hidden:false,
+							  value:'[#fdanid#]'+'[#groupname#]',
+							  id:'groupname',
+		            name:'groupname',
+				        allowBlank:true //是否允许为空
+		        }]	
+				},{
+						xtype:'fieldset',
+						title:'标记',
+						items:[{
+		            xtype:'combo',
+								name:'flags',
+								fieldLabel:'标记',
+								value:'[#flags#]',
+								triggerAction:'all',
+								store:store_flags,
+								displayField:'groupname',
+								valueField:'groupid',
+								queryMode:'local',
+								forceSelection:false,
+								typeAhead:true,
+								afterLabelTextTpl: required,
+		       			allowBlank:false, //是否允许为空
+				        blankText:'标记不能为空！',	
+						    msgTarget:'qtip' //显示一个浮动的提示信息
+		        }]	
+				}],
+				buttons:[{
+					  text:'确定',
+            handler: function() {
+	             form1.form.doAction('submit',{
+			             url:'/pronline/Msg',
+			             method:'post',
+			             params:{FunName:'ncm_websrvgroup_list'},
+			             success:function(form,action){
+			             	  //alert(action.result.success);
+			             	  winclose();
+			             }
+	             })
+            }
+				},{
+					  text:'取消',
+					  handler:function(){
+					  		winclose();
+					  }
+				}]
+		});
+});
+
+function winclose(){
+    var win = parent.Ext.getCmp('windr');
+		if (win) {
+			win.close();
+		}
+}
+
+</script>	
+</head>
+<body bgcolor="#DEE8FA">
+<div id="grid-corp"></div>
+</body>
+</html>

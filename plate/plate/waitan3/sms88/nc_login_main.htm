@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<link href="/css/wuzhen/flexslider.css" rel="stylesheet" type="text/css" />
+<script src="/js/wuzhen/jquery-1.10.2.min.js"></script>
+<script src="/js/wuzhen/jquery.flexslider-min.js"></script>
+<script src="/js/wuzhen/shop_home.js"></script>
+<title>乌镇峰会欢迎您</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:100%;
+	margin:0 auto;		
+}
+.top_tit img{ width:100%;}
+
+.contentinfo{ width:100%;}
+
+.bg_img{ width:100%; position:relative; }
+
+.bg_img img{ width:100%;}
+
+.tit_text{ position:absolute; top:10px; width:100%; text-align:center;}
+
+.userstyle{  width:80%; margin-left:10%; position:relative;top:20px;}
+
+.passwordstyle{  width:80%;margin-left:10%;}
+
+.username{ width:100%; min-height:30px; color:#BFBFBF; font-weight:bold; font-size:1em; }
+
+.password{ width:100%;min-height:30px; color:#BFBFBF; font-weight:bold; font-size:1em;}
+
+.btn_sty{ width:80%; margin-left:10%;}
+.btn_hq{ color:#996633; font-weight:bold; width:40%; height:30px;  border-radius:8px;
+    	-webkit-border-radius: 8px;
+		FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#ffc337,endColorStr=red); /*IE 6 7 8*/ 
+		background: -ms-linear-gradient(top, #ffc337,  #fee086);        /* IE 10 */
+		background:-moz-linear-gradient(top,#ffc337,#fee086);/*火狐*/ 
+		background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#ffc337), to(#fee086));/*谷歌*/ 
+		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffc337), to(#fee086));      /* Safari 4-5, Chrome 1-9*/
+		background: -webkit-linear-gradient(top, #ffc337, #fee086);   /*Safari5.1 Chrome 10+*/
+		background: -o-linear-gradient(top, #ffc337, #fee086);  /*Opera 11.10+*/}
+.btn_ok{ color:#386b9e; font-weight:bold; width:40%; margin-left:20%; height:30px;  border-radius:8px;
+    	-webkit-border-radius: 8px;
+		FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#b8c4cb,endColorStr=red); /*IE 6 7 8*/ 
+		background: -ms-linear-gradient(top, #99c5f1,  #cbe7fc);        /* IE 10 */
+		background:-moz-linear-gradient(top,#99c5f1,#cbe7fc);/*火狐*/ 
+		background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#99c5f1), to(#cbe7fc));/*谷歌*/ 
+		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#99c5f1), to(#cbe7fc));      /* Safari 4-5, Chrome 1-9*/
+		background: -webkit-linear-gradient(top, #99c5f1, #cbe7fc);   /*Safari5.1 Chrome 10+*/
+		background: -o-linear-gradient(top, #99c5f1, #cbe7fc);  /*Opera 11.10+*/}
+
+.span_zh{ border-right: solid 2px #FF9900; color:#996633; margin-left:10%;  padding-right:2%; margin-right:2%;}
+
+.span_eng{color:#996633;}
+
+.login_info{ position:absolute; top:40px; width:90%; margin-left:5%; background-color:#FFFFFF;}
+
+.hide_pass{ display:none;}
+
+.ManualAuthentication{ width:80%; margin-left:10%; display:none;}
+</style>
+<script type="text/javascript">	
+	
+function chk(tel)
+{
+
+if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel)))
+        {
+           return 0;
+         }
+else
+        {
+          return 1;
+         }
+}
+//解析字符串  ins-输入字符串，   names-开始字符串 namee -结束字符串 返回值 （names 和namee 之间的字符串 可用于解析简单的XML
+function getxmlbyname(ins,names,namee){
+	var start;
+	var end;
+	var ret='';
+
+	start=ins.indexOf(names);
+	end=ins.indexOf(namee);
+	
+	if(start!=-1&&end!=-1){
+		ret=ins.substr(start+names.length,end-start-names.length);
+	}
+	return ret;	
+}
+	
+function createXMLHttpRequest() {
+	var C=null;
+		if(window.XMLHttpRequest) { //Mozilla 浏览器
+			C = new XMLHttpRequest();
+		}
+		else if (window.ActiveXObject) { // IE浏览器
+			try {
+				C = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					C = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {}
+			}
+		}
+		return C;
+	}
+var xmlHttp = false;
+//调用AJAX
+ function callServer() 
+ { 
+
+ 	
+ 	
+ 		  var telno=document.getElementById("nclogin").username.value;
+		    if(telno.length!=11){
+		     return ;
+		    } 
+		  if(chk(telno)!='0'){
+		  	return ;
+		  }
+      if(document.getElementById("nclogin").password.value!=''&&document.getElementById("nclogin").password.value!='密码'){
+      
+      	return;
+      }
+      if(document.getElementById("checkPass").innerHTML!=''){
+     
+      	return;
+      }
+      
+  if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+	    	
+    xmlHttp.abort();
+   }
+
+   xmlHttp = createXMLHttpRequest();
+    	
+   if( xmlHttp)
+   {
+
+  
+       var web_url="http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebGetMobPassword&username@"+document.getElementById("nclogin").username.value+'&xx@'+Math.random()*999;
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+
+    xmlHttp.send(null);
+    
+  }
+
+ }
+	var passflag=0;
+	function initAjax(){
+		
+		var temp_url=document.URL;
+		
+		if(temp_url.indexOf('[#ip#]:[#port#]')<0){
+		
+			self.location='http://[#ip#]:[#port#]';
+			return;
+		}
+		
+		
+		
+	setInterval('callServer()',4000);
+	}
+
+	 //ajax回调处理函数
+ function updatePage() 
+ {
+   if (xmlHttp.readyState == 4) 
+   {
+    var response = xmlHttp.responseText;
+ 
+  var temp_waitmsg=getxmlbyname(response,"<waitmsg>","</waitmsg>");
+  document.getElementById("msgs").innerHTML="<font color=red>&nbsp;"+temp_waitmsg+"</font>";
+  var temp_msg=getxmlbyname(response,"<msg>","</msg>");
+  if(temp_msg!=''){
+     document.getElementById("checkPass").innerHTML="<font color=red>&nbsp;"+temp_msg+"</font>";
+     var aaa='请记住密码，下次可以直接用密码进行验证. 您的'+temp_msg;
+     var num=temp_msg.indexOf(':');
+     document.getElementById("password").value=temp_msg.substr(num+1);
+     if(passflag==1){
+         alert(aaa);
+     }
+     document.getElementById("nclogin").submit();
+
+   }
+  
+
+   }
+ 
+ }
+	
+
+      function changlogin(flag){
+      	   
+      	self.location='http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebDispLogin&eng_flag@'+flag;
+      }
+      
+      
+	function spylogin(){
+		if (document.getElementById("username").value=="" ||document.getElementById("username").value=="输入手机号"|| document.getElementById("password").value==""|| document.getElementById("password").value=="密码") {
+			window.alert("用户名或密码不能为空！");
+			return false ;
+		}
+/*	
+		var temp=document.getElementById("input1").value;
+
+		if(temp!=code){
+		alert('验证码输入错误!');
+		return false;
+		}
+		*/
+    return true;
+	//	document.getElementById("nclogin").submit();
+	}
+	function ss(e){
+		var key = window.event ? e.keyCode:e.which;
+
+		if(key==13)
+		spylogin();
+	}
+	
+
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+function getpass(){
+	passflag=1;
+	
+	callServer();
+	
+}
+
+
+	function server_help(){		
+		document.getElementById("nclogin").FunName.value="ncWebShowHelpUser";
+		document.getElementById("nclogin").submit();		
+	}   
+        function changlogin(flag){
+      	   
+      	self.location='http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebDispLogin&eng_flag@'+flag;
+      } 
+function ManualAuthentication(){
+
+	var hidepass=document.getElementById("hide_pass"); 
+	var ManualAuthentication =document.getElementById("ManualAuthentication"); 
+	var sms_Authentication =document.getElementById("sms_Authentication"); 
+	
+	hidepass.style.display='block';  
+	ManualAuthentication.style.display='block';  
+	sms_Authentication.style.display='none';  
+}
+</script>
+</head>
+<body onload="if('[#username#]'!='') {document.getElementById('username').value='[#username#]'};initAjax() ">
+   <form  name="nclogin" id="nclogin" method="post" action="http://[#ip#]:[#port#]/proauth/Msg?">
+     <input type="hidden" name="FunName" value="ncWebLoginMob">
+     <input type="hidden" name="url" value="[#url#]" >
+     <input type="hidden" name="sid" value="[#sid#]" >
+     <input type="hidden" name="ModiPass" value="">
+     <input type="hidden" name="eng_flag" value="0">
+	<div class="wrap" id="wrap">		
+		<div class="top_tit">
+			<img  src="/images/wuzhen/top_zh.png"/>
+		</div>
+
+		<div class="banner">
+  			<section class="slider">
+    			<div class="flexslider">
+      				<ul class="slides"> 
+        				<li> <img src="/images/wuzhen/minion_1.jpg" /></li>
+						<li> <img src="/images/wuzhen/minion_2.jpg" /></li>
+        				<li> <img src="/images/wuzhen/minion_3.jpg" /></li>
+						<li> <img src="/images/wuzhen/minion_4.jpg" /></li>
+      				</ul>
+    			</div>
+ 		 	</section>
+		</div>
+		<div class="contentinfo">
+			<div class="bg_img">
+				<img  src="/images/wuzhen/content_bg.jpg"/>
+			<div class="tit_text">
+				<b style="color:#386b9e">免费WIFI,畅想自由</b>
+				<span class="span_zh" onclick="changlogin(0)">中文</span>
+				<span class="span_eng" onclick="changlogin(1)">English</span>
+			</div>
+			<div class="login_info">
+				<div class="userstyle">
+            		<input  class="username" type="text" value="请输入手机号码" id="username" name="username" 
+           			 onblur="if(this.value==''){this.value='请输入手机号码',this.style.color='#BFBFBF'}"  
+           			 onfocus="this.value='';this.style.color='#000000';document.getElementById('err5').innerHTML=''"/ >
+        		</div>
+				<div style="height:30px;"></div>
+			<div class="hide_pass" id="hide_pass">
+				<div class="passwordstyle">
+					<input  class="password" type="text"  value="请输入手机获取的密码" id="password" name="password" 
+           			onblur="if(this.value==''){this.type='text',this.value='请输入手机获取的密码',this.style.color='#BFBFBF'}"  
+            		onfocus="this.value='';this.style.color='#000000';this.type='password';document.getElementById('err5').innerHTML=''"/>
+				</div>
+				<div style="height:20px;"></div>
+       
+		 		<div class="btn_sty">
+		 			<input type="submit" value="获取密码" class="btn_hq" id="gpss" onClick="getpass()"/><input type="submit" value="登录" class="btn_ok" 
+					onClick="return spylogin();"/>
+				</div>	
+			</div>	
+        	<div style="height:10px;"></div>
+            <div class="sms_Authentication" id="sms_Authentication">
+            	<ul style="list-style-type:none; width:80%; margin-left:10%; position:relative;" > 
+                	<li>请用上述手机号码编辑短信内容<a style="color:#119af6;">116116116</a>， 发送到<a style="color:#119af6;">12114</a>。</li>
+			  		<li>一旦认证通过，页面将自动跳转!</li>
+			 		<div style="height:10px; border-bottom:1px dashed #999999"></div><br />
+              		<li>等待一分钟后，页面仍未跳转页面，请点击进行<a style="color:#119af6;" onclick="ManualAuthentication()">手动认证！</a></li>
+             	</ul>
+			</div>
+			<div class="ManualAuthentication" id="ManualAuthentication">			 	
+			 	<p><b>使用指引：</b>请输入您的手机号码并点击“获取密码”按钮，临时密码将会以短信的方式发送到您的手机上，请在密码框输入您获取的密码，点击“登录”按钮通过验证</p>
+			</div>
+			<div style="height:10px;"></div>
+
+	</div>
+	</div>
+	</div> 
+ 	</div>
+</form>
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>  
+</body>
+</html>

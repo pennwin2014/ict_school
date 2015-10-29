@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>个人中心</title>
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+<style type="text/css">   
+	.csName{
+		color:#FFFFFF;
+	}
+</style>
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+   
+<script>  
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*',
+	'Ext.form.field.File',
+    'Ext.form.field.Number',
+    'Ext.form.Panel'
+]);
+Ext.onReady(function(){
+    Ext.tip.QuickTipManager.init();
+	
+});
+</script>
+    
+    
+</head>
+<body>
+	<p class="csName">小明</p>
+</body>
+</html>

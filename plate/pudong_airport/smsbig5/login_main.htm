@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />
+<title>歡迎使用上海浦東國際機場免費Wi-Fi網絡</title>
+<style  type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+body{background:#000f3b;}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	
+}
+.main{
+	width:90%;
+	margin:0 auto;
+	background:#fff;
+	padding-left:2%;
+	padding-right:2%;
+}
+.lang{ float:right; text-align:right; width:100%;}
+.lang a{ font-size:14px; color:#0068b7;margin-left:2px; margin-right:2px; }
+.top img{ width:24%;}
+.tit{color:#0068b7;font-size:18px; font-weight:bold;}
+.tit_1{ font-size:12px; color:#f00;}
+.tit_2{ font-size:12px; color:#f00;}
+.login_wrap{ border-bottom:1px solid #4f91cb;}
+.login_p1{ float:left; width:10%; margin-left:3%; font-weight:bold; height:30px; line-height:30px;}
+.login_p2{ float:right; width:80%; font-size:12px; color:#f00; font-weight:bold;height:30px; line-height:35px; text-align:right;}
+.name_wrap{}
+.name_wrap p{ float:left; width:20%; height:30px; line-height:30px;	margin-left:7%;}
+.pass_wrap{}
+.pass_wrap p{ float:left;width:20%;height:30px; line-height:30px;	margin-left:7%;}
+.username {
+	float:left;
+	height:30px;
+	line-height:30px;
+	width:60%;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	font-size:1em;
+	text-indent:5px;
+	border:none;
+	border-bottom:1px dashed #ccc;
+	color:#999;
+}
+.password {
+	float:left;
+	height:30px;
+	width:25%;
+	line-height:30px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	font-size:1em;
+	text-indent:5px;
+	border:none;
+	color:#999;
+	border-bottom:1px dashed #ccc;
+}
+.btn_hq {
+	float:left;
+	height:30px;
+	background:#2871f2;
+	width:25%;
+	margin-left:10%;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #2871f2), color-stop(1, #2871f2));/*谷歌浏览器渐变*/
+    filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#2871f2", EndColorStr="#2871f2");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #2871f2 10%, #2871f2 100%);/*火狐内核渐变*/
+	border:1px solid #ccc;
+	color:#fff;
+	font-size:1em;
+}
+.btn_ok {
+	width:100px;
+	height:34px;
+    background:#2871f2;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #2871f2), color-stop(1, #2871f2));/*谷歌浏览器渐变*/
+    filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#2871f2", EndColorStr="#2871f2");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #2871f2 10%, #2871f2 100%);/*火狐内核渐变*/
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	border:none;
+	color:#fff;
+	font-size:1em;
+}
+
+.foot{ color:#fff; text-align:center;}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+
+}
+</style>
+<script type="text/javascript">
+	function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp;
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";
+	}
+var p_flag = '1';
+	
+	function restore(){
+		document.getElementById("gpss").disabled = "";
+		p_flag='1';	
+	}
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+var i = 59;
+function fun() {
+       	 if (i == 0) {
+			 document.getElementById("gpss").style.color="#fff";
+			 document.getElementById("gpss").value="獲取密碼";
+             clearInterval(intervalid);
+			 i=59;
+         }
+		 else{
+         document.getElementById("gpss").value = i;
+		
+         i--;
+		 }
+}
+function getpasswd(){
+		if(p_flag=='0') return false;	
+		if(document.getElementById("nclogin").username.value==''||document.getElementById("nclogin").username.value=='手機號'){
+		    alert('請輸入手機號');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手機號格式不對');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('請輸入正確地手機號！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&tsid@[#tsid#]&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&tsid@"+document.getElementById("tsid").value;
+
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		document.getElementById("gpss").style.color="#999";
+		 document.getElementById("gpss").value= "密碼已發送";
+	   intervalid= setInterval("fun()", 1000);//写在document.getElementById("gpss").disabled="true";的后面
+
+		p_flag='0';
+        setTimeout('restore()',60000);
+		return false;
+	}
+	
+	
+	function spylogin()
+	{
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="手機號"||document.getElementById("password").value==""||document.getElementById("password").value=="密碼") 
+		{
+		    window.alert("手機號或密碼不能爲空!");
+			  return false;
+		}
+		
+    document.getElementById("nclogin").submit();
+		/*var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}*/
+		
+    return true;
+	}
+
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+  	function init()
+	{
+		//alert('[#statusCode#]');
+		 if('[#statusCode#]' == '2')
+		{
+			document.getElementById('err5').innerHTML = '賬號與SSID不匹配！';
+		}	
+		if('[#statusCode#]' == '3')
+		{
+			document.getElementById('err5').innerHTML = '用戶賬號已過期！';
+		}	
+		if('[#statusCode#]' == '4')
+		{
+			document.getElementById('err5').innerHTML = '此用戶在黑名單中！';
+		}	
+		if('[#statusCode#]' == '5')
+		{
+			document.getElementById('err5').innerHTML = '請輸入正確的密碼！';
+		}	
+		if('[#statusCode#]' == '6')
+		{
+			document.getElementById('err5').innerHTML = '用戶不存在！';
+		}	
+       if('[#statusCode#]' == '7')
+		{
+			document.getElementById('err5').innerHTML = '超出Mac最大綁定數量。';
+		}	
+}
+
+function changlogin(flag){
+        self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+  }
+
+</script>
+</head>
+<body onload="init();">
+<div class="wrap">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+  <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+  [#postarg#]
+	<div class="main">
+    <div style="height:10px; clear:both;"></div>
+   	<div class="lang"><a onclick="changlogin('zh')">简体中文</a><a>|</a><a>繁体中文</a><a>|</a><a id="english" onClick="changlogin('eng')">English</a></div>
+    <div style="height:1px; clear:both;"></div>
+    <div class="top"><img src="/images/pudong_airport/logo.jpg" /></div>
+    <div class="tit">歡迎使用上海浦東國際機場免費Wi-Fi網絡</div>
+    <div style="height:5px; clear:both;"></div>
+    <div class="tit_1">歡迎加入"航旅直通車——上海機場"新浪微博、騰訊微信，爲您的出行提供便利！</div>
+    <div style="height:5px; clear:both;"></div>
+    <div class="tit_2">上海浦東機場手機應用軟件iphone版本已經正式上線,用戶可在App store中免費下載使用</div>
+    <div style="height:15px; clear:both;"></div>
+    <div class="login_wrap"><p class="login_p1">登錄</p><!--<p class="login_p2">非中国大陆运营商手机用户获取账号请点击此处</p>--><div style="height:1px; clear:both;"></div></div>
+    <div style="height:10px; clear:both;"></div>
+    <div class="name_wrap"><p>手機號：</p><input type="text" value="手機號" class="username" name="username" id="username" onfocus="if(document.getElementById('username').value=='手機號'){this.value=''; this.style.color='#000'}; document.getElementById('err5').innerHTML=''" /></div>
+    <div style="height:10px; clear:both;"></div>
+    <div class="pass_wrap"><p>密碼：</p><input type="text" value="密碼" name="password" id="password" class="password" onfocus="if(document.getElementById('password').value=='密碼'){this.value=''; this.style.color='#000'; this.type='password';};document.getElementById('err5').innerHTML=''"/><input type="button" value="獲取密碼" class="btn_hq" id="gpss" onClick="getpasswd();"/></div>
+    <div style="height:10px; clear:both;"></div>
+    <div id="err5" style="color:#F00; text-align:center; font-size:12px;"></div>
+    <div style="height:10px; clear:both;"></div>
+    <div style="text-align:center;"><input type="button" value="登&nbsp;錄" class="btn_ok" onClick="return spylogin();" /></div>
+    <div style="height:10px; clear:both;"></div>
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div class="foot">24小時客服熱線：400-6070-122</div>
+    <div style="height:10px; clear:both;"></div>
+     <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+  </form>
+</div>
+</body>
+</html>

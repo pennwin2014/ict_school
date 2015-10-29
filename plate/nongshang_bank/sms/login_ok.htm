@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>登录-上海农商银行</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta content="telephone=no" name="format-detection" />
+<link rel="stylesheet" type="text/css" href="/css/login.css">
+<style type="text/css">
+.btn_ok{
+	width:40%;
+	height:30px;
+	line-height:30px;
+	border:1px solid #999;
+	border-radius: 5px; /* css 3标准 */
+-moz-border-radius: 5px;  /* mozilla */
+-webkit-border-radius: 5px;/*webkit*/
+color:#fff;
+background:-webkit-gradient(linear,left top,left bottom, color-stop(0,#ea9a33),color-stop(1,#ea9a33));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr="#ea9a33",EndColorStr="#ea9a33");/*IE浏览器渐变*/
+background:-moz-linear-gradient(center top,#ea9a33 10%,#ea9a33 100%);/*火狐内核渐变*/}
+</style>
+<script  src="/js/jquery-1.7.1.min.js"></script>
+<script  src="/js/idangerous.swiper-1.9.1.min.js"></script>
+<script  src="/js/swiper-demos.js"></script>
+<script  src="/js/niceforms.js"></script>
+<script type="text/javascript">
+$(window).bind('resize load', function(){
+$("body").css("zoom", $(window).width() / 640);
+$("body").css("display" , "block");
+}); 
+</script>
+</head>
+<body class="login_bk" >
+<header class="clearFix">
+<h1><a href="http://www.srcb.com/"><img src="/images/nongshang_bank/logo.jpg"/></a></h1>
+</header>
+<section class="tools">
+<div role="main" class="main">
+<div class="gd_border">
+      <div class="swiper-container swiper1">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"> <img src="/images/nongshang_bank/pic_img.jpg"> </div>
+          <div class="swiper-slide"> <img src="/images/nongshang_bank/pic_img01.jpg"> </div>
+          <div class="swiper-slide"> <img src="/images/nongshang_bank/pic_img02.jpg"> </div>
+          <div class="swiper-slide"> <img src="/images/nongshang_bank/pic_img03.jpg"> </div>
+         <div class="swiper-slide"> <img src="/images/nongshang_bank/pic_img04.jpg"> </div>
+        </div>
+    </div>
+    </div>
+<div class="pagination pagination1"></div>
+</div>
+<nav>
+<a href="http://www.srcb.com" target="_blank">官方网站</a>
+<a href="http://www.srcb.com/html/zt/phonebank/index.html" target="_blank">手机银行</a>
+<a href="http://www.srcb.com/privikactive/index.shtml" target="_blank">优惠活动</a>
+<a href="http://www.srcb.com/noticeNew/index.shtml" target="_blank">服务公告</a>
+</nav>
+</section>
+<!--<form action="" method="get" >-->
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+  <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+  [#postarg#]
+<section class="formlogin">
+<!--<fieldset><p></p><span></span><input name="username" id="username" type="text" value="手机号" onblur="if(this.value==''){this.value='手机号',this.style.color='#999'}"  onfocus="this.value='';this.style.color='#000';"></fieldset>
+<fieldset><p></p><span></span><input name="password" id="password" type="text" value="验证码" onblur="if(this.value==''){this.type='text',this.value='验证码',this.style.color='#999'}"  onfocus="this.value='';this.style.color='#000';this.type='password';"></fieldset>
+<input name="" type="button"  class="uplod"value="点击获取" id="gpss" onClick="getpasswd();">
+<div class="niceform">
+<div class="left"><input type="radio" name="color" id="colorBlue" checked="checked" value="同意" /><label for="colorBlue" class="opt">同意</label></div>
+<div class="right">
+<input type="radio" name="color" id="colorRed" value="不同意" /><label for="colorRed" class="opt">不同意</label></div>
+<p><a href="#" title="">免费条款</a></p>
+</div>-->
+<div style="height:30px; clear:both;"></div>
+<div style="font-size:20px; text-align:center;">登录成功！</div>
+<div style="height:30px; clear:both;"></div>
+<div style="text-align:center;">欢迎使用农商银行无线网络！</div>
+<div style="height:30px; clear:both;"></div>
+<div style="text-align:center;"><input name="" value="开始上网" class="btn_ok"  type="button" onClick="window.open('http://www.baidu.com')"/></div>
+<div style="height:30px; clear:both;"></div>
+</section>
+ <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</body>
+</html>

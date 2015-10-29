@@ -1,0 +1,79 @@
+/*
+ * jQuery flexslider2 v2.0
+ * http://www.woothemes.com/flexslider2/
+ *
+ * Copyright 2012 WooThemes
+ * Free to use under the GPLv2 license.
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * Contributing author: Tyler Smith (@mbmufffin)
+ */
+
+ 
+/* Browser Resets */
+.banner{width:100%;height:160px}
+.slider{width:100%;}
+.img_logo{width:100%;height:160px;}
+.flex2-container a:active,
+.flexslider2 a:active,
+.flex2-container a:focus,
+.flexslider2 a:focus  {outline: none;}
+.slides,
+.flex2-control-nav,
+.flex2-direction-nav {margin: 0; padding: 0; list-style: none;} 
+
+/* flexslider2 Necessary Styles
+*********************************/ 
+.flexslider2 {margin: 0; padding: 0;}
+.flexslider2 .slides > li {display: none; -webkit-backface-visibility: hidden;} /* Hide the slides before the JS is loaded. Avoids image jumping */
+.flexslider2 .slides img {width: 100%; display: block;}
+.flex2-pauseplay span {text-transform: capitalize;}
+
+/* Clearfix for the .slides element */
+.slides:after {content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;} 
+html[xmlns] .slides {display: block;} 
+* html .slides {height: 1%;}
+
+/* No JavaScript Fallback */
+/* If you are not using another script, such as Modernizr, make sure you
+ * include js that eliminates this class on page load */
+.no-js .slides > li:first-child {display: block;}
+
+
+/* flexslider2 Default Theme
+*********************************/
+.flexslider2 {margin: 0 0 0px;  position: relative; -webkit-border-radius: 4px; -moz-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,.2); -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.2); -moz-box-shadow: 0 1px 4px rgba(0,0,0,.2); -o-box-shadow: 0 1px 4px rgba(0,0,0,.2); zoom: 1;}
+.flex2-viewport {max-height: 2000px; -webkit-transition: all 1s ease; -moz-transition: all 1s ease; transition: all 1s ease;}
+.loading .flex2-viewport {max-height: 300px;}
+.flexslider2 .slides {zoom: 1;}
+
+.carousel li {margin-right: 5px}
+
+
+/* Direction Nav */
+.flex2-direction-nav {*height: 0;}
+.flex2-direction-nav a {width: 0px; height: 30px; margin: -20px 0 0; display: block; background: url(../images/bg_direction_nav.png) no-repeat 0 0; position: absolute; top: 50%; z-index: 10; cursor: pointer; text-indent: -9999px; opacity: 0; -webkit-transition: all .3s ease;}
+.flex2-direction-nav .flex2-next {background-position: 100% 0; right: -36px; }
+.flex2-direction-nav .flex2-prev {left: -36px;}
+.flexslider2:hover .flex2-next {opacity: 0.8; right: 5px;}
+.flexslider2:hover .flex2-prev {opacity: 0.8; left: 5px;}
+.flexslider2:hover .flex2-next:hover, .flexslider2:hover .flex2-prev:hover {opacity: 1;}
+.flex2-direction-nav .flex2-disabled {opacity: .3!important; filter:alpha(opacity=30); cursor: default;}
+
+/* Control Nav */
+.flex2-control-nav {width: 100%; position: absolute; bottom: -15px; text-align: center;}
+.flex2-control-nav li {margin: -30px 4px 0px 4px; display: inline-block; zoom: 1; *display: inline;}
+.flex2-control-paging li a { width: 0px; height: 8px; display: block; background: #666; background: rgba(0,0,0,0.5); cursor: pointer; text-indent: -9999px; -webkit-border-radius: 20px; -moz-border-radius: 20px; -o-border-radius: 20px; border-radius: 20px; box-shadow: inset 0 0 3px rgba(0,0,0,0.3);}
+.flex2-control-paging li a:hover { background: #333; background: rgba(0,0,0,0.7); }
+.flex2-control-paging li a.flex2-active { display: none; -webkit-backface-visibility: hidden; width: 18px; background: #000; background: rgba(0,0,0,0.9); cursor: default; }
+
+.flex2-control-thumbs {margin: 5px 0 0; position: static; overflow: hidden;}
+.flex2-control-thumbs li {width: 25%; float: left; margin: 0;}
+.flex2-control-thumbs img {width: 100%; display: block; opacity: .7; cursor: pointer;}
+.flex2-control-thumbs img:hover {opacity: 1;}
+.flex2-control-thumbs .flex2-active {opacity: 1; cursor: default;}
+
+@media screen and (max-width: 860px) {
+  .flex2-direction-nav .flex2-prev {opacity: 1; left: 0;}
+  .flex2-direction-nav .flex2-next {opacity: 1; right: 0;}
+}

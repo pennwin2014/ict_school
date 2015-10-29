@@ -1,0 +1,217 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>shops</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+<style type="text/css">
+	body{
+		margin:0;
+		padding:0;
+		width:100%;
+		height:100%;
+		font-family: arial;
+	}
+
+	#logo_detail{
+		width:100%;
+		background:#E6E6E6;
+		float:left;
+	}
+	.logoimg img{
+		width:100%;
+	}
+		
+	.logoimg{
+		width:40%;
+		float:left;
+	}
+	#shopInfo{
+		width:60%;
+		background:#E6E6E6;
+		float:right;
+	}
+	.shopInfo{
+		padding:0 0 0 5;
+	}
+	.title1{
+		padding:2px;
+		width:100%;
+		background:#0088cc;
+		color:#ffffff;
+		text-align:center;
+	}
+	.text1{
+		font-size:0.8em;
+		color:#2E2E2E;
+		background:#E6E6E6;
+		padding:5 5 5 5;
+	}
+	#iframe1{
+		height:185px;
+	}
+	#iframe2{
+		
+	}
+	#iframe3{
+		height:0px;
+	}
+	.btn1
+	{
+		width:100%;
+	}
+	.collect{
+		color:#fff;
+		text-align:center;
+		margin-right:10px ;
+		width:10%;
+		border-radius:5px;
+		float:right;
+		text-align:center;
+		text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 7px #fff, 0 0 40px #fff, 0 0 70px #fff;
+	}
+	.collect1{
+		color:#fff;
+		text-align:center;
+		margin-left:10px ;
+		width:10%;
+		border-radius:5px;
+		float:left;
+		text-align:center;
+		text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 7px #fff, 0 0 40px #fff, 0 0 70px #fff;
+	}
+</style>
+
+<script type="text/javascript">
+
+var limit1=0;
+var limit2=10;
+function loadProducts(){
+//alert("[#id#]");
+//alert(limit1+","+limit2);
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmProducts";
+document.getElementById("iframe1").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value="[#id#]";
+document.getElementById("iframe1").contentWindow.document.getElementById("limit1").value=limit1;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit2").value=limit2;
+//alert(document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value);
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+//alert("222");
+
+document.getElementById("iframe2").contentWindow.document.getElementById("FunName").value="ncmShops_Discounts";
+document.getElementById("iframe2").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe2").contentWindow.document.getElementById("shopid").value="[#id#]";
+
+//alert(document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value);
+document.getElementById("iframe2").contentWindow.document.getElementById("form1").submit();
+//alert("1111");
+
+}
+
+function addattentions(){
+//	alert(user_online_flag);
+	if(user_online_flag == 1){
+		document.getElementById("iframe3").contentWindow.document.getElementById("FunName").value="ncm_Addattentions";
+		document.getElementById("iframe3").contentWindow.document.getElementById("level").value= "1";
+		document.getElementById("iframe3").contentWindow.document.getElementById("uid").value= "1";
+		document.getElementById("iframe3").contentWindow.document.getElementById("logoid").value="[#logoid#]";
+		document.getElementById("iframe3").contentWindow.document.getElementById("shopid").value="[#id#]";
+		document.getElementById("iframe3").contentWindow.document.getElementById("service_code").value="[#service_code#]";
+		document.getElementById("iframe3").contentWindow.document.getElementById("imgpath").value="[#imgpath#]";
+		document.getElementById("iframe3").contentWindow.document.getElementById("form1").submit();
+	}
+	else{
+		parent.document.getElementById("iframe1").src = "/pronline/Msg?FunName@ncSrvPlate&html@"+"/alogin_main.htm&"+rurl;
+	//	alert(parent.document.getElementById("iframe1").src);
+	}
+}
+function next(){
+
+limit1 +=10;
+//alert(limit1+","+limit2);
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmProducts";
+document.getElementById("iframe1").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value="[#id#]";
+document.getElementById("iframe1").contentWindow.document.getElementById("limit1").value=limit1;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit2").value=limit2;
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+
+}
+function pervious(){
+if(limit1<=0){
+alert("第一页");
+}
+else{
+limit1 -=10;
+//alert(limit1+","+limit2);
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmProducts";
+document.getElementById("iframe1").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value="[#id#]";
+document.getElementById("iframe1").contentWindow.document.getElementById("limit1").value=limit1;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit2").value=limit2;
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+}
+
+}
+
+var rurl;
+var user_online_flag;
+function init(){
+	user_online_flag="[#user_online_flag#]";
+	rurl = parent.document.getElementById("rg").value;
+}
+</script>
+<body onload="loadProducts(); init();" >
+
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="logoid" name="logoid" value="">	
+		<input type="hidden" name="httphost" id="httphost" value="[#httphost#]"/>	
+	<div id="logo_detail">	
+	<div class="logoimg"><img src="[#imgpath#]">
+	<input type="button" id="btn1" class="btn1" value="加入关注" onclick="addattentions()"/>
+	<iframe id="iframe3" frameborder="no" scrolling="No"  width="100%" src="/suning/ncm_levels_logos_shops_attentions.htm" ></iframe>
+	
+	<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END --> </div>
+	
+	<div id="shopInfo">
+	<div class="shopInfo">
+	<div>品牌： <span style="color:#0088cc">[#name#]</div>
+	<div>地址： [#address#]</div>
+	<div>楼层： [#floor#] [#service_code#]</div>
+	<div>电话： [#code#]-[#tel#]</div>
+	<div>网址： <a href="http://[#url#]"/>[#url#]</a> </div>
+	</div>
+	</div>
+	</div>
+
+	<div class="title1">店铺简述</div>
+	<div class="text1"> [#detail#]</div>
+
+	<div class="title1"><div class="collect1" id="btn_del" onclick="pervious()">《</div>
+	店长推荐
+		
+		<div class="collect" id="btn_del" onclick="next()">》</div>
+		
+	</div>
+	
+	<iframe id="iframe1" frameborder="no" scrolling="No"  width="100%" src="/suning/ncm_levels_logos_shops_products.htm" ></iframe>
+	
+	<div class="title1">促销活动</div>
+	<iframe id="iframe2" frameborder="no" scrolling="No"  width="100%" src="/suning/ncm_levels_logos_shops_discounts.htm" ></iframe>
+	
+	</form>	
+</body>
+</html>
+
+

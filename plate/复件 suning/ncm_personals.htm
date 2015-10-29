@@ -1,0 +1,125 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+
+<style type="text/css">
+
+body{
+margin:0px;
+padding:0px;
+height:100%;
+width:100%;
+}
+
+		#detail{
+		width:100%;
+		float:left;
+		}
+		
+		#levels{
+		width:24%;
+		height:100%;
+		float:left;
+		font:1.5em;
+		background:#E6E6E6;
+		}
+		
+		#level_introduce{
+		background:#E0E6F8;
+	
+		width:75%;
+		float:right;
+		}
+		#level_logos{
+		width:75%;
+		float:right;
+		}
+		
+		.level_logos img{
+		
+		width:100%;
+		}
+		.level_logos{
+		float:left;
+		width:33%;
+		
+		}
+		
+		.levels1{
+		background:#E6E6E6;
+		text-align:center;
+		padding-top:5px;
+		padding-bottom:5px;
+		font:1.5em;
+		}
+		.levels2{
+		background:#0088cc;
+		color:#ffffff;
+		text-align:center;
+		padding-top:5px;
+		padding-bottom:5px;
+		font:1.5em;
+		
+		}
+	
+</style>
+
+<script type="text/javascript">
+
+function switchlevels(mark){
+$(document).ready(function(){
+
+$(".levels1").css('color','#000000');
+$(".levels1").css('background','#E6E6E6');
+
+$('#'+mark).css('color','#ffffff');
+$('#'+mark).css('background','#0088cc');
+
+});
+//alert(mark);
+
+//document.getElementById(mark).className = 'levels2';
+
+
+
+}
+
+</script>
+<body>
+
+	<div id="detail">
+	<div id="levels">
+	
+	
+	
+	<div id="[#id#]" class="levels1" onclick="switchlevels([#id#])">个人信息</div>
+	
+	
+
+	
+	</div>
+		
+	<div id="level_introduce">
+	
+	<center>个人信息</center>
+	<div>昵称： </div>
+	<div>会员号： </div>
+	<div>办卡时间： </div>
+	<div>手机号： </div>
+	<div>地址： </div>
+	
+	</div>
+		
+	
+	</div>
+</body>
+
+
+</html>
+

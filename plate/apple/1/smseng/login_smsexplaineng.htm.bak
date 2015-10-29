@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<meta name="viewport" content="width=device-width, initial-scale=0.4, maximum-scale=1.0, minimum-scale=0.3">
+</head>
+
+<script type="text/javascript">
+       
+			/*
+* 智能机浏览器版本信息:
+*
+*/
+var btn1='';
+var btn2='';
+  var browser={
+    versions:function(){
+           var u = navigator.userAgent, app = navigator.appVersion;
+           return {//移动终端浏览器版本信息
+                trident: u.indexOf('Trident') > -1, //IE内核
+                presto: u.indexOf('Presto') > -1, //opera内核
+                webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                mobile: !!u.match(/AppleWebKit.*Mobile.*/)||!!u.match(/AppleWebKit/), //是否为移动终端
+                ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+                iPad: u.indexOf('iPad') > -1, //是否iPad
+                mobilesafari: u.indexOf('Mobile Safari') > -1, //是否
+				 uc: u.indexOf('UC') > -1, //是否UC
+				 xt928:u.indexOf('XT928') > -1,//摩托罗拉XT928
+				 eben:u.indexOf('EBEN T6') > -1,
+				 defaultbrowser:u.indexOf('534.30') > -1,
+            };
+         }(),
+         language:(navigator.browserLanguage || navigator.language).toLowerCase()
+}
+
+if(browser.versions.iPhone || browser.versions.iPad){
+
+	// alert("苹果设备");
+ setActiveStyleSheet("apple_explain_en.css");
+}
+else{
+ // alert("安卓设备");
+  setActiveStyleSheet("android_explain_en.css");
+  
+	btn1 = "获取密码";
+	btn2 = "注册";
+}
+
+
+function setActiveStyleSheet(filename){ 
+  document.write("<link href=\"\/css\/"+filename+"\" type=\"text\/css\" rel=\"stylesheet\">");
+//  document.write("<link href=\"\/"+filename+"\" type=\"text\/css\" rel=\"stylesheet\">");
+}
+
+
+
+</script>
+<style type="text/css">
+
+</style>
+<script language="javascript" type="text/javascript">
+	
+	  
+	function changlogin(flag){
+            self.location = "https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";	
+  }
+	function eng(){
+		document.getElementById('english').className = 'eng2';
+	}
+
+
+
+function china(){
+	document.getElementById('chinese').className = 'china2'
+}
+
+function goback(flag)
+{
+//   	self.location = "https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]"+"&usernametmp@"+'[#usernametmp#]'+"&code@"+'[#code#]';	
+//   	self.location = "https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@"+flag+document.getElementById("code").value+document.getElementById("code").value+"&html@"+"login_main.htm&[#getarg#]"+"&code@";	
+//  	alert("[#code#]"+ " username =" +"[#usernametmp#]" );
+//   	self.location = "https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"login_main.htm&[#getarg#]";	
+   		self.location = "https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@"+flag+"&html@"+"/login_main.htm&[#getarg#]";	
+//   	window.opener=null;window.open('','_self');window.close();
+}
+
+//javascript:window.opener=null;window.open('','_self');window.close();
+</script>
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  style = "overflow-x:hidden;overflow-y:scroll">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+	<input type = "hidden" name = "username" id = "username" value= "" />
+
+ <div id="main">
+    <!--
+    <ul class="header_ul" >
+    	  <li class="china" id="chinese" onClick="changlogin('zh')" onmouseover="china();" >中文</li>
+        <li id="split">|</li>
+        <li class="eng" id="english"  >English</li>
+    	
+       
+    </ul>-->
+        <div id="login_area"><div   height = "30px;" width ="150px;" > &nbsp;<a href = "#xx" onclick = "goback('eng');"  class = "eng2" >< Back </a></div>
+        <div height = "30px;">&nbsp; </div>
+    
+<!--     <h1>欢迎光临 Apple Store 零售店。</h1>   apple_store_china02-->
+    <div height= "19px" style="text-align:center;">
+     <img src="/images/ap/termssmsengclaim.png"  style="margin-bottom:10px;" />
+    </div>
+	  <div height = "50px;">&nbsp;</div>
+    <hr />
+    <div height = "50px;">&nbsp;</div>
+    	<div class="font_style1">	
+		<div class="font_style">Definitions</div>
+		
+"Apple Store” means any Apple retail store in PRC where the WLAN is provided.</br></br>
+"China Telecom" means the China Telecom Corporation or its designated subsidiaries and affiliates that provide the WLAN in Apple Stores.</br></br>
+"WLAN” means the WLAN provided by China Telecom which enables users to have wireless access to the Internet via certain Internet access points in an Apple Store and its immediate adjacent area .</br></br>
+<div class="font_style">Acknowledgement</div>
+You acknowledge that (i) the WLAN is made available by Apple Store to its customers as a courtesy without any additional charge to the customers, (ii) the WLAN is supplied and operated by China Telecom, not Apple Store (iii) you may be required by China Telecom to accept certain terms and conditions in connection with the WLAN, but your use of the WLAN, as between you and any Apple Store, shall be solely governed by these Terms and Conditions.</br></br>
+
+<div class="font_style">Functionality of the WLAN</div>
+Provision of the WLAN is subject to the availability and the operational limitations of the requisite equipment and associated facilities controlled and operated by China Telecom.  You understand and agree that temporary interruptions of the WLAN may occur as normal events in the provision of the WLAN.  Apple Store does not offer any guarantee that the functions of the WLAN will be uninterrupted or error-free, or that the websites or the servers related to the provision of the WLAN will be free of viruses or other harmful components.</br></br>
+<div class="font_style">Security and Privacy</div>
+Using the WLAN to access the Internet is, by its nature, unsecured, and you are solely responsible for taking or implementing such security measures as you deem appropriate to protect your private or personal information and property while accessing the Internet.  Apple Store is not liable for any loss, destruction or unauthorized access or use of your private or personal information and property in connection with your use of the WLAN.</br></br>
+You understand that the user must register his/her personal information when using the WLAN. The use of the WLAN may disclose information regarding your current location.  You also understand that, China Telecom, as the service provider of the WLAN, may have access to information or other data submitted by you during the course of your use of the WLAN.  You acknowledge that you, not Apple Store, shall have full responsibility for the information or data that you submit, including their legality, reliability, or appropriateness. <span class="font_style3">It is your sole responsibility to ensure the use of the WLAN is in full compliance with any applicable laws and regulations. Apple Store, its subsidiaries, affiliates, owner or its representatives assume no obligation to monitor, track, record, store or disclose your use of the WLAN, including but not limited to, the URLs of the websites you visit and the data you entered, transmit or receive, but China Telecom or the Apple Store may be required to access the information and provide assistance in disclosing such user information for purposes of law enforcement or pursuant to judicial or other governmental order or request.</span></br></br>
+
+<div class="font_style">Use Policy</div>
+Use of the WLAN shall comply with the following policy.  Users are prohibited from (a) using or attempting to use the WLAN for any fraudulent, unlawful, harassing or abusive purpose, or so as to damage or cause risk to the business, reputation, employees or customers of Apple Store or any other person or entity; (b) attempting to, or assisting another person to, circumvent, reverse-engineer, decompile, disassemble, or otherwise tamper with any of the security components related to the WLAN; (c) posting, distributing, publishing, transmitting, linking or displaying content, information or material through the WLAN that might infringe or violate the rights of any other party or violate any applicable laws or regulations.</br></br>
+In the event of any use or attempted use of the WLAN in violation of this WLAN User Policy, or in the event Apple Store reasonably suspects that such use or attempted use may occur, Apple Store may, at its sole discretion, and in addition to any other remedies it may have, with or without notice, remove, block, filter or restrict by any means any materials or information (including but not limited to emails) that it considers to cause actual or potential violations of the WLAN User Policy, and/or discontinue the use of the WLAN by the users involved in such actual or potential violations.</br></br>
+
+<div class="font_style">No Warranty and Limitation of Liability</div>
+You expressly acknowledge and agree that use of the WLAN is at your sole risk.  To the maximum extent permitted by applicable law, the WLAN is provided "as is" and “as available”, with all faults and without warranty of any kind, and Apple Store hereby disclaims all warranties and conditions with respect to the WLAN, express, implied, or statutory.</br></br>
+
+To the extent not prohibited by law, in no event shall Apple Store be liable for personal injury or any incidental, special, indirect, or consequential damages whatsoever, including, without limitation, damages for loss of profits, loss of data, business interruption, or any other commercial damages or losses, arising out of or related to your use or inability to use the WLAN, however caused, regardless of the theory of liability (contract, tort, or otherwise, even if Apple Store has been advised of the possibility of such loss or damage.  If the limitation of liability hereunder is held invalid under any applicable law, the liability of Apple Store shall be limited to the least amount as permitted by law.</br></br>
+
+<div class="font_style">General Provisions</div>
+These Terms and Conditions represent the final and entire agreement between Apple Store and users of the WLAN.  If any part of these Terms and Conditions is held invalid or unenforceable, that portion shall be construed in a manner consistent with applicable law to reflect, as nearly as possible, the original intention of these Terms and Conditions and the remaining portions shall remain in full force and effect. Apple Store’s failure to enforce any rights under these Terms and Conditions will not constitute a waiver of such rights, or any other rights thereof.</br></br>
+
+To the extent permitted by law, Apple Store reserves the right, at any time and from time to time with or without notice, to update, revise, supplement, and otherwise modify these Terms and Conditions and to impose new or additional rules, policies, terms, or conditions on the use of the WLAN.</br></br>
+</div>
+        
+        
+        <div   height = "30px;" width ="150px;" > &nbsp;<a href = "#xx" onclick = "goback('eng');"  class = "eng2" >< Back </a></div>
+  <br />
+   <br />
+    </div>
+    <div style=" width:964px; float:right;">
+    </div>
+</div>
+
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</body>
+</html>

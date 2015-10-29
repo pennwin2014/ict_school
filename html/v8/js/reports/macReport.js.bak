@@ -1,0 +1,146 @@
+/*用户流量统计报表*/	
+Ext.define('reports.macReport',{
+    extend: 'Ext.grid.Panel',
+    initComponent : function(){
+				if(store_reports_macreport.alreadyload !=1){
+						store_reports_macreport.slogdate = today;
+						store_reports_macreport.slogtime = '23:59:59';
+						store_reports_macreport.pname='';
+						store_reports_macreport.apmac='';
+						store_reports_macreport.groupid='';
+						store_reports_macreport.groupcode='';
+						store_reports_macreport.mark='';
+						store_reports_macreport.stime='';
+						store_reports_macreport.maccount='';
+						store_reports_macreport.keyword='';
+						store_reports_macreport.caExport='';
+						store_reports_macreport.new_params ={slogdate:store_reports_macreport.slogdate,elogdate:store_reports_macreport.elogdate,slogtime:store_reports_macreport.slogtime,elogtime:store_reports_macreport.elogtime,pname:store_reports_macreport.pname,apmac:store_reports_macreport.apmac,groupid:store_reports_macreport.groupid,groupcode:store_reports_macreport.groupcode,mark:store_reports_macreport.mark,stime:store_reports_macreport.stime,maccount:store_reports_macreport.maccount,keyword:store_reports_macreport.keyword,caExport:store_reports_macreport.caExport};
+				}
+			
+				function reflash(){
+						store_reports_macreport.new_params ={slogdate:store_reports_macreport.slogdate,elogdate:store_reports_macreport.elogdate,slogtime:store_reports_macreport.slogtime,elogtime:store_reports_macreport.elogtime,pname:store_reports_macreport.pname,apmac:store_reports_macreport.apmac,groupid:store_reports_macreport.groupid,groupcode:store_reports_macreport.groupcode,mark:store_reports_macreport.mark,stime:store_reports_macreport.stime,maccount:store_reports_macreport.maccount,keyword:store_reports_macreport.keyword,caExport:store_reports_macreport.caExport};
+						//store_reports_macreport.currentPage=1;
+						store_reports_macreport.load();
+				}
+				
+		    Ext.apply(this, {   
+						//height:Ext.get("layout_center").getHeight(),
+		        border:false,
+		        frame:false,
+						autoScroll: true,
+		        store: store_reports_macreport,
+		        viewConfig:{
+			        	loadMask : false
+			      },
+		        columns:[{
+		            text: "Portal",
+		            dataIndex: 'pname',
+		            width: 100,
+		            //align: 'right',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "AP Mac地址",
+		            dataIndex: 'apmac',
+		            width: 120,
+		            //align: 'center',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "单位名称",
+		            dataIndex: 'groupname',
+		            width: 100,
+		            //align: 'right',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "单位编码",
+		            dataIndex: 'groupcode',
+		            width: 200,
+		            //align: 'right',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "标签",
+		            dataIndex: 'mark',
+		            width: 100,
+		            //align: 'right',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "MAC数量",
+		            dataIndex: 'maccount',
+		            width: 80,
+		            align: 'right',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "截止时间",
+		            dataIndex: 'stime',
+		            width: 135,
+		            //align: 'right',
+		            hidden: false,
+		            sortable: false
+		        },{
+		        	 flex: 1	
+		        }],
+		          
+		        columnLines: true,
+		        tbar:{items:[
+		            '-',{
+		            		fieldLabel:'截止时间',
+		              	xtype: 'datefield',
+		              	format: "Y/m/d",
+		              	value:store_reports_macreport.slogdate,
+		              	id:'macreport_slogdated',
+		              	name:'macreport_slogdated',
+		              	labelWidth:55, //标签宽度
+										width:170 //字段宽度 
+		            },{
+		            		xtype:'timefield',
+		              	value:store_reports_macreport.slogtime,
+		              	id:'macreport_slogtimed',
+		              	name:'macreport_slogtimed',
+		              	width:100,
+		              	labelSeparator:':', //分隔符
+										msgTarget:'side', //在字段的右边显示一个提示信息  
+										autoFitErrors:true, //展示错误信息时是否自动调整字段组件宽度
+										maxValue:'23:59:59', //最大时间
+										maxText:'时间应小于{0}', //大于最大时间的提示信息
+										minValue:'00:00:00', //最小时间  
+										minText:'时间应大于{0}', //小于最小时间的提示信息
+										pickerMaxHeight:100, //下拉列表的最大高度
+										increment:1, //时间间隔为60分钟 
+										format: "H:i:s",
+										invalidText:'时间格式无效'
+		            },'-',{
+		                text:'查询',
+		                //itemId: 'moveButton',
+		            		iconCls:'accept',
+		                //disabled: true,
+		                handler:function(){
+				                store_reports_macreport.slogdate=DateUtil.Format("yyyy/MM/dd",Ext.getCmp('macreport_slogdated').value);
+						            store_reports_macreport.slogtime=Ext.util.Format.substr(Ext.getCmp('macreport_slogtimed').value, 16, 8);
+						            store_reports_macreport.currentPage=1;         
+						            reflash();  
+		                }
+		            },'-',{
+		                text:'导出',
+		                iconCls:'exp',
+		                handler:function(){
+		               			document.getElementById('form1').caExport.value = 'exp';
+		                		document.getElementById("form1").slogdate.value = DateUtil.Format("yyyy/MM/dd",Ext.getCmp('macreport_slogdated').value);
+					            	document.getElementById("form1").slogtime.value = Ext.util.Format.substr(Ext.getCmp('macreport_slogtimed').value, 16, 8);
+					            	document.getElementById("form1").action = "/pronline/Msg?FunName@ncm_web_App_apMacCount_list?r="+Math.random();
+		  									document.getElementById("form1").method = "POST";
+			                	document.getElementById("form1").submit();
+			                	document.getElementById("form1").caExport.value="";
+		                }
+		            }
+		        ]}
+		    });
+				store_reports_macreport.alreadyload = 1;
+		    this.callParent(arguments);
+    } 
+})
+

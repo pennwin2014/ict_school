@@ -1,0 +1,309 @@
+<html>
+<head>
+<title>无标题文档</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+#main {
+	width:980px;
+	margin:36px 90px 0;
+	text-align:left;
+}
+.header_ul {
+	float:right;
+	margin-right:120px;
+}
+h1 {
+	height:30px;
+	line-height:30px;
+	font-family:myriadset-thin;
+	font-size:26px;
+	color:#313131;
+	padding-bottom:15px;
+}
+hr {
+	height:2px;
+	color:ced0d5;
+}
+.header_ul li {
+	list-style:none;
+	float:left;
+	display:block;
+	height:30px;
+	line-height:30px;
+	font-size:13pt;
+}
+.header_ul li:hover {
+	text-decoration:none;
+}
+#split {
+	width:30px;
+	text-align:center;
+	color:#ced0d5;
+}
+.china {
+	color:#000;
+	width:35px;
+	font-family:Heiti SC;
+}
+.eng {
+	color:#0088CC;
+	width:44px;
+	font-family: Heiti SC;
+}
+.eng2 {
+	color:#0088CC;
+	width:44px;
+	font-family: Heiti SC;
+	text-decoration:underline;
+}
+#login_area {
+	width:550px;
+	margin-top:49px;
+	margin-left:50px;
+	font-family: Heiti SC;
+	font-size:13pt;
+	color:#000;
+}
+.Case {
+	width:400px;
+	height:39px;
+	background-color:#f0f0f0;
+	margin-bottom:14px;
+	margin-top:14px;
+}
+.Case input {
+	width:386px;
+	height:25px;
+	border:2px solid #d0d0d0;
+	margin:6px;
+	line-height:25px;
+	font-family:HelveticaNeue;
+	font-size:16pt;
+	color:#999999;
+}
+.error {
+	height:0px;
+	padding-bottom:10px;
+	font-size:12pt;
+	color:#ff0000;
+}
+.chaccept {
+	width:12px;
+	height:12px;
+}
+.getpasscode {
+	background-image:url(/images/ap/get_passcode.png);
+	width:122px;
+	height:34px;
+	border:0;
+	margin-bottom:70px;
+}
+.no_sign {
+	background-image:url(/images/ap/continuezhgrey.png);
+	width:122px;
+	height:34px;
+	border:0;
+	border-radius:5px;
+}
+.sign {
+	background-image:url(/images/ap/continuezh.png);
+	width:122px;
+	height:34px;
+	border:0;
+	border-radius:5px;
+}
+.font_style a {
+	color:#0088cc;
+	text-decoration:none;
+}
+a {
+	color:#0088cc;
+	text-decoration:none;
+}
+a:hover {
+	color:#0088cc;
+	text-decoration:underline;
+}
+.disclaimer {
+	width:550px;
+	height:400px;
+	display:none;
+	overflow-x:hidden;
+	overflow-y:scroll;
+}
+.disclaimer2 {
+	width:550px;
+	height:400px;
+	display:block;
+	overflow-x:hidden;
+	overflow-y:scroll;
+}
+.space1 {
+	height:15px;
+}
+.space2 {
+	height:30px;
+}
+.space3 {
+	height:40px;
+}
+.space3 {
+	height:11px;
+}
+a:link {
+	color:#0088cc;
+}
+.font_style {
+	font-family: Heiti SC;
+	font-weight:normal;
+	font-size:10pt;
+	color:#333333;
+}
+.font_style1 {
+	font-family: Heiti SC;
+	font-size:14pt;
+	color:#333333;
+}
+.font_style2 {
+	font-family:Heiti SC;
+	font-size:10pt;
+	color:#999999;
+}
+.font_style2 a {
+	text-decoration:none;
+}
+.font_style2 a:hover {
+	text-decoration:none;
+}
+.error3 {
+	height:38px;
+	line-height:38px;
+	font-size:10pt;
+	color:#ff0000;
+	clear:both;
+}
+a:hover {
+	text-decoration:none;
+}
+</style>
+<script language="javascript" type="text/javascript">
+function passcode(){
+		    document.getElementById('sign').className = 'sign';
+	    	document.getElementById('sign').onclick = 'spylogin()';
+					}
+function spylogin(){
+		if(document.getElementById('acceptme').checked==false){
+			document.getElementById('chaccept_err').className = 'error3';
+			document.getElementById('chaccept_err').innerHTML = '<img src = "/images/ap/mark.png" style = "margin-bottom:-2px;" >&nbsp;请确认接受条款和条件，再进行登录。';
+			return;
+		}
+		else{
+			document.getElementById("nclogin").submit();
+		}
+	}
+function eng2(){
+	      document.getElementById('english').className = 'eng2'
+               }
+function eng(){
+	      document.getElementById('english').className = 'eng'
+              }
+function disclaimer(){
+	      document.getElementById('disclaimer').className = 'disclaimer2';
+                     }
+function ss(e){
+	      var key = window.event ? e.keyCode:e.which;
+	      if(key==13)
+	      spylogin();
+}
+var p_flag='1';
+function restore(){
+  document.getElementById("gpss").disabled="";
+  document.getElementById("imgm").style.display="none";
+  p_flag='1';
+  document.getElementById("imgm").src='/images/sjimage/smspad.gif';
+}
+
+function chk(tel){
+	if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel)))
+        {
+           return 0;
+         }
+   else
+        {
+          return 1;
+         }
+}
+
+function getpasswd(){	
+	document.getElementById('username_err').innerHTML = "";
+	document.getElementById('chaccept_err').innerHTML = "";	
+    if(p_flag=='0') return false;
+	  if(document.getElementById("nclogin").username.value==''||document.getElementById("username").value=='Mobile number'){
+		document.getElementById('username_err').innerHTML = '请输入正确的手机号码';
+		return false;
+	  }
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length<6){
+		alert('手机号格式错误');
+		return false;
+		} 
+	  temp_html="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value;
+      document.getElementById("ifhide").src=temp_html;
+      document.getElementById("gpss").disabled="true";
+      p_flag='0';
+      setTimeout('restore()',50000);
+		  return false;	
+	}
+	
+function changlogin(flag){
+            self.location='https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+                         }
+function openpage(flag)
+{
+	var temp;
+	temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_pcexplainzh.htm&[#getarg#]";	
+	self.location = temp;
+}
+</script>
+</head><body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+[#postarg#]
+<center>
+  <div id="main">
+    <ul class="header_ul">
+      <li class="china" id="chinese" onClick="changlogin('zh')">中文</li>
+      <li id="split">|</li>
+      <li class="eng" id="english" onClick="changlogin('eng')" onMouseOver="eng()2;" onMouseOut="eng();"><span style=" font-family:LucidaGrande;">English</span></li>
+    </ul>
+    <div height= "19px" style = "margin-left:50px"> <img src="/images/ap/apple_store_chinaback_2x.png"  style="width:326px; height:25px;" /> </div>
+    <div style="border-bottom:1px solid #999999; margin-top:15px; "></div>
+    <div id="login_area">
+      <p > 此台设备已经注册，可以使用我们的免费 <span style=" font-family:LucidaGrande;">WLAN</span> 网络。如需重新加入网络，请确认接受我们的条款和条件。 </p>
+      <div style=" display:none;">
+        <input type="text" id="username" name="username" value="[#username#]" />
+        <input type="password" id="password" name="password" value="[#password#]" />
+      </div>
+      <div class="space2"></div>
+      <div class = "font_style2">请仔细阅读以下内容。使用 <span style=" font-family:LucidaGrande;">WLAN</span> 网络受到<a href="#xxx" onClick="openpage('zh');">条款和条件</a>的约束。你只有遵守和同意此条款和条件才能使用 <span style=" font-family:LucidaGrande;">WLAN</span> 网络。<br>
+        <br>
+        使用 <span style=" font-family:LucidaGrande;">WLAN</span> 网络上网存在一定风险。你负有完全责任确保你对 <span style=" font-family:LucidaGrande;">WLAN</span> 网络的使用符合相关适用的法律和法规的规定。 </div>
+      <div class="space1"></div>
+      <p class="font_style"> <span>
+        <input type="checkbox" id="acceptme" class="chaccept" />
+        &nbsp;我已阅读并同意 <span style=" font-family:LucidaGrande;">Apple WLAN</span> 网络的<a href="#xxx" onClick="openpage('zh');">条款和条件</a>。 </span> </p>
+      <div id="chaccept_err" class="error"></div>
+      <input type="button" class="sign" id="sign" onClick="return spylogin();" >
+      <div id="err"></div>
+    </div>
+    <div style=" width:964px; float:right;"> </div>
+  </div>
+</center>
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</body>
+</html>

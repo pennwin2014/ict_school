@@ -1,0 +1,413 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>众人科技</title>
+
+<style type="text/css">
+
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap {
+	width:100%;
+	background:url(/7hospital_sh/zhongrenkeji/pc_bg.png) repeat;
+	min-width:1400px;
+	position:absolute;
+}
+.main {
+	width:1400px;
+	margin:0 auto;
+	background:url(/7hospital_sh/zhongrenkeji/pc_login.png) no-repeat center center;
+	height:800px;
+}
+.main1 {
+	left:830px;
+	width:280px;
+	float:left;
+	top:490px;
+	position:relative;
+}
+.main2 {
+	top:360px;
+	width:350px;
+	float:left;
+	left:550px;
+	position:relative;
+}
+.name_tit {
+	color:#FFF;
+	float:left;
+	width:80px;
+}
+.pass_tit {
+	color:#FFF;
+	float:left;
+	width:80px;
+}
+.username1 {
+	border-radius: 10px; /* css 3标准 */
+	-moz-border-radius: 10px;  /* mozilla */
+	-webkit-border-radius: 10px;/*webkit*/
+	background:none;
+	text-indent:5px;
+}
+.password1 {
+	border-radius: 10px; /* css 3标准 */
+	-moz-border-radius: 10px;  /* mozilla */
+	-webkit-border-radius: 10px;/*webkit*/
+	background:none;
+		text-indent:5px;
+}
+.username2 {
+	border-radius: 10px; /* css 3标准 */
+	-moz-border-radius: 10px;  /* mozilla */
+	-webkit-border-radius: 10px;/*webkit*/
+	background:none;
+		text-indent:5px;
+}
+.password2 {
+	border-radius: 10px; /* css 3标准 */
+	-moz-border-radius: 10px;  /* mozilla */
+	-webkit-border-radius: 10px;/*webkit*/
+	background:none;
+		text-indent:5px;
+}
+.btn_ok1 {
+	 width:80px; height:24px; line-height:20px; text-align:center; background:none; border:2px solid #666; cursor:pointer; color:#fff;font-weight:bold;
+}
+.btn_hq {
+	width:80px; height:24px; line-height:20px; text-align:center;background:none;border:2px solid #666;  cursor:pointer;color:#fff;font-weight:bold;
+}
+.btn_ok2 {
+	width:80px;height:24px; line-height:20px;text-align:center;background:none; border:2px solid #666; cursor:pointer;color:#fff;font-weight:bold;
+}
+.top{ width:120px; height:30px; position:relative;left:800px; float:left; margin-top:110px;}
+.btn_jr{ height:28px; line-height:28px; width:100px; background:none; border:2px solid #444; cursor:pointer; color:#efefef; text-align:center; font-weight:bold;}
+</style>
+
+<script type="text/javascript">
+
+var code; //在全局定义验证码
+
+	function createCode()
+
+	{
+
+		code = "";
+
+		var codeLength = 4; //验证码的长度
+
+		var selectChar = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'); //所有候选组成验证码的字符，当然也可以用中文的
+
+		
+
+		for(var i=0;i<codeLength;i++){
+
+			var charIndex = Math.floor(Math.random()*9);
+
+			code += selectChar[charIndex];	
+
+		}
+
+		document.getElementById("nclogin").ver.value=code;
+
+	}
+
+	function spylogin()
+
+	{
+
+	   	if(document.getElementById("username").value==""||document.getElementById("password").value=="") {
+
+			window.alert("手机号或密码不能为空!");
+
+			return false;
+
+		}
+
+		var temp=document.getElementById("yzm").value;
+
+		if(temp!=code){
+
+		alert('验证码输入错误!');
+
+		return false;
+
+		}
+
+    return true;
+
+	}
+
+	
+
+	function spylogin1()
+
+	{
+
+	   	if(document.getElementById("username").value==""||document.getElementById("password").value=="") {
+
+			window.alert("手机号或密码不能为空!");
+
+			return false;
+
+		}
+
+    document.getElementById("nclogin").FunName.value='ncWebAuthByPeopleSms';
+
+    return true;
+
+	}
+
+	
+
+	function spylogin()
+
+	{
+
+	   	if(document.getElementById("username1").value==""||document.getElementById("password1").value=="") {
+
+			window.alert("手机号或密码不能为空!");
+
+			return false;
+
+		}
+
+    document.getElementById("nclogin").FunName.value='ncWebAuthByPeople';
+
+
+
+    return true;
+
+	}
+
+	
+
+	
+
+	
+
+	var p_flag = '1';
+
+	
+
+	function restore(){
+
+		document.getElementById("gpss").disabled = "";
+
+		p_flag='1';	
+
+	}
+
+	
+
+	function chk(tel){
+
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+
+			    return 0;
+
+			} else {
+
+			    return 1;
+
+			}
+
+	}
+    var i = 59;
+ 		 function fun() {
+       	 if (i == 0) {
+			 document.getElementById("gpss").value="获取密码";
+             clearInterval(intervalid);
+			 i=59;
+         }
+		 else{
+         document.getElementById("gpss").value = i;
+         i--;
+		 }
+        }
+	function getpasswd(){
+
+		
+
+		
+
+			
+
+		if(document.getElementById("nclogin").username.value==''){
+
+		    alert('请输入手机号');
+
+		    return false;
+
+		}
+
+		  
+
+		var telno=document.getElementById("nclogin").username.value;
+
+		if(telno.length!=11){
+
+			  alert('手机号格式不对');
+
+			  return false;
+
+		}
+
+		if(chk(telno)!='0'){
+
+		    alert('请输入正确地手机号！');
+
+		  	return false;
+
+		}
+
+		//document.getElementById("input1").value='';
+
+		
+
+		temp_html="http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebGetMobPass_People&eng_flag@0&mobno@"+document.getElementById("nclogin").username.value;
+
+		
+
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		document.getElementById("gpss").value="密码已发送";
+        intervalid= setInterval("fun()", 1000);
+		p_flag='0';
+
+    setTimeout('restore()',50000);
+
+		return false;
+
+	}
+
+	function changlogin(flag){
+
+      	   
+
+      	self.location='http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebDispLogin&eng_flag@'+flag;
+
+	
+
+      }
+
+</script>
+
+</head>
+
+
+
+<body>
+
+<div class="wrap">
+
+<form name="nclogin" id="nclogin" method="post" action="http://[#ip#]:[#port#]/proauth/Msg" >
+
+    <input type="hidden" id="FunName" name="FunName" value="ncWebAuthByPeopleSms">
+
+    <input type="hidden" name="url" value="[#url#]" >
+
+    <input type="hidden" name="sid" value="[#sid#]" >
+
+    <input type="hidden" name="eng_flag" value="0"/>
+
+    <input type="hidden" id="usertype" name="usertype" value="1">
+
+  <div class="main">
+
+  	<div class="top"><input type="button" class="btn_jr" value="加入收藏夹" /></div>
+
+    <div class="main1">
+
+      <div>
+
+        <p class="name_tit">手机号:</p>
+
+        <input type="text" name="username1" class="username1" id="username1" value="[#username1#]"/>
+
+      </div>
+
+      <div style="height:15px; clear:both;"></div>
+
+      <div>
+
+        <p class="pass_tit">动态密码:</p>
+
+        <input type="password" name="password1" class="password1" id="password1" />
+
+      </div>
+
+      <div style="height:15px; clear:both;"></div>
+
+
+
+      <div style="text-align:center;"> <font color="red">[#message_u2#]</font></div>
+
+       <div style="text-align:center;">
+
+        <input type="submit" value="登录" class="btn_ok1" onclick="return spylogin();" / >
+
+         
+
+      </div>
+
+    </div>
+
+ <!--   <div class="main2">
+
+      <div>
+
+        <p class="name_tit">手机号:</p>
+
+        <input type="text" class="username2" id="username" name="username" value="[#username#]"/>
+
+        <input type="button" value="获取密码" class="btn_hq" id="gpss" onclick="getpasswd();" />
+
+      </div>
+
+      <div style="height:15px; clear:both;"></div>
+
+      <div>
+
+        <p class="pass_tit">密&nbsp;&nbsp;码:</p>
+
+        <input type="password" class="password2" id="password" name="password"/>
+
+      
+
+      </div>
+
+      <div style="height:5px; clear:both;"></div>
+
+
+
+            <div style="height:5px; clear:both;"></div>      <div height="10" id="msgs" style="clear:both; margin-left:80px;"><font color="red">[#message_u#]</font></div>
+
+      <div style="text-align:center;">
+
+        <input type="submit" value="登录" class="btn_ok2" onclick="return spylogin1();"/>
+
+      </div>
+
+    </div>
+-->
+  </div>
+
+   <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+
+  </form>
+
+</div>
+
+</body>
+
+</html>
+

@@ -1,0 +1,215 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />
+<title>同济医院</title>
+<style  type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	position:relative;
+}
+.top{ width:100%; }
+.top img{width:100%;}
+.banner img{ width:100%;}
+.main_top{
+	width:80%; margin:0 auto;
+	}
+.username{ text-indent:4px;border-radius: 5px; /* css 3标准 */
+-moz-border-radius: 5px;  /* mozilla */
+-webkit-border-radius: 5px;/*webkit*/
+border:1px solid #409f97;
+width:100%;
+height:30px;
+line-height:30px;
+color:#999;}
+.password{text-indent:4px;border-radius: 5px; /* css 3标准 */
+-moz-border-radius: 5px;  /* mozilla */
+-webkit-border-radius: 5px;/*webkit*/
+border:1px solid #409f97;
+width:100%;
+height:30px;
+line-height:30px;
+color:#999;}
+.phone_num{text-indent:4px;border-radius: 5px; /* css 3标准 */
+-moz-border-radius: 5px;  /* mozilla */
+-webkit-border-radius: 5px;/*webkit*/
+border:1px solid #409f97;
+width:100%;
+height:30px;
+line-height:30px;
+color:#999;}
+.btn_ok{
+	border-radius: 5px; /* css 3标准 */
+-moz-border-radius: 5px;  /* mozilla */
+-webkit-border-radius: 5px;/*webkit*/
+border:none;
+background:#409f97;
+background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #409f97), color-stop(1, #409f97));/*谷歌浏览器渐变*/
+ filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#409f97", EndColorStr="#409f97");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #409f97 10%, #409f97 100%);/*火狐内核渐变*/
+width:100%;
+height:34px;
+line-height:34px;
+color:#fff;
+font-size:1.1em;
+	}
+p{
+	font-size:0.8em;
+	color:#444;
+	}
+.mz{width:90%; margin:0 auto;}
+.foot{ width:100%;}
+.foot img{ width:100%;}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+
+}
+</style>
+<script type="text/javascript">
+	function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp;
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";
+	}
+var p_flag = '1';
+	
+	function restore(){
+		document.getElementById("gpss").disabled = "";
+		p_flag='1';	
+	}
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+
+	function spylogin()
+	{
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="就诊卡号："||document.getElementById("password").value==""||document.getElementById("password").value=="身份证后四位") 
+		{
+		    window.alert("就诊卡号或密码不能为空!");
+			  return false;
+		}
+	var a=document.getElementById("username").value;
+	var b=document.getElementById("phone_num").value;
+	var temp_html="http://127.0.0.1/pronline/Msg?FunName@ncSysHisuser&username@"+a+"&mobile@"+b;
+	document.getElementById("ifhide1").src=temp_html;
+	
+    document.getElementById("nclogin").submit();
+	
+    return true;
+	}
+
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+  	function init()
+	{
+		//alert('[#statusCode#]');
+		if('[#statusCode#]' == '2')
+		{
+			document.getElementById('err5').innerHTML = '账号与SSID不匹配。';
+		}	
+		if('[#statusCode#]' == '3')
+		{
+			document.getElementById('err5').innerHTML = '用户账号已过期。';
+		}	
+		if('[#statusCode#]' == '4')
+		{
+			document.getElementById('err5').innerHTML = '您登录的账号在黑名单中。';
+		}	
+		if('[#statusCode#]' == '5')
+		{
+			document.getElementById('err5').innerHTML = '请输入正确的密码。';
+		}	
+		if('[#statusCode#]' == '6')
+		{
+			document.getElementById('err5').innerHTML = '该用户不存在。';
+		}	
+    if('[#statusCode#]' == '7')
+		{
+			document.getElementById('err5').innerHTML = '超出Mac最大绑定数量。';
+		}	
+}
+
+   function upper(){
+	    var a=document.getElementById("username").value;
+	   	a=a.toUpperCase();
+		document.getElementById("username").value=a;
+	   }
+
+</script>
+</head>
+
+<body onload="init();">
+<div class="wrap">
+  <form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+  <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+  [#postarg#]
+  <div class="top"><img src="/images/tongji/logo.png" /></div>
+  <div class="banner"><img src="/images/tongji/banner.png" /></div>
+  <div class="main_top" >
+      <p style="height:20px;"></p>
+      <p >
+        <input type="text" value="就诊卡号：" id="username" name="username" class="username" onblur="upper()" onFocus="if(document.getElementById('nclogin').username.value=='就诊卡号：'){this.value=''; this.style.color='#000';}"  />
+      </p>
+      <p style="height:15px; clear:both;"></p>
+      <p>
+        <input type="text" value="身份证后四位：" id="password" name="password" class="password" onFocus="if(document.getElementById('nclogin').password.value=='身份证后四位：'){this.value=''; this.style.color='#000'; this.type='password';}"  />
+     </p>
+      <p style="height:15px; clear:both;"></p>
+     <p>
+        <input type="text" value="手机号：" id="phone_num" name="phone_num" class="phone_num" onFocus="if(document.getElementById('nclogin').phone_num.value=='手机号：'){this.value=''; this.style.color='#000'; }" />
+     </p>
+      <p style="height:5px; clear:both;"></p>
+      <div id="err5" style="color:#F00; text-align:center; font-size:12px;"></div>
+      <p style="height:20px; clear:both; "></p>
+      <p>
+        <input type="button" class="btn_ok" id="ok1" value="登 录" onClick="return spylogin();"/>
+      </p>
+      
+      <p style="height:10px;"></p>
+      <p style="text-align:center; font-size:0.6em;"><a style="color:#409f97;">提示：</a>身份证请输入号码的后四位，欢迎您的登录！</p>
+       </div>
+      <p style="height:10px;"></p>
+      <p style="height:10px;"></p>
+      <p style="text-align:center; font-weight:bold;">无线网络免责声明</p>
+      <p style="height:10px;"></p>
+      <p class="mz">尊敬的客户，您好:</p>
+      <p class="mz">欢迎您使用由上海同济医院免费提供的无线WIFI。但在使用无线WIFI前，请您务必阅读并注意如下事项：</p>
+      <p class="mz">1.在使用无线WIFI前，请及时装载安全防护软件，积极防范各类网络病毒，切实保护好个人信息安全。</p>
+      <p class="mz">2.在使用无线WIFI过程中，请务必核实网站的真实性，不要轻信网络宣传，不要通过网络传递、散播谣言，不要登录非法网站，不要参与任何网络黄、赌、毒活动。</p>
+      <p class="mz">3.无线WIFI受限于用户数量，在使用过程中可能会出现的信号不流畅、信号突然中断等技术问题，将有可能导致您正在发送的信息中断，对此，我院将竭诚为您解决，但对于由此可能给您造成的时间或金钱的损失，我院不作任何保证，不承担任何责任，敬请谅解。
+本服务及声明的相关解释权归上海同济医院所有。</p>
+       <p style="height:20px;"></p>
+       <p class="mz"><a style="color:#409f97;">说明：</a></p>
+        <p class="mz">1、每账号（就诊卡号和手机号）每天可累计免费使用2小时；</p>
+        <p class="mz">2、我保证普通服务质量，对视频、游戏等大流量应用有流量限制。</p>
+        <p class="mz">3、此网络限上海同济医院付费挂号用户使用（有效期48小时），无线使用范围为上海同济医院。</p>
+        <div class="foot"><img src="/images/tongji/foot.jpg" /></div>
+  <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+   <iframe style="display:none;" id="ifhide1" name="ifhide1" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+  </form>
+</div>
+</body>
+</html>

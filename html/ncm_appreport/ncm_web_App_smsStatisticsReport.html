@@ -1,0 +1,490 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>用户登录名称表</title>
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+
+<style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+     .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		  height: 16px !important;
+		  line-height: 16px;
+	    }
+
+</style>
+
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+    
+<script>  
+
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*',
+//    'Ext.ModelManager',
+//    'Ext.tip.QuickTipManager'
+]);
+var store;
+
+function reflash(){
+   var slogdate1 = document.getElementById('form1').slogdate.value;
+   var elogdate1 = document.getElementById('form1').elogdate.value;
+   var slogtime1 = document.getElementById('form1').slogtime.value;
+   var elogtime1 = document.getElementById('form1').elogtime.value;
+   var timeV1 = document.getElementById('form1').timeV.value;
+   var localNum1 = document.getElementById('form1').localNum.value;
+   var interNum1 = document.getElementById('form1').interNum.value;
+   var keyword1 = document.getElementById('form1').keyword.value;
+   var caExport1 = document.getElementById('form1').caExport.value; //导出
+   
+   store.load({params: {slogdate:slogdate1,elogdate:elogdate1,slogtime:slogtime1,elogtime:elogtime1,timeV:timeV1,localNum:localNum1,interNum:interNum1,keyword:keyword1,caExport:caExport1}});
+   
+}
+
+function DateUtil(){}  
+/**  
+*功能:格式化时间  
+*示例:DateUtil.Format("yyyy/MM/dd","Thu Nov 9 20:30:37 UTC+0800 2006 ");  
+*返回:2006/11/09  
+*/  
+DateUtil.Format=function(fmtCode,date){  
+		var result,d,arr_d;  
+		
+		var patrn_now_1=/^y{4}-M{2}-d{2}\sh{2}:m{2}:s{2}$/;  
+		var patrn_now_11=/^y{4}-M{1,2}-d{1,2}\sh{1,2}:m{1,2}:s{1,2}$/;  
+		
+		var patrn_now_2=/^y{4}\/M{2}\/d{2}\sh{2}:m{2}:s{2}$/;  
+		var patrn_now_22=/^y{4}\/M{1,2}\/d{1,2}\sh{1,2}:m{1,2}:s{1,2}$/;  
+		
+		var patrn_now_3=/^y{4}年M{2}月d{2}日\sh{2}时m{2}分s{2}秒$/;  
+		var patrn_now_33=/^y{4}年M{1,2}月d{1,2}日\sh{1,2}时m{1,2}分s{1,2}秒$/;  
+		
+		var patrn_date_1=/^y{4}-M{2}-d{2}$/;  
+		var patrn_date_11=/^y{4}-M{1,2}-d{1,2}$/;  
+		
+		var patrn_date_2=/^y{4}\/M{2}\/d{2}$/;  
+		var patrn_date_22=/^y{4}\/M{1,2}\/d{1,2}$/;  
+		
+		var patrn_date_3=/^y{4}年M{2}月d{2}日$/;  
+		var patrn_date_33=/^y{4}年M{1,2}月d{1,2}日$/;  
+		
+		var patrn_time_1=/^h{2}:m{2}:s{2}$/;  
+		var patrn_time_11=/^h{1,2}:m{1,2}:s{1,2}$/;  
+		var patrn_time_2=/^h{2}时m{2}分s{2}秒$/;  
+		var patrn_time_22=/^h{1,2}时m{1,2}分s{1,2}秒$/;  
+		
+		if(!fmtCode){fmtCode="yyyy/MM/dd hh:mm:ss";}  
+		if(date){  
+				d=new Date(date);  
+				if(isNaN(d)){  
+				msgBox("时间参数非法\n正确的时间示例:\nThu Nov 9 20:30:37 UTC+0800 2006\n或\n2006/      10/17");  
+				return;}  
+		}else{  
+				d=new Date();  
+		} 
+		if(patrn_now_1.test(fmtCode))  
+		{  
+				arr_d=splitDate(d,true);  
+				result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+		}  
+		else if(patrn_now_11.test(fmtCode))  
+		{  
+				arr_d=splitDate(d);  
+				result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+		}  
+		else if(patrn_now_2.test(fmtCode))  
+		{  
+				arr_d=splitDate(d,true);  
+				result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+		}  
+		else if(patrn_now_22.test(fmtCode))  
+		{  
+				arr_d=splitDate(d);  
+				result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+		}  
+		else if(patrn_now_3.test(fmtCode))  
+		{  
+				arr_d=splitDate(d,true);  
+				result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日"+" "+arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+		}  
+		else if(patrn_now_33.test(fmtCode))  
+		{  
+				arr_d=splitDate(d);  
+				result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日"+" "+arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+		}
+		else if(patrn_date_1.test(fmtCode))  
+		{  
+				arr_d=splitDate(d,true);  
+				result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd;  
+		}  
+		else if(patrn_date_11.test(fmtCode))  
+		{  
+				arr_d=splitDate(d);  
+				result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd;  
+		}  
+		else if(patrn_date_2.test(fmtCode))  
+		{  
+				arr_d=splitDate(d,true);  
+				result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd;  
+		}  
+		else if(patrn_date_22.test(fmtCode))  
+		{  
+				arr_d=splitDate(d);  
+				result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd;  
+		}  
+		else if(patrn_date_3.test(fmtCode))  
+		{  
+				arr_d=splitDate(d,true);  
+				result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日";  
+		}  
+		else if(patrn_date_33.test(fmtCode))  
+		{  
+				arr_d=splitDate(d);  
+				result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日";  
+		}  
+		else if(patrn_time_1.test(fmtCode)){  
+				arr_d=splitDate(d,true);  
+				result=arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+		}  
+		else if(patrn_time_11.test(fmtCode)){  
+				arr_d=splitDate(d);  
+				result=arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+		}  
+		else if(patrn_time_2.test(fmtCode)){  
+				arr_d=splitDate(d,true);  
+				result=arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+		}  
+		else if(patrn_time_22.test(fmtCode)){  
+				arr_d=splitDate(d);  
+				result=arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+		}  
+		else{  
+				msgBox("没有匹配的时间格式!");  
+				return;  
+		}  
+
+		return result;  
+};  
+function splitDate(d,isZero){  
+		var yyyy,MM,dd,hh,mm,ss;  
+		if(isZero){  
+				yyyy=d.getFullYear();  
+				MM=(d.getMonth()+1)<10?"0"+(d.getMonth()+1):d.getMonth()+1;  
+				dd=d.getDate()<10?"0"+d.getDate():d.getDate();  
+				hh=d.getHours()<10?"0"+d.getHours():d.getHours();  
+				mm=d.getMinutes()<10?"0"+d.getMinutes():d.getMinutes();  
+				ss=d.getSeconds()<10?"0"+d.getSeconds():d.getSeconds();  
+		}else{  
+				yyyy=d.getFullYear();    //firefox 特别
+				MM=d.getMonth()+1;  
+				dd=d.getDate();  
+				hh=d.getHours();  
+				mm=d.getMinutes();  
+				ss=d.getSeconds();    
+		}  
+		return {"yyyy":yyyy,"MM":MM,"dd":dd,"hh":hh,"mm":mm,"ss":ss};    
+}  
+function msgBox(msg){  
+		window.alert(msg);  
+}
+
+Ext.onReady(function(){
+    Ext.tip.QuickTipManager.init();
+
+    Ext.define('EimData', {
+        extend: 'Ext.data.Model',
+        fields: ['timeV', 'localNum', 'interNum']
+        //idProperty: 'uid'
+    });
+
+    // create the Data Store
+    //重写排序函数，解决远程条件查询问题
+    Ext.data.Store.prototype.doSort = function() {
+    	reflash();
+    }
+    store = Ext.create('Ext.data.Store', {
+        pageSize: 39,
+        model: 'EimData',
+        remoteSort: true,
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@ncm_web_App_smsStatisticsReport',
+            reader: {
+                type:'json',
+                root:'eimdata',
+                totalProperty:'totalCount'
+            },         
+            simpleSortMode: true
+        }
+    });
+    
+    var sm = Ext.create('Ext.selection.CheckboxModel',{
+        listeners: {
+            selectionchange: function(sm, selections) {
+                grid.down('#removeButton').setDisabled(selections.length == 0);
+                //grid.down('#moveButton').setDisabled(selections.length == 0); 
+            }
+        }
+    });
+    
+    var myDate = new Date();
+  	var yy = ( myDate.getYear() < 1900 ) ? ( 1900 + myDate.getYear() ) : myDate.getYear();
+  	var mm=myDate.getMonth()+1;
+  	if(mm<10)
+  	{
+  			mm='0'+mm;
+  	}
+  	var dd=myDate.getDate();
+  	if(dd<10)
+  	{
+  			dd='0'+dd;
+  	}
+  	var today=yy+'/'+mm+'/'+dd;
+  	var startday=yy+'/'+mm+'/'+'01';
+  
+    //对翻页工具条重新构建，替换翻页函数    
+    Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
+		    doRefresh:function(){  
+		       reflash();
+		    },
+		    moveLast:function(){
+		    	var b=this,a=b.getPageData().pageCount;
+		    	if(b.fireEvent("beforechange",b,a)!==false){
+				    	store.currentPage=a;
+				    	reflash();
+		      }},
+		    moveFirst:function(){
+		      if(this.fireEvent("beforechange",this,1)!==false){
+				      store.currentPage=1;
+				      reflash();
+		      }}, 
+		    movePrevious:function(){var b=this,a=b.store.currentPage-1;if(a>0){if(b.fireEvent("beforechange",b,a)!==false){store.currentPage=a;reflash();}}},
+		    moveNext:function(){var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;if(a<=b){if(c.fireEvent("beforechange",c,a)!==false){store.currentPage=a;reflash();}}},
+		      
+		      
+		    onPagingKeyDown:function(i,h){
+		     var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+			     if(b==h.RETURN){h.stopEvent();g=d.readPageFromInput(c);
+			        if(g!==false){
+				         g=Math.min(Math.max(1,g),c.pageCount);
+				         if(d.fireEvent("beforechange",d,g)!==false){
+					         //d.store.loadPage(g)
+					         d.store.currentPage=g;
+					         reflash();
+				        }        
+			        }
+			     } else {
+				       if(b==h.HOME||b==h.END){
+				    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+				       } else {
+					         if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+						           h.stopEvent();g=d.readPageFromInput(c);
+						           if(g){
+						             if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+						             g+=a;
+						             if(g>=1&&g<=c.pages){i.setValue(g)}
+						           }
+					         }
+				       }
+			     }  
+		    } 
+    });
+
+    var aaa=screen.width;
+    if(aaa>1440) aaa=1440;
+    if(aaa<1024) aaa=1024;
+    aaa=aaa-241;
+    
+    var grid = Ext.create('Ext.grid.Panel', {
+        //width: aaa,
+        //forceFit: true,
+        scrollOffset: 0,
+        height: 930,
+        id: 'gridId',
+        margins: '0 0 0 0',
+        store: store,
+        selModel: sm,
+        frame:true,
+        columns:[{
+            text: "时间",
+            dataIndex: 'timeV',
+            width: 150,
+            //align: 'center',
+            hidden: false,
+            sortable: false
+        },{
+            text: "国内短信数量",
+            dataIndex: 'localNum',
+            width: 200,
+            //align: 'center',
+            hidden: false,
+            sortable: false
+        },{
+            text: "国际短信数量",
+            dataIndex: 'interNum',
+            width: 200,
+            //align: 'center',
+            hidden: false,
+            sortable: false
+        },{
+        	 flex: 1	
+        }],
+        
+        columnLines: true,
+              
+        // paging bar on the bottom
+        tbar: Ext.create('Ext.PagingToolbar1', {
+            store: store,
+            displayInfo: true,
+            displayMsg: '显示{0} - {1}条记录 共{2}条记录',
+            emptyMsg: "没有记录可显示",
+                                       
+            items: [
+            '-',{
+            		fieldLabel:'开始时间',
+              	xtype: 'datefield',
+              	format: "Y/m/d",
+              	value:today,
+              	id:'slogdated',
+              	name:'slogdated',
+              	labelWidth:60, //标签宽度
+						    width:160 //字段宽度 
+            },{
+            		xtype:'timefield',
+              	value:'00:00:00',
+              	id:'slogtimed',
+              	name:'slogtimed',
+              	width:100,
+              	labelSeparator:':', //分隔符
+								msgTarget:'side', //在字段的右边显示一个提示信息  
+								autoFitErrors:true, //展示错误信息时是否自动调整字段组件宽度
+								maxValue:'23:59:59', //最大时间
+								maxText:'时间应小于{0}', //大于最大时间的提示信息
+								minValue:'00:00:00', //最小时间  
+								minText:'时间应大于{0}', //小于最小时间的提示信息
+								pickerMaxHeight:100, //下拉列表的最大高度
+								increment:1, //时间间隔为60分钟 
+								format: "H:i:s",
+								invalidText:'时间格式无效'
+            },{
+            		fieldLabel:'结束时间',
+              	xtype: 'datefield',
+              	format: "Y/m/d",
+              	value:today,
+              	id:'elogdated',
+              	name:'elogdated',
+              	labelWidth:60, //标签宽度
+						    width:160 //字段宽度 
+            },{
+            		xtype:'timefield',
+              	value:new Date(),
+              	id:'elogtimed',
+              	name:'elogtimed',
+              	width:100,
+              	labelSeparator:':', //分隔符
+								msgTarget:'side', //在字段的右边显示一个提示信息  
+								autoFitErrors:true, //展示错误信息时是否自动调整字段组件宽度
+								maxValue:'23:59:59', //最大时间
+								maxText:'时间应小于{0}', //大于最大时间的提示信息
+								minValue:'00:00:00', //最小时间  
+								minText:'时间应大于{0}', //小于最小时间的提示信息
+								pickerMaxHeight:100, //下拉列表的最大高度
+								increment:1, //时间间隔为60分钟 
+								format: "H:i:s",
+								invalidText:'时间格式无效'
+            },{
+                text:'查询',
+                //itemId: 'moveButton',
+            		iconCls:'accept',
+                //disabled: true,
+                handler:function(){
+                	 document.getElementById("form1").slogdate.value=DateUtil.Format("yyyy/MM/dd",Ext.getCmp('slogdated').value);
+		               document.getElementById("form1").elogdate.value=DateUtil.Format("yyyy/MM/dd",Ext.getCmp('elogdated').value);
+		               document.getElementById("form1").slogtime.value=Ext.util.Format.substr(Ext.getCmp('slogtimed').value, 16, 8);
+		               document.getElementById("form1").elogtime.value=Ext.util.Format.substr(Ext.getCmp('elogtimed').value, 16, 8);
+		               
+		               store.currentPage=1;         
+		               reflash();  
+                }
+            },'-',{
+                text:'导出',
+                iconCls:'exp',
+                handler:function(){
+                		document.getElementById('form1').caExport.value='exp';
+                		document.getElementById("form1").submit();
+               			document.getElementById("form1").caExport.value="";
+	              	 	reflash();
+                }
+            }]
+        })
+        //plugins: [rowEditing]
+    });
+
+    reflash();
+
+    var panel = Ext.create('Ext.panel.Panel', {
+        title: '',
+        margins: '0 0 0 0',
+        renderTo: 'grid-corp',
+       //border:false,
+        frame: false,
+        layout: 'fit',
+        items: grid
+    });
+
+});
+
+</script>
+    
+</head>
+<body>
+	<form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="ncm_web_App_smsStatisticsReport">
+		<input type="hidden" name="slogdate" value="">
+		<input type="hidden" name="elogdate" value="">
+		<input type="hidden" name="slogtime" value="">
+		<input type="hidden" name="elogtime" value="">
+		<input type="hidden" name="timeV" value="">
+		<input type="hidden" name="localNum" value="">
+		<input type="hidden" name="interNum" value="">
+		<input type="hidden" name="keyword" value="">
+		<input type="hidden" name="caExport" value="">
+		
+  </form>
+    <div id="grid-corp"></div>
+
+</body>
+</html>

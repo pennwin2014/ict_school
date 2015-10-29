@@ -1,0 +1,175 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+
+<style type="text/css">
+
+body{
+margin:0px;
+padding:0px;
+height:100%;
+width:100%;
+}
+
+		#detail{
+		width:100%;
+		float:left;
+		}
+		
+		#levels{
+		width:24%;
+		height:100%;
+		float:left;
+		font:1.5em;
+		background:#E6E6E6;
+		}
+		
+		#level_introduce{
+		color:#ffffff;
+		background:#0088cc;
+		width:75%;
+		
+		float:right;
+		}
+		.introduce{
+		text-align:center;
+		padding:5px;
+		}
+		#level_logos{
+		width:75%;
+		float:right;
+		}
+		
+		.level_logos img{
+		
+		width:100%;
+		}
+		.level_logos{
+		border:1px solid #E6E6E6;
+		float:left;
+		width:32%;
+		
+		}
+		
+		.levels1{
+		background:#E6E6E6;
+		text-align:center;
+		padding-top:5px;
+		padding-bottom:5px;
+		font:1.5em;
+		margin-bottom:5px;
+		border:1px solid;
+		border-color:#E6E6E6;
+		
+		}
+		.levels2{
+		background:#0088cc;
+		color:#ffffff;
+		text-align:center;
+		padding-top:5px;
+		padding-bottom:5px;
+		font:1.5em;
+		border:1px solid;
+		border-color:#000000;
+		border-radius:15px; 	
+		box-shadow: 2px 2px 2px #888888;
+		}
+	
+		#iframe1{
+		height:100%;
+		}
+</style>
+
+<script type="text/javascript">
+
+function switchlevels(mark,name,number){
+$(document).ready(function(){
+
+$(".levels1").css('color','#000000');
+$(".levels1").css('background','#E6E6E6');
+$(".levels1").css('border','');
+$(".levels1").css('border-color','');
+$(".levels1").css('box-shadow','');
+
+$('#'+mark).css('color','#ffffff');
+$('#'+mark).css('background','#0088cc');
+$('#'+mark).css('border','1px solid');
+$('#'+mark).css('border-color','#000000');
+$('#'+mark).css('box-shadow',' 2px 2px 5px #000000');
+
+});
+//alert(mark);
+
+//document.getElementById("FunName").value = "ncmLevels_Logos";
+//document.getElementById("name").value = name;
+
+
+document.getElementById("introduce").innerHTML= detail[number];
+//document.getElementById("iframe1").contentWindow.refresh();
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmLevels_Logos";
+document.getElementById("iframe1").contentWindow.document.getElementById("name").value= name;
+//document.getElementById("iframe1").contentWindow.refresh();
+document.getElementById("iframe1").contentWindow.form1.submit();
+
+//document.getElementById("form1").submit();
+
+}
+
+var detail = new Array();
+var i =0;
+
+function getDetail(){
+
+//for(i=0; i<128; i++)
+[#SLPB#]  
+detail[[#iNum#]]="[#detail#]";
+[#SLPE#] 
+//}
+}
+</script>
+<body onload="getDetail()">
+
+	<div id="detail">
+	<div id="levels">
+	
+
+	[#SLPB#]  
+	
+	<div id="[#id#]" class="levels1" onclick="switchlevels([#id#],'[#name#]','[#iNum#]')">[#name#]</div>
+	
+	[#SLPE#] 
+
+	
+	</div>
+		
+	<div id="level_introduce">
+	<center>楼层信息: </center>
+	<div  id="introduce" class="introduce">
+	二层主要经营儿童用品，包括童装，童鞋，玩具，学习文具，图书等。 
+	</div>
+	</div>
+	<div id="level_logos">
+	<iframe id="iframe1" frameborder="no" scrolling="No"  width="100%" src="http://192.168.20.190:8008/suning/ncm_levels_logos.htm" ></iframe>
+	</div>
+	
+	
+	
+	<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="name" name="name" value="">
+		<input type="hidden" id="logoid" name="logoid" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+	</form>
+	
+	
+</body>
+
+
+</html>
+

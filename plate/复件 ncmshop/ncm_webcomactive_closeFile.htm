@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>Groupinfo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<style type="text/css">
+body{ font-size:14px;}
+input{ vertical-align:middle; margin:0; padding:0}
+.file-box{ position:relative;width:340px}
+.txt{ height:22px; border:1px solid #cdcdcd; width:180px;}
+.btn{ background-color:#FFF; border:1px solid #CDCDCD;height:24px; width:70px;}
+.file{ position:absolute; top:0; right:80px; height:24px; filter:alpha(opacity:0);opacity: 0;width:260px }	
+</style>
+<script>
+function winclose(){
+	  var win = parent.Ext.getCmp('windr2');
+	  if(win){ 
+		    win.close();
+    }
+}
+
+function setFileName(){
+	  parent.Ext.getCmp('ads[#position#]').setSrc('[#filepath#]');
+	  parent.Ext.getCmp('plevel').setValue([#position#]);
+    parent.document.getElementById('form1').filepath.value="[#filepath#]";
+    parent.Ext.getCmp('windr2').close();
+	  return;
+}
+</script>
+</head>
+
+<body bgcolor="#DEE8FA" onload="setFileName()">
+<div class="file-box">
+<form action="/pronline/upload" method="post" enctype="multipart/form-data" name="form2" id="form2">
+<input name="FunName" type="hidden" value="ncm_webcomactive_update_list">
+<input type="hidden" name="UploadPath" value="/home/ncmysql/ncsrv/upload">
+<input name="position" type="hidden" value="[#position#]">
+<input name="filename" type="hidden" value="[#filename#]">
+
+<input type='text' name='textfield' id='textfield' class='txt' /> 
+<input type='button' class='btn' value='浏览...' />
+<input type="file" name="fileField" class="file" id="fileField" size="28" onchange="document.getElementById('textfield').value=this.value" />
+<input type="submit" name="submit" class="btn" value="上传" onsubmit="winclose();"/>
+<!-- <input name="return" type="button" onClick="winclose();" class="btn" value="关闭"> -->
+</form>
+</div>
+</body>
+</html>

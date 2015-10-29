@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gbk2313">
+<title>LayoutPanel</title>
+<link rel='stylesheet' type='text/css' href="../ext/resources/css/ext-all.css">
+<script type="text/javascript" src="../ext/bootstrap.js"></script>
+<script type="text/javascript" src="../ext/locale/Ext-lang-zh_CN.js"></script>
+<script type="text/javascript">
+/*Ext.onReady(function(){
+	   // Ext.layout.CardLayout布局示例:
+	   var panel = Ext.create('Ext.panel.Panel',{  
+        layout : 'card',  
+        activeItem : 0,//设置默认显示第一个子面板  
+        title:'Ext.layout.container.Card布局示例',  
+        frame:true,//渲染面板  
+        height : 150,  
+        width : 250,  
+        renderTo: Ext.getBody(),  
+        bodyPadding: 5,  
+        defaults : {//设置默认属性  
+            bodyStyle:'background-color:#FFFFFF;padding:15px'//设置面板体的背景色  
+        },  
+        items: [{  
+            //title : '嵌套面板一',  
+            html : '说明一',  
+            id : 'p1'  
+        },{  
+            //title : '嵌套面板二',  
+            html : '说明二',  
+            id : 'p2'  
+        },{  
+            //title : '嵌套面板三',  
+            html : '说明三',  
+            id : 'p3'  
+        }],  
+        buttons:[{  
+            text : '上一页',  
+            handler : changePage  
+        },{  
+            text : '下一页',  
+            handler : changePage  
+        }]  
+    });  
+    //切换子面板  
+    function changePage(btn){
+        var index = Number(panel.layout.activeItem.id.substring(1));  
+        if(btn.text == '上一页'){  
+            index -= 1;  
+            if(index < 1){  
+                index = 1;  
+            }  
+        }else{  
+            index += 1;  
+            if(index > 3){  
+                index = 3;  
+            }  
+        }  
+        panel.layout.setActiveItem('p'+index);  
+    }
+});*/
+</script>	
+</head>
+<body style="margin: 10px; font-family:'黑体';">
+	<div>
+		<div style="margin-top:5px;">第一步：定义AP（位置：<span style="color:red;">AP管理</span>）	</div>
+		<div style="margin-top:5px;"><img src='/images/zhengzhoudianxin/ap.jpg' style="width:500px; height:100%;"></div>
+		<div style="margin-top:15px;">第二步：定义商店（位置：<span style="color:red;">商店管理</span>） </div>
+		<div style="margin-top:5px;"><img src='/images/zhengzhoudianxin/shop.jpg' style="width:500px; height:100%;"></div>
+		<div style="margin-top:15px;">提醒：以下无顺序</div>
+		<div style="margin-top:5px;">第三步：定义广告（位置：<span style="color:red;">广告管理</span>） </div>
+		<div style="margin-top:5px;"><img src='/images/zhengzhoudianxin/index.jpg' style="width:500px; height:100%;"></div>
+		<div style="margin-top:15px;">第四步：定义商品（位置：<span style="color:red;">商品管理</span>） </div>
+		<div style="margin-top:5px;"><img src='/images/zhengzhoudianxin/odity.jpg' style="width:500px; height:100%;"></div>
+	</div>
+</body>
+</html>

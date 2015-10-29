@@ -1,0 +1,328 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>登录成功</title>
+</head>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap {
+	width:440px;
+	margin:0 auto;
+	background:#fff;
+}
+.main {
+	width:400px;
+	margin:0 auto;
+}
+.tit {
+	text-align:center;
+	font-size:26px;
+	font-weight:bold;
+	color:#0061E3;
+	font-family:"黑体";
+}
+.tit_1 {
+	text-align:center;
+	font-size:16px;
+	color:#000;
+}
+.img_wrap {
+	width:90%;
+	margin:0 auto;
+}
+img {
+	width:30%;
+}
+.img_1 {
+	margin-right:5%;
+}
+.btn_exit {
+	background:#0061E3;
+	border:1px solid #0061E3;
+	width:150px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	color:#c9effe;
+}
+</style>
+<style type="text/css">
+@media screen and (max-width:450px) {
+ * {
+margin:0;
+padding:0;
+}
+ .wrap {
+width:100%;
+background:#fff;
+height:100%;
+font-family:"微软雅黑";
+margin-top:-5px;
+}
+ .main {
+width:92%;
+margin:20px auto;
+}
+ .tit {
+ text-align:center;
+ font-weight:bold;
+ font-size:22px;
+ color:#0061E3;
+ font-family:"黑体";
+}
+.tit_1 {
+ text-align:center;
+ font-size:16px;
+ color:#000;
+}
+ .img_wrap {
+width:90%;
+margin:0 auto;
+}
+ img {
+width:30%;
+}
+ .img_1 {
+margin-right:5%;
+}
+.btn_exit {
+ background:#0061E3;
+ border:1px solid #0061E3;
+	width:30%;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	color:#c9effe;
+}
+}
+</style>
+<script type="text/javascript">
+function init(){
+	  parent.document.getElementById("i").src = "/e.png"; 
+	  parent.document.getElementById("logo").innerHTML = "退出上网"; 
+	}
+	function init2(){//alert(3+"[#openid#]");
+	  
+//	  self.location.href = "/pronline/Msg?FunName@ncmcomqq&openid@[#openid#]&nickname@[#nickname#]&tsid@[#tsid#]";
+//	  alert(self.location.href);
+//	  parent.document.getElementById("i").src = "/p.png";    //用户管理头像
+//	  httphost= "http://[#ip#]:[#port#]";
+//		parent.document.getElementById("i").onclick = function()
+//	  { 
+////	  	alert(httphost);
+////		  document.getElementById("iframe1").src = httphost+"/pronline/Msg?FunName@ncSrvLogOut&html@"+"/logout_ok.htm";
+//        parent.document.getElementById("iframe1").src = httphost+"/pronline/Msg?FunName@ncmPersonals&uid@1&plateName@zhengzhoudianxin&tsid@"+'[#tsid#]'+"&plateid@4";
+//    
+//	  };
+	 
+	}
+	
+function change(mark){
+	if(mark ==1 ){
+	parent.document.getElementById("iframe1").src="http://kh.htsec.com/";
+	}
+	if(mark ==2 ){
+	parent.document.getElementById("iframe1").src="http://www.htsec.com/static/jifen/f/chggl/index.html";
+	}
+	if(mark ==3 ){
+	parent.document.getElementById("iframe1").src="http://www.htsec.com/htsec/Info/3910135";
+	}
+	if(mark ==4 ){
+	parent.document.getElementById("iframe1").src="http://www.eshanghai.cn/";
+	}
+	if(mark ==5 ){
+	parent.document.getElementById("iframe1").src="http://3g.sina.com.cn/?vt=4";
+	}
+	
+	if(mark ==6 ){
+	parent.document.getElementById("iframe1").src="http://t.3g.qq.com";
+	}
+if(mark ==7 ){
+	parent.document.getElementById("iframe1").src="http://wap.htsec.com/htwap/Stock_gt_Pro-hait.apk";
+	}
+	if(mark ==8 ){
+	parent.document.getElementById("iframe1").src="https://itunes.apple.com/us/app/id554910048";
+	}
+	
+	if(mark ==9 ){
+	parent.document.getElementById("iframe1").src="https://itunes.apple.com/cn/app/hai-tong-zheng-quan-cai-hong/id554913695?mt=8";
+	}
+}
+function tuichu(){
+		document.getElementById("nclogin_0").submit();
+}
+</script>
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101078715" data-redirecturi="http://qq1.proeim.com/pronline/Msg?FunName@ncmWebReplace&plate@zzdx/sms/login_okqq.htm" charset="utf-8"></script> 
+
+<script type="text/javascript">
+//    QC.Login({
+//       btnId:"qqLoginBtn"    //插入按钮的节点id
+//    });
+    
+    
+   //调用QC.Login方法，指定btnId参数将按钮绑定在容器节点中
+   QC.Login({
+       //btnId：插入按钮的节点id，必选
+       btnId:"qqLoginBtn",    
+       //用户需要确认的scope授权项，可选，默认all
+       scope:"all",
+       //按钮尺寸，可用值[A_XL| A_L| A_M| A_S|  B_M| B_S| C_S]，可选，默认B_S
+       size: "A_XL"
+		   }, function(reqData, opts){//登录成功
+		       //根据返回数据，更换按钮显示状态方法
+		       var dom = document.getElementById(opts['btnId']),
+		       _logoutTemplate=[
+		            //头像
+//		            '<span><img src="{figureurl}" class="{size_key}"/></span>',
+		            //昵称
+		            '<span>“{nickname}”登录成功</span>'
+//		            ,
+		            //退出
+//		            '<span><a href="javascript:QC.Login.signOut();">退出</a></span>'    
+		       ].join("");
+		       dom && (dom.innerHTML = QC.String.format(_logoutTemplate, {
+		           nickname : QC.String.escHTML(reqData.nickname), //做xss过滤
+		           figureurl : reqData.figureurl
+		       }));
+		   }, function(opts){//注销成功
+		         alert('QQ登录 注销成功');
+		   }
+		);
+function GetQueryString(name) 
+{ 
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); 
+     var r = window.location.search.substr(1).match(reg); 
+     if(r!=null)return  unescape(r[2]); return null; 
+} 
+alert("code = "+GetQueryString("code"));
+var auth_code = "";
+    auth_code = GetQueryString("code");//alert("qqtmp-ipurl = "+'[#ipurl#]');
+//    alert("qqtmp-tsid = "+'[#tsid#]');
+if (auth_code != "")
+{
+//  self.location.href = "https://graph.qq.com/oauth2.0/token?grant_type=authorization_code&client_id=101078715&client_secret=62566154f410baf391650dbd12448164&code="+auth_code+"&redirect_uri=http%3A%2F%2Fqq1.proeim.com%2Fpronline%2FMsg%3FFunName%3DncmWebReplace%26plate%3Dzzdx/sms/login_okqq.htm%26tsid%3D[#tsid#]&state=test"; 
+  self.location.href = "[#ipurl#]/pronline/Msg?FunName@ncmcomqqAuthGetAccessToken&code@"+auth_code+"&tsid@[#tsid#]";//+"&red_uri=http%3A%2F%2Fqq1.proeim.com%2Fpronline%2FMsg%3FFunName%3DncmWebReplace%26plate%3Dzzdx/sms/login_okqq.htm%26tsid%3D[#tsid#]&state=test";
+
+}
+/*
+     var accessToken = window.location.hash.substring(1);
+alert(accessToken);	
+if(accessToken != '')
+//self.location.href =   "/pronline/Msg?FunName@ncmcomqqGetOpenid&access_token@"+accessToken+"&tsid@"+'[#tsid#]'+"&xx@"+Math.random()*999; 
+self.location.href =   "/pronline/Msg?FunName@ncmcomqqGetOpenid&"+accessToken+"&tsid@"+'[#tsid#]'+"&xx@"+Math.random()*999; 
+//   callServer();
+function createXMLHttpRequest() {
+	var C=null; 
+		if(window.XMLHttpRequest) { 
+			C = new XMLHttpRequest();
+		}
+		else if (window.ActiveXObject) { 
+			try {
+				C = new ActiveXObject("Msxml2.XMLHTTP");
+			} 
+			catch (e) {
+				try {
+					C = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {}
+			}
+		}
+		return C;
+}
+	
+function getxmlbyname(ins,names,namee){
+	var start;
+	var end;
+	var ret='';
+	start=ins.indexOf(names);
+	end=ins.indexOf(namee);
+	if(start!=-1&&end!=-1){
+		ret=ins.substr(start+names.length,end-start-names.length);
+	}
+	return ret;	
+}
+var statcode= null;
+var errmessage= null;  	
+var xmlHttp = false;
+function callServer(){ 
+   if( xmlHttp && xmlHttp .readyState != 0 ){
+    	xmlHttp.abort();
+   }
+   xmlHttp = createXMLHttpRequest();
+   if(xmlHttp){
+//   	 var web_url = "http://"+ip+":"+port+"/pronline/Msg?FunName@ncmcomqqGetOpenid"+accessToken+"&xx@"+Math.random()*999; 
+//   	 var web_url = "http://192.168.20.168:9080/pronline/Msg?FunName@ncmcomqqGetOpenid&"+accessToken+"&xx@"+Math.random()*999; 
+   	 var web_url = "/pronline/Msg?FunName@ncmcomqqGetOpenid&"+accessToken+"&tsid@"+'[#tsid#]'+"&xx@"+Math.random()*999; 
+//     var web_url="https://graph.qq.com/oauth2.0/me?"+accessToken+"&xx@"+Math.random()*999; 
+//     alert(web_url);
+     xmlHttp.open("GET",web_url, true);//alert(1);
+     xmlHttp.onreadystatechange = updatePage;
+     xmlHttp.send(null);
+     
+   }
+}
+
+//跨域   域名换掉了。
+
+function updatePage(){//alert("state = "+xmlHttp.readyState);
+   if (xmlHttp.readyState == 4){
+		  var response = xmlHttp.responseText;
+		  alert(response);
+      var temp_mesg = getxmlbyname(response,"<openid>","</openid>");
+    	var openid = temp_mesg;
+    	alert(openid);
+//        var htmltest = errmessage;
+//	    if(statcode == 5){
+//			  if (errmessage == 1)           
+//			  {
+//				document.getElementById('gpss').src='/images/getpasswdpczh_2x.png';    
+//				document.getElementById("numberErr").style.display="block";           
+//			    document.getElementById("gpss").disabled="";
+//			  }
+//      }
+//      if(statcode == 0){             
+//      	        
+//      } 
+   }
+ }
+ */
+</script>    
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload = "init2()">
+<form name="nclogin_0" id="nclogin_0" method="post" action="http://[#ip#]:[#port#]/pronline/Msg" >
+  <input type="hidden" name="sid" value="[#sid#]">
+  <input type="hidden" name="FunName" value="ncSrvLogOut">
+  <input type="hidden" name="ModiPass" value="">
+  <input type="hidden" name="username" value="[#username#]">
+  <input type="hidden" name="userip" value="[#userip#]">
+  <input type="hidden" name="usermac" value="[#usermac#]">
+  <input type="hidden" name="serialno" value="[#serialno#]">
+  <div class="wrap">
+    <div class="main">
+      <p class="tit">认证成功</p>
+      <div style="height:15px; clear:both;"></div>
+      <p class="tit_1"><span id="qqLoginBtn" ></span>,您现在可以上网了</p>
+      
+      <div style="height:10px; clear:both;"></div>
+      <div style="border-bottom:1px solid #ccc; width:80%; margin:0 auto; height:1px;"></div>
+      <div>
+       <div style="height:10px; clear:both;"></div>
+        <div class="img_wrap"><a onClick="change(1)"><img class="img_1" src="/images/sc/23.png"></a><a onClick="change(8)"><img class="img_1" src="/images/sc/30.png"></a><a onClick="change(9)"><img src="/images/sc/31.png"></a></div>
+        <div style="height:10px; clear:both;"></div>
+        <div class="img_wrap"><a onClick="change(4)"><img class="img_1" src="/images/sc/40.png"></a><a onClick="change(5)"><img class="img_1" src="/images/sc/41.png"></a><a onClick="change(6)"><img src="/images/sc/42.png"></a></div>
+        <div style="height:10px; clear:both;"></div>
+      </div>
+      <div style="height:10px; clear:both;"></div>
+      <div style="text-align:center;">
+        <input class="btn_exit" type="button" value="退出上网" onClick="tuichu()">
+      </div>
+    </div>
+  </div>
+  <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</body>
+</html>

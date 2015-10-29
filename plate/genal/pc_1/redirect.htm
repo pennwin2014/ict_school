@@ -1,0 +1,58 @@
+<script>
+//alert('Hello');
+//history.go(-2);
+//window.location.href='http://192.168.20.188:9080/pronline/genal/sms/login_main.htm?';
+/*
+window.location.href = 'http://192.168.20.188:9080/pronline/Msg?FunName@ncSrvDispLogin&userip@[#userip#]&ssid@[#ssid#]&usermac@[#usermac#]';
+*/
+// 跳到注册页
+function GoToRegister()
+{
+	window.location.href = 'http://[#ip#]:9080/pronline/Msg?FunName@ncm_sms_send_register_list';
+}
+
+// 跳到登录页
+function GoToLogin()
+{
+	window.location.href = 'http://[#ip#]:9080/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#arg#]';
+}
+
+// 根据后台返回的状态确定跳转页面
+function Redirect()
+{
+	var res = '[#status#]';
+	alert(res);
+	if (res == 'successful')
+	{
+		// 跳到登录页
+		setTimeout("GoToLogin()",1000);
+		alert('注册成功！');
+	}
+	else if (res == 'failed')
+	{
+		// 继续留在注册页
+		setTimeout("GoToRegister()",1000);
+		alert('信息填写不完整或格式错误！');
+	}
+	else if (res == 'forbidden')
+	{
+		// 跳到注册页
+		setTimeout("GoToRegister()",1000);
+		alert('用户未注册！');		
+	}
+	/*
+	window.location.href = 'http://[#ip#]:9080/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#arg#]';
+	*/
+}
+
+var arg = 'http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#arg#]';
+//alert(arg);
+
+Redirect();
+//setTimeout("redirect()",1000);
+//alert('注册成功！');
+/*
+window.location.href = 'http://[#ip#]:9080/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#arg#]';
+*/
+//arg;//'http://192.168.20.188:9080/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#arg#]';
+</script>

@@ -1,0 +1,415 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+<style type="text/css">
+body{
+margin:0;
+padding:0;
+height:100%;
+}
+
+.logo {
+	background: url(/images/suning/01.png);
+	color:#ffffff;
+	font-size:1.5em;
+	text-align:center;
+	height:30px;
+	border:1px solid #000000;
+	position:fixed; 
+	width:100%;
+	z-index:100;
+	}
+	
+
+		#menu{
+		width:100%;
+		height:60px;
+		
+		margin-bottom:12px;
+		color:#ffffff;
+		float:left;
+		text-align:center;
+		white-space:nowrap;
+		font-size:1em;
+		}
+		
+		#menu_btn1{
+		background:#FFBF00;
+		width:25%;
+		height:100%;
+		padding-top:10px;
+		float:left;
+		
+		}
+		
+		#menu_btn2{
+		background:	#9FF781;
+		width:25%;
+		height:100%;
+		float:left;
+		padding-top:10px;
+		}
+		
+		#menu_btn3{
+	
+		background:	#58ACFA;
+			width:25%;
+		height:100%;
+			float:left;
+			padding-top:10px;
+		}
+		#menu_btn4{
+		background:	#FE2E64;
+		width:25%;
+		height:100%;
+		float:left;
+		padding-top:10px;
+		}
+		
+		.space1{
+		margin-top:5px;
+		}
+		.space1 img{
+		height:30px;
+		}
+		
+			
+		#webs{
+		width:100%;
+		white-space:nowrap;
+		}
+		
+		#web1{
+		float:left;
+		width:65%;
+		height:140px;
+		border:1px solid #d0d0d0;
+		margin-right:2px;
+		}
+		#web2{
+		float:left;
+		width:34%;
+		height:140px;
+		}
+		
+		.web2_1{
+		height:49%;
+		border:1px solid #d0d0d0;
+		margin-bottom:2%;
+		}
+		.web2_2{
+		height:49%;
+		border:1px solid #d0d0d0;
+		
+		}
+		#web3{
+		float:left;
+		
+		width:100%;
+	
+
+		}
+		
+		#webs img{
+		width:100%;
+	
+		}
+		
+		#web1 img{
+		width:100%;
+		height:100%;
+		}
+		#web2 img{
+		width:100%;
+		height:100%;
+		}
+		#web2 img{
+		width:100%;
+		height:100%;
+		}
+		#web3 img{
+		width:100%;
+	
+		}
+		
+		#bottom_webs{
+		width:100%;
+		height:60px;
+		margin-top:2px;
+		margin-bottom:5px;
+		color:#ffffff;
+		float:left;
+		text-align:center;
+		white-space:nowrap;
+		font-size:1em;
+		}
+		
+		#bottom_web1{
+		background:#FFBF00;
+		width:25%;
+		height:100%;
+		padding-top:10px;
+		padding-bottom:10px;
+		float:left;
+		
+		}
+		#bottom_web2{
+		background:	#9FF781;
+		width:25%;
+		height:100%;
+		padding-top:10px;
+		padding-bottom:10px;
+		float:left;
+		
+		}
+		#bottom_web3{
+		background:#58ACFA;
+		width:25%;
+		height:100%;
+		padding-top:10px;
+		padding-bottom:10px;
+		float:left;
+		
+		}
+		#bottom_web4{
+		background:#FE2E64;
+		width:25%;
+		height:100%;
+		padding-top:10px;
+		padding-bottom:10px;
+		float:left;
+		}
+		
+		#positions{
+		width:100%;
+		height:10px;
+		float:left;
+		margin-top:2px;
+		}
+		.position1{
+		width:25%;
+		height:100%;
+		background-image:url(/images/suning/mall_r10_c1.gif);
+		float:left;
+		}
+		.position2{
+		width:25%;
+		height:100%;
+		background-image:url(/images/suning/mall_r10_c3.gif);
+		float:left;
+		
+		}
+		.scrollPic1{
+		display:none;
+		}
+		.scrollPic2{
+		display:block;
+		}
+</style>
+
+<script type="text/javascript">
+
+
+$(document).ready(function(){
+ var i=1;
+$("#position1").click(function(){
+i=1;
+$("#scrollPic2").fadeOut(500);
+$("#scrollPic3").fadeOut(500);
+$("#scrollPic4").fadeOut(500);
+$("#scrollPic1").delay(500).fadeIn(500);
+document.getElementById('position1').className = 'position2';
+document.getElementById('position2').className = 'position1';
+document.getElementById('position3').className = 'position1';
+document.getElementById('position4').className = 'position1';
+});
+
+$("#position2").click(function(){
+
+i=2;
+$("#scrollPic1").fadeOut(500);
+$("#scrollPic3").fadeOut(500);
+$("#scrollPic4").fadeOut(500);
+$("#scrollPic2").delay(500).fadeIn(500);
+document.getElementById('position1').className = 'position1';
+document.getElementById('position2').className = 'position2';
+document.getElementById('position3').className = 'position1';
+document.getElementById('position4').className = 'position1';
+});
+
+
+$("#position3").click(function(){
+
+i=3;
+$("#scrollPic1").fadeOut(500);
+$("#scrollPic2").fadeOut(500);
+$("#scrollPic4").fadeOut(500);
+$("#scrollPic3").delay(500).fadeIn(500);
+document.getElementById('position1').className = 'position1';
+document.getElementById('position2').className = 'position1';
+document.getElementById('position3').className = 'position2';
+document.getElementById('position4').className = 'position1';
+});
+
+$("#position4").click(function(){
+i=4;
+// $("#login").fadeOut(2000);
+// $("#content").delay(2000).hide().fadeIn(500);
+$("#scrollPic1").fadeOut(500);
+$("#scrollPic2").fadeOut(500);
+$("#scrollPic3").fadeOut(500);
+$("#scrollPic4").delay(500).fadeIn(500);
+document.getElementById('position1').className = 'position1';
+document.getElementById('position2').className = 'position1';
+document.getElementById('position3').className = 'position1';
+document.getElementById('position4').className = 'position2';
+});
+
+
+$(function(){
+function show(){
+
+  if(i==1){$("#scrollPic2").fadeOut(500);
+$("#scrollPic3").fadeOut(500);
+$("#scrollPic4").fadeOut(500);
+$("#scrollPic1").delay(500).fadeIn(500);
+document.getElementById('position1').className = 'position2';
+document.getElementById('position2').className = 'position1';
+document.getElementById('position3').className = 'position1';
+document.getElementById('position4').className = 'position1';}
+  else if(i==2){$("#scrollPic1").fadeOut(500);
+$("#scrollPic3").fadeOut(500);
+$("#scrollPic4").fadeOut(500);
+$("#scrollPic2").delay(500).fadeIn(500);
+document.getElementById('position1').className = 'position1';
+document.getElementById('position2').className = 'position2';
+document.getElementById('position3').className = 'position1';
+document.getElementById('position4').className = 'position1';}
+  else if(i==3){$("#scrollPic1").fadeOut(500);
+$("#scrollPic2").fadeOut(500);
+$("#scrollPic4").fadeOut(500);
+$("#scrollPic3").delay(500).fadeIn(500);
+document.getElementById('position1').className = 'position1';
+document.getElementById('position2').className = 'position1';
+document.getElementById('position3').className = 'position2';
+document.getElementById('position4').className = 'position1';}
+  else if(i==4){$("#scrollPic1").fadeOut(500);
+$("#scrollPic2").fadeOut(500);
+$("#scrollPic3").fadeOut(500);
+$("#scrollPic4").delay(500).fadeIn(500);
+document.getElementById('position1').className = 'position1';
+document.getElementById('position2').className = 'position1';
+document.getElementById('position3').className = 'position1';
+document.getElementById('position4').className = 'position2';}
+i++;
+if(i==5){
+i=1;
+}
+}
+setInterval(show,5000);// 注意函数名没有引号和括弧！
+// 使用setInterval("show()",3000);会报“缺少对象”
+
+});
+
+}); 
+
+function switchPage(mark){
+//alert("11111111");
+
+if(mark == 1){
+alert("1");
+document.getElementById("FunName").value = "ncmLevels";
+parent.document.getElementById("logo").innerHTML = "楼层信息";
+}
+if(mark == 2){
+alert("2");
+document.getElementById("FunName").value = "ncmCategories";
+parent.document.getElementById("logo").innerHTML = "商品分类";
+}
+if(mark == 3){
+alert("3");
+document.getElementById("FunName").value = "ncmDiscounts";
+parent.document.getElementById("logo").innerHTML = "促销优惠";
+}
+if(mark == 4){
+alert("4");
+document.getElementById("FunName").value = "ncmPersonals";
+parent.document.getElementById("logo").innerHTML = "个人信息";
+}
+
+document.getElementById("form1").submit();
+}
+
+function switchLogo(mark, name){
+alert(mark);
+
+document.getElementById("FunName").value = "ncmLogos_detail";
+document.getElementById("logoid").value = mark;
+document.getElementById("form1").submit();
+
+}
+function changeTitle(name){
+alert(name);
+}
+</script>
+<body >
+
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="logoid" name="logoid" value="">
+			<div id="menu">
+                                
+                   <div id="menu_btn1" onclick="switchPage(1)">楼层详情<div class="space1"><img src="/images/suning/floordetail.png" ></div></div>
+                    <div id="menu_btn2"  onclick="switchPage(2)">商品分类<div class="space1"><img src="/images/suning/shoptype.png"></div></div>
+                    <div id="menu_btn3"  onclick="switchPage(3)">促销优惠<div class="space1"><img src="/images/suning/cuxiaoyouhui.png" ></div></div>
+                    <div id="menu_btn4"  onclick="switchPage(4)">个人中心<div class="space1"><img src="/images/suning/personcenter.png" ></div></div>
+           
+			</div>
+			
+	<div id="webs">
+	<div id="web1"><img src="[#img5#]" onclick="switchLogo([#id5#])" ></div>
+	
+	<div id="web2">
+	<div class="web2_1"><img src="[#img6#]"  onclick="switchLogo([#id6#])"></div>
+	<div class="web2_2"><img src="[#img7#]" onclick="switchLogo([#id7#])"></div>
+	</div>
+
+	<div id="positions">
+	 <div id="position1" class="position2"></div>
+	 <div id="position2" class="position1"></div>
+	 <div id="position3" class="position1"></div>
+	 <div id="position4" class="position1"></div>
+	</div>
+
+	<div id="web3">
+	<img id="scrollPic1" class="scrollPic2" src="[#img1#]" onclick="switchLogo([#id1#])" >
+	<img id="scrollPic2" class="scrollPic1" src="[#img2#]" onclick="switchLogo([#id2#])" >
+	<img id="scrollPic3" class="scrollPic1" src="[#img3#]" onclick="switchLogo([#id3#])" >
+	<img id="scrollPic4" class="scrollPic1" src="[#img4#]" onclick="switchLogo([#id4#])" >
+	</div>
+	
+
+	
+	<div id="bottom_webs">
+	<div id="bottom_web1" ><img src="[#img8#]" onclick="switchLogo([#id8#])" ></div>
+	<div id="bottom_web2" ><img src="[#img9#]" onclick="switchLogo([#id9#])" ></div>
+	<div id="bottom_web3" ><img src="[#img10#]" onclick="switchLogo([#id10#])" ></div>
+	<div id="bottom_web4" ><img src="[#img11#]" onclick="switchLogo([#id11#])" ></div>
+	
+	</div>
+	
+	
+		
+	</form>	
+	
+	
+</body>
+</html>
+
+

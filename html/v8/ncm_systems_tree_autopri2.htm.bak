@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>自定义权限</title>
+<link href="/css/css_main.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/toolbars.css" />
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script> 
+<style type="text/css">
+.accept {
+    background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+}	
+</style>
+
+<script> 
+Ext.onReady(function(){
+		  Ext.define('treedata',{
+	        extend: 'Ext.data.Model',
+	        fields: [
+	            {name: 'text',      type: 'string'},
+	            {name: 'id',        type: 'string'},
+	            {name: 'groupcode', type: 'string'},
+	            {name: 'ctext',     type: 'string'}
+	        ]
+      });
+	    var store_systems_autopri = Ext.create('Ext.data.TreeStore', {
+	   	    model:'treedata',
+	        proxy: {
+	            type: 'ajax',
+	            url: '/pronline/Msg?FunName@ncm_autopri'
+	        },
+	        root: {
+	            text: '全部',
+	            id: '',
+	            expanded: true
+	        },
+	        folderSort: true,
+	        sorters: [{
+	            property: 'text',
+	            direction: 'ASC'
+	        }],
+	        listeners:{
+	    				'load':function(thisStore, node, records, successful, e0pts){
+	    				}
+	    		}
+	    });
+	    store_systems_autopri.on('beforeload', function (store, options) {
+	    			var shopcode1="";
+	  				if(Ext.getCmp('autopri_typesearch')){
+	  					 shopcode1=Ext.getCmp('autopri_typesearch').value;
+	  				}
+		        var new_params = { shopcode: shopcode1 };
+		        Ext.apply(store.proxy.extraParams, new_params);
+		  });
+		  
+	    Ext.define('CheckData', {
+				  extend: 'Ext.data.Model',
+				  fields: [
+				      'groupcode', 'groupname'
+				  ],
+				  idProperty: 'rolename'
+			});
+			//取权限check数据
+			var store_type = Ext.create('Ext.data.Store', {
+			    pageSize: 1000,
+			    model: 'CheckData',
+			    remoteSort: true,
+			    proxy: {
+			        type: 'ajax',
+			        url: '/pronline/Msg?FunName@ncm_shopgtype&type@2',
+			        reader: {
+			            type:'json',
+			            root: 'eimdata',
+			            totalProperty: 'totalCount'
+			        },         
+			        simpleSortMode: true
+			    }
+			});
+
+	    var tree = Ext.create('Ext.tree.TreePanel',{ 
+	        rootVisible:false,
+	        title: '',
+	    	  id:'tree_autopri',
+	        store: store_systems_autopri,
+	        autoScroll: true,
+	        border:false,
+			    frame:false,
+	        useArrows: false,
+			    listeners:{
+		         	itemclick:function(view, rcd, item, idx, event, eOpts){
+		          }
+	        }         
+      });
+	 
+	    var panel = Ext.create('Ext.panel.Panel', {
+	        title: '',
+	        margins: '0 0 0 0',
+	        renderTo:Ext.getBody(),
+					height: 335,
+	        border:false,
+	        frame: false,
+	        layout: 'fit',
+					autoScroll: false,
+	        items:tree,
+	        dockedItems: [{
+	            xtype: 'toolbar',
+	            items: [
+	            '-', {
+	            		width:100,
+									xtype:'combo',
+									valueField: 'groupcode',
+									displayField: 'groupname',
+									emptyText:'请选择类别',   
+									store: store_type,
+									forceSelection: true,
+									triggerAction: 'all',	
+									msgTarget:'qtip', //显示一个浮动的提示信息 	
+								  id:'autopri_typesearch',
+									listeners: {
+											'change':function(){
+													var shopcode1 = this.value
+													store_systems_autopri.load({params: {shopcode:shopcode1}});
+											}
+								  },
+						  },{
+	            		//labelWidth: 50,
+	            		width:100,
+	                //fieldLabel:'关键字',
+	                xtype: 'textfield',
+	                id:'autopri_keyword',
+	                name:'autopri_keyword',
+									emptyText:'请输入单位名称'
+	            },'-',{
+	                text:'查询',
+	                iconCls:'accept',
+	                handler:function(){
+	                	  var shopcode1="";
+										  if(Ext.getCmp('autopri_typesearch'))shopcode1=Ext.getCmp('autopri_typesearch').value;
+					                      var vkeyword=Ext.getCmp('autopri_keyword').value;			         
+											store_systems_autopri.load({params: {shopcode:shopcode1,keyword:vkeyword}});
+	                }
+	            },'-',{
+	                text:'确认',
+	                iconCls:'accept',
+	                handler:function(){
+											parent.Ext.getCmp('groupcode').setValue(Ext.getCmp("tree_autopri").getSelectionModel().getLastSelected().get("id"));
+											parent.Ext.getCmp('groupcodename').setValue(Ext.getCmp("tree_autopri").getSelectionModel().getLastSelected().get("text"));
+			                parent.Ext.getCmp('winhelp').close();
+									}
+	            }]
+          }]
+	    });
+
+			if(parent.parent.admincheck != "admin"){
+					Ext.getCmp('autopri_typesearch').destroy();	
+			}
+});
+</script>
+</head>
+<body>
+</body>
+</html>

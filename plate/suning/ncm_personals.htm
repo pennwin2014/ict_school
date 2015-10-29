@@ -1,0 +1,209 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+
+<style type="text/css">
+
+body{
+margin:0px;
+padding:0px;
+height:100%;
+width:100%;
+font-family: arial;
+}
+
+		#detail{
+		width:100%;
+		float:left;
+		}
+		
+		#levels{
+		position:fixed;
+
+		width:24%;
+		height:100%;
+		float:left;
+		font:1.5em;
+		background:#FFBF00;
+		border-radius:5px;
+		}
+		
+		#level_introduce{
+		background:#E0E6F8;
+		height:100%;
+		width:75%;
+		float:right;
+		}
+		#level_logos{
+		width:75%;
+		float:right;
+		}
+		
+		.level_logos img{
+		
+		width:100%;
+		}
+		.level_logos{
+		float:left;
+		width:33%;
+		
+		}
+		
+		.levels1{
+		background:#FFBF00;
+		text-align:center;
+		padding-top:8px;
+		padding-bottom:8px;
+		font:1.5em;
+		margin-bottom:5px;
+		border-top:2px solid;
+		
+		border-color:#0088cc;
+		border-radius:5px;
+		}
+		
+	
+	
+	#photo{
+	margin:5px;
+	width:100%;
+	float:left;
+	text-align:center;
+	}
+	#photo img{
+	width:50%;
+	
+	}
+	
+	#info{
+	width:100%;
+	margin:5px;
+	line-height:30px;
+	}
+	
+	#iframe1{
+	height:100%;
+	width:100%;
+	}
+</style>
+
+<script type="text/javascript">
+
+function switchlevels(mark){
+$(document).ready(function(){
+
+$(".levels1").css('color','#000000');
+$(".levels1").css('background','#FFBF00');
+$('.levels1').css('border','');
+$(".levels1").css('border-top','2px solid');
+$(".levels1").css('border-color','#0088cc');
+$(".levels1").css('box-shadow','');
+
+$('#'+mark).css('color','#ffffff');
+$('#'+mark).css('background','#0088cc');
+$('#'+mark).css('border','1px solid');
+$('#'+mark).css('border-color','#000000');
+$('#'+mark).css('box-shadow',' 1px 1px 1px #000000');
+$('#'+mark).css('border-radius',' 5px');
+
+
+});
+
+if(mark == 1){
+document.getElementById("iframe1").src = "/suning/ncm_personals_info.htm";
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmPersonals_Info";
+document.getElementById("iframe1").contentWindow.document.getElementById("uid").value="1";
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+
+//alert(1);
+}
+
+if(mark == 2){
+document.getElementById("iframe1").src = "/suning/ncm_personals_consump.htm";
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmPersonals_Consump";
+document.getElementById("iframe1").contentWindow.document.getElementById("uid").value="18201880623";
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+//alert(2);
+}
+
+if(mark == 3){
+document.getElementById("iframe1").src = "/suning/ncm_personals_mark.htm";
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmPersonals_Mark";
+document.getElementById("iframe1").contentWindow.document.getElementById("uid").value="1";
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+//alert(3);
+}
+
+if(mark == 4){
+document.getElementById("iframe1").src = "/suning/ncm_personals_coupon.htm";
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmPersonals_Coupon";
+document.getElementById("iframe1").contentWindow.document.getElementById("uid").value="1";
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+//alert(4);
+}
+
+if(mark == 5){
+document.getElementById("iframe1").src = "/suning/ncm_personals_attention.htm";
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmPersonals_Attention";
+document.getElementById("iframe1").contentWindow.document.getElementById("uid").value="1";
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+//alert(5);
+}
+
+if(mark == 6){
+document.getElementById("iframe1").src = "/suning/ncm_personals_collection.htm";
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmPersonals_Collection";
+document.getElementById("iframe1").contentWindow.document.getElementById("uid").value="1";
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+//alert(5);
+}
+
+//alert(mark);
+
+//document.getElementById(mark).className = 'levels2';
+
+
+
+}
+
+</script>
+<body >
+
+	<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="uid" name="uid" value="">
+		<input type="hidden" id="sid" name="sid" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="logoid" name="logoid" value="">
+		</form>
+	<div id="detail">
+	<div id="levels">
+	
+	
+	
+	<div id="1" class="levels1" onclick="switchlevels(1)">个人信息</div>
+	<div id="2" class="levels1" onclick="switchlevels(2)">消费记录</div>
+	<div id="3" class="levels1" onclick="switchlevels(3)">积分查询</div>
+	<div id="4" class="levels1" onclick="switchlevels(4)">优惠劵</div>
+	
+	<div id="5" class="levels1" onclick="switchlevels(5)">关注</div>
+	<div id="6" class="levels1" onclick="switchlevels(6)">收藏</div>
+	</div>
+		
+	<div id="level_introduce">
+	
+	<iframe id="iframe1" frameborder="no" scrolling="auto"  width="100%" src="/suning/ncm_personals_info.htm" ></iframe>
+		
+	
+	</div>
+</body>
+
+
+</html>
+

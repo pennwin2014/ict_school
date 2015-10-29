@@ -1,0 +1,150 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<html>
+<head>
+<title>用户口令修改</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META content=no-cache http-equiv=Pragma>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+<style type="text/css">
+<!--
+.cccv {  border-style: inset; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px}
+.xan3 {  width: 100px; font-size: 12px; font-weight: normal; font-family: "宋体"}
+-->
+.icon-save {
+            background-image:url(/newver/resources/themes/images/share/save.png) !important;
+        }
+</style>
+<script language="JavaScript">
+<!--
+
+function fff() { 
+if(document.all.a1.value==1){
+document.all.b1.style.display=""
+}else if(document.all.a1.value==0){
+document.all.b1.style.display="none"
+}else{
+document.all.b1.style.display=""
+}
+}
+function mod(){
+	if(document.getElementById("form1").password11.value!=document.getElementById("form1").password12.value){
+		alert('密码不一致');
+		return false;
+	}
+//	if(form1.password21.value!=form1.password22.value){
+//		alert('第二密码不一致');
+//		return false;
+//	}
+	//alert(form.password1.value);
+	if(document.getElementById("form1").password11.value==''){
+		alert('密码不能为空');
+		return false;
+	}
+	return true;
+}
+//-->
+
+
+Ext.require([
+    'Ext.form.*',
+    'Ext.data.*',
+    'Ext.tip.QuickTipManager'
+]);
+
+Ext.onReady(function() {
+    Ext.QuickTips.init();
+	
+	
+	
+	 var form = Ext.create('Ext.form.Panel', {
+        renderTo: 'docbody',
+        //title   : 'Account Password Change',
+        autoHeight: true,
+        width   : 500,
+        bodyPadding: 20,
+        frame:false,
+		border:false,
+        defaults: {
+            anchor: '100%',
+            labelWidth: 100
+        },
+        items   : [
+             
+            
+			{
+                xtype: 'fieldset',
+                title: '购买短信条数',
+                collapsible: true,
+                defaults: {
+                    labelWidth: 80,
+                    style:'margin:15px',
+                    layout: {
+                        type: 'hbox'
+                    }
+                },
+                items: [
+                    {
+                        xtype     : 'textfield',
+                        name      : 'rname1',
+						value:'187',
+						disabled:true,
+                        fieldLabel: '剩余短信条数'
+				
+                    },
+                    {
+						xtype     : 'textfield',
+                        inputType:'password', 
+                        name      : 'password11',
+						value:'',
+						emptyText:'请输入购买短信条数',
+                        fieldLabel: '短信条数'
+						
+                       
+                    },{
+                        xtype     : 'textfield',
+						inputType:'password', 
+                        name      : 'password12',
+						value:'',
+						emptyText:'请重新输入购买短信条数',
+                        fieldLabel: '确认短信条数'
+						
+                    }
+                ]
+            }
+   
+        ],
+		buttonAlign: 'center',
+        buttons: [
+            {
+                text   : '保存',
+				iconCls: 'icon-save',
+                handler: function() {
+				alert('保存成功');
+                 this.up('form').getForm().doAction('submit',{
+                 url:'/pronline/Msg',
+                 method:'post',
+                 params:{FunName:'',userid:'[#userid#]',rname:'[#username#]'},   
+                  success:function(form,action){
+             //   	var msgaa=action.result.reason;
+                 alert(action.result.success);
+                 }   
+                 })
+
+                }
+				
+            }
+        ]
+    });
+    });
+</script>
+</head>
+
+<body bgcolor="" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+ <center><div id="docbody"  ></div></center>
+
+</body>
+</html>

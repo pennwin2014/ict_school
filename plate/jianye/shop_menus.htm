@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+<meta content="yes" name="apple-mobile-web-app-capable" /> 
+<meta content="black" name="apple-mobile-web-app-status-bar-style" /> 
+<link href="/css/flexslider.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>
+<title>丹尼斯欢迎您</title>
+<style type="text/css">
+*{
+	margin:0;
+	padding:0;
+}
+.banner2{width:100%;height:700px;}
+
+.wrap {
+	width:400px;
+	
+	margin:0 auto;
+	
+	
+	
+}
+.menu img {
+	width:100%;
+}
+.nr1 {
+	width:100%;
+	margin:0 auto;
+}
+
+.img_1 {
+	position:absolute;
+	width:90px;
+	height:60px;
+	z-index:1000;
+	cursor:pointer;
+}
+.img_2 {
+	height:200px;
+	width:100%;
+}
+.nr4_left {
+	width:31%;
+	margin-left:2%;
+	float:left;
+}
+.nr4_right {
+	width:31%;
+	margin-left:2%;
+	float:left;
+}
+.img_3 {
+	width:100%;
+}
+.img_4 {
+	width:100%;
+}
+.foot img {
+	width:100%;
+}
+.fenge {
+	width:100%;
+}
+img {
+	border:none;
+}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+}
+
+.nr1_top{ width:100%;}
+.imglogo{ width:100%; height:160px;}
+.picstyle{width:100%;height:160px;}
+.contentinfo{ width:100%; position:relative;}
+
+.nr4 {
+	width:96%;
+	margin:0 auto;
+}
+</style>
+<script type="text/javascript">
+
+var levels = new Array();
+var imgpaths=new Array();
+var shopids=new Array();
+var i=0;
+var user_online_flag = 0;//用户在线状态
+function loadInfos(){
+innitImg();
+ parent.showTitle2("丹尼斯欢迎你");
+[#SLPB#]
+ levels[[#level#]]=[#level#];
+ shopids[[#level#]]=[#shopid#];
+[#SLPE#]
+ user_online_flag = "[#user_online_flag#]";
+//alert(document.getElementById('position4').src+"  4 =");
+}
+
+function loadShops(number){
+
+document.getElementById("FunName").value = "ncmShops";
+document.getElementById("shopid").value = shopids[number];
+//alert(document.getElementById("shopid").value)
+//document.getElementById("form1").submit();
+
+window.location.href="/pronline/Msg?FunName@ncmShops&plateName@newshop&shopid@"+shopids[number]+"&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+
+parent.addURL("/pronline/Msg?FunName@ncmShops&plateName@newshop&shopid@"+shopids[number]+"&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+
+}
+
+function display(id){
+if(id == 'display1'){
+document.getElementById('display2').style.display ="none";
+document.getElementById('display1').style.display ="block";
+document.getElementById('display_img1').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c7.jpg";
+document.getElementById('display_img2').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c1.jpg";
+}
+if(id == 'display2'){
+document.getElementById('display1').style.display ="none";
+document.getElementById('display2').style.display ="block";
+document.getElementById('display_img1').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c1.jpg";
+document.getElementById('display_img2').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c7.jpg";
+}
+}
+</script>
+
+<script type="text/javascript">
+function switchPage(mark){
+//alert("11111111");
+
+if(mark == 1){
+
+window.location.href="/pronline/Msg?FunName@ncmLevels&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+
+parent.addURL("/pronline/Msg?FunName@ncmLevels&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+}
+if(mark == 2){
+
+window.location.href="/pronline/Msg?FunName@ncmCategories&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+
+parent.addURL("/pronline/Msg?FunName@ncmCategories&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+}
+if(mark == 3){
+window.location.href="/pronline/Msg?FunName@ncmDiscounts&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+
+parent.addURL("/pronline/Msg?FunName@ncmDiscounts&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+}
+if(mark == 4){
+//alert("4");
+	if(user_online_flag == 1){
+	//	document.getElementById("FunName").value = "ncmPersonals";
+	window.location.href="/pronline/Msg?FunName@ncmPersonals&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+
+	parent.addURL("/pronline/Msg?FunName@ncmPersonals&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+	}
+	else{
+
+		window.location.href = "/pronline/Msg?FunName@ncSrvPlate&html@"+"/alogin_main.htm&"+rurl;
+	//	alert(parent.document.getElementById("iframe1").src);
+	}
+}
+}
+ imgsrc =[[#SLPB#][#dh#]["[#iNumslider_s#]","[#imgslider_s#]"][#SLPE#]]
+function innitImg(){
+	  var slides1 = document.getElementById("slides1");
+	  var img_list1 = document.createElement("img");
+	  img_list1.src = imgsrc[0][1];
+	  img_list1.className = "imglogo";
+	  img_list1.onclick = function(){
+	  		
+	  	 window.location.href="/pronline/Msg?FunName@ncmShowsFloorBrand&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+	  	}
+    slides1.appendChild(img_list1);
+	  
+	  var slides2 = document.getElementById("slides2");
+	  
+	  var img_list2 = document.createElement("img");
+	  img_list2.src = imgsrc[1][1];
+	  img_list2.className = "imglogo";
+	  img_list2.onclick = function(){
+	  window.location.href="/pronline/Msg?FunName@ncmShowsSpfl&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+	 		
+//  	loadShops(imgsrc[1][0]);
+	  	}
+    slides2.appendChild(img_list2);
+	  
+	  var slides3 = document.getElementById("slides3");
+	  
+	  var img_list3 = document.createElement("img");
+		img_list3.src = imgsrc[2][1];
+	 img_list3.className = "imglogo";
+	 img_list3.onclick = function(){
+//促销优惠
+   window.location.href="/pronline/Msg?FunName@ncmShowsCxyh&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+		
+//	  	loadShops(imgsrc[2][0]);
+	  	}
+    slides3.appendChild(img_list3);
+   
+}
+function shgwyd(){
+
+		  	 window.location.href="/pronline/Msg?FunName@ncmShowsFloorBrand&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+}   
+
+function shcxyh(){
+	 window.location.href="/pronline/Msg?FunName@ncmShowsCxyh&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+} 
+   
+function shfpfl(){
+
+		  	 window.location.href="/pronline/Msg?FunName@ncmShowsSpfl&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+}    
+      
+</script>
+</head>
+<body style="padding:0;margin:0" onload = "loadInfos();e('[#redirecturl#]','[#posturl#]')">
+<div class="wrap" id="wrap">
+
+<input type="hidden" name="rg" id="rg" value="[#getarg#]"/>
+<input type="hidden" name="rl" id="rl" value="[#posturl#]"/>
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+<input type="hidden" id="FunName" name="FunName" value="">
+<input type="hidden" id="id" name="id" value="">
+<input type="hidden" id="uid" name="uid" value="">
+<input type="hidden" id="shopid" name="shopid" value="">
+<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+<!-- <input type="hidden" id="position11" name="position11" value=""> -->
+<input type="hidden" id="keyword" name="keyword" value="">
+<input type="hidden" name="plateName" id="plateName" value="newshop"/>
+<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+
+</form>
+
+<div class="banner">
+  <section class="slider">
+    <div class="flexslider">
+      <ul class="slides">
+        [#SLPB#]
+        <li onclick="loadShops([#iNumslider#])"> <img class="imglogo" src="[#imgslider#]" /></li>
+        [#SLPE#] 
+      </ul>
+    </div>
+  </section>
+</div>
+<div class="contentinfo">
+  <img class="fenge" src="/images/newshop/shangchang02_01_r4_c1.jpg"/>
+
+	
+
+  
+   
+   <div class="nr1_top"><img class="img_1" src="/images/newshop/tubiao01.png" /></div>
+      
+   <div class="picstyle" id="slides1"></div>
+   
+
+<div style="height:5px; clear:both;width:100%"></div>
+
+  <img class="fenge" src="/images/newshop/shangchang02_01_r10_c1.jpg" />
+
+	<div style="height:5px; clear:both; width:100%"></div>
+
+  
+   
+   <div class="nr1_top"><img  class="img_1" src="/images/newshop/tubiao02.png" /></div>
+      
+   <div class="picstyle" id="slides2"></div>
+  
+ <div style="height:5px; clear:both;width:100%"></div>
+
+  <img class="fenge" src="/images/newshop/shangchang02_01_r16_c1.jpg" />
+
+	<div style="height:5px; clear:both; width:100%"></div>
+
+  
+   
+   <div class="nr1_top"><img  class="img_1" src="/images/newshop/tubiao03.png" /></div>
+      
+   <div class="picstyle" id="slides3"></div> 
+</div> 
+  
+  
+ 
+ <div class="nr4_wrap">
+    <div class="foot"><a href="#"><img src="/images/newshop/daohang2_r25_c1.jpg" /></a></div>
+  
+</div>
+
+   </div>
+
+</body>
+</html>

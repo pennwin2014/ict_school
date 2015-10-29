@@ -1,0 +1,692 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>新网程登录门户管理系统</title>
+<link href="/css/css_main.css" rel="stylesheet" type="text/css">
+
+ <link rel="stylesheet" type="text/css" href="/newver/resources/css/toolbars.css" />
+<script>
+var rfun='';
+rfun=parent.right_fun;
+
+
+var menu_data=new Array();
+
+	menu_data[0]={
+	  id: 'mysc',
+	  level: 1,
+	  title: '我的收藏',
+	  children: [
+			  {
+			    id: 'hotgis',
+			    title: '热点GIS',
+			    url: '/pronline/Msg?FunName@ncwireBdMapInit_par'
+			  },
+			  {
+			    id: 'apinfomenu',
+			    title: '实时监控信息',
+			    url: '/ncwlan/ncwlan_gdrz_lab.htm'
+			  }
+	  ]
+  };
+  
+  
+//  menu_data[1]={
+//	  id: 'comop',
+//	  level: 1,
+//	  title: '常用操作',
+////	  url: '/index_wire_1_right2.html',
+//	  children: [
+//			  {
+//		    id: 'hotgis',
+//		    title: '热点GIS',
+//		    url: '/pronline/Msg?FunName@ncwireBdMapInit_par'
+//			  },
+//			  {
+//			    id: 'apinfomenu',
+//			    title: '实时监控信息',
+//			    url: '/ncwlan/ncwlan_gdrz_lab.htm'
+//			  }
+//	  ]
+//  };
+/*
+  menu_data[1]={
+	  id: 'dwgl',
+	  level: 1,
+	  title: '首页',
+	  url: '/pronline/Msg?FunName@ncwlanFirstMenuConfig',
+	  children: [
+	  {
+		    id: 'dwgl',
+		    title: '首页',
+		    url: '/pronline/Msg?FunName@ncwlanFirstMenuConfig'
+			  }
+	  ]
+  };
+  */
+   menu_data[1]={
+//	  id: 'dwz',
+	  level: 1,
+	  title: '在线信息',
+	  url: '/ncmonline/ncm_webshowuseronline.htm',
+	  children: [
+	  		{
+			    id: 'dwz',
+			    title: '在线信息',
+			    url: '/ncmonline/ncm_webshowuseronline.htm'
+			  }
+			  ,
+			  {
+			    id: 'smsruleset',
+			    title: '规则设置',
+			    url: '/ncmonline/ncm_webSmsRule_lab.htm'
+			  }
+//			  ,
+//			  {
+//		    id: 'apmanmenu',
+//		    title: 'AP管理',
+//		    url: '/ncwlan/ncwlan_ap_manager.htm'
+//			  },
+//			  {
+//		    id: 'hotmanmenu',
+//		    title: '热点管理',
+//		    url: '/ncwlan/ncwlan_hot_manager.htm'
+//			  },
+//			  {
+//		    id: 'areamanmenu',
+//		    title: '区域管理',
+//		    url: '/ncwlan/ncwlan_group_list.htm'
+//			  }
+			 
+	  ]
+  };
+  
+//  menu_data[2]={
+////	  id: 'dwz',
+//	  level: 1,
+//	  title: '认证界面',
+//	  url: '/ncmm/ncm_web_showmodule_man.htm',
+//	  children: [
+//	  		{
+//		    id: 'mbupload',
+//		    title: '模板上传',
+//		    url: '/ncmm/ncm_model_next_page.html'
+//			  },
+//			  {
+//		    id: 'mbgl',
+//		    title: '模板维护',
+//		    url: '/ncmm/ncm_web_showmodule_man.htm'
+//			  }
+//			  ,
+//			  {
+//		    id: 'modmakemenu',
+//		    title: '模板定义',
+//		    url: '/ncmm/ncm_web_showmodule_def.htm'
+//			  }
+//         ,
+//			  {
+//		    id: 'moduleapp',
+//		    title: '模板应用',
+//		    url: '/ncmm/ncm_plate_list.html'
+//			  }
+//	  ]
+//  };
+  
+  menu_data[2]={
+	  id: 'dwz',
+	  level: 1,
+	  title: '统计报表',
+	  url: '/ncm_appreport/ncm_web_App_intSurfDetailReport.html',
+	  children: [
+	  		{
+		    id: 'smsrepmenu',
+		    title: '短信发送报告',
+		    url: '/ncm_appreport/ncm_web_App_smsStatisticsReport.html'
+			  },
+			  {
+		    id: 'smsdetail',
+		    title: '短信发送详情',
+		    url: '/ncm_appreport/ncm_web_App_smsDetailReport.html'
+			  }
+			  ,
+			  {
+		    id: 'devicestat',
+		    title: '设备类型统计',
+		    url: '/ncm_appreport/ncm_web_App_intDeviceReport.html'
+			  }
+         ,
+			  {
+		    id: 'peopletraffic',
+		    title: '上网人数流量报表',
+		    url: '/ncm_appreport/ncm_web_App_intStatisticsReport.html'
+			  }
+			   ,
+			  {
+		    id: 'netdetail',
+		    title: '上网详细报告',
+		    url: '/ncm_appreport/ncm_web_App_intDetailReport.html'
+			  }
+	  ]
+  };
+  
+ 
+  
+
+  menu_data[3]={
+	  id: 'zxdw',
+	  level: 1,
+	  title: '用户管理',
+	  url: '/ncmm/ncm_web_showuser_man.htm',
+	  children: [
+	  		{
+		    id: 'capana',
+		    title: '用户管理',
+		    iconCls: 'usermmenu',
+		    url: '/ncmm/ncm_web_showuser_man.htm'
+			  },
+			  {
+		    id: 'gmanmenu',
+		    title: '组管理',
+		    url: '/ncmgroup_s/ncm_group_list.html'
+			  }
+//			  ,
+//			  {
+//		    id: 'blackmenu',
+//		    title: '黑名单管理',
+//		    url: '/ncmgroup_s/ncm_blackuser_list.html'
+//			  }
+			  ,
+			  {
+		    id: 'smsremenu',
+		    title: '短信注册管理',
+		    url: '/ncmgroup_s/ncm_smslog_list.html'
+			  }
+	  ]
+
+  };
+menu_data[4]={
+	  id: 'shopm',
+	  level: 1,
+	  title: '商城管理',
+	  url: '/ncmshop/ncm_comgroup.html',
+	  children: [
+	       {
+		    id: 'shopinfomenu',
+		    title: '商店管理',
+		    url: '/ncmshop/ncm_webcomshop_list.html'
+			  },
+	  		{
+		    id: 'shopbrandmenu',
+		    title: '品牌管理',
+		    url: '/ncmshop/ncm_webcombrand_list.html'
+			  },
+			  {
+		    id: 'shopdetaimenu',
+		    title: '商品管理',
+		    url: '/ncmshop/ncm_webcomodity_list.html'
+			  } ,
+	      {
+		    id: 'brandmenu',
+		    title: '广告管理',
+		    url: '/ncmshop/ncm_webcomindex_list.html'
+			  }
+			  ,
+			  {
+		    id: 'shopusermenu',
+		    title: '会员管理',
+		    url: '/ncmshop/ncm_webshopuser_lab.htm'
+			  }
+			   ,
+			  {
+		    id: 'activemenu',
+		    title: '活动管理',
+		    url: '/ncmshop/ncm_webshopactive_lab.htm'
+			  },{
+		    id: 'shoptype',
+		    title: '商标类别管理',
+		    iconCls: 'usermmenu',
+		    url: '/ncmshop/ncm_webshoptype_lab.htm'
+			  }
+	  ]
+
+  };
+  menu_data[5]={
+	  id: 'gdrz',
+	  level: 1,
+	  title: '业务感知',
+	  url: '/ncm_chart/ncm_deviceBrandChart_ch.html',
+	  children: [
+	       {
+		    id: 'shopinfomenu',
+		    title: '设备品牌',
+		    url: '/ncm_chart/ncm_deviceBrandChart_ch.html'
+			  },
+	  		{
+		    id: 'shopbrandmenu',
+		    title: '设备类型',
+		    url: '/ncm_chart/ncm_deviceTypeChart_ch.html'
+			  },
+			  {
+		    id: 'shopdetaimenu',
+		    title: '操作系统',
+		    url: '/ncm_chart/ncm_web_MC_os_chart.html'
+			  } 
+			  ,
+			  {
+		    id: 'smsRecountmenu',
+		    title: '短信数量',
+		    url: '/ncm_chart/ncm_smsRecountChart_ch.html'
+			  } 
+			 
+	  ]
+
+  };
+  menu_data[6]={
+	  id: 'zxtj',
+	  level: 1,
+	  title: '日志',
+	  url: '/ncmlog/ncm_weblog_lab.htm',
+	  children: [
+	  		{
+		    id: 'zxtj',            //对应 tb.add里信令分析的id
+		    title: '日志',
+		    url: '/ncmlog/ncm_weblog_lab.htm'
+			  }
+			 
+	  ]
+  };
+
+  menu_data[7]={
+	  id: 'zxdw',
+	  level: 1,
+	  title: '系统配置',
+	  url: '/ncmset/ncm_sysset_lab.htm',
+	  children: [
+	  	{
+		    id: 'zxdw',
+		    title: '系统配置',
+		    url: '/ncmset/ncm_sysset_lab.htm'
+			  }
+	  ]
+  };
+  
+/*
+  menu_data[7]={
+	  id: 'bkgl',
+	  level: 1,
+	  title: '日志',
+	  url: '/ncwlan/ncwlan_log_lab.htm',
+	  children: [
+	    	{
+			    id: 'bkgl',
+			    title: '日志',
+			    url: '/ncwlan/ncwlan_log_lab.htm'
+			  }
+//			  {
+//		    id: 'logradius',
+//		    title: '用户与Radius交互日志',
+//		    url: '/ncwlan/ncwlan_radius_log.html'
+//		    url: '/index_radius_log.html'
+//			  },
+//			  {
+//			    id: 'logportal',
+//			    title: '用户与Portal交互日志',
+//			    url: '/index_portal_log.html'
+//			    url: '/ncwlan/ncwlan_portal_log.html'
+//			  },
+//			  {
+//			    id: 'logdhcp',
+//			    title: 'Dhcp失败日志',
+//			    url: '/index_dhcp_log.html'
+//			    url: '/ncwlan/ncwlan_dhcp_log.html'
+//			  },
+//			  {
+//			    id: 'logreal',
+//			    title: '实时监控告警日志',
+//			    url: '/ncwlan/ncwlan_monitoralarm_log.html'
+////			    url: '/wlan_hansy/monitor_log/index_monitor_log.html'
+//			  }
+	  ]
+  };
+   */
+  menu_data[7]={
+	  id: 'qxgl',
+	  level: 1,
+	  title: '系统管理',
+	  children: [
+			  {
+		    id: 'rolemenu',
+		    title: '系统权限管理',
+		    url: '/ncmsysman/ncm_role_list.htm'
+			  },
+			  {
+			    id: 'xtyhmenu',
+			    title: '系统用户管理',
+			    url: '/ncmsysman/ncm_adminuser_list.htm'
+			  },
+			  {
+			    id: 'usvisitmenu',
+			    title: '用户访问日志',
+			    url: '/ncmsysman/ncm_uservisitlog.htm'
+			  }
+//			  ,
+//			  {
+//			    id: 'netsetmenu',
+//			    title: '网络设置',
+//			    url: '/ncwire_net_interface.html'
+//			  }
+			 
+			  /*,
+			  {
+			    id: 'sysnetsetmenu',
+			    title: '网络设置',
+			    url: '/index_wire_menu_1_one.html'
+			  },
+			  {
+			    id: 'syssetmenu',
+			    title: '系统设置',
+			    url: '/index_wire_menu_1_one.html'
+			  },
+			  {
+			    id: 'sysuammenu',
+			    title: 'UA对照表',
+			    url: '/index_wire_menu_1_one.html'
+			  },
+			  {
+			    id: 'sysmobilemenu',
+			    title: '终端手机维护',
+			    url: '/index_wire_menu_1_one.html'
+			  },
+			  {
+			    id: 'sysranmenu',
+			    title: '系统运行状况',
+			    url: '/pronline/Msg?FunName@ncwireWebShowSysinfo'
+			  }	 	 
+			   	  
+			  */
+	  ]
+  };
+  
+  menu_data[8]={
+	  id: 'myaccount',
+	  level: 1,
+	  title: '我的账号',
+	  children: [
+			  {
+		    id: 'modpass',
+		    title: '修改密码',
+		    url: '/pronline/Msg?FunName@ncmWebDispModiPass'
+			  }
+//			  ,
+//			  {
+//			    id: 'mytool',
+//			    title: '我的工具栏',
+//			    url: '/pronline/Msg?FunName@ncsDispTool_v4'
+//			  }	 	  
+	  ]
+  };
+
+
+var tree_menu_data=new Array();
+
+var m=0;
+var i;
+  for(i=0;i<menu_data.length;i++){
+ 
+  	if(rfun.indexOf(menu_data[i].title)!=-1||menu_data[i].title=='我的账号'){
+  	   tree_menu_data[m]=menu_data[i];
+  	   m++;
+  	}
+	}
+
+  
+  
+
+
+
+
+
+
+
+//根据树形图数据，构建左侧树形列表
+function init_tree_menu(menu_data, ctn) {
+  var TMPLT = '<dl><dt style="@DTSTL@" onclick="@ONCLICK@">@TITLE@</dt><dd class="undis">@LIST@</dd></dl>';
+  var DECORATE_TITLE = '<a href="javascript:void(0);" onclick="onClickLeafNode(\'@URL@\',\'@TITLE@\',\'@ID@\');" id="leaf_@ID@_a">@TITLE@</a>';
+  var LEVEL_0_TITLE = '<a href="javascript:void(0);" onclick="onClickLeafNode(\'@URL@\',\'@TITLE@\',\'@ID@\');" style="background-image:none;color:#06c; font-weight:600;">@TITLE@</a>';
+  var LI_TMPLT = '<li id="leaf_@ID@">' + DECORATE_TITLE + '</li>';
+  var id_url_mapper = {};
+  var result = [];
+  for (var i = 0; i < menu_data.length; i++) {
+    var data = menu_data[i];
+    var level = data['level'];
+    var hiddend=data['hidden'];
+   
+    var html = '';
+    switch (level) {
+    case 0:
+      {
+        var html = TMPLT.replace(/@TITLE@/ig, LEVEL_0_TITLE).replace(/@TITLE@/ig, data['title']).replace(/@LIST@/ig, '').replace(/@URL@/ig, data['url']).replace(/@ONCLICK@/ig, "").replace(/@DTSTL@/ig, "background:url(/images/v4/dhrow.gif);");
+        id_url_mapper['l' + data['id']] = data['url'];
+        break
+      }
+    case 1:
+      var li_html = [];
+      li_html.push('<ul>');
+      for (var j = 0; j < data['children'].length; j++) {
+        var child = data['children'][j];
+        li_html.push(LI_TMPLT.replace(/@TITLE@/ig, child['title']).replace(/@URL@/ig, child['url']).replace(/@ID@/ig, child['id']))
+        id_url_mapper['l' + child['id']] = child['url'];
+      }
+      li_html.push('</ul>');
+      html = TMPLT.replace(/@TITLE@/ig, data['title']).replace(/@LIST@/ig, li_html.join('')).replace(/@ONCLICK@/ig, "leftmenu(this,'dd');");
+      break;
+    }
+    result.push(html);
+  } !! $(ctn) ? $(ctn).innerHTML = result.join('') : '';
+  
+
+  return id_url_mapper;
+}
+
+function init(){
+//	alert(1);
+	}
+</script>
+
+</head>
+
+<body style="background-color:#DFF0F7;"  marginheight=0 leftmargin=0 marginwidth=0 topMargin="0" onload="init();">
+
+
+<div id="left">
+  <div class="left_wrap" id="left_wrap"></div>
+</div>
+
+<div id="right">
+  <div class="right_wrap" id="right_wrap">
+  
+  </div>
+</div>
+
+
+<div class="clear"></div>
+</div>
+
+
+<script>
+	var $=function(objectId){
+	if(document.getElementById&&document.getElementById(objectId)){
+		return document.getElementById(objectId)}
+	else if(document.all&&document.all(objectId)){
+		return document.all(objectId)}
+	else if(document.layers&&document.layers[objectId]){
+		return document.layers[objectId];}
+	else{
+		return false;}
+	};
+
+  			
+			     			</script>
+<script language="javascript">
+
+//重新给颜色切换设置事件响应函数，以便支持iframe内的颜色切换
+var g_deltaHeight = 30;
+function getColor() {
+  if ($('ipt_fc_cn') && $('ipt_fc_en')) {
+    if ($('ipt_fc_cn').checked) return 0;
+    else return 1
+  } else return 0
+}
+function onInitColorChange() {
+  var _onChangeColor = function(color) {
+    if (typeof colorset == 'function') colorset(color);
+    if ($('moduleIframe')) {
+      try {
+        $('moduleIframe').contentWindow['onChangeColor'](color)
+      } catch(e) {
+        if (window.console) window.console.log('error in onOpenModuleInParent' + e)
+      }
+    }
+  };
+  if ($('ipt_fc_cn') && $('ipt_fc_en')) {
+    $('ipt_fc_cn').onclick = function() {
+      _onChangeColor(0)
+    }
+    $('ipt_fc_en').onclick = function() {
+      _onChangeColor(1)
+    }
+  }
+}
+
+//更改选中的左侧叶子节点的背景
+function setLeftNavBg(leaf_id)
+{
+    var p = $('left_wrap');
+    var pcli = p.getElementsByTagName('li');
+    for (var i=0; i<pcli.length; i++)
+    {
+        if (pcli[i].id == 'leaf_'+leaf_id)
+        {
+            pcli[i].style.background='url(/images/v4/bg_4.gif) no-repeat';
+            
+        }
+        else
+        {
+            pcli[i].style.background='url(/images/v4/bg_3.gif) no-repeat scroll 15px 0 transparent';
+        }
+    }
+    
+}
+
+//点击左侧列表的叶节点，叶节点表示可以直接打开页面的节点
+function onClickLeafNode(url,title,id){
+  var leaf_id = onOpenModule(url,title,id);
+  setLeftNavBg(leaf_id);
+//  if(bossLog)
+//    bossLog({sOp:1100,iParam:leaf_id});
+}
+
+var g_ahref= $('T');
+function onOpenModule(url,title,id) {
+  var  bbbb=parent.document.all('ltitle');
+  bbbb.innerHTML='当前位置：'+title;
+  parent.dhsrc(url,title,id);
+   
+//	 parent.document.getElementById("viewIframe").src=url;
+	
+	
+  var moduleIframe = $('');
+  var color = getColor();
+  var changeColorQuery = '';
+
+ 
+   var leaf_id = '',
+      leafHash = '';
+
+
+  return leaf_id;
+}
+
+
+function leftmenu(obj, tag, n) {
+  var dls = $("left").getElementsByTagName("dl");
+  if (n == 1) dls = $("A_index").getElementsByTagName("dd");
+  for (var i = 0; i < dls.length; i++) {
+    var Pdiv = dls[i].getElementsByTagName(tag);
+    if (obj == dls[i].firstChild) {
+      for (var j = 0; j < Pdiv.length; j++) {
+        if (Pdiv[j].className == "") {
+          dls[i].firstChild.className = "";
+          Pdiv[j].className = "undis"
+        } else if (Pdiv[j].className == "undis") {
+          dls[i].firstChild.className = "yk_on";
+          Pdiv[j].className = ""
+        }
+      }
+    } else {
+      for (var j = 0; j < Pdiv.length; j++) {
+        dls[i].firstChild.className = "";
+        Pdiv[j].className = "undis"
+      }
+    }
+  }
+}
+
+function getUrlByLeafId(leaf_id){
+  var url = g_id_url_mapper['l' + (leaf_id=='jsxg'?'ljzf':leaf_id)],
+      newLeafId = leaf_id;
+
+  return [newLeafId, url];
+}
+
+var g_id_url_mapper = init_tree_menu(tree_menu_data, 'left_wrap');
+if (g_id_url_mapper) {
+  var hash = location.hash;
+  var href = location.href;
+  var leaf_id = '';
+  var pattern = '?';
+  if (hash) {
+    leaf_id = hash.substring(1);
+    if(leaf_id.indexOf('T')==0)
+      leaf_id = leaf_id.substring(1);
+  } else if (href.indexOf(pattern) != -1) {
+    var start = href.indexOf(pattern) + pattern.length;
+    var end = href.indexOf('&', start);
+    end = end == -1 ? href.length: end;
+    leaf_id = href.substring(start, end)
+  }
+  //leaf_id = leaf_id.toLowerCase().replace(/[^a-z]*/ig,'');
+  var rtn = getUrlByLeafId(leaf_id),
+      url = rtn[1],
+      newLeafId = rtn[0];
+  leaf_id = newLeafId;
+  var color = getColor();
+  if (url) {
+ //   onOpenModule(url);
+  } else {
+//    onOpenModule('dctr_modules/index_module.htm');
+    leaf_id = '';
+  }
+  if('' === leaf_id || '0' === leaf_id) 
+    leaf_id = 'jsxg';
+  if ($('leaf_' + (leaf_id=='jsxg'?'ljzf':leaf_id))) {
+    var dt = $('leaf_' + (leaf_id=='jsxg'?'ljzf':leaf_id)).parentNode.parentNode.parentNode.firstChild;
+    leftmenu(dt, 'dd');
+  }
+}
+
+function switchLeftMenu(leaf_id){
+  if ($('leaf_' + leaf_id)) {
+    var dt = $('leaf_' + leaf_id).parentNode.parentNode.parentNode.firstChild;
+    leftmenu(dt, 'dd');
+  }
+}
+
+</script>
+
+
+
+
+</body>
+</html>

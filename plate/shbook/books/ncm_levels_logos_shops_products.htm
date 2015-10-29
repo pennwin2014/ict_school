@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>好书推荐</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	font-family:"微软雅黑";
+}
+.img_wrap img {
+	width:100%;
+}
+.top{ background:url(/images/shanghai_SZ/01-shuzhan_r1_c2.jpg) repeat-x; height:46px; line-height:46px; color:#ffffff; text-align:center; font-size:1.4em; text-indent:-3%;}
+.left {
+	float:left;
+	width:30%;
+	margin-left:5%;
+}
+.left img {
+	width:100%;
+}
+.right {
+	float:left;
+	width:40%;
+	margin-left:10%;
+}
+.p1 {
+	color:#1a5b83;
+	margin-bottom:10%;
+	margin-top:20%;
+	font-weight:bold;
+}
+.p2 {
+	color:#666;
+	font-size:0.8em;
+}
+.tit {
+	border-bottom:1px solid #ccc;
+}
+.tit input {
+	background:#fef200;
+	margin-left:5%;
+	border:none;
+	border-radius:0px; /* css 3标准 */
+	-moz-border-radius: 0px;  /* mozilla */
+	-webkit-border-radius: 0px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fef200), color-stop(1, #fef200));/*谷歌浏览器渐变*/
+ filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#fef200", EndColorStr="#fef200");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #fef200 10%, #fef200 100%);/*火狐内核渐变*/
+	width:20%;
+	height:24px;
+	line-height:24px;
+	float:left;
+}
+.tit p {
+	float:left;
+	margin-left:3%;
+}
+.jieshao {
+	width:90%;
+	margin:0 auto;
+	color:#666;
+	font-size:0.8em;
+}
+.xyy{
+	width:20%;
+	float:right; 
+	margin-right:5%;}
+.img1{
+width:100%;
+}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+}
+</style>
+<script type="text/javascript">
+function loadBooks(plateName){
+window.location.href="#wrap";
+document.getElementById("FunName").value="ncmProducts";
+document.getElementById("plateName").value= plateName;
+document.getElementById("limit1").value=parseInt(document.getElementById("limit1").value)+5;
+document.getElementById("limit2").value=parseInt(document.getElementById("limit2").value);
+//document.getElementById("shopid").value="";
+//alert(document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value);
+document.getElementById("form1").submit();
+
+} 
+</script>
+</head>
+
+<body>
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="logoid" name="logoid" value="">	
+		<input type="hidden" id="detail" name="detail" value="">	
+		<input type="hidden" id="shopid" name="shopid" value="[#shopid#]">	
+		<input type="hidden" id="groupid" name="groupid" value="">	
+        <input type="hidden" id="id" name="id" value="">
+		<input type="hidden" id="limit1" name="limit1" value="[#limit1#]">	
+		<input type="hidden" id="limit2" name="limit2" value="[#limit2#]">	
+		<input type="hidden" id="address" name="address" value="">	
+		<input type="hidden" id="url" name="url" value="">	
+		<input type="hidden" name="plateName" id="plateName" value=""/>	
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+		<input type="hidden" name="tsid" id="tsid" value="[#tsid#]"/>
+		<input type="hidden" name="httphost" id="httphost" value="[#httphost#]"/>	
+        <input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+		</form>
+<div class="wrap" id="wrap">
+<img class="img1" src="/images/shbook/book.jpg" onclick="window.open  
+('http://mp.weixin.qq.com/s?__biz=MjM5NTAwODI5NA==&mid=201451876&idx=1&sn=4c368e67077a214438d9b092b32dc407#rd','')">
+[#SLPB#]
+  <div>
+    <div style="height:15px; clear:both;"></div>
+    <div class="left"><img src="[#imgpath#]" /></div>
+    <div class="right">
+      <p class="p1">[#name#]</p>
+      <p class="p2">作者：[#dispname#]</p>
+      <p class="p2">出版社：[#shopname#]</p>
+      <p class="p2">出版时间：[#descr#]</p>
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div class="jieshao">[#detail#]</div>
+    <div style="height:10px; clear:both;"></div>
+  </div>
+  [#SLPE#]
+      <div><img src="/images/shanghai_SZ/page.png" class="xyy" onclick="loadBooks('shbook/books')"/></div>
+<!--   <div>
+    <div style="height:15px; clear:both;"></div>
+    <div class="left"><img src="/images/shanghai_SZ/20_shu/image003.png" /></div>
+    <div class="right">
+      <p class="p1">斯大林传</p>
+      <p class="p2">作者：河清</p>
+      <p class="p2">出版社：上海人民出版社</p>
+      <p class="p2">出版时间：2014/08/01</p>
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div class="jieshao">作者首先理清本义的民主概念包括两点：人民自己当政（直接民主）；真正的社会平等，并指出，现代西方实行的只是"共和""代议制"，而非人民自己当家作主。代议制是议员"代"人民当政，与人民"自己"当政不是一回事。同时，真正的社会平等也不可行。在这个意义上，本义、真正的民主是不可实现的乌托邦。</div>
+    <div style="height:10px; clear:both;"></div>
+  </div>
+   <div>
+    <div style="height:15px; clear:both;"></div>
+    <div class="left"><img src="/images/shanghai_SZ/20_shu/image005.png"/></div>
+    <div class="right">
+      <p class="p1">国家为何而战？</p>
+      <p class="p2">作者：河清</p>
+      <p class="p2">出版社：上海人民出版社</p>
+      <p class="p2">出版时间：2014/08/01</p>
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div class="jieshao">作者首先理清本义的民主概念包括两点：人民自己当政（直接民主）；真正的社会平等，并指出，现代西方实行的只是"共和""代议制"，而非人民自己当家作主。代议制是议员"代"人民当政，与人民"自己"当政不是一回事。同时，真正的社会平等也不可行。在这个意义上，本义、真正的民主是不可实现的乌托邦。</div>
+    <div style="height:10px; clear:both;"></div>
+  </div> -->
+</div>
+</body>
+</html>

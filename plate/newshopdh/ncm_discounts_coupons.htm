@@ -1,0 +1,71 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>德化新街</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+<style type="text/css">
+body{
+margin:0;
+padding:0;
+width:100%;
+height:100%;
+}
+
+.title1{
+		float:left;
+		padding:2px;
+		width:100%;
+		background:#0088cc;
+		color:#ffffff;
+		text-align:center;
+		margin-bottom:2px;
+		}	
+		.coupons{
+		margin-top:2px;
+		}
+		.coupons img{
+		width:100%;
+		
+		}
+</style>
+
+<script type="text/javascript">
+function loadProducts(){
+
+document.getElementById("FunName").value = "ncmProducts";
+//document.getElementById("name").value = name;
+document.getElementById("form1").submit();
+
+}
+
+
+
+</script>
+<body >
+<div class="title1">优惠劵下载</div>
+	<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="name" name="name" value="一层">
+		<input type="hidden" id="level" name="level" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="sid" name="sid" value="">
+		<input type="hidden" id="aid" name="aid" value="">
+		
+		<input type="hidden" id="groupid" name="groupid" value="">
+		<input type="hidden" id="limit1" name="limit1" value="0">
+		<input type="hidden" id="limit2" name="limit2" value="10">
+		<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+		<input type="hidden" name="plateName" id="plateName" value="newshop"/>	
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+	</form>
+[#SLPB#]
+<div class="coupons"><img src="[#imgpath#]" onClick="window.parent.download([#id#],[#counum#],'[#imgpath#]')"></div>
+[#SLPE#]
+</body>
+</html>
+
+

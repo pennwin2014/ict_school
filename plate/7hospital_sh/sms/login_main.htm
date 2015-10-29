@@ -1,0 +1,689 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>上海七院调查表</title>
+<link rel="stylesheet" href="/7hospital_sh/zhongrenkeji/css/jquery.mobile-1.3.2.min.css" />
+<script src="/7hospital_sh/zhongrenkeji/js/jquery-1.8.3.min.js"></script>
+<script src="/7hospital_sh/zhongrenkeji/js/jquery.mobile-1.3.2.min.js"></script>
+<script language="javascript">
+var checkurl	= 'http://114.80.9.62:80/oss/statistical/';
+//var checkurl	= 'http://oa.people2000.net:1880/oss/statistical/';
+$(document).on("pageinit","#pageone",function(){	
+	//var checkurl	= 'http://192.168.88.131:8080/oss/statistical/';
+	$('#next').click(function(){
+		var phone	= $('#mobilePhone').val();
+		var patten	= /^(((13[0-9]{1})|(18[01356789]{1})|(15[012356789]{1})|(17[0678]{1})|(14[57]{1}))+\d{8})$/;
+		var res		= patten.test(phone);
+		if(!res){
+			$('#mobilePhone').focus();
+			$('.msg').show();
+			return ;			
+		}else{
+			setCookie("userPhone", phone,7); 
+			$.ajax({
+				url: checkurl + 'hasAccessed.do',//'http://114.80.9.62:80/oss/statistical/hasAccessed.do',
+				dataType: "jsonp",
+				data: "userPhone="+phone,
+				jsonp: "callbackparam",
+				//jsonpCallback:"success_fun",//callback的function名称
+				success : function(json){
+					if( json.result == 1 ){						 
+						location.href = '#pagetwo';
+					}else{
+						location.href = '#pagethree';
+					}
+				},
+				error:function(){
+					alert('检测失败！');
+				}
+			});
+		}		
+	});
+	$('#mobilePhone').keyup(function(){
+		$('.msg').hide();	
+	});
+	$('#mobilePhone').focus(function(){
+		$('.msg').hide();	
+	});	
+	$('#mobilePhone').on('tap',function(){
+		$('.msg').hide();	
+	});
+});
+$(document).on("pageinit","#pagetwo",function(){
+	var phone	= getCookie('userPhone');
+	var patten	= /^(((13[0-9]{1})|(18[01356789]{1})|(15[012356789]{1})|(17[0678]{1})|(14[57]{1}))+\d{8})$/;
+	var res		= patten.test(phone);	
+	if(!res){
+		location.href = '#pageone';	
+	}
+	$('#wirteover').click(function(){
+		$.ajax({
+			url: checkurl + 'hasAccessed.do',
+			dataType: "jsonp",
+			data: {"userPhone":phone},
+			jsonp: "callbackparam",
+			//jsonpCallback:"success_fun",//callback的function名称
+			success : function(json){
+				if( json.result == 1 ){						 
+					location.href = '#pagefour';
+				}else{
+					location.href = '#pagethree';
+				}
+			},
+			error:function(){
+				alert('检测失败！');
+			}
+		});
+	});
+});
+
+//加载pagethree时加载
+$(document).on("pageinit","#pagethree",function(){
+	var phone	= getCookie('userPhone');;
+	var patten	= /^(((13[0-9]{1})|(18[01356789]{1})|(15[012356789]{1})|(17[0678]{1})|(14[57]{1}))+\d{8})$/;
+	var res		= patten.test(phone);	
+	if(!res){
+		location.href = '#pageone';	
+	}
+	$('#submit').click(function(){
+		var attitude 					= $("input[name='attitude']:checked").val();
+		var environment 				= $("input[name='environment']:checked").val();
+		var firstPatientResponsibility 	= $("input[name='firstPatientResponsibility']:checked").val();
+		var userGender 					= $("input[name='userGender']:checked").val();
+		var userAge 					= $("input[name='userAge']:checked").val();
+		if( attitude == null || environment == null || firstPatientResponsibility == null || userGender == null || userAge==null ){
+			$('.msg').show();
+			return ;
+		}
+		if(phone == null ){
+			location.href = '#pageone';	
+			return ;
+		}
+		$.ajax({
+			url: checkurl + 'doAdd.do',
+			dataType: "jsonp",
+			contentType:'application/json',
+			data: {"userPhone":phone,"attitude":attitude,"environment":environment,"firstPatientResponsibility":firstPatientResponsibility,"userGender":userGender,"userAge":userAge},
+			jsonp: "callbackparam",
+			//jsonpCallback:"success_fun",//callback的function名称
+			success : function(json){
+				if( json.result == 1 ){						 
+					location.href = '#pagefour';
+				}else{
+					alert('提交失败，请重试');
+				}
+			},
+			error:function(){
+				alert('检测失败！');
+			}
+		});	
+	});
+});
+//加载pagethree时加载
+$(document).on("pageinit","#pagefour",function(){
+	var phone	= getCookie('userPhone');
+	var patten	= /^(((13[0-9]{1})|(18[01356789]{1})|(15[012356789]{1})|(17[0678]{1})|(14[57]{1}))+\d{8})$/;
+	var res		= patten.test(phone);	
+	if(!res){
+		location.href = '#pageone';	
+	}
+	$('#username').val(phone);	
+});
+function getphone() 
+{ 
+   return $('#mobilePhone').val();
+}
+function setCookie(name,value,days) 
+{ 
+    var exp = new Date(); 
+    exp.setTime(exp.getTime() + days*24*60*60*1000); 
+    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString(); 
+} 
+function getCookie(name) 
+{ 
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)"); 
+    if(arr=document.cookie.match(reg)) 
+        return unescape(arr[2]); 
+    else 
+        return null; 
+} 
+
+function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp;
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";
+	}
+var p_flag = '1';
+	
+	function restore(){
+		document.getElementById("gpss").disabled = "";
+		p_flag='1';	
+	}
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+var i = 59;
+function fun() {
+       	 if (i == 0) {
+			 document.getElementById("gpss").value="获取密码";
+             clearInterval(intervalid);
+			 i=59;
+         }
+		 else{
+         document.getElementById("gpss").value = i;
+		
+         i--;
+		 }
+}
+function getpasswd(){
+		if(p_flag=='0') return false;	
+		if(document.getElementById("nclogin").username.value==''||document.getElementById("nclogin").username.value=='手机号码'){
+		    alert('请输入手机号');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&tsid@[#tsid#]&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&tsid@"+document.getElementById("tsid").value;
+
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		intervalid=setInterval("fun()", 1000);   
+		p_flag='0';
+        setTimeout('restore()',60000);
+		return false;
+	}
+	
+	function spylogin()
+	{
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="手机号码"||document.getElementById("password").value==""||document.getElementById("password").value=="密码") 
+		{
+		    window.alert("手机号或密码不能为空!");
+			  return false;
+		}
+		/*if(document.getElementById("check1").checked!=1){
+			window.alert("请确认您已阅读并同意免责声明条款！");
+			  return false;
+			}*/
+	
+    document.getElementById("nclogin").submit();
+	
+    return true;
+	}
+	function mr(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").style.color="#aaa";
+		}
+		if(document.getElementById("password").value="密码"){
+			 document.getElementById("password").style.color="#aaa";
+		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+  	function init()
+	{
+		//alert('[#statusCode#]');
+		if('[#statusCode#]' == '2')
+		{
+			document.getElementById('err5').innerHTML = '账号与SSID不匹配。';
+		}	
+		if('[#statusCode#]' == '3')
+		{
+			document.getElementById('err5').innerHTML = '用户账号已过期。';
+		}	
+		if('[#statusCode#]' == '4')
+		{
+			document.getElementById('err5').innerHTML = '您登录的账号在黑名单中。';
+		}	
+		if('[#statusCode#]' == '5')
+		{
+			window.location.href = '#pagefour';
+			document.getElementById('err5').innerHTML = '请输入正确的密码。';
+		}	
+		if('[#statusCode#]' == '6')
+		{
+			document.getElementById('err5').innerHTML = '该用户不存在。';
+		}	
+    if('[#statusCode#]' == '7')
+		{
+			document.getElementById('err5').innerHTML = '超出Mac最大绑定数量。';
+		}	
+}
+
+
+function openApp() {
+	document.getElementById("openApp").onclick = function(e) {
+		// 通过iframe的方式试图打开APP，如果能正常打开，会直接切换到APP，并自动阻止a标签的默认行为
+		// 否则打开a标签的href链接
+		var ifrSrc = 'people-icloudkey://platformapi/startApp';
+		if (!ifrSrc) {
+			return;
+		}
+		var ifr = document.createElement('iframe');
+		ifr.src = ifrSrc;
+		ifr.style.display = 'none';
+		document.body.appendChild(ifr);
+		setTimeout(function() {
+			document.body.removeChild(ifr);
+		}, 1000);
+	};
+	if (document.all) {
+		document.getElementById("openApp").click();
+	} else {// 其它浏览器
+		var e = document.createEvent("MouseEvents");
+		e.initEvent("click", true, true);
+		document.getElementById("openApp").dispatchEvent(e);
+	}
+}
+</script>
+<script language="javascript" type="text/javascript">
+    
+    //解析字符串  ins-输入字符串，   names-开始字符串 namee -结束字符串 返回值 （names 和namee 之间的字符串 可用于解析简单的XML
+function getxmlbyname(ins,names,namee){
+	var start;
+	var end;
+	var ret='';
+	start=ins.indexOf(names);
+	end=ins.indexOf(namee);	
+	if(start!=-1&&end!=-1){
+		ret=ins.substr(start+names.length,end-start-names.length);
+	}
+	return ret;	
+}
+function createXMLHttpRequest() {
+	var C=null;
+		if(window.XMLHttpRequest) { //Mozilla 浏览器
+			C = new XMLHttpRequest();
+		}
+		else if (window.ActiveXObject) { // IE浏览器
+			try {
+				C = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					C = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {}
+			}
+		}
+		return C;
+	}
+var xmlHttp = false;
+//调用AJAX
+function callServer(){      
+  if( xmlHttp && xmlHttp .readyState != 0 ){
+    xmlHttp.abort();
+   }
+   xmlHttp = createXMLHttpRequest();
+   if( xmlHttp){  
+    var web_url="http://[#ip#]:[#port#]/proauth/Msg?FunName@ncWebCheckIp_Eid"+'&downios@'+document.getElementById("nclogin").downios.value+'&xx@'+Math.random()*999;
+    //打开连接
+    xmlHttp.open("GET",web_url, true);
+    //设置回调函数
+    xmlHttp.onreadystatechange = updatePage;
+    xmlHttp.send(null);
+  }
+}
+function initAjax(){
+	var temp_url=document.URL;
+	if(temp_url.indexOf('[#ip#]:[#port#]')<0){
+		self.location='http://[#ip#]:[#port#]';
+		return;
+	}
+	setInterval('callServer()',4000);
+}
+ //ajax回调处理函数
+function updatePage(){
+   if (xmlHttp.readyState == 4) 
+   {
+    var response = xmlHttp.responseText;
+  	var temp_msg=getxmlbyname(response,"<msg>","</msg>");
+    if(temp_msg=='online'){
+   	 	document.getElementById("nclogin").FunName.value="ncWebAuthByPeopleSms";
+     	document.getElementById("nclogin").submit();
+     }
+   } 
+}
+    
+function xzios(){   //ios下载
+       	/*document.getElementById("nclogin").downios.value='down';
+       	callServer();*/
+       	
+       	window.location='https://itunes.apple.com/cn/app/yun-yao-shi/id843145295?mt=8';
+      }  
+</script>
+<style>
+<!--
+.ui-content {
+	padding:0;
+}
+.ui-btn {
+	margin:2em 1em;
+}
+form {
+	padding:0 1em;
+}
+form .ui-btn {
+	margin:1em 0;
+}
+h4 {
+	padding:0 10px;
+	margin:15px 0;
+	font-size: 17px;
+}
+.msg {
+	color:#f00;
+	display:none;
+}
+#pageone .ui-input-clear{
+display:none;
+}
+#pageone .ui-icon-delete{display:none;}
+#pagethree .ui-controlgroup-vertical .ui-icon-radio-off{
+	background-color: #A9A9A9;
+}
+#pagethree .ui-controlgroup-label {
+	font-size: 15px;
+	font-weight:bold;
+	font-family:"黑体";
+}
+#pagethree .userage .ui-radio .ui-btn-inner {
+	padding:0.6em 10px;
+	font-size:14px;
+}
+#pagefour * {
+	margin:0;
+	padding:0;
+}
+#pagefour .wrap {
+	width:400px;
+	margin:0 auto;
+	font-family:"微软雅黑";
+	background:#aaa;
+	position:relative;
+}
+#pagefour .main {
+	width:100%;
+}
+#pagefour .main img {
+	width:100%;
+}
+#pagefour .down {
+	position:absolute;
+	width:52%;
+	top:37%;
+	padding-left:48%;
+}
+#pagefour .down img {
+	width:24%;
+	border:none;
+}
+#pagefour .ding {
+	position:absolute;
+	width:80%;
+	top:51%;
+	color:#333;
+	padding-left:21%;
+	font-size:0.5em;
+	font-weight:bold;
+}
+#pagefour .di {
+	position:absolute;
+	width:80%;
+	margin-left:20%;
+	top:70%;
+}
+#pagefour .name_tit {
+	float:left;
+	width:15%;
+	font-size:0.7em;
+	color:#333;
+	height:20px;
+	line-height:20px;
+}
+#pagefour .pass_tit {
+	float:left;
+	width:15%;
+	font-size:0.7em;
+	color:#333;
+	height:20px;
+	line-height:20px;
+}
+#pagefour .username {
+	float:left;
+	background:none;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	border:1px solid #777;
+	width:35%;
+	text-indent:3px;
+	font-size:1em;
+}
+#pagefour .password {
+	float:left;
+	background:none;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	border:1px solid #777;
+	width:35%;
+	text-indent:3px;
+	font-size:1em;
+}
+#pagefour .btn_hq {
+	float:left;
+	background:none;
+	width:25%;
+	border:1px solid #777;
+	margin-left:3%;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	color:#333;
+	font-size:0.7em;
+	height:20px;
+	line-height:20px;
+}
+#pagefour .btn_ok {
+	background:none;
+	width:25%;
+	color:#333;
+	margin-left:20%;
+	border:1px solid #777;
+	height:20px;
+	line-height:20px;
+}
+#pagefour .btn_az {
+	width:17%;
+	text-align:center;
+	background:none;
+	color:#333;
+	border:1px solid #666;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	margin-left:20%;
+}
+#pagefour .btn_ios {
+	width:17%;
+	text-align:center;
+	background:none;
+	color:#333;
+	border:1px solid #666;
+	margin-left:3%;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+}
+ @media screen and (max-width:400px) {
+#pagefour .wrap {
+ width:100%;
+}
+}
+-->
+</style>
+</head>
+<body onload="init()">
+<div data-role="page"  id="pageone">
+  <div data-role="content">
+    <div> <img src="/7hospital_sh/zhongrenkeji/banner.jpg" width="100%" />
+      <h4>请确保手机号正确，以确保认证通过！</h4>
+      <form action="" method="post">
+        <input type="tel" data-clear-btn="true"  maxlength="11" name="mobilephone" id="mobilePhone" placeholder="在此输入您的手机号码...">
+        <p class="msg">请输入正确的手机号码</p>
+        <input type="button" id="next" data-theme="b" value="下一步">
+      </form>
+    </div>
+  </div>
+</div>
+<div data-role="page"  id="pagetwo">
+  <div data-role="content">
+    <div> <img src="/7hospital_sh/zhongrenkeji/banner.jpg" width="100%" />
+      <h4>为提高我们的服务质量，邀请您参加我们的满意度调查！</h4>
+      <a href="#pagethree" data-theme="b" data-role="button">好的,去填调查问卷</a>
+      <input type="button" id="wirteover" data-theme="a" value="不用了,我已经填过了">
+    </div>
+  </div>
+</div>
+<div data-role="page" id="pagethree">
+  <div data-role="content">
+    <div > <img src="/7hospital_sh/zhongrenkeji/banner2.jpg" width="100%" />
+      <h4>导语：为提高我们的服务质量，<span style="color:#f60;">接通网络前，请配合我们完成满意度调查！</span></h4>
+      <form action="" method="post">
+        <fieldset data-role="controlgroup">
+          <legend>1.医疗服务环境是否整洁，标识清晰，方便病人就医?</legend>
+          <input type="radio" name="environment" id="environment_1" value="1" />
+          <label for="environment_1">满意</label>
+          <input type="radio" name="environment" id="environment_2" value="2" />
+          <label for="environment_2">较满意</label>
+          <input type="radio" name="environment" id="environment_3" value="3" />
+          <label for="environment_3">一般</label>
+          <input type="radio" name="environment" id="environment_4" value="4" />
+          <label for="environment_4">不满意</label>
+          <input type="radio" name="environment" id="environment_5" value="5" />
+          <label for="environment_5">很不满意</label>
+          <input type="radio" name="environment" id="environment_6" value="6" />
+          <label for="environment_6">不了解</label>
+        </fieldset>
+        <fieldset data-role="controlgroup">
+          <legend>2.您对医务服务态度是否满意？</legend>
+          <input type="radio" name="attitude" id="attitude_1" value="1" />
+          <label for="attitude_1">满意</label>
+          <input type="radio" name="attitude" id="attitude_2" value="2" />
+          <label for="attitude_2">较满意</label>
+          <input type="radio" name="attitude" id="attitude_3" value="3" />
+          <label for="attitude_3">一般</label>
+          <input type="radio" name="attitude" id="attitude_4" value="4" />
+          <label for="attitude_4">不满意</label>
+          <input type="radio" name="attitude" id="attitude_5" value="5" />
+          <label for="attitude_5">很不满意</label>
+          <input type="radio" name="attitude" id="attitude_6" value="6" />
+          <label for="attitude_6">不了解</label>
+        </fieldset>
+        <fieldset data-role="controlgroup">
+          <legend>3.您对首诊负责制（医生不推诿、拒洽病人）执行是否满意？</legend>
+          <input type="radio" name="firstPatientResponsibility" id="first_1" value="1" />
+          <label for="first_1">满意</label>
+          <input type="radio" name="firstPatientResponsibility" id="first_2" value="2" />
+          <label for="first_2">较满意</label>
+          <input type="radio" name="firstPatientResponsibility" id="first_3" value="3" />
+          <label for="first_3">一般</label>
+          <input type="radio" name="firstPatientResponsibility" id="first_4" value="4" />
+          <label for="first_4">不满意</label>
+          <input type="radio" name="firstPatientResponsibility" id="first_5" value="5" />
+          <label for="first_5">很不满意</label>
+          <input type="radio" name="firstPatientResponsibility" id="first_6" value="6" />
+          <label for="first_6">不了解</label>
+        </fieldset>
+        <fieldset data-role="controlgroup" data-type="horizontal">
+          <legend>4.您的性别？</legend>
+          <label for="man">男</label>
+          <input type="radio" name="userGender"  data-inline="true" id="man" value="1"  />
+          <label for="woman">女</label>
+          <input type="radio" name="userGender"  data-inline="true" id="woman" value="0"  />
+        </fieldset>
+        <fieldset data-role="controlgroup" class="userage" data-type="horizontal">
+          <legend>5.您的年龄？</legend>
+          <input type="radio" name="userAge" id="age_a" value="1" />
+          <label for="age_a">30岁以下</label>
+          <input type="radio" name="userAge" id="age_b" value="2"  />
+          <label for="age_b">31-60岁</label>
+          <input type="radio" name="userAge" id="age_c" value="3"  />
+          <label for="age_c">60岁以上</label>
+        </fieldset>
+        <p class="msg">问卷未填写完成，请填写完所有的问题后再提交！</p>
+        <input type="button" id="submit" data-theme="b" value="提交问卷" >
+      </form>
+    </div>
+  </div>
+</div>
+<div data-role="page" id="pagefour">
+  <div data-role="content">
+    <div class="wrap" >
+     <form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+  <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+  [#postarg#]
+        <div class="main"><img class="img_bg" src="/7hospital_sh/zhongrenkeji/sj_login.png" /></div>
+        <a style="display: none" id="openApp"></a>
+        <div class="down"> <a href="javascript:openApp();"><img src="/7hospital_sh/zhongrenkeji/down.png" /></a> </div>
+        <div class="ding">
+          <input value="安卓" type="button"   data-role=none  class="btn_az" onclick="window.location='http://www.ikeycn.com/peopleooac/android_icloudkey.jsp'"/>
+          <input value="IOS" class="btn_ios"  data-role=none  type="button" onclick="xzios()"/>
+        </div>
+        <div class="di">
+          <div>
+            <p class="name_tit">手机号</p>
+            <input type="text" class="username" data-role=none readonly="readonly" id="username" name="username" value="[#username#]" />
+            <input type="button" class="btn_hq" data-role=none value="获取密码" id="gpss" onclick="getpasswd();" />
+          </div>
+          <div style="height:15px; clear:both;"></div>
+          <div>
+            <p class="pass_tit">密&nbsp;码</p>
+            <input type="password" class="password" data-role=none  id="password" name="password" />
+          </div>
+          <div style="height:5px; clear:both;"></div>
+          <div height="10" id="err5" style="clear:both; color:#f00;margin-left:10%;"></div>
+          <div style="height:5px; clear:both;"></div>
+          <div>
+            <input type="submit" value="登录"  data-role=none  class="btn_ok" onclick="return spylogin();"/>
+          </div>
+        </div>
+        <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+  </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

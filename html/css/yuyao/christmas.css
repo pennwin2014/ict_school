@@ -1,0 +1,334 @@
+@charset "utf-8";
+html {
+  color: #000;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+hr,
+button,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  margin: 0px;
+  padding: 0px;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+table {
+  width: 100%;
+}
+th {
+  text-align: inherit;
+}
+fieldset,
+img {
+  border: none;
+}
+iframe {
+  display: block;
+}
+abbr,
+acronym {
+  border: none;
+  font-variant: normal;
+}
+del {
+  text-decoration: line-through;
+}
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+th,
+var {
+  font-style: normal;
+  font-weight: 500;
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
+caption,
+th {
+  text-align: left;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+ins,
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+cite {
+  font-weight: normal;
+}
+.clear:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+body {
+  font: 12px/18px "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+}
+a,
+input,
+textarea,
+button {
+  font: 12px/18px "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+}
+.main {
+  margin: 0px auto;
+
+  background-image: url('/images/yuyao/bg.jpg');
+  background-size: 100% 770px;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+.main h1 {
+  padding-top: 45px;
+  line-height: 24px;
+  text-align: center;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 500;
+}
+.main h2 {
+  line-height: 20px;
+  text-align: center;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 500;
+}
+.main .slider {
+  position: relative;
+  margin: 0px auto;
+  margin-top: 8px;
+  width: 320px;
+  height: 171px;
+}
+.main .form-groups {
+  margin: 0px auto;
+  margin-top: 15px;
+  width: 300px;
+}
+.main .form-groups h3 {
+  line-height: 20px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 15px;
+  text-align: center;
+}
+.main .form-groups h3 b {
+  font-size: 16px;
+  font-weight: 500;
+}
+.main .form-groups .form {
+  margin-top: 5px;
+  padding: 10px 8px;
+  height: 78px;
+  background-image: url('../images/bg-form-get-password.png');
+  background-size: 100% 100%;
+  color: #c31d27;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+.main .form-groups .form .form-item {
+  clear: both;
+}
+.main .form-groups .form .form-item label {
+  float: left;
+  width: 80px;
+  text-align: center;
+  font-size: 15px;
+}
+.main .form-groups .form .form-item label b {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+}
+.main .form-groups .form .form-item .text {
+  float: left;
+  padding: 0px 4px;
+  width: 190px;
+  height: 32px;
+  line-height: normal;
+  background-color: #fff;
+  border: solid 1px #c7c7c7;
+}
+.main .form-groups .form .form-item .button {
+  display: inline-block;
+  margin: 0px 5px;
+  padding: 0px 12px;
+  height: 28px;
+  line-height: 28px;
+  color:white;
+  font-size: 16px;
+  border: none;
+  background:#e73512;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 1px 0px #69ac77;
+  -moz-box-shadow: 0px 0px 1px 0px #69ac77;
+  box-shadow: 0px 0px 1px 0px #69ac77;
+}
+.main .form-groups .form .form-item .button:hover {
+  text-decoration: none;
+}
+.main .form-groups .form .form-item.buttons {
+  padding-top: 8px;
+  text-align: center;
+}
+.main .form-groups .form + h3 {
+  margin-top: 15px;
+}
+.main .form-groups .login-network {
+  background-image: url('../images/bg-form-login-network.png');
+}
+.main .form-groups .login-network .buttons .button {
+  position: relative;
+  left: 4px;
+  padding: 0px 18px;
+  margin: 0px 30px;
+}
+.main .form-groups .login-network .buttons .button + .button {
+  position: relative;
+  left: -8px;
+}
+.main .copyright {
+  padding: 20px 0px;
+  padding-bottom: 120px;
+  line-height: 20px;
+  font-size: 13px;
+  color: #fff;
+  text-align: center;
+}
+.main .copyright a {
+  color: #fff;
+}
+/* 焦点图 */
+.idx-focus,
+.focus-pic li {
+  width: 320px;
+  height: 171px;
+  position: relative;
+  overflow: hidden;
+}
+.idx-foc-tmp {
+  height: 170px;
+  border-bottom: none;
+  position: relative;
+}
+.focus-pic li {
+  float: left;
+  height: 170px;
+}
+.focus-pic li img {
+  width: 316px;
+  height: 170px;
+}
+.idx-focus .xtaber-tabs {
+  height: 34px;
+}
+.idx-focus .xtaber-tabs li {
+  float: left;
+  height: 30px;
+  padding: 2px;
+  margin-right: -2px;
+  position: relative;
+  cursor: pointer;
+  z-index: 3;
+}
+.idx-focus .xtaber-tabs img {
+  width: 51px;
+  height: 30px;
+}
+.idx-focus .xtaber-tabs .current {
+  background: #283d05;
+}
+.idx-focus .xtaber-tabs .current i {
+  width: 7px;
+  height: 4px;
+  position: absolute;
+  left: 50%;
+  margin-left: -3px;
+  top: -4px;
+  overflow: hidden;
+}

@@ -1,0 +1,679 @@
+/*广告管理*/
+var ua = navigator.userAgent.toLowerCase();  
+function check(r){  
+  return r.test(ua);  
+}  
+function getBrowserName()  
+{  
+  var browserName;  
+  var isOpera = check(/opera/);  
+  var isChrome = check(/chrome/);  
+  var isFirefox = check(/firefox/);  
+  var isWebKit = check(/webkit/);  
+  var isSafari = !isChrome && check(/safari/);  
+  var isIE = !isOpera && check(/msie/);  
+  var isIE7 = isIE && check(/msie 7/);  
+  var isIE8 = isIE && check(/msie 8/);  
+  var isIE9 = isIE && check(/msie 9/);
+  var isIE10 = isIE && check(/msie 10/);     
+  
+  if(isIE10)  
+  {  
+    browserName = "IE10";    
+  }
+  else if(isIE9)  
+  {  
+    browserName = "IE9";    
+  }
+  else if(isIE8)  
+  {  
+    browserName = "IE8";    
+  }else if(isIE7)  
+  {  
+    browserName = "IE7";  
+  }else if(isIE)  
+  {  
+    browserName = "IE";  
+  }else if(isChrome)  
+  {  
+    browserName = "Chrome";  
+  }else if(isFirefox)  
+  {  
+    browserName = "Firefox";  
+  }else if(isOpera)  
+  {  
+    browserName = "Opera";  
+  }else if(isWebKit)  
+  {  
+    browserName = "WebKit";  
+  }else if(isSafari)  
+  {  
+    browserName = "Safari";  
+  }else  
+  {  
+    browserName = "Others";  
+  }  
+  return browserName;  
+}   
+
+//alert(getBrowserName());
+
+Ext.define('shops.advManager8',{
+    extend: 'Ext.panel.Panel',
+	  autoScroll: false,
+    frame: false,
+    initComponent : function(){
+				if(store_shops_advmanager5.alreadyload !=1){
+					  store_shops_advmanager5.sid = '';
+				    store_shops_advmanager5.name = '';
+				    store_shops_advmanager5.sgroupid = '';
+				    store_shops_advmanager5.descr = '';
+				    store_shops_advmanager5.imgpath = '';
+				    store_shops_advmanager5.serno = '';
+				    store_shops_advmanager5.floor ='';
+				    store_shops_advmanager5.level = '';
+				    store_shops_advmanager5.plevel = '';
+				    store_shops_advmanager5.type = '';
+				    store_shops_advmanager5.systime = '';
+				    store_shops_advmanager5.shopid = '';
+				    store_shops_advmanager5.plateid = plateid;
+				    store_shops_advmanager5.img_long = '';
+				    store_shops_advmanager5.img_width = '';
+				    store_shops_advmanager5.flags = '';
+				    store_shops_advmanager5.label = '';
+				    store_shops_advmanager5.keyword = '';
+				    store_shops_advmanager5.caExport = ''; //导出
+					  store_shops_advmanager5.new_params={advmanager5_sid:store_shops_advmanager5.sid,advmanager5_name:store_shops_advmanager5.name,advmanager5_sgroupid:store_shops_advmanager5.sgroupid,advmanager5_descr:store_shops_advmanager5.descr,advmanager5_imgpath:store_shops_advmanager5.imgpath,advmanager5_serno:store_shops_advmanager5.serno,advmanager5_floor:store_shops_advmanager5.floor,advmanager5_level:store_shops_advmanager5.level,advmanager5_plevel:store_shops_advmanager5.plevel,advmanager5_type:store_shops_advmanager5.type,advmanager5_systime:store_shops_advmanager5.systime,advmanager5_shopid:store_shops_advmanager5.shopid,advmanager5_plateid:store_shops_advmanager5.plateid,advmanager5_flags:store_shops_advmanager5.flags,advmanager5_img_long:store_shops_advmanager5.img_long,advmanager5_img_width:store_shops_advmanager5.img_width,label:store_shops_advmanager5.label,keyword:store_shops_advmanager5.keyword,caExport:store_shops_advmanager5.caExport};
+			  }
+			  
+				function reflash(){
+						store_shops_advmanager5.new_params={advmanager5_sid:store_shops_advmanager5.sid,advmanager5_name:store_shops_advmanager5.name,advmanager5_sgroupid:store_shops_advmanager5.sgroupid,advmanager5_descr:store_shops_advmanager5.descr,advmanager5_imgpath:store_shops_advmanager5.imgpath,advmanager5_serno:store_shops_advmanager5.serno,advmanager5_floor:store_shops_advmanager5.floor,advmanager5_level:store_shops_advmanager5.level,advmanager5_plevel:store_shops_advmanager5.plevel,advmanager5_type:store_shops_advmanager5.type,advmanager5_systime:store_shops_advmanager5.systime,advmanager5_shopid:store_shops_advmanager5.shopid,advmanager5_plateid:store_shops_advmanager5.plateid,advmanager5_flags:store_shops_advmanager5.flags,advmanager5_img_long:store_shops_advmanager5.img_long,advmanager5_img_width:store_shops_advmanager5.img_width,label:store_shops_advmanager5.label,keyword:store_shops_advmanager5.keyword,caExport:store_shops_advmanager5.caExport};
+						//store_shops_advmanager5.currentPage=1;
+						store_shops_advmanager5.load();
+				}
+				
+				function gotoedit3(img_long, img_width){
+						var htmlvar='<iframe src="/pronline/Msg?FunName@ncmWebReplace&plate@ncmshop/ncm_webcomindex5_dr_img.htm&img_long@'+img_long+'&img_width@'+img_width+'" scrolling="no" name="drIframe" frameborder="no" style="width:100%;height:100%;"></iframe>';      
+				    var windr2 = new Ext.Window ({
+				                           id:"advmanager5_windr2",
+				                           title:"上传图片",
+				                           //x:0,
+				                           y:100,
+				                           width:420,
+				                           height:120,
+				                           bodyPadding: 0,
+				                           modal:true,
+																	 //headerPosition: 'bottom',
+				                           resizable:true,
+				                           closable :true,
+				                           draggable:true,
+				                           html:htmlvar
+				    })
+					  windr2.show();
+				}
+				
+				function gotoedit2(img_long, img_width, view_long, view_width){
+						var htmlvar='<iframe src="/pronline/Msg?FunName@ncmWebReplace&plate@ImgCropper/ImgCropper5.htm&img_long@'+img_long+'&img_width@'+img_width+'&view_long@'+view_long+'&view_width@'+view_width+'" scrolling="no" name="drIframe" frameborder="no" style="width:100%;height:1080;"></iframe>';      
+				    var windr2 = new Ext.Window ({
+				                           id:"advmanager5_windr2",
+				                           title:"上传图片",
+				                           //x:0,
+				                           y:0,
+				                           width:window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+				                           height:window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
+				                           autoScroll:true,
+				                           bodyPadding: 0,
+				                           modal:true,
+																	 //headerPosition: 'bottom',
+				                           resizable:true,
+				                           closable :true,
+				                           draggable:true,
+				                           html:htmlvar
+				    })
+					  windr2.show();
+				}
+				
+				function gotoedit1(pos, view_long, view_width){
+					  Ext.getCmp('advmanager5_detail').setVisible(true);
+					  Ext.getCmp('advmanager5_intro').setVisible(false);
+					  for(i=1; i<store_shops_advmanager5.getCount()+1; i++){
+							  Ext.getCmp('advmanager5_ads'+i).removeCls('stripes');  // 移除背景
+					  		if(pos==store_shops_advmanager5.getAt(i-1).get('level')){
+									  Ext.getCmp('advmanager5_ads'+pos).addCls('stripes');  // 添加背景
+					  				Ext.getCmp('advmanager5_sid').setValue(store_shops_advmanager5.getAt(i-1).get('sid'));
+							  		Ext.getCmp('advmanager5_update').setValue('update');
+							  		Ext.getCmp('advmanager5_name').setValue(store_shops_advmanager5.getAt(i-1).get('name'));
+							  		Ext.getCmp('advmanager5_serno').setValue(store_shops_advmanager5.getAt(i-1).get('serno'));
+							  		Ext.getCmp('advmanager5_tyid').setValue(store_shops_advmanager5.getAt(i-1).get('sgroupid'));
+							  		Ext.getCmp('advmanager5_shid').setValue(store_shops_advmanager5.getAt(i-1).get('shopid'));
+							  		Ext.getCmp('advmanager5_floor').setValue(store_shops_advmanager5.getAt(i-1).get('floor'));
+							  		Ext.getCmp('advmanager5_level').setValue(store_shops_advmanager5.getAt(i-1).get('level'));
+							  		Ext.getCmp('advmanager5_plevel').setValue(store_shops_advmanager5.getAt(i-1).get('plevel'));
+							  		Ext.getCmp('advmanager5_type').setValue(store_shops_advmanager5.getAt(i-1).get('type'));
+							  		Ext.getCmp('advmanager5_plateid').setValue(store_shops_advmanager5.getAt(i-1).get('plateid'));
+							  		Ext.getCmp('advmanager5_flags').setValue(store_shops_advmanager5.getAt(i-1).get('flags'));
+							  		Ext.getCmp('advmanager5_descr').setValue(store_shops_advmanager5.getAt(i-1).get('descr'));
+							  		Ext.getCmp('advmanager5_label').setValue(store_shops_advmanager5.getAt(i-1).get('label'));
+							  		Ext.getCmp('advmanager5_imgpath').setValue(store_shops_advmanager5.getAt(i-1).get('imgpath'));
+							  		Ext.getCmp('advmanager5_img').setSrc(store_shops_advmanager5.getAt(i-1).get('imgpath'));
+							  		Ext.getCmp('advmanager5_img_long').setValue(store_shops_advmanager5.getAt(i-1).get('img_long'));
+							  		Ext.getCmp('advmanager5_img_width').setValue(store_shops_advmanager5.getAt(i-1).get('img_width'));
+							  		Ext.getCmp('advmanager5_view_long').setValue(view_long);
+							  		Ext.getCmp('advmanager5_view_width').setValue(view_width);	
+					  		}	
+					  }
+		    }
+		    
+				Ext.define('TypeData', {
+				    extend: 'Ext.data.Model',
+				    fields: ['sid', 'name', 'groupname', 'descr', 'systime', 'imgpath', 'flags']
+				    //idProperty: 'uid'
+				});
+				var store_type = Ext.create('Ext.data.Store', {
+					 model:'TypeData',
+					 pageSize: 10000,
+					 autoLoad:true,
+					 proxy:{
+					 		type:'ajax',
+					 		url:'/pronline/Msg?FunName@ncm_webcomtype_list&plateid@'+plateid,
+					 		reader:{
+					 				type:'json',
+					 				root:'eimdata',
+					 				totalProperty:'totalCount'	
+					 		},
+					 		simpleSortMode:true	
+					 }
+				});
+				var typeCombo = Ext.create('Ext.form.field.ComboBox', {
+					 fieldLabel:'商品小类名称',
+					 labelWidth:100,
+					 width:320,
+					 valueField:'sid',
+					 displayField:'name',
+					 id:'advmanager5_tyid',
+					 name:'advmanager5_tyid',
+					 allowBlank:true,
+					 store:store_type,
+					 triggerAction:'all',
+					 queryMode:'local',
+					 typeAhead:true,
+					 hidden:true,
+					 listeners:{
+					 		'change':function(){
+					 		}	
+					 },
+					 listConfig:{
+					 		loadingText:'Searching...',
+					 		emptyText:'No matching found.'	
+					 }
+				});
+				
+				Ext.define('ShopData', {
+				    extend: 'Ext.data.Model',
+				    fields: ['iNum', 'id', 'name', 'service_code', 'sgroupid', 'imgpath', 'floor', 'url', 'code', 'tel', 'address', 'level', 'plevel', 'type', 'stype', 'descr', 'detail', 'systime', 'flags']
+				    //idProperty: 'uid'
+				});
+				var store_shop = Ext.create('Ext.data.Store', {
+					 model:'ShopData',
+					 pageSize: 10000,
+					 autoLoad:true,
+					 proxy:{
+					 		type:'ajax',
+					 		url:'/pronline/Msg?FunName@ncm_webcomshop_list&plateid@'+plateid,
+					 		reader:{
+					 				type:'json',
+					 				root:'eimdata',
+					 				totalProperty:'totalCount'	
+					 		},
+					 		simplleSortMode:true	
+					 }
+				});
+				var shopCombo = Ext.create('Ext.form.field.ComboBox', {
+					 fieldLabel:'商店名称',
+					 afterLabelTextTpl: required,
+					 labelWidth:100,
+					 width:320,
+					 valueField:'id',
+					 displayField:'name',
+					 id:'advmanager5_shid',
+					 name:'advmanager5_shid',
+					 hidden:false,
+					 store:store_shop,
+					 triggerAction:'all',
+					 queryMode:'local',
+					 typeAhead:true,
+					 allowBlank:false, //是否允许为空
+			     blankText:'商店名称不能为空！',	
+			     msgTarget:'qtip', //显示一个浮动的提示信息 
+					 listeners:	{
+					 		'change':function(){
+					 			 	//document.getElementById('form1').shopid.value = this.value;
+					 		}	
+					 },
+					 listConfig:{
+					 		loadingText:'Searching...',
+					 		emptyText:'No matching found.'	
+					 }
+				});
+				
+				Ext.define('MarkData', {
+				    extend: 'Ext.data.Model',
+				    fields: ['sid', 'mark', 'mapid', 'sx','sy','ex', 'ey']
+				    //idProperty: 'uid'
+				});
+				var store_mark = Ext.create('Ext.data.Store', {
+					 model:'MarkData',
+					 pageSize: 10000,
+					 autoLoad:true,
+					 proxy:{
+					 		type:'ajax',
+					 		url:'/pronline/Msg?FunName@ncm_webcommark_list',
+					 		reader:{
+					 				type:'json',
+					 				root:'eimdata',
+					 				totalProperty:'totalCount'	
+					 		},
+					 		simplleSortMode:true	
+					 }
+				});
+				var markCombo = Ext.create('Ext.form.field.ComboBox', {
+					 fieldLabel:'标签名称',
+					 labelWidth:100,
+					 width:320,
+					 valueField:'mark',
+					 displayField:'mark',
+					 id:'advmanager5_label',
+					 name:'advmanager5_label',
+					 hidden:true,
+					 store:store_mark,
+					 triggerAction:'all',
+					 queryMode:'local',
+					 typeAhead:true,
+					 allowBlank:true, //是否允许为空 
+					 listeners:	{
+					 		'change':function(){
+					 		}	
+					 },
+					 listConfig:{
+					 		loadingText:'Searching...',
+					 		emptyText:'No matching found.'	
+					 }
+				});
+				
+				var store_type1 = Ext.create('Ext.data.Store', {
+					 fields:['groupid', 'groupname'],
+					 data:[
+					 		{groupid:"1", groupname:"广告"},
+				      {groupid:"2", groupname:"品牌"},
+				      {groupid:"3", groupname:"促销"},
+				      {groupid:"4", groupname:"视频"}
+					 ]
+				});
+					    
+		    var fp = Ext.create('Ext.FormPanel', {
+						id:'advmanager5_detail',
+						hidden:true,
+						frame:false,
+						border:false,
+						margins:'0 0 0 20',
+						bodyPadding:0,
+						defaultType:'textfield', //设置表单字段的默认类型  
+						fieldDefaults:{ //统一设置表单字段默认属性
+								labelSeparator:':', //分隔符
+								labelWidth:100, //标签宽度
+								width:320, //字段宽度
+								msgTarget:'side'
+						},
+						items:[{
+								xtype:'fieldset',
+								width:350,
+								title:'基本信息',
+								collapsible: true,
+								items:[{
+										xtype:'textfield',
+										fieldLabel:'增/改',
+										id:'advmanager5_update',
+										name:'advmanager5_update',
+										hidden:true
+								},{
+										xtype:'textfield',
+										fieldLabel:'序号',
+										id:'advmanager5_sid',
+										name:'advmanager5_sid',
+										hidden:true
+								},{
+										xtype:'textfield',
+										fieldLabel:'商标名称',
+										id:'advmanager5_name',
+										name:'advmanager5_name',
+										afterLabelTextTpl: required,
+										allowBlank:false, //是否允许为空
+								    blankText:'商标名称不能为空！',	
+								    msgTarget:'qtip' //显示一个浮动的提示信息 	
+								},{
+										xtype:'textfield',
+										fieldLabel:'商标序列号',
+										id:'advmanager5_serno',
+										name:'advmanager5_serno',
+										hidden:true		
+								},
+								typeCombo,
+								shopCombo,
+								markCombo,
+								{
+										xtype:'textfield',
+										fieldLabel:'楼层',
+										id:'advmanager5_floor',
+										name:'advmanager5_floor',
+										hidden:true	
+								},{
+										xtype:'numberfield',
+										fieldLabel:'广告优先级',
+										id:'advmanager5_level',
+										name:'advmanager5_level',
+										hidden:true,
+										hideTrigger:false, //隐藏微调按钮
+				        		allowDecimals:false, //不允许输入小数
+				        		maxValue:100, //最大值
+				        		minvalue:0, //最小值
+				        		nanText:'请输入有效范围内的整数' //无效数字提示	
+								},{
+										xtype:'numberfield',
+										fieldLabel:'促销优先级',
+										id:'advmanager5_plevel',
+										name:'advmanager5_plevel',
+										hidden:true,
+										hideTrigger:false, //隐藏微调按钮
+				        		allowDecimals:false, //不允许输入小数
+				        		maxValue:100, //最大值
+				        		minvalue:0, //最小值
+				        		nanText:'请输入有效范围内的整数' //无效数字提示	
+								},{
+										xtype:'combobox',
+										fieldLabel:'活动类型',
+				      		  id:'advmanager5_type',
+				      		  name:'advmanager5_type',
+				      		  hidden:true,
+				      		  triggerAction:'all',
+				      		  store:store_type1,
+				      		  displayField:'groupname',
+				      		  valueField:'groupid',
+				      		  queryMode:'local',
+				      		  forceSelection:true,
+				      		  typeAhead:true,
+				      		  allowBlank:true	
+								},{
+										xtype:'textfield',
+										fieldLabel:'模板',
+										id:'advmanager5_plateid',
+										name:'advmanager5_plateid',
+										hidden:true
+								},{
+										xtype:'textfield',
+										fieldLabel:'标记',
+										id:'advmanager5_flags',
+										name:'advmanager5_flags',
+										hidden:true	
+								},{
+										xtype:'textfield',
+										fieldLabel:'图片路径',
+										id:'advmanager5_imgpath',
+										name:'advmanager5_imgpath',
+										hidden:true
+								},{
+										xtype:'textarea',
+										fieldLabel:'描述',
+										id:'advmanager5_descr',
+										name:'advmanager5_descr'
+								}]	
+						},{
+								xtype:'fieldset',
+								title:'预览',
+								collapsible: true,
+								width:350,
+								height:200,	
+								items:{
+										xtype:'image',
+										id:'advmanager5_img',
+										name:'advmanager5_img',
+										autoWidth:true,
+										autoHeight:true,
+										width:350,
+										height:200
+								}	
+						},{
+								xtype:'button',
+					  		text:'上传图片',
+					  		handler:function(){
+					  			  if(Ext.getCmp('advmanager5_sid').value==''){
+					  			  		alert("请先点击左边页面模板图片位置");
+					  			  		return 0;	
+					  			  }
+					  			  if(window.navigator.userAgent.indexOf("MSIE")>=1){
+					  			  	  gotoedit3(Ext.getCmp('advmanager5_img_long').value, Ext.getCmp('advmanager5_img_width').value);
+					  			  }else if(window.navigator.userAgent.indexOf("Firefox")>=1){
+					  			  	  gotoedit2(Ext.getCmp('advmanager5_img_long').value, Ext.getCmp('advmanager5_img_width').value, Ext.getCmp('advmanager5_view_long').value, Ext.getCmp('advmanager5_view_width').value);	
+					  				}else{
+					  					  gotoedit2(Ext.getCmp('advmanager5_img_long').value, Ext.getCmp('advmanager5_img_width').value, Ext.getCmp('advmanager5_view_long').value, Ext.getCmp('advmanager5_view_width').value);		
+					  				}
+					  		}	
+						},{
+								xtype:'textfield',
+								fieldLabel:'图片宽度',
+								id:'advmanager5_img_width',
+								name:'advmanager5_img_width',
+								hidden:true
+						},{
+								xtype:'textfield',
+								fieldLabel:'图片高度',
+								id:'advmanager5_img_long',
+								name:'advmanager5_img_long',
+								hidden:true
+						},{
+								xtype:'textfield',
+								fieldLabel:'框宽度',
+								id:'advmanager5_view_width',
+								name:'advmanager5_view_width',
+								hidden:true
+						},{
+								xtype:'textfield',
+								fieldLabel:'框高度',
+								id:'advmanager5_view_long',
+								name:'advmanager5_view_long',
+								hidden:true
+						}],
+						buttons:[{
+								text:'保存',
+		            handler: function() {
+		            	 if(Ext.getCmp('advmanager5_name').value==''){
+		            	 		alert('商标名称不能为空！');	
+		            	 }else if(Ext.getCmp('advmanager5_shid').value==''){
+		            	 		alert('商店不能为空！');
+		            	 }else{
+					             fp.form.doAction('submit',{
+							             url:'/pronline/Msg',
+							             method:'post',
+							             params:{FunName:'ncm_webcomindex5_list'},
+							             success:function(form,action){
+							             	  for(i=1; i<store_shops_advmanager5.getCount()+1; i++){
+							             				if(action.result.level == store_shops_advmanager5.getAt(i-1).get('level')){
+							             					  store_shops_advmanager5.getAt(i-1).set('sid', action.result.sid);
+							             					  store_shops_advmanager5.getAt(i-1).set('name', action.result.name);
+							             					  store_shops_advmanager5.getAt(i-1).set('sgroupid', action.result.sgroupid);
+							             					  store_shops_advmanager5.getAt(i-1).set('descr', action.result.descr);
+							             					  store_shops_advmanager5.getAt(i-1).set('imgpath', action.result.imgpath);
+							             					  store_shops_advmanager5.getAt(i-1).set('serno', action.result.serno);
+							             					  store_shops_advmanager5.getAt(i-1).set('floor', action.result.floor);
+							             					  store_shops_advmanager5.getAt(i-1).set('level', action.result.level);
+							             					  store_shops_advmanager5.getAt(i-1).set('plevel', action.result.plevel);
+							             					  store_shops_advmanager5.getAt(i-1).set('type', action.result.type);
+							             					  store_shops_advmanager5.getAt(i-1).set('shopid', action.result.shopid);
+							             						store_shops_advmanager5.getAt(i-1).set('plateid', action.result.plateid);
+							             						store_shops_advmanager5.getAt(i-1).set('flags', action.result.flags);
+							             						store_shops_advmanager5.getAt(i-1).set('img_long', action.result.img_long);
+							             						store_shops_advmanager5.getAt(i-1).set('img_width', action.result.img_width);
+							             						store_shops_advmanager5.getAt(i-1).set('label', action.result.label);
+							             				}	
+							             		}
+							             		Ext.getCmp('advmanager5_ads'+action.result.level).setSrc(action.result.imgpath);
+							             		fp.getForm().reset();
+															Ext.getCmp('advmanager5_img').setSrc('');	
+							             } 
+					             })
+			             }
+		            }	
+						},{
+								text:'删除',
+								handler:function(){
+									  if(confirm('您真的要执行删除操作吗？')){
+									  	  var selsid;
+									  	  selsid = Ext.getCmp('advmanager5_sid').getValue();
+									  	  var alev = Ext.getCmp('advmanager5_level').value;
+									  	  var mark = Ext.getCmp('advmanager5_label').value;
+											  store_shops_advmanager5.load({
+											  		params: {del: "del",selsid:selsid},
+											  		
+											  		callback:function(records, options, success){
+											  				eval(shops.advManager5).init();
+											  		}
+											  });
+				             		fp.getForm().reset();
+				             		alert(alev)
+												Ext.getCmp('advmanager5_img').setSrc('');
+												Ext.getCmp('advmanager5_ads'+alev).removeCls('stripes');  // 移除背景	
+									  }	
+								}	
+						},{
+								text:'重置',
+								handler:function(){
+									  var alev = Ext.getCmp('advmanager5_level').value;
+										fp.getForm().reset();
+										Ext.getCmp('advmanager5_img').setSrc('');
+										Ext.getCmp('advmanager5_ads'+alev).removeCls('stripes');  // 移除背景	
+								}	
+						}]
+				});
+		    var fp2 = Ext.create('Ext.FormPanel', {
+						id:'advmanager5_intro',
+						hidden:false,
+						frame:false,
+						border:false,
+						margins:'0 0 0 20',
+						bodyPadding:0,
+						defaultType:'textfield', //设置表单字段的默认类型  
+						fieldDefaults:{ //统一设置表单字段默认属性
+								labelSeparator:':', //分隔符
+								labelWidth:320, //标签宽度
+								width:320, //字段宽度
+								msgTarget:'side'
+						},
+						items:[{
+								xtype:'fieldset',
+								width:350,
+								title:'操作说明',
+								collapsible: true,
+								items:[{
+										xtype:'label',
+										html:'<div style="height:80px"><br>1.&nbsp;&nbsp;&nbsp;&nbsp;请先点击左边页面模板图片位置<br><br>2.&nbsp;&nbsp;&nbsp;&nbsp;再对其信息进行操作<br></div><br>'
+								}]
+						}]
+				});
+				
+		    Ext.apply(this, {
+		        border:false,
+						frame:false,
+						autoScroll: true,
+						bodyPadding:"5 10 5 10",
+		        //store: store_shops_advmanager5,
+		        layout: { pack: 'center', type: 'hbox' } ,
+			      items:[{
+		        	  layout: 'vbox',
+			       		width:400,
+			       		//height:642,
+			       		items:[{
+			       			layout: 'hbox',
+			       			width:400,
+			       			height:315,
+			       			autoScroll: true,
+			       			items:[{
+					     					xtype: 'image',
+					     					width:400,
+					       				height:295,
+					     					id: "advmanager5_ads1",
+					     					listeners:{       			
+							         				el:{ 
+																	click:function(){
+																		  gotoedit1(1, 295, 400);
+							         						}
+							         				}
+						         		}
+			       			},{
+			     					xtype: 'image',
+			     					width:400,
+			       				height:295,
+			     					id: "advmanager5_ads2",
+			       				listeners:{       			
+					         				el:{ 
+															click:function(){
+																 	gotoedit1(2, 295, 400);		
+					         						}
+					         				}
+				         		}
+			       			},{
+			     					xtype: 'image',
+			     					width:400,
+			       				height:295,
+			     					id: "advmanager5_ads3",
+			       				listeners:{       			
+					         				el:{ 
+															click:function(){
+																  gotoedit1(3, 295, 400);		
+					         						}
+					         				}
+				         		}
+			       			},{
+			     					xtype: 'image',
+			     					width:400,
+			       				height:295,
+			     					id: "advmanager5_ads4",
+			       				listeners:{       			
+					         				el:{ 
+															click:function(){
+																 gotoedit1(4, 295, 400);			
+					         						}
+					         				}
+				         		}
+			       			}]
+			       		},{
+			       			layout: 'hbox',
+			       			width:400,
+			       			height:412,
+			       			//autoScroll: true,
+			       			items:[{
+			       					xtype:'image',
+				       				width:400,
+				       				height:412,
+				       				src:'/images/biaozhun/0002.jpg'	
+			       			}]
+			       		}]
+		        },fp,fp2]
+		    });
+		    
+			  store_shops_advmanager5.alreadyload = 1;
+		    this.callParent(arguments);
+    },
+    inheritableStatics : {
+    		init:function(){
+						for(j=1; j<store_shops_advmanager5.getCount()+1; j++){
+								switch(store_shops_advmanager5.getAt(j-1).get('level')){
+			  	      		case "1":	Ext.getCmp('advmanager5_ads1').setSrc(store_shops_advmanager5.getAt(j-1).get('imgpath')); break;
+			  	      		case "2":	Ext.getCmp('advmanager5_ads2').setSrc(store_shops_advmanager5.getAt(j-1).get('imgpath')); break;
+			  	      		case "3":	Ext.getCmp('advmanager5_ads3').setSrc(store_shops_advmanager5.getAt(j-1).get('imgpath')); break;
+			  	      		case "4":	Ext.getCmp('advmanager5_ads4').setSrc(store_shops_advmanager5.getAt(j-1).get('imgpath')); break;
+			  	      		default:break;
+			  	      }	
+						}
+    		}
+    }
+});
+

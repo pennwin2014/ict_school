@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=2" />
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.mobile-1.4.2.min.js"></script>
+<link rel="stylesheet" href="/css/jquery.mobile-1.4.2.min.css">
+
+<title>标签管理</title>
+<style type="text/css">
+
+@media screen and (max-width:450px) {
+ * {
+ margin:0;
+ padding:0;
+}
+ .wrap {
+ width:100%;
+}
+
+</style>
+<script type="text/javascript">
+function loadLogos(){
+//alert("aaaaaaaa");
+document.getElementById("FunName").value = "ncm_yuyuan_home";
+document.getElementById("form1").submit();
+}
+</script>
+</head>
+<body>
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+		<input type="hidden" id="FunName" name="FunName" value="">	
+</form>	
+<div class="wrap">
+	<div data-role="page" id="pageone" data-theme="a">
+	<center>
+	<label for="fname">当前坐标: X: Y:</label>
+	<input type="text" name="fname" id="fname">
+	</center>
+	</div>
+</div>
+</body>
+</html>

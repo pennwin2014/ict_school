@@ -1,0 +1,290 @@
+* {
+	margin:0;
+	padding:0;
+}
+input {
+	text-align:center;
+}
+#main {
+	width:100%;
+	margin:0 auto;
+	text-align:center;
+}
+h1 {
+ line-height:74pt font-family:MyriadSet-Thin;
+ font-size:64pt color:#000000;
+	padding-bottom:15px;
+	margin:0 20%;/*border-bottom:2px solid #ced0d5;*/
+}
+hr {
+	height:2px;
+	color:#d2d4d9;
+	margin:50px 0;
+}
+.header_ul {
+	display:table;
+	margin-left:auto;
+	margin-right:auto;
+}
+.header_ul li {
+	list-style:none;
+	float:left;
+	display:block;
+ height:113px line-height:113px;
+	margin-top:34px;
+	margin-bottom:40px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:1.875em;
+ *float:none;
+ *display:inline;
+ *zoom:1;
+}
+#split {
+	width:4%;
+	text-align:center;
+	color:#ced0d5;
+}
+.china {
+	color:#000;
+	font-family:KozGoPr6N-Regular;
+}
+.eng {
+	color:#0088CC;
+	font-family:LucidaGrande;
+}
+.eng2 {
+	color:#0088CC;
+	font-family:LucidaGrande;
+	text-decoration:underline;
+}
+#login_area {
+	width:93.968%;
+	margin:0 auto;
+	font-family:HelveticaNeue;
+	font-size:1.5em;
+	color:#000;
+}
+.font_style_h4 {
+	font-family:MyriadSet-Thin;
+	font-size:64pt;
+	color:#000;
+	margin-bottom:38px;
+}
+.font_style {
+	font-family:HelveticaNeue;
+	color:#000000;
+	/*	   margin-left:92px;*/
+	   margin-left:11%;
+	margin-right:11%;
+	text-align:center;
+}
+.Case {
+	width:85%;
+	background-color:#f0f0f0;
+	margin-bottom:16px;
+	margin-top:16px;   /*zms new*/
+	margin-left:auto;
+	margin-right:auto;   /*zms new*/
+	border-radius:5px;
+}
+.Case1 {
+	width:85%;
+	background-color:#f0f0f0;
+	margin-bottom:16px;
+	margin-top:16px;
+	margin-left:auto;   /*zms new*/
+	margin-right:auto;   /*zms new*/
+	border-radius:5px;
+}
+.Case2 {
+	width:85%;
+	background-color:#f0f0f0;
+	margin-bottom:16px;
+	margin-top:16px;
+	margin-left:auto;   /*zms new*/
+	margin-right:auto;   /*zms new*/
+	border-radius:5px;
+}
+.password {
+	width:90%;
+	border:1px solid #d0d0d0;
+	margin:12px;
+	line-height:50px;
+	font-family:HelveticaNeue;
+	border-radius:5px;
+	color:#999999;
+}
+.password2 {
+	width:90%;
+	border:1px solid #d0d0d0;
+	margin:12px;
+	line-height:50px;
+	font-family:HelveticaNeue;
+	border-radius:5px;
+	color:#000;
+}
+.username {
+	width:90%;
+	border:1px solid #d0d0d0;
+	margin:12px;
+	line-height:50px;
+	font-family:HelveticaNeue;
+	color:#999999;
+	border-radius:5px;
+}
+.username2 {
+	width:90%;
+	border:1px solid #d0d0d0;
+	margin:12px;
+	line-height:50px;
+	font-family:HelveticaNeue;
+	font-size:32pt;
+	color:#000;
+	border-radius:5px;
+}
+.code {
+	width:90%;
+	border:1px solid #d0d0d0;
+	margin:12px;
+	line-height:50px;
+	font-family:HelveticaNeue;
+	color:#999999;
+	border-radius:5px;
+}
+.code2 {
+	width:90%;
+	border:1px solid #d0d0d0;
+	margin:12px;
+	line-height:50px;
+	font-family:HelveticaNeue;
+	color:#000;
+	border-radius:5px;
+}
+.error {
+	height:20px;
+	padding-bottom:10px;
+	font-size:0.7em;
+	color:#ff0000;
+	clear:both;      /*zms*/
+}
+.error4 {
+	height:50px;
+	padding-top:10px;
+	padding-bottom:10px;
+	font-size:24px;
+	color:#ff0000;
+	font-family:STHeiti;
+	clear:both;
+}
+.error_monum {
+	padding-bottom:10px;
+	font-size:0.7em;
+	color:#ff0000;
+	clear:both;            /*zms*/
+}
+.error1 {
+	padding-bottom:10px;
+	font-size:0.7em;
+	color:#ff0000;
+	clear:both;            /*zms*/
+}
+.error3 {
+	padding-bottom:10px;
+	font-size:0.6em;
+	color:#ff0000;
+}
+.chaccept {
+	width:32px;
+	height:32px;
+}
+.getpasscode {
+	background-image:url(/images/ap/get_passcodesms.png);
+	color:#ffffff;
+	/* width:38.412%;*/
+	   width:242px;
+	height:66px;
+	border:0;
+	margin-bottom:20px;
+	border-radius:10px;
+}
+.getpasscode_no {
+	/*background: #f0f0f0;*/
+		 background-image:url(/images/ap/get_passcodesms_no.png);
+	color:#ffffff;
+	/*width:38.412%;*/
+	   width:242px;
+	height:66px;
+	border:0;
+	margin-bottom:20px;
+	border-radius:10px;
+}
+.no_sign {
+	/* background:#f0f0f0;*/
+	  background-image:url(/images/ap/register_huisms.png);
+	width:242px;
+	color:#ffffff;
+	/*width:38.412%;*/
+	   height:66px;
+	border:0;
+	border-radius:10px;
+}
+.sign {
+	background-image:url(/images/ap/registersms.png);
+	width:242px;
+	/* background: #0088cc;*/
+	  color:#ffffff;
+	/*  width:38.412%;*/
+	   height:66px;
+	border:0;
+	border-radius:10px;
+}
+.font_style a {
+	color:#0088cc;
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+.font_style2 {
+	font-family:HelveticaNeue;
+	font-size:0.7em;
+	color:#999999;
+}
+.space1 {
+	height:16px;
+}
+.spcae2 {
+	height:25px;
+}
+.mesgpass {
+	width:90%;
+	height:80px;
+	font-family:LucidaGrande;
+	font-size:0.8em;
+	color:#999999;
+	margin-left:90px;
+	text-align:center;
+}
+.gocenter {
+}
+.space3 {
+	height:12px;
+}
+img {
+	width: 70%;
+}
+#errormark img {
+	width: 4%;
+}
+#check_wrap {
+}
+.check1 {
+	float:left;
+	width:5%;
+	margin-left:15%;
+}
+.check1_nr {
+	float:left;
+	width:65%;
+	margin-right:15%;
+}

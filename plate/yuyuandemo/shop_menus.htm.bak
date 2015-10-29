@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script type="text/javascript" src="/a.js"></script>
+<link href="/css/flexslider.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>
+<title>郑州电信欢迎您</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+body{margin:0px; padding:0; background:#eee; }
+.wrap {
+	width:450px;
+	margin:0 auto;
+}
+.top {
+	width:450px;
+	background:#1c3146;
+	height:60px;
+	color:#FFF;
+	font-family:"黑体";
+	font-size:24px;
+	line-height:60px;
+	text-align:center;
+}
+.shouye {
+	width:10%;
+	float:left;
+	margin-left:3%;
+	margin-top:10px;
+}
+.wifi {
+	width:10%;
+	float:right;
+	margin-right:3%;
+	margin-top:10px;
+}
+.menu img {
+	width:100%;
+}
+.qiehuan img {
+	width:50%;
+	floag:left;
+}
+.product img {
+	width:100%;
+}
+.main {
+	width:96%;
+	margin:0 auto;
+}
+.main_top {
+	width:100%;
+}
+.img_1 {
+	float:left;
+	width:48%;
+}
+.img_2 {
+	float:left;
+	width:48%;
+	margin-left:4%;
+}
+.img_3 {
+	float:left;
+	width:48%;
+}
+.img_4 {
+	float:left;
+	width:23%;
+	margin-left:4%;
+}
+.img_5 {
+	float:left;
+	width:23%;
+	margin-left:2%;
+}
+.foot {
+	width:96%;
+	margin:0 auto;
+}
+.img_6 {
+	width:23%;
+	float:left;
+}
+.img_7 {
+	width:23%;
+	float:left;
+	margin-left:2%;
+}
+.img_8 {
+	width:23%;
+	float:left;
+	margin-left:3%;
+}
+.img_9 {
+	width:23%;
+	float:left;
+	margin-left:3%;
+}
+
+@media screen and (max-width:450px) {
+ * {
+ margin:0;
+ padding:0;
+}
+ .wrap {
+ width:100%;
+}
+.top{ width:100%;background:#1c3146;
+	height:60px;
+	color:#FFF;
+	font-family:"黑体";
+	font-size:24px;
+	line-height:60px;
+	text-align:center;
+}
+.shouye {
+	width:10%;
+	float:left;
+	margin-left:3%;
+	margin-top:13px;
+}
+.wifi {
+	width:10%;
+	float:right;
+	margin-right:3%;
+	margin-top:13px;
+}
+ .menu img {
+width:100%;
+}
+.qiehuan img {
+	width:50%;
+	floag:left;
+}
+.product img {
+ width:100%;
+}
+.main {
+ width:96%;
+ margin:0 auto;
+}
+.main_top {
+ width:100%;
+}
+.img_1 {
+ float:left;
+ width:48%;
+}
+.img_2 {
+ float:left;
+ width:48%;
+ margin-left:4%;
+}
+.img_3 {
+ float:left;
+ width:48%;
+}
+.img_4 {
+ float:left;
+ width:23%;
+ margin-left:4%;
+}
+.img_5 {
+ float:left;
+ width:23%;
+ margin-left:2%;
+}
+.foot {
+ width:96%;
+ margin:0 auto;
+}
+.img_6 {
+ width:23%;
+ float:left;
+}
+.img_7 {
+ width:23%;
+ float:left;
+ margin-left:2%;
+}
+.img_8 {
+ width:23%;
+ float:left;
+ margin-left:3%;
+}
+.img_9 {
+ width:23%;
+ float:left;
+ margin-left:3%;
+}
+
+}
+</style>
+
+
+
+<script type="text/javascript">
+
+var levels = new Array();
+var imgpaths=new Array();
+var shopids=new Array();
+var i=0;
+var max=1;
+function loadInfos(){
+//alert(111);
+[#SLPB#]
+levels[[#iNum#]]="[#level#]";
+shopids[[#iNum#]]="[#shopid#]";
+//imgpaths[[#iNum#]]="[#img#]";
+//document.getElementById('position'+[#iNum#]).src=imgpaths[[#iNum#]];
+if(levels[[#iNum#]]>4){
+document.getElementById('position'+[#iNum#]).src='[#img#]';
+}
+//alert(imgpaths[[#iNum#]]);
+//max++;
+[#SLPE#]
+//alert(document.getElementById('position4').src+"  4 =");
+}
+
+function loadShops(number){
+//alert(number);
+parent.document.getElementById("FunName").value = "ncmShops";
+parent.document.getElementById("shopid").value = shopid[number];
+parent.document.getElementById("logoid").value = logoid[number];
+//alert(shopid[number]);
+parent.document.getElementById("form1").submit();
+}
+
+function display(id){
+if(id == 'display1'){
+document.getElementById('display2').style.display ="none";
+document.getElementById('display1').style.display ="block";
+document.getElementById('display_img1').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c7.jpg";
+document.getElementById('display_img2').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c1.jpg";
+}
+if(id == 'display2'){
+document.getElementById('display1').style.display ="none";
+document.getElementById('display2').style.display ="block";
+document.getElementById('display_img1').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c1.jpg";
+document.getElementById('display_img2').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c7.jpg";
+}
+}
+</script>
+</head>
+<body onload = "loadInfos();e('[#redirecturl#]','[#posturl#]')">
+<input type="hidden" name="rg" id="rg" value="[#getarg#]"/>
+<input type="hidden" name="rl" id="rl" value="[#posturl#]"/>
+
+<div class="wrap">
+<div class="banner">
+  <section class="slider">
+    <div class="flexslider">
+      <ul class="slides">
+      	[#SLPB#]
+        <li> <img src="[#imgslider#]" /></li>
+        [#SLPE#]
+        <!--
+        <li> <a href=""><img id="position21" src="/images/shop/boead9gy5j673ouk.jpg" /> </a> </li>
+        <li> <a href=""><img id="position31" src="/images/shop/boead9gy5j673ouk.jpg" /> </a> </li>
+        <li> <a href=""><img id="position41" src="/images/shop/95gduj4rrsm3ltji.jpg" /> </a> </li>
+         -->
+      </ul>
+    </div>
+  </section>
+</div>
+ 
+  <div class="qiehuan">
+  <img onclick="display('display1')" src="/images/zhengzhoudianxin/zhengzhoudianxin_r3_c2.jpg" /><img onclick="display('display2')" src="/images/zhengzhoudianxin/zhengzhoudianxin_r3_c3.jpg" /><img id="display_img1" src="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c7.jpg" /><img id="display_img2" src="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c1.jpg" /></div>
+  <div class="product">
+  <div id="display1" ><img onclick="self.location.href='/zhengzhoudianxin/shop_er.htm'" id="position5" src="" /></div>
+  <div id="display2" style="display:none;"><img id="position6" src="" onclick="self.location.href='/zhengzhoudianxin/lmsj.htm'" /></div>
+  </div>
+  <div class="main">
+    <div style="height:10px; clear:both;"></div>
+    <div class="main_top">
+	<img id="position7" class="img_1" onclick="self.location.href='/zhengzhoudianxin/wifiexplain.htm'" src="" />
+	<img id="position8" class="img_2" src="" />
+	</div>
+    <div style="height:10px; clear:both;"></div>
+    <div class="main_foot">
+	<img id="position9" class="img_3" onclick="self.location.href='http://wap.zhengzhoubus.com'" src="" />
+	<img id="position10" class="img_4" onclick="self.location.href='http://weibo.com/digital'" src="" />
+	<img id="position11" class="img_5" onclick="self.location.href='http://w.qq.com'" src="" />
+	</div>
+    <div style="height:10px; clear:both;"></div>
+  </div>
+  <div class="foot" >
+  <img id="position12" class="img_6" onclick="loadShops(shopids[12])"  src="/images/zhengzhoudianxin/zhengzhoudianxin_r12_c2.jpg" />
+  <img id="position13" class="img_7" onclick="loadShops(shopids[13])" src="/images/zhengzhoudianxin/zhengzhoudianxin_r12_c4.jpg" />
+  <img id="position14" class="img_8" onclick="loadShops(shopids[14])" src="/images/zhengzhoudianxin/zhengzhoudianxin_r12_c11.jpg" />
+  <img id="position15" class="img_9" onclick="loadShops(shopids[15])" src="/images/zhengzhoudianxin/zhengzhoudianxin_r12_c15.jpg" />
+  </div>
+ 
+</div>
+ <div style="margin:10px;">&nbsp;</div>
+</body>
+</html>

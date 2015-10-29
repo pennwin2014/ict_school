@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+</head>
+<style type="text/css">
+*{
+	margin:0;
+	padding:0;
+}
+#main{
+	width:980px;
+	margin:36px 90px 0;
+	text-align:left;
+}
+.header_ul{
+	float:right;
+}
+h1 {
+	height:25px;
+	line-height:25px;
+	font-family:myriadset-thin;
+	font-size:26px;
+	color:#313131;
+	padding-bottom:15px;
+	/*border-bottom:2px solid #ced0d5;*/
+}
+hr{
+	height:2px;
+	color:ced0d5;
+}
+ .header_ul li{
+			 list-style:none;
+			 float:left;
+			 display:block;
+			 height:30px;
+			 line-height:30px;
+			 font-size:14px;	
+   }
+   
+   #split {
+		width:30px;
+		text-align:center;
+		color:#ced0d5;
+		  
+   }
+  .china{
+	   color:#000;
+	   width:30px;
+	   font-family:KozGoPr6N-Regular;
+   }
+   .eng{
+	   color:#0088CC;
+	   width:104px;
+	   font-family:LucidaGrande;
+   }
+   .eng2{
+	   color:#0088CC;
+	   width:104px;
+	   font-family:LucidaGrande;
+	   text-decoration:underline;
+   }
+   #login_area{
+	   width:716px;
+	   margin-top:49px;
+	   padding-left:82px;
+	   font-family:LucidaGrande;
+	   font-size:16pt;
+	   color:#000;
+   }
+   
+  .font_style{
+	   font-family:LucidaGrande-Bold;
+	   font-size:15pt;
+	   color:#333333;
+   }
+   .Case{
+	   width:400px;
+	   height:39px;
+	   background-color:#f0f0f0;
+	   margin-bottom:14px;
+	   margin-top:14px;
+   }
+   .username{
+	   width:386px;
+	   height:25px;
+	   border:2px solid #d0d0d0;
+	   margin:6px;
+	   line-height:25px;
+	   font-family:HelveticaNeue;
+	   font-size:16pt;
+	   color:#999999;
+   }
+   .username2{
+	   width:386px;
+	   height:25px;
+	   border:2px solid #d0d0d0;
+	   margin:6px;
+	   line-height:25px;
+	   font-family:HelveticaNeue;
+	   font-size:16pt;
+	   color:#000;
+   }
+   .password{
+	    width:386px;
+	   height:25px;
+	   border:2px solid #d0d0d0;
+	   margin:6px;
+	   line-height:25px;
+	   font-family:HelveticaNeue;
+	   font-size:16pt;
+	   color:#999999;
+   }
+   .password2{
+	   width:386px;
+	   height:25px;
+	   border:2px solid #d0d0d0;
+	   margin:6px;
+	   line-height:25px;
+	   font-family:HelveticaNeue;
+	   font-size:16pt;
+	   color:#000;
+   }
+   .error{
+	   height:0px;
+	   padding-bottom:10px;
+	   font-size:12pt;
+	   color:#ff0000;
+   }
+   
+   .error1{
+	   height:18px;
+	   padding-bottom:10px;
+	   font-size:12pt;
+	   color:#ff0000;
+	   clear:both;
+   }
+   .error2{
+	   height:80px;
+	   padding-bottom:10px;
+	   font-size:12pt;
+	   color:#ff0000;
+	   clear:both;
+   }
+   .error_monum{
+	   height:48px;
+	   padding-bottom:10px;
+	   font-size:12pt;
+	   color:#ff0000;
+	   clear:both;            /*zms*/
+   }
+   
+   
+   .chaccept{
+	   width:14px;
+	   height:14px;
+   }
+   .getpasscode{
+	   background-image:url(/images/ap/getpasswdpczh.png);
+	   width:122px;
+	   height:34px;
+	   border:0;
+	   margin-bottom:70px;
+   }
+   .getpasscode_no{
+	   background-image:url(/images/ap/passwdpczhalready.png);
+	   width:122px;
+	   height:34px;
+	   border:0;
+	   margin-bottom:70px;
+   }
+   .no_sign{
+	   background-image:url(/images/ap/registergreypczh.png);
+	   width:122px;
+	   height:34px;
+	   border:0;
+   }
+    .sign{
+	   background-image:url(/images/ap/registerpczh.png);
+	   width:122px;
+	   height:34px;
+	   border:0;
+   }
+    .font_style a{
+	  color:#0088cc;
+	  text-decoration:none;
+  }
+  a:hover{
+	  text-decoration:underline;
+  }
+   
+</style>
+<script language="javascript" type="text/javascript">
+	
+	  
+	function changlogin(flag){
+            self.location = "https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"login_pcexplaineng.htm";	
+  }
+	function engstyle(){
+		document.getElementById('english').className = 'eng2';
+	}
+
+
+function openpage()
+{
+		
+}
+
+</script>
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  style = "overflow-x:hidden;overflow-y:scroll">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+	<input type = "hidden" name = "username" id = "username" value= "" />
+<center> 
+ <div id="main">
+    <ul class="header_ul" >
+        <li class="china" id="chinese" >中文</li>
+        <li id="split">|</li>
+        <li class="eng" id="english" onClick="changlogin('eng')" onmouseover="engstyle();">English</li>
+    </ul>
+<!--     <h1>欢迎光临 Apple Store 零售店。</h1>   apple_store_china02-->
+    <div height= "19px">
+     <img src="/images/ap/termspc_zh.png"  style="margin-bottom:10px;" />
+    </div>
+    
+    <hr />
+    <div id="login_area"><div   height = "30px;" width ="150px;" > &nbsp;<a href = "#xx" onclick = "javascript:window.opener=null;window.open('','_self');window.close();"  class = "eng2" >< 返回 </a></div>
+        <div height = "20px;">&nbsp; </div>
+        <p >
+        	<prefix>
+           请仔细阅读以下内容。使用无线网络服务受到以下条款和条件的约束。你只有遵守和同意以下条款和条件才能使用无线网络服务。<br/>
+使用无线网络服务上网是不安全的。你负有完全责任确保你对无线网络服务的使用符合相关适用的法律和法规的规定。Apple 并不承担任何监控你对无线网络服务使用的义务。然而，为执法目的或应司法或政府部门的命令或要求，中国电信或Apple可能会被要求访问前述信息，并协助披露该等用户信息。<br/><br/>
+<font align = "center">条款和条件</font><br/><br/><br/>
+定义<br/>
+ “Apple零售店”是指任何在中国境内提供无线网络服务的Apple直营零售店。<br/>
+ “中国电信”是指为Apple零售店提供无线网络服务的中国电信公司或其指定的子公司及关联公司。<br/>
+ “无线网络服务”是指由中国电信提供的、帮助用户通过Apple零售店及其邻近区域内的无线网络接入点进行无线上网的服务。<br/><br/>
+用户认可<br/><br/>
+你特此认可：<br/>
+(1)你在Apple零售店享受到的无线网络服务系一项无偿提供的免费服务；<br/>
+(2)无线网络服务由中国电信而非Apple零售店提供、运营；<br/>
+(3)使用无线网络服务可能需要你接受由中国电信制定的一些条款和条件。但是，在你和Apple零售店之间，你对无线网络服务的使用仅受本条款和条件的约束。<br/>
+无线网络服务的功能<br/><br/>
+无线网络服务的提供受制于中国电信控制和运营的必要设备和相关设施的可用性和功能局限性。你已理解并同意，在提供无线网络服务的过程中可能会发生正常的暂时性服务中断。Apple零售店不保证任何无线网络服务功能不会中断或发生错误，也不保证与提供无线网络服务有关的网站或服务器不存在病毒或其他有害内容。<br/><br/>
+安全和隐私<br/><br/>
+使用无线网络服务登录互联网就其本质而言是不安全的。因此，当登录互联网时，你需要自行负责采取或实施你认为合适的安全措施以保护本人的隐私或个人信息及财产。Apple零售店对你因为使用无线网络服务而遭受的隐私或个人信息及财产的损失、破坏或被非法侵入或使用均不负有任何责任。<br/>
+你已理解，用户在使用无线网络服务时必须注册他/她的个人信息。同时，使用无线网络服务可能会披露你的当前位置。你还理解，中国电信作为无线网络服务的服务提供者，可能可以获取你在使用无线网络服务过程中提交的信息或其他数据。你承认，你（而非Apple零售店）应当对自己所提交的所有信息或数据的合法性、可靠性或正当性负有全部责任。你负有完全责任确保你对无线网络服务的使用符合相关适用的法律和法规的规定。Apple零售店及其分支机构、关联机构、所有权人或其代表并不承担任何监控、追踪、记录、保存或披露你对无线网络服务的使用（包括但不限于，你访问页面的URL、你所输入、传送或接收的数据）的义务。然而，为执法目的或应司法或政府部门的命令或要求，中国电信或Apple零售店可能会被要求访问前述信息，并协助披露该等用户信息。<br/><br/>
+使用政策<br/><br/>
+使用无线网络服务应当遵守以下政策。用户不得从事以下行为：<br/>
+（1）	出于任何欺诈、非法、骚扰或滥用的目的，或为了对Apple零售店或任何其他个人或实体的业务、声誉、员工或顾客造成损害或风险而使用或试图使用无线网络服务；<br/>
+（2）	试图或协助他人对与无线网络服务有关的任何安全组件进行规避、反向工程、反编译、反汇编或以其他方式妨碍该等安全组件的正常运作；<br/>
+（3）	使用无线网络服务发布、传播、发表、传送、链接或陈列任何可能侵犯任一第三方的权利或违反任何可适用的法律法规的内容、信息或材料。<br/>
+如果发生（或Apple零售店有合理理由怀疑可能发生）任何违反前述“使用政策”而使用或试图使用无线网络服务的情形，Apple零售店，除其可能采取的任何其他救济手段外，无论其是否已事先通知相关用户，有权自行决定以任何方式移除、拦截、过滤或限制其认为违反或可能违反前述使用政策的任何材料或信息（包括但不限于电子邮件），和/或停止向违反或潜在违反前述使用政策的用户提供无线网络服务。<br/><br/>
+无保证和责任限制<br/><br/>
+你明确承认并且同意完全自行承担使用无线网络服务的风险。在适用法律允许的最大限度内，你所享受的无线网络服务是根据“现状”及“现有”基础提供，并附带所有瑕疵且不加任何保证。据此，Apple零售店特此否认对无线网络服务做出任何明示、默示或法定的保证和条件。<br/>
+在不被适用法律禁止的范围内，在任何情况下，对于你因使用或无法使用无线网络服务所引起或与此有关的任何人身伤害，以及附带的、特别的、间接的或后果性的损害，包括但不限于利润损失、数据损失、业务中断的损失或任何其它商业损害或损失，无论其成因基于何种责任理论（合同、侵权或其它），即使Apple零售店已被告知发生上述损失或损害的可能性，Apple零售店一律概不负责。如果此处责任限制条款在任何适用法律下被认定无效，Apple零售店的损害赔偿责任应限于法律所允许的最低金额内。<br/><br/>
+一般性条款<br/><br/>
+本条款和条件系Apple零售店和使用无线网络服务的用户之间的最终及全部约定。如果本条款和条件的任何部分被认定为无效或不可执行，应按照相关适用法对这些部分依据最大程度地反映该条款和条件本意的方式进行解释，在此情形下，本条款和条件的其余部分仍应被视为完全有效。Apple零售店未行使本条款和条件下的任何权利并不构成放弃该等权利或本条款和条件下的任何其他权利。<br/>
+在法律允许的范围内，Apple零售店保留如下权利：不论其是否已事先通知相关用户，Apple零售店可随时或不时对关于使用无线网络服务的条款和条件进行更新、修订、补充或其他修改，并且可以施加新的或额外的规定、政策、条款或条件。<br/><br/>
+</prefix>
+        </p>
+        
+        <div   height = "30px;" width ="150px;" > &nbsp;<a href = "#xx" onclick = "javascript:window.opener=null;window.open('','_self');window.close();"  class = "eng2" >< 返回 </a></div>
+  <br />
+   <br />
+    </div>
+    <div style=" width:964px; float:right;">
+    </div>
+</div>
+</center>
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</body>
+</html>

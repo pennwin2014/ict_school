@@ -1,0 +1,94 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+
+<style type="text/css">
+
+body{
+margin:0px;
+padding:0px;
+height:100%;
+width:100%;
+font-family: arial;
+}
+
+		
+		#level_introduce{
+		background:#E0E6F8;
+		height:100%;
+		width:100%;
+		
+		}
+	#photo{
+	
+	width:100%;
+	float:left;
+	text-align:center;
+	}
+	
+	#photo img{
+	width:50%;
+	}
+	
+	#info{
+	margin:5px;
+	line-height:28px;
+	}
+	
+	.title1{
+	position:relative;
+	text-align:center;
+	background:#0088cc;
+	color:#ffffff;
+	font-size:1.2em;
+	font-weight:Bold;
+	border-color:#000000;
+	border-radius:5px;
+	padding-top:5px;
+	padding-bottom:5px;
+	margin-bottom:1px;
+	}
+</style>
+
+<script type="text/javascript">
+
+function load(){
+document.getElementById("uid").value="[#username#]";
+}
+
+</script>
+<body onload="load()">
+
+	<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="uid" name="uid" value="">
+		</form>
+	<div id="detail">
+		
+	<div class="title1">个人信息</div>
+	
+		<div id="level_introduce">
+	<div id="photo"><img src="/images/suning/admin.png"></div>
+	<div id="info">
+	
+	<div>昵称： <font color="blue">[#nickname#]</font></div>
+	<div>会员号： <font color="blue">[#membernum#]</font></div>
+	<div>注册时间： <font color="blue">[#addtime#]</font></div>
+	<div>手机号： <font color="blue">[#username#]</font></div>
+	<div>地址： <font color="blue">[#address#]</font></div>
+	</div>
+	</div>
+		
+	
+	</div>
+</body>
+
+
+</html>
+

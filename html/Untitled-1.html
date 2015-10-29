@@ -1,0 +1,95 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>无标题</title>
+<script type="text/javascript" src="js/ext-all.js"></script>
+<script>
+
+
+var store_write_comment = Ext.create('Ext.data.Store', 
+{
+    id:'store_write_comment',
+    fields: ['record'],
+    proxy: 
+    {
+        type: 'ajax',
+        method : 'POST',
+        url: '/pronline/Msg?FunName@ncmAddTest',
+        reader: 
+        {
+            type:'json',
+            root: 'record'
+        }
+    },
+    sorters: []
+});
+
+
+
+	function PostMsg(){
+		
+		
+		var a = document.getElementById("texta").value;	
+		var b = document.getElementById("textb").value;	
+		var pname = document.getElementById("textc").value;
+		var page = document.getElementById("textd").value;
+		var paddress = document.getElementById("texte").value;
+		store_write_comment.load({
+								params:{
+									firNum:a,
+									secNum:b,
+									pname:pname,
+									page:page,
+									paddress:paddress
+									},
+									callback: function(records, options, success)
+									{
+										alert(success);
+										alert(options.response.responseText);
+										if(success)
+										{ 
+										
+
+		       							for(var i=0;i<records.length;i++)
+		        			{
+		        					alert(records[i].get("Thre"));
+		        			}
+									}
+         
+      }
+		});
+	}
+</script>
+</head>
+<body>
+	
+		<div ><input id="texta" type="text"  /></div>  
+    <div><input  id="textb" type="text"  /></div>
+    <div><p>姓名：</p></div><br/>
+    <div><input  id="textc"  type="text"  /></div> 
+    <div><p>年龄：</p></div><br/>
+    <div><input  id="textd"  type="text"  /></div>
+    <div><p>地址：</p></div><br/>
+    <div><input  id="texte"  type="text"  /></div>
+    <div onclick="PostMsg()" >sdd</div>
+    
+    
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

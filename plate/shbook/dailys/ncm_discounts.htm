@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>展馆当日活动</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	font-family:"微软雅黑";
+}
+.top{ background:url(/images/shanghai_SZ/01-shuzhan_r1_c2.jpg) repeat-x; height:46px; line-height:46px; color:#ffffff; text-align:center; font-size:1.4em; text-indent:-3%;}
+.img_wrap img {
+	width:100%;
+}
+.huodong_wrap {
+	width:92%;
+	margin:0 auto;
+	border-bottom:1px dashed #666;
+}
+.huodong_sj {
+	
+}
+.p1 {
+	color:#9c4b30;
+	
+	
+	font-size:0.8em;
+}
+.p2 {
+	float:right;
+	color:#666;
+	font-size:0.8em;
+}
+.huodong_tit {
+	font-weight:600;
+	font-size:1em;
+	text-indent:2em;
+}
+.huodong_js {
+	color:#666;
+	font-size:0.9em;
+	text-indent:2em;
+}
+.xyy{
+	width:20%;
+	float:right; 
+	margin-right:5%;}
+.img1{
+	width:100%;
+}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+}
+</style>
+<script type="text/javascript">
+function loaddailys(plateName){
+window.location.href="#wrap";
+document.getElementById("FunName").value="ncmDiscounts";
+document.getElementById("plateName").value= plateName;
+document.getElementById("shopid").value="";
+document.getElementById("limit1").value=parseInt(document.getElementById("limit1").value)+10;
+document.getElementById("limit2").value=parseInt(document.getElementById("limit2").value);
+//alert(document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value);
+document.getElementById("form1").submit();
+
+}  
+</script>
+</head>
+
+<body>
+<div class="wrap" id="wrap">
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="logoid" name="logoid" value="">	
+		<input type="hidden" id="detail" name="detail" value="">	
+		<input type="hidden" id="shopid" name="shopid" value="">	
+		<input type="hidden" id="groupid" name="groupid" value="">	
+        <input type="hidden" id="id" name="id" value="">
+		<input type="hidden" id="limit1" name="limit1" value="[#limit1#]">	
+		<input type="hidden" id="limit2" name="limit2" value="[#limit2#]">	
+		<input type="hidden" id="address" name="address" value="">	
+		<input type="hidden" id="url" name="url" value="">	
+		<input type="hidden" name="plateName" id="plateName" value=""/>	
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+		<input type="hidden" name="httphost" id="httphost" value="[#httphost#]"/>	
+        <input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+		</form>
+  <div class="main" >
+	<img class="img1" src="/images/shbook/daily.jpg" onclick="window.open  
+('http://www.xinhuacard.com','')">
+	[#SLPB#]
+    <div class="huodong_wrap">
+      <div style="height:20px; clear:both;"></div>
+      <div class="huodong_sj">
+        <p class="p1">[#limit#]、&nbsp;&nbsp;[#timedesc#]</p>
+        <p style="height:5px; clear:both;"></p>
+        <p class="p2">[#address#]</p>
+      </div>
+      <div style="height:10px; clear:both;"></div>
+      <div class="huodong_tit">[#aname#]</div>
+      <div style="height:10px; clear:both;"></div>
+      <div class="huodong_js">[#guests#]</div>
+	  <div style="height:10px; clear:both;"></div>
+      <div class="huodong_js">[#decript#]</div>
+      <div style="height:10px; clear:both;"></div>
+    
+    </div>
+	[#SLPE#]
+      <div><img src="/images/shanghai_SZ/page.png" class="xyy" onclick="loaddailys('shbook/dailys')"/></div>
+   <!--  <div class="huodong_wrap">
+      <div style="height:20px; clear:both;"></div>
+      <div class="huodong_sj">
+        <p class="p1">2、&nbsp;&nbsp;8月14日-20日</p>
+        <p class="p2">文史中国馆</p>
+      </div>
+      <div style="height:10px; clear:both;"></div>
+      <div class="huodong_tit">苏士澍书法精品展</div>
+      <div style="height:10px; clear:both;"></div>
+      <div class="huodong_js">上海书展办公室、上海图书馆中国名人手稿馆</div>
+      <div style="height:10px; clear:both;"></div>
+    </div>
+    <div class="huodong_wrap">
+      <div style="height:20px; clear:both;"></div>
+      <div class="huodong_sj">
+        <p class="p1">3、&nbsp;&nbsp;8月14日-20日</p>
+        <p class="p2">第二活动区</p>
+      </div>
+      <div style="height:10px; clear:both;"></div>
+      <div class="huodong_tit">纸上落英--中国文化名人藏书票展</div>
+      <div style="height:10px; clear:both;"></div>
+      <div class="huodong_js">上海书展办公室、上海图书馆中国名人手稿馆</div>
+      <div style="height:10px; clear:both;"></div>
+    </div>
+    <div class="huodong_wrap">
+      <div style="height:20px; clear:both;"></div>
+      <div class="huodong_sj">
+        <p class="p1">4、&nbsp;&nbsp;8月14日-20日</p>
+        <p class="p2">文史中国馆</p>
+      </div>
+      <div style="height:10px; clear:both;"></div>
+      <div class="huodong_tit">苏士澍书法精品展</div>
+      <div style="height:10px; clear:both;"></div>
+      <div class="huodong_js">上海书展办公室、上海图书馆中国名人手稿馆</div>
+      <div style="height:10px; clear:both;"></div>
+    </div>
+    <div class="huodong_wrap">
+      <div style="height:20px; clear:both;"></div>
+      <div class="huodong_sj">
+        <p class="p1">5、&nbsp;&nbsp;8月14日-20日</p>
+        <p class="p2">第二活动区</p>
+      </div>
+      <div style="height:10px; clear:both;"></div>
+      <div class="huodong_tit">纸上落英--中国文化名人藏书票展</div>
+      <div style="height:10px; clear:both;"></div>
+      <div class="huodong_js">上海书展办公室、上海图书馆中国名人手稿馆</div>
+      <div style="height:10px; clear:both;"></div>
+    </div>
+    <div class="huodong_wrap">
+      <div style="height:20px; clear:both;"></div>
+      <div class="huodong_sj">
+        <p class="p1">6、&nbsp;&nbsp;8月14日-20日</p>
+        <p class="p2">文史中国馆</p>
+      </div>
+      <div style="height:10px; clear:both;"></div>
+      <div class="huodong_tit">苏士澍书法精品展</div>
+      <div style="height:10px; clear:both;"></div>
+      <div class="huodong_js">上海书展办公室、上海图书馆中国名人手稿馆</div>
+      <div style="height:10px; clear:both;"></div>
+    </div> -->
+     <div style="height:20px; clear:both;"></div>
+  </div>
+</div>
+</body>
+</html>

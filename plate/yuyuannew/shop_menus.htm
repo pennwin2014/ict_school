@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script type="text/javascript" src="/a.js"></script>
+<link href="/css/flexslider.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>
+<title>新豫园</title>
+<link href="/css/video-js.css" rel="stylesheet" type="text/css">
+  <!-- video.js must be in the <head> for older IEs to work. -->
+  <script src="/js/video.js"></script>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	font-family:"微软雅黑";
+}
+.img_1 {
+	width:15.5%;
+	cursor:pointer;
+}
+.img_2 {
+	width:64%;
+}
+.img_3 {
+	width:19.5%;
+	cursor:pointer;
+}
+.chazhao img {
+	width:100%;
+}
+.nr1 img {
+	width:100%;
+}
+.nr2 img {
+	width:25%;
+}
+.foot img {
+	width:50%;
+}
+.log {
+	float:left;
+	width:10%;
+}
+.sousuo {
+	float:left;
+	width:70%;
+	border:1px solid #f60;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	height:24px;
+	font-size:1em;
+	margin-top:10px;
+	margin-left:5px;
+}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+ .sousuo {
+float:left;
+width:70%;
+border:1px solid #f60;
+border-radius: 5px; /* css 3标准 */
+-moz-border-radius: 5px;  /* mozilla */
+-webkit-border-radius: 5px;/*webkit*/
+height:20px;
+margin-top:10px;
+font-size:1em;
+margin-left:5px;
+}
+}
+</style>
+
+
+
+<script type="text/javascript">
+
+var levels = new Array();
+var imgpaths=new Array();
+var shopids=new Array();
+var i=0;
+var max=1;
+function loadInfos(){
+//alert(111);
+[#SLPB#]
+levels[[#iNum#]]="[#level#]";
+shopids[[#iNum#]]="[#shopid#]";
+//imgpaths[[#iNum#]]="[#img#]";
+//document.getElementById('position'+[#iNum#]).src=imgpaths[[#iNum#]];
+if(levels[[#iNum#]]>4 ){
+document.getElementById('position'+[#iNum#]).src='[#img#]';
+}
+[#SLPE#]
+//alert(222)
+//alert("  10 = "+document.getElementById('position10').src);
+//document.getElementById('position10').setAttribute("src", 'target');
+}
+
+function loadShops(number){
+//alert(number);
+parent.document.getElementById("FunName").value = "ncmShops";
+parent.document.getElementById("shopid").value = shopid[number];
+parent.document.getElementById("logoid").value = logoid[number];
+//alert(shopid[number]);
+parent.document.getElementById("form1").submit();
+}
+function createXMLHttpRequest() 
+ {
+     var C=null;
+     if(window.XMLHttpRequest) 
+     { 
+        C = new XMLHttpRequest();
+     }
+     else if (window.ActiveXObject) 
+     { 
+         try {
+               C = new ActiveXObject("Msxml2.XMLHTTP");
+         } 
+         catch (e) 
+         {
+               try 
+               {
+                    C = new ActiveXObject("Microsoft.XMLHTTP");
+               } catch (e) {}
+         }
+      }
+      return C;
+ }
+ 
+ function getxmlbyname(ins,names,namee)
+ {
+    var start;
+    var end;
+    var ret='';
+ 
+    start = ins.indexOf(names);
+    end = ins.indexOf(namee);
+  
+   if(start != -1 && end != -1)
+   {
+      ret=ins.substr(start+names.length,end-start-names.length);
+   }
+   return ret; 
+ }
+
+var statcode= null;
+var errmessage= null;   
+var xmlHttp = false;
+ 
+ function callServer()
+ { 
+   if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+     xmlHttp.abort();
+   }
+   xmlHttp = createXMLHttpRequest();
+   if(xmlHttp)
+   {
+     var web_url = "/pronline/Msg?FunName@ncm_yuyuan_home&plateName@"+document.getElementById("plateName").value+"&tsid@"+document.getElementById("tsid").value+"&update@"+Math.random()*999;
+   
+     xmlHttp.open("GET",web_url, true);
+     xmlHttp.onreadystatechange = updatePage;
+     xmlHttp.send(null);
+   }
+ }
+ 
+ 
+ //处理函数
+ function updatePage()
+ {
+   if (xmlHttp.readyState == 4)
+   {
+      var response = xmlHttp.responseText;
+	//alert(response);
+      var TotRec = getxmlbyname(response,"<TotRec>","</TotRec>");
+      for(i=1;i<=parseInt(TotRec);i++){
+	  	  var level_st_name="<level"+i+">";
+	  	  var level_en_name="</level"+i+">";
+	      var level=getxmlbyname(response,level_st_name,level_en_name);
+		  var img_st_name="<img"+i+">";
+	  	  var img_en_name="</img"+i+">";
+	      var img=getxmlbyname(response,img_st_name,img_en_name);
+		  if(level <= 4 ){
+			if(document.getElementById('imgslider'+level)!=null){
+			document.getElementById('imgslider'+level).src=img;
+			}
+			
+		  }
+		  else{
+			if(document.getElementById('position'+level)!=null){
+				document.getElementById('position'+level).src=img;
+			}
+		//	alert(document.getElementById('position5').src)
+			}
+		
+	  }
+
+   }
+ }
+setInterval(callServer, 3000);
+function labe(){
+		document.getElementById("FunName").value="ncm_portallocmark";
+		document.getElementById("form1").submit();
+
+}
+</script>
+</head>
+<body onload = "loadInfos();e('[#redirecturl#]','[#posturl#]')">
+<input type="hidden" name="rg" id="rg" value="[#getarg#]"/>
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="id" name="id" value="">
+		<input type="hidden" id="uid" name="uid" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+		<input type="hidden" name="plateName" id="plateName" value="yuyuannew"/>	
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>	
+</form>		
+
+<div class="wrap">
+  
+  <!--<div class="top"><img onclick="self.location='nc_login_main.htm'" class="img_1" src="/images/yuyuannew/yuyuan3-02-01_r1_c1.jpg" /><img class="img_2" src="/images/yuyuannew/yuyuan3-02-01_r1_c3.jpg" /><img class="img_3" onclick="self.location='alogin_main.htm'"  src="/images/yuyuannew/yuyuan3-02-01_r1_c4.jpg" /></div>-->
+
+  <div><img class="log" src="/images/yuyuannew/yuyuan3-02-01_r2_c1.jpg" />
+    <input class="sousuo" type="text" />
+    <p style="color:#f60; margin-top:10px; float:left; margin-left:5px;">查找</p>
+	 
+  </div>
+  <div style="height:1px; clear:both;"></div>
+<div class="banner">
+  <section class="slider">
+    <div class="flexslider">
+      <ul class="slides">
+      	[#SLPB#]
+        <li> <img id="imgslider[#iNumslider#]" src="[#imgslider#]" onclick="self.location='/yuyuannew/duanwulegou.htm'"/></li>
+        [#SLPE#]
+        <!--
+        <li> <a href=""><img id="position21" src="/images/shop/boead9gy5j673ouk.jpg" /> </a> </li>
+        <li> <a href=""><img id="position31" src="/images/shop/boead9gy5j673ouk.jpg" /> </a> </li>
+        <li> <a href=""><img id="position41" src="/images/shop/95gduj4rrsm3ltji.jpg" /> </a> </li>
+         -->
+      </ul>
+    </div>
+  </section>
+</div>
+<!--
+  <div class="nr1"><img id="position5" style="cursor:pointer;" onclick="self.location='/yuyuannew/jingqudaoyou.htm'" src="/images/yuyuannew/yuyuan3-04_r4_c1.jpg" />
+  -->
+  <div class="nr1"><img id="position5" style="cursor:pointer;" onclick="self.location.href='/pronline/Msg?FunName@ncmcomromelocation&tsid@[#tsid#]';" src="/images/yuyuannew/yuyuan3-04_r4_c1.jpg" />
+  <img id="position5" style="cursor:pointer;" src="/images/yuyuannew/yuyuan3-04_r5_c1.jpg" />
+  </div>
+  <div class="nr2"><img id="position6" style="cursor:pointer;" onclick="self.location='/yuyuannew/chi.htm'" src="/images/yuyuannew/yuyuan3-04_r6_c1_r1_c1_s1.jpg" /><img id="position7" style="cursor:pointer;" onclick="self.location='/yuyuannew/te.htm'" src="/images/yuyuannew/yuyuan3-04_r6_c1_r1_c2_s1.jpg" /><img id="position8" style="cursor:pointer;" onclick="self.location='/yuyuannew/wen.htm'" src="/images/yuyuannew/yuyuan3-04_r6_c1_r1_c3_s1.jpg" /><img id="position9" style="cursor:pointer;" onclick="self.location='/yuyuannew/hu.htm'" src="/images/yuyuannew/yuyuan3-04_r6_c1_r1_c4_s1.jpg" /></div>
+  <div style="display:none"><img id="position10" src="/images/yuyuannew/yuyuan3-04_r7_c1.jpg" /></div>
+  <div id="video1"> 
+ <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="100%"
+      poster="/images/yuyuannew/yuyuan3-04_r7_c1.jpg"
+      data-setup="{}">
+  
+	<source src="/videos/yuyuannew/yuyuannew.mp4" type='video/mp4' />
+    <track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+    <track kind="subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+  </video>
+</div>
+  <div class="nr1"><img src="/images/yuyuannew/yuyuan3-04_r8_c1.jpg" /></div>
+  <div class="nr1"><img  id="position11" style="cursor:pointer;" onclick="self.location='/yuyuannew/dingcanfuwu.htm'" src="/images/yuyuannew/yuyuan3-04_r9_c1.jpg" /></div>
+  <div class="foot"><img id="position12" style="cursor:pointer;" onclick="self.location='/yuyuannew/weixin.htm'" src="/images/yuyuannew/yuyuan3-04_r10_c1.jpg" /><img id="position13" style="cursor:pointer;" onclick="self.location='/yuyuannew/fuwubangzhu.htm'" src="/images/yuyuannew/yuyuan3-04_r10_c2.jpg" /></div>
+</div>
+ <div style="margin:10px;">&nbsp;</div>
+ <center><a href="javascript:labe();">标签管理</a></center>
+</body>
+</html>

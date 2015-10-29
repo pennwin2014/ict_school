@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>IndexInfo</title>
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" />
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+<script type="text/css">
+	body{font-family:"微软雅黑"}
+</script>
+
+<script type="text/javascript">
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*'
+]);
+
+//var usrname = '';
+var required = '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
+
+function gotoedit1(){
+		var	htmlvar = '<iframe  id="lay_rzck_urllog" name="lay_rzck_urllog" src="/v8/ncm_systems_tree_autopri2.htm" scrolling="no" width=100% height=335 FrameBorder=0 ></iframe>' ;
+		var	winhelp =  new Ext.Window ({
+		                       id:"winhelp",
+		                       title:"单位窗口",
+		                       width:350,
+		                       height:375,
+		                       maximizable:true,
+		                       bodyPadding: 0,
+		                       autoScroll:true,
+													 //headerPosition: 'bottom',
+		                       resizable:true,
+		                       closable :true,
+		                       draggable:true,
+		                       html:htmlvar
+		})
+		winhelp.show();
+}
+
+/*function gotoedit2(value){
+	  var htmlvarmac='<iframe name="macIframe" src="/pronline/Msg?FunName@ncm_webusermac_list&username@'+value+' " scrolling="no" frameborder="no" style="width:100%; height:460;"></iframe>';
+	  var windr3 = new Ext.Window ({
+           title:"MAC信息",
+           width:400,
+		       height:500,
+           maximizable:true,
+           bodyPadding: 0,
+           autoScroll:true,
+					 //headerPosition: 'bottom',
+           resizable:true,
+           closable :true,
+           draggable:true,
+           html:htmlvarmac                  
+    })
+	  windr3.show();
+}*/
+	
+	Ext.define('groupData', {
+        extend: 'Ext.data.Model',
+        fields: ['groupid', 'groupname', 'dispname', 'moditime', 'flags', 'provid', 'cityid', 'areaid', 'areaname', 's_flags', 'count']
+    });
+
+
+	var store_group = Ext.create('Ext.data.Store', {
+        model: 'groupData',
+        pageSize: 10000,
+	  	  autoLoad:true,
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@ncm_websrvgroup_list',
+            reader: {
+                type:'json',
+                root:'eimdata',
+	  	 				  totalProperty:'totalCount'	             
+            },         
+            simpleSortMode: true
+        }
+    }); 
+		
+Ext.onReady(function(){
+    
+    var store_usertype = Ext.create('Ext.data.Store', {
+	  	 fields:['groupid', 'groupname'],
+	  	 data:[
+	  	 		{groupid:"0", groupname:"固定用户"},
+	        {groupid:"1", groupname:"短消息"},
+	        {groupid:"2", groupname:"QQ"},
+	        {groupid:"3", groupname:"微信"}
+	  	 ]
+	  });
+    
+    var store_flags = Ext.create('Ext.data.Store', {
+	  	 fields:['groupid', 'groupname'],
+	  	 data:[
+	  	 		{groupid:"0", groupname:"在职"},
+	        {groupid:"9", groupname:"离司"}
+	  	 ]
+	  });
+
+		var form1 = Ext.create('Ext.FormPanel', {
+				frame:false,
+				border:false,
+				baseCls:"x-plain",
+				bodyPadding:10,
+				renderTo:'grid-corp',
+				defaultType:'textfield', //设置表单字段的默认类型  
+				fieldDefaults:{ //统一设置表单字段默认属性
+						labelSeparator:':', //分隔符
+						labelWidth:100, //标签宽度
+						width:350, //字段宽度
+						msgTarget:'side'
+				},
+				layout:{pack:'center'},
+				items:[{
+						xtype:'textfield',
+						fieldLabel:'增/改',
+						id:'key',
+						name:'key',
+						hidden:true,
+						value:'[#key#]',
+						listeners:{
+	        	    afterrender:function(){
+	        	    	  if(this.value == 'add'){
+	        	    	  		//Ext.getCmp('sexpdate').setVisible(false);
+	        	    	  		//Ext.getCmp('sexptime').setVisible(false);
+	        	    	  		Ext.getCmp('addtime').setVisible(false);
+	        	    	  		Ext.getCmp('usrname').setReadOnly(false);	
+	        	    	  }else{
+	        	    	  		//Ext.getCmp('sexpdate').setVisible(true);
+	        	    	  		//Ext.getCmp('sexptime').setVisible(true);
+	        	    	  		Ext.getCmp('addtime').setVisible(true);
+	        	    	  		Ext.getCmp('usrname').setReadOnly(true);
+	        	    	  }
+	        	    }
+			      }		
+				},{
+						xtype:'textfield',
+						fieldLabel:'序号',
+						id:'userid',
+						name:'userid',
+						hidden:true,
+						value:'[#userid#]'		
+				},{
+            fieldLabel:'登录名',
+            xtype: 'textfield',
+						emptyText:'请输入登录名',
+						value:'[#usrname#]',
+						id:'usrname',
+            name:'usrname',
+            afterLabelTextTpl: required,
+		        allowBlank:false, //是否允许为空
+		        blankText:'登录名不能为空！',	
+				    msgTarget:'qtip' //显示一个浮动的提示信息
+        },{
+            fieldLabel:'显示名',
+            xtype: 'textfield',
+				    value:'[#dispname#]',
+				    id:'dispname',
+            name:'dispname'
+        }
+ /*	       
+        ,{
+        		fieldLabel:'单位编码',
+          	xtype: 'textfield',
+          	hidden: true,
+          	value:'[#groupcode#]',
+          	id:'groupcode',
+          	name:'groupcode',
+          	emptyText:'',
+		    		allowBlank:true //是否允许为空
+				}
+			
+				,{
+        	  fieldLabel:'单位名称',
+          	xtype: 'textfield',
+          	hidden: false,
+          	value:'[#groupcodename#]',
+          	id:'groupcodename',
+          	name:'groupcodename',
+          	emptyText:'',
+		        allowBlank:true //是否允许为空
+			 	}
+			 	*/
+			 	,{
+        		 xtype:'combo',
+          id:'groupcodename',
+						name:'groupcode',
+						fieldLabel:'单位名称',
+						value:'[#groupcode#]',
+					triggerAction:'all',
+						store:store_group,
+						displayField:'dispname',
+						valueField:'groupname',
+						queryMode:'local',
+						forceSelection:false,
+	//					typeAhead:true,
+	//					afterLabelTextTpl: required,
+		        allowBlank:false, //是否允许为空
+		        blankText:'单位不能为空！',	
+				    msgTarget:'qtip' //显示一个浮动的提示信息 
+ 				},{
+            fieldLabel:'SSID',
+            xtype: 'textfield',
+				    value:'[#ssid#]',
+				    id:'ssid',
+            name:'ssid',
+  //          afterLabelTextTpl: required,
+		        allowBlank:true, //是否允许为空
+		        blankText:'密码不能为空！',	
+				    msgTarget:'qtip' //显示一个浮动的提示信息
+        },{
+            fieldLabel:'Portal名称',
+            xtype: 'textfield',
+				    value:'[#proname#]',
+				    id:'proname',
+            name:'proname'
+        },{
+            fieldLabel:'会员号',
+            xtype: 'textfield',
+				    value:'[#openid#]',
+				    hidden:false,
+				    id:'openid',
+            name:'openid'
+        },{
+            fieldLabel:'最大MAC绑定数量',
+            xtype: 'textfield',
+						value:'[#maxbindmac#]',
+						id:'maxbindmac',
+            name:'maxbindmac'
+        },/*{
+            fieldLabel:'MAC地址',
+            xtype: 'textfield',
+						value:'[#usermac#]',
+						id:'usermac',
+            name:'usermac'
+        },{
+        		text:'MAC信息',
+          	xtype: 'button',
+          	hidden: false,
+          	style:'margin-left:105px;margin-bottom:7px;',
+		    		allowBlank:true, //是否允许为空
+						handler: function() {
+						 		gotoedit2(usrname);
+						}
+ 				},{
+            fieldLabel:'MAC加载说明',
+            xtype:'displayfield',
+            name:'mac',
+            value:'若MAC地址有多个，在相邻两个之间加"|"。'
+        },*/{
+            fieldLabel:'密码',
+            xtype: 'textfield',
+            inputType:'password', //设置输入类型为password 
+						emptyText:'请输入密码',
+						value:'[#password#]',
+						id:'password',
+            name:'password',
+   //         afterLabelTextTpl: required,
+		        allowBlank:true, //是否允许为空
+		        blankText:'密码不能为空！',	
+				    msgTarget:'qtip' //显示一个浮动的提示信息
+        },{
+            fieldLabel:'标签',
+            xtype: 'textfield',
+						value:'[#mark#]',
+						id:'mark',
+            name:'mark'
+        },{
+            fieldLabel:'加入时间',
+            xtype: 'textfield',
+						value:'[#addtime#]',
+						hidden:true,
+						id:'addtime',
+						readOnly:true,
+            name:'addtime'
+        },{
+            fieldLabel:'最后访问时间',
+            xtype: 'textfield',
+						value:'[#lasttime#]',
+						hidden:true,
+						id:'lasstime',
+            name:'lasttime'
+        },{
+        	  fieldLabel:'MAC有效日期',
+          	xtype: 'datefield',
+          	format: "Y/m/d",
+          	value:'[#sexpdate#]',
+          	id:'sexpdate',
+          	name:'sexpdate',
+          	hidden:true,
+		        allowBlank:true //是否允许为空
+        },{
+        	  fieldLabel:'MAC有效时间',
+        	  xtype:'timefield',
+          	value:'[#sexptime#]',
+          	id:'sexptime',
+          	name:'sexptime',
+          	hidden:true,
+          	labelSeparator:':', //分隔符
+						msgTarget:'side', //在字段的右边显示一个提示信息  
+						autoFitErrors:true, //展示错误信息时是否自动调整字段组件宽度
+						maxValue:'23:59:59', //最大时间
+						maxText:'时间应小于{0}', //大于最大时间的提示信息
+						minValue:'00:00:00', //最小时间  
+						minText:'时间应大于{0}', //小于最小时间的提示信息
+						pickerMaxHeight:200, //下拉列表的最大高度
+						increment:1, //时间间隔为60分钟 
+						format: "H:i:s",
+						invalidText:'时间格式无效',
+		        allowBlank:true //是否允许为空
+        },{
+            xtype:'combo',
+            id:'usertype',
+						name:'usertype',
+						fieldLabel:'类别',
+						value:'[#usertype#]',
+						triggerAction:'all',
+						store:store_usertype,
+						displayField:'groupname',
+						valueField:'groupid',
+						queryMode:'local',
+						forceSelection:false,
+						typeAhead:true,
+						afterLabelTextTpl: required,
+		        allowBlank:false, //是否允许为空
+		        blankText:'类别不能为空！',	
+				    msgTarget:'qtip' //显示一个浮动的提示信息 
+        },{
+            xtype:'combo',
+            id:'flags',
+						name:'flags',
+						fieldLabel:'标记',
+						value:'[#flags#]',
+						triggerAction:'all',
+						store:store_flags,
+						displayField:'groupname',
+						valueField:'groupid',
+						queryMode:'local',
+						forceSelection:false,
+						typeAhead:true,
+						afterLabelTextTpl: required,
+		        allowBlank:false, //是否允许为空
+		        blankText:'标记不能为空！',	
+				    msgTarget:'qtip' //显示一个浮动的提示信息 
+        }],
+				buttons:[{
+					  text:'确定',
+            handler: function() {
+	             form1.form.doAction('submit',{
+			             url:'/pronline/Msg',
+			             method:'post',
+			             params:{FunName:'ncmWebShowUserMan'},
+			             success:function(form,action){
+			             	  if(action.result.msg != ''){
+			             	  		alert(action.result.msg);	
+			             	  }else{
+			             	  		winclose();
+			             	  }
+			             }
+	             })
+            }
+				},{
+					  text:'取消',
+					  handler:function(){
+					  		winclose();
+					  }
+				}]
+		});
+});
+
+function winclose(){
+    var win = parent.Ext.getCmp('windr');
+		if (win) {
+			win.close();
+		}
+}
+
+</script>	
+</head>
+<body bgcolor="#DEE8FA">
+<div id="grid-corp"></div>
+</body>
+</html>

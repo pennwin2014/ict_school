@@ -1,0 +1,466 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>IndexInfo</title>
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" />
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+<script type="text/css">
+	body{font-family:"微软雅黑"}
+	.accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+</script>
+
+<script type="text/javascript">
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*'
+]);
+
+function gotoedit2(pos, size){
+		var htmlvar='<iframe src="/pronline/Msg?FunName@ncmWebReplace&plate@ncmshop/ncm_webcomindex_dr_img.htm&pos@'+pos+'&size@'+size+' " scrolling="no" name="drIframe" frameborder="no" style="width:100%;height:100%;"></iframe>';      
+    var windr2 = new Ext.Window ({
+                           id:"windr2",
+                           title:"上传图片",
+                           x:0,
+                           y:0,
+                           width:400,
+                           height:100,
+                           bodyPadding: 0,
+                           modal:true,
+													 //headerPosition: 'bottom',
+                           resizable:true,
+                           closable :true,
+                           draggable:true,
+                           html:htmlvar
+    })
+	  windr2.show();
+}
+
+Ext.onReady(function(){
+	  Ext.define('TypeData', {
+        extend: 'Ext.data.Model',
+        fields: ['iNum', 'sid', 'name', 'groupname', 'descr', 'systime', 'imgpath', 'flags']
+        //idProperty: 'uid'
+    });
+	  var store_type = Ext.create('Ext.data.Store', {
+	  	 model:'TypeData',
+	  	 pageSize: 10000,
+	  	 autoLoad:true,
+	  	 proxy:{
+	  	 		type:'ajax',
+	  	 		url:'/pronline/Msg?FunName@ncm_webcomtype_list',
+	  	 		reader:{
+	  	 				type:'json',
+	  	 				root:'eimdata',
+	  	 				totalProperty:'totalCount'	
+	  	 		},
+	  	 		simplleSortMode:true	
+	  	 }
+	  });
+	
+	  var typeCombo = Ext.create('Ext.form.field.ComboBox', {
+	  	 fieldLabel:'商品小类名称',
+	  	 labelWidth:100,
+	  	 width:300,
+	  	 valueField:'sid',
+	  	 value:'[#typeid#]',
+	  	 displayField:'name',
+	  	 id:'tyid',
+	  	 name:'tyid',
+	  	 allowBlank:false,
+	  	 store:store_type,
+	  	 triggerAction:'all',
+	  	 queryMode:'local',
+	  	 typeAhead:true,
+	  	 listeners:{
+	  	 		'change':function(){
+	  	 				document.getElementById('form1').typeid.value = this.value;
+	  	 		}	
+	  	 },
+	  	 listConfig:{
+	  	 		loadingText:'Searching...',
+	  	 		emptyText:'No matching found.'	
+	  	 }
+	  });
+	  
+	  Ext.define('ShopData', {
+        extend: 'Ext.data.Model',
+        fields: ['iNum', 'id', 'name', 'service_code', 'sgroupid', 'imgpath', 'floor', 'url', 'code', 'tel', 'address', 'level', 'plevel', 'type', 'stype', 'descr', 'detail', 'systime', 'flags']
+        //idProperty: 'uid'
+    });
+	  var store_shop = Ext.create('Ext.data.Store', {
+	  	 model:'ShopData',
+	  	 pageSize: 10000,
+	  	 autoLoad:true,
+	  	 proxy:{
+	  	 		type:'ajax',
+	  	 		url:'/pronline/Msg?FunName@ncm_webcomshop_list',
+	  	 		reader:{
+	  	 				type:'json',
+	  	 				root:'eimdata',
+	  	 				totalProperty:'totalCount'	
+	  	 		},
+	  	 		simplleSortMode:true	
+	  	 }
+	  });
+	  var shopCombo = Ext.create('Ext.form.field.ComboBox', {
+	  	 fieldLabel:'商店名称',
+	  	 labelWidth:100,
+	  	 width:300,
+	  	 valueField:'id',
+	  	 value:'[#shopid#]',
+	  	 displayField:'name',
+	  	 id:'shid',
+	  	 name:'shid',
+	  	 allowBlank:false,
+	  	 store:store_shop,
+	  	 triggerAction:'all',
+	  	 queryMode:'local',
+	  	 typeAhead:true,
+	  	 listeners:	{
+	  	 		'change':function(){
+	  	 			 document.getElementById('form1').shopid.value = this.value;
+	  	 		}	
+	  	 },
+	  	 listConfig:{
+	  	 		loadingText:'Searching...',
+	  	 		emptyText:'No matching found.'	
+	  	 }
+	  });
+	  
+	  var store_type1 = Ext.create('Ext.data.Store', {
+	  	 fields:['groupid', 'groupname'],
+	  	 data:[
+	  	 		{groupid:"1", groupname:"广告"},
+	        {groupid:"2", groupname:"品牌"},
+	        {groupid:"3", groupname:"促销"},
+	        {groupid:"4", groupname:"视频"}
+	  	 ]
+	  });
+	  
+		var fp = Ext.create('Ext.FormPanel', {
+			  id:'form2',
+				frame:true,
+				width:378,
+	      height:713,
+				bodyPadding:10,
+				defaultType:'textfield', //设置表单字段的默认类型  
+				fieldDefaults:{ //统一设置表单字段默认属性
+						labelSeparator:':', //分隔符
+						labelWidth:100, //标签宽度
+						width:300, //字段宽度
+						msgTarget:'side'
+				},
+				items:[{
+						xtype:'fieldset',
+						width:350,
+						title:'基本信息',
+						items:[{
+								xtype:'textfield',
+								fieldLabel:'增/改',
+								id:'key',
+								name:'key',
+								hidden:true,
+								value:'[#key#]'		
+						},{
+								xtype:'textfield',
+								fieldLabel:'序号',
+								id:'sid',
+								name:'sid',
+								hidden:true,
+								value:'[#sid#]'		
+						},{
+								xtype:'textfield',
+								fieldLabel:'商标名称',
+								id:'name',
+								name:'name',
+								value:'[#name#]'		
+						},{
+								xtype:'textfield',
+								fieldLabel:'商标序列号',
+								id:'serno',
+								name:'serno',
+								value:'[#serno#]'		
+						},
+						typeCombo,
+						shopCombo,
+						{
+								xtype:'textfield',
+								fieldLabel:'楼层',
+								id:'floor',
+								name:'floor',
+								hidden:true,
+								value:'[#floor#]'		
+						},{
+								xtype:'numberfield',
+								fieldLabel:'广告优先级',
+								id:'level',
+								name:'level',
+								value:'[#level#]',
+								hidden:true,
+								hideTrigger:false, //隐藏微调按钮
+		        		allowDecimals:false, //不允许输入小数
+		        		maxValue:100, //最大值
+		        		minvalue:0, //最小值
+		        		nanText:'请输入有效范围内的整数' //无效数字提示	
+						},{
+								xtype:'numberfield',
+								fieldLabel:'促销优先级',
+								id:'plevel',
+								name:'plevel',
+								value:'[#plevel#]',
+								hidden:true,
+								hideTrigger:false, //隐藏微调按钮
+		        		allowDecimals:false, //不允许输入小数
+		        		maxValue:100, //最大值
+		        		minvalue:0, //最小值
+		        		nanText:'请输入有效范围内的整数' //无效数字提示	
+						},{
+								xtype:'combobox',
+								fieldLabel:'活动类型',
+		      		  id:'type',
+		      		  name:'type',
+		      		  value:'[#type#]',
+		      		  hidden:false,
+		      		  triggerAction:'all',
+		      		  store:store_type1,
+		      		  displayField:'groupname',
+		      		  valueField:'groupid',
+		      		  queryMode:'local',
+		      		  forceSelection:true,
+		      		  typeAhead:true,
+		      		  allowBlank:true	
+						},{
+								xtype:'textfield',
+								fieldLabel:'模板',
+								id:'plateid',
+								name:'plateid',
+								hidden:true,
+								value:'[#plateid#]'		
+						},{
+								xtype:'textarea',
+								fieldLabel:'描述',
+								id:'descr',
+								name:'descr',
+								value:'[#descr#]'
+						}]	
+				}]
+		});
+		
+		var panel = Ext.create('Ext.panel.Panel', {
+        margins: '0 0 0 0',
+        renderTo: 'grid-corp',
+        frame: true,
+        layout: 'hbox',
+        items:[{
+        	  layout: 'vbox',
+	       		width:400,
+	       		height:713,
+	       		items:[{
+	       			layout: 'hbox',
+	       			width:400,
+	       			height:150,
+	       			items:[{
+	       				xtype:'image',
+	       				width:400,
+	       				height:150,
+	       				id: "ads1",
+	       				src: "/images/ShopImages/indeximages/01.jpg",
+	       				listeners:{       			
+		         				el:{ 
+												click:function(){ 																			
+													gotoedit2(1, "400 X 260");					
+		         						}
+		         				}
+		         		}
+	       			}]
+	       		},{
+	       			layout:"hbox",
+	       			width:400,
+	       			height:100,
+	       			items:[{
+	     					xtype: 'image',
+	     					width:133,
+	       				height:100,
+	     					id: "ads2",
+	     					src: "/images/ShopImages/indeximages/01.jpg",
+	     					listeners:{       			
+			         				el:{ 
+													click:function(){ 																			
+														gotoedit2(2, "600 X 350");					
+			         						}
+			         				}
+		         		}
+	       			},{
+	     					xtype: 'image',
+	     					width:133,
+	       				height:100,
+	     					id: "ads3",
+	     					src: "/images/ShopImages/indeximages/01.jpg",
+	       				listeners:{       			
+			         				el:{ 
+													click:function(){ 																			
+														gotoedit2(3, "600 X 350");					
+			         						}
+			         				}
+		         		}
+	       			},{
+	     					xtype: 'image',
+	     					width:133,
+	       				height:100,
+	     					id: "ads4",
+	     					src: "/images/ShopImages/indeximages/01.jpg",
+	       				listeners:{       			
+			         				el:{ 
+													click:function(){ 																			
+														gotoedit2(4, "600 X 350");					
+			         						}
+			         				}
+		         		}
+	       			}]
+	       		},{
+	       			layout:"hbox",
+	       			width:400,
+	       			height:100,
+	       			items:[{
+	     					xtype: 'image',
+	     					width:133,
+	       				height:100,
+	     					id: "ads5",
+	     					src: "/images/ShopImages/indeximages/01.jpg",
+	     					listeners:{       			
+			         				el:{ 
+													click:function(){ 																			
+														gotoedit2(5, "600 X 350");					
+			         						}
+			         				}
+		         		}
+	       			},{
+	     					xtype: 'image',
+	     					width:133,
+	       				height:100,
+	     					id: "ads6",
+	     					src: "/images/ShopImages/indeximages/01.jpg",
+	       				listeners:{       			
+			         				el:{ 
+													click:function(){ 																			
+														gotoedit2(6, "600 X 350");					
+			         						}
+			         				}
+		         		}
+	       			},{
+	     					xtype: 'image',
+	     					width:133,
+	       				height:100,
+	     					id: "ads7",
+	     					src: "/images/ShopImages/indeximages/01.jpg",
+	       				listeners:{       			
+			         				el:{ 
+													click:function(){ 																			
+														gotoedit2(7, "600 X 350");					
+			         						}
+			         				}
+		         		}
+	       			}]
+	       		},{
+	       			layout:"hbox",
+	       			width:400,
+	       			height:120,
+	       			items:[{
+		     					xtype: 'image',
+		     					width:400,
+		     					height:120,
+		     					id: "ads8",
+		     					src: "/images/ShopImages/indeximages/01.jpg",
+		       				listeners:{       			
+				         				el:{ 
+														click:function(){ 																			
+															gotoedit2(8, "150 X 150");					
+				         						}
+				         				}
+			         		}
+	       			}]
+            },{
+		     			layout:"hbox",
+	       			width:400,
+	       			height:120,
+	       			items:[{
+		     					xtype: 'image',
+		     					width:400,
+		     					height:120,
+		     					id: "ads9",
+		     					src: "/images/ShopImages/indeximages/01.jpg",
+		       				listeners:{       			
+				         				el:{ 
+														click:function(){ 																			
+															gotoedit2(9, "150 X 150");					
+				         						}
+				         				}
+			         		}
+	       			}]
+            },{
+	     				layout:"hbox",
+	       			width:400,
+	       			height:120,
+	       			items:[{
+		     					xtype: 'image',
+		     					width:400,
+		     					height:120,
+		     					id: "ads10",
+		     					src: "/images/ShopImages/indeximages/01.jpg",
+		       				listeners:{       			
+				         				el:{ 
+														click:function(){ 																			
+															gotoedit2(10, "150 X 150");					
+				         						}
+				         				}
+			         		}
+	       			}]
+	       		}]
+        },fp]
+		});
+});
+
+function winclose(){
+    var win = parent.Ext.getCmp('windr');
+		if (win) {
+			win.close();
+		}
+}
+
+function init(){
+	if([#flag#]){
+		Ext.getCmp('ads[#level#]').setSrc("[#imgpath#]");
+  }
+}
+
+</script>	
+</head>
+<body bgcolor="#DEE8FA" onload="init();">
+<form action="/pronline/Msg" name="form1" id="form1">
+<input name="FunName" type="hidden" value="ncm_webcomindex_update_list">
+<input name="filepath" type='hidden' id="filepath" value="[#imgpath#]">
+<input name="typeid" type='hidden' id="typeid" value="[#typeid#]">
+<input name="shopid" type='hidden' id="shopid" value="[#shopid#]">
+
+<div id="grid-corp"></div>
+
+<div style=" text-align:center;height:70px; line-height:70px;">
+	<input name="ok" type="submit" class="an3" style="height:30px; width:40px;" id="ok2" value="确 认">
+  &nbsp;&nbsp;&nbsp;&nbsp; 
+  <input name="return" type="button" onClick="winclose();" class="an3" style="height:30px; width:40px;" value="关闭">	
+</div>
+</form>
+</body>
+</html>

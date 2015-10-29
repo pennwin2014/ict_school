@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>无标题文档</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	font-family:"微软雅黑";
+	position:relative;
+}
+.bg {
+	width:100%;
+}
+.main {
+	position:absolute;
+	top:28%;
+	width:84%;
+	left:3%;
+	background:url(/images/jianye/img.png) repeat;
+	padding:5%;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	
+}
+.name_wrap{ color:#0d5993; float:left; font-size:0.8em; width:40%; text-align:right; height:24px; line-height:24px;}
+.pass_wrap{ color:#0d5993; float:left; font-size:0.8em; width:40%; text-align:right; height:24px; line-height:24px;}
+.username{ float:left; width:50%; margin-left:5%; height:24px; line-height:24px; text-indent:5px; font-size:1em;}
+.password{ float:left; width:50%; margin-left:5%; height:24px; line-height:24px; text-indent:5px; font-size:1em;}
+.hq_wrap{font-size:0.8em; color:#0d5993;}
+.btn_hq{margin-top:30px;background:#0b5a95; color:#fff; cursor:pointer; height:24px; line-height:24px; width:40%; border:none;
+background:-webkit-gradient(linear,left top,left bottom, color-stop(0,#0b5a95),color-stop(1,#0b5a95));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr="#0b5a95",EndColorStr="#0b5a95");/*IE浏览器渐变*/
+background:-moz-linear-gradient(center top,#0b5a95 10%,#0b5a95 100%);/*火狐内核渐变*/}
+.btn_ok{background:#0b5a95;margin-left:15%; color:#fff; cursor:pointer; height:24px; line-height:24px; width:40%; border:none;
+background:-webkit-gradient(linear,left top,left bottom, color-stop(0,#0b5a95),color-stop(1,#0b5a95));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr="#0b5a95",EndColorStr="#0b5a95");/*IE浏览器渐变*/
+background:-moz-linear-gradient(center top,#0b5a95 10%,#0b5a95 100%);/*火狐内核渐变*/}
+.tishi {
+	position:absolute;
+	top:65%;
+	width:90%;
+	left:3%;
+	background:url(/images/ganghui/img.png) repeat;
+	padding:2%;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	font-size:0.8em;
+	color:#0d5993;
+}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+}
+</style>
+<script type="text/javascript">
+	function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp;
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";
+	}
+var p_flag = '1';
+	
+	function restore(){
+		document.getElementById("gpss").disabled = "";
+		p_flag='1';	
+	}
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+var i = 59;
+function fun() {
+       	 if (i == 0) {
+			 document.getElementById("gpss").value="获取密码";
+             clearInterval(intervalid);
+			 i=59;
+         }
+		 else{
+         document.getElementById("gpss").value = i;
+		
+         i--;
+		 }
+}
+function getpasswd(){
+		if(p_flag=='0') return false;	
+		if(document.getElementById("nclogin").username.value==''||document.getElementById("nclogin").username.value=='手机号'){
+		    alert('请输入用户名');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&tsid@[#tsid#]&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&tsid@"+document.getElementById("tsid").value;
+
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		 document.getElementById("gpss").value= "已发送";
+	   intervalid= setInterval("fun()", 1000);//写在document.getElementById("gpss").disabled="true";的后面
+
+		p_flag='0';
+        setTimeout('restore()',60000);
+		return false;
+	}
+	
+	var mz;
+	function xianshi(){
+	mz=1;
+	document.getElementById("password").style.width="100%";
+	document.getElementById("bo").style.display="block";
+	document.getElementById("ok1").style.display="none";
+	document.getElementById("ok2").style.display="block";
+	
+	}
+	
+	function spylogin()
+	{
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="手机号"||document.getElementById("password").value==""||document.getElementById("password").value=="密码") 
+		{
+		    window.alert("用户名或密码不能为空!");
+			  return false;
+		}
+		/*if(document.getElementById("radio1").checked!=1)
+		{
+			window.alert("请确认接受免责声明！");			
+			return false;
+		}*/
+    document.getElementById("nclogin").submit();
+		/*var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}*/
+		
+    return true;
+	}
+	function mr(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").style.color="#aaa";
+		}
+		if(document.getElementById("password").value="密码"){
+			 document.getElementById("password").style.color="#aaa";
+		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+  	function init()
+	{
+		//alert('[#statusCode#]');
+		if('[#statusCode#]' == '2')
+		{
+			/*document.getElementById('err5').innerHTML = '账号与SSID不匹配。';*/
+			alert('账号与SSID不匹配');
+		}	
+		if('[#statusCode#]' == '3')
+		{
+			/*document.getElementById('err5').innerHTML = '用户账号已过期。';*/
+			alert('用户账号已过期');
+		}	
+		if('[#statusCode#]' == '4')
+		{
+			/*document.getElementById('err5').innerHTML = '您登录的账号在黑名单中。';*/
+			alert('您登录的账号在黑名单中');
+		}	
+		if('[#statusCode#]' == '5')
+		{
+			/*document.getElementById('err5').innerHTML = '请输入正确的密码。';*/
+			alert('请输入正确的密码');
+		}	
+		if('[#statusCode#]' == '6')
+		{
+			/*document.getElementById('err5').innerHTML = '该用户不存在。';*/
+			alert('该用户不存在');
+		}	
+    if('[#statusCode#]' == '7')
+		{
+			/*document.getElementById('err5').innerHTML = '超出Mac最大绑定数量。';*/
+			alert('超出Mac最大绑定数量');
+		}	
+}
+
+function changlogin(flag){
+        self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+
+</script>
+</head>
+
+<body onload="init();">
+<div class="wrap">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+  <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+  [#postarg#]
+ <img class="bg" src="/images/jianye/image03.jpg" />
+  <div class="main">
+    <div style="width:100%;font-weight:bold; color:#0d5993;text-align:center;">用户登录</div>
+    <div style="height:30px; clear:both;"></div>
+    <div>
+      <div class="name_wrap">用户名(Username):</div>
+      <input type="text" class="username" id="username" name="username"  />
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <div class="pass_wrap">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码(Password):</div>
+      <input type="password" class="password" id="password" name="password" />
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div class="hq_wrap">
+      <input type="button" value="获取密码" class="btn_hq" id="gpss" onClick="getpasswd();"/>
+     
+    
+      <input type="button" value="登录" class="btn_ok" onClick="return spylogin();"/>
+    </div>
+    </div>
+	
+  </div>
+  <!--div class="tishi">
+    <p>注：当账号为手机号码时，可在用户名栏输入手机号码，点击获取密码，获取密码短信！</p>
+    <p>Remark:Enter mobile phone number in "user name" when the account is your mobile phone number.Click "Access Password" to regain your password through SMS.</p>
+  </div-->
+  <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<html>
+<head>
+<title>ԃ»§ҩ֤</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312"> <!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>˖»�</title>-->
+<style type="text/css">
+*{
+	margin:0;
+	padding:0;
+	font-size:16px;
+}
+#main{
+	width:480px;
+	height:518px;
+	margin:0 auto;
+}
+/*img{
+	float:left;
+}*/
+#header{
+	width:480px;
+	height:62px;
+	background-image:url(../../images/applesms/sms4_01.jpg);
+	position:relative;
+}
+.header_ul li{
+			 list-style:none;
+			 float:left;
+			 display:block;
+			 height:31px;
+			 line-height:31px;
+			 font-family:'ºی㥠'̎ͥ';
+			 font-size:16px;	
+   }
+   .china{
+	   width:53px;
+	   position:absolute;
+	   top:31px;
+	   left:330px;
+   }
+   .eng{
+	   width:80px;
+	   position:absolute;
+	   top:31px;
+	   left:383px;
+	   color:#06F;
+   }
+   #login_area{
+	   width:480px;
+	   height:518px;
+	   background-image:url(../../images/applesms/sms4_03.png);
+	   position:relative;
+   }
+   input{
+	   border:0;
+   }
+   #explain{
+	   position:absolute;
+	   top:150px;
+	   left:85px;
+	   text-decoration:none;
+	   color:red;
+   }
+   #username{
+	   position:absolute;
+	   top:110px;
+	   left:85px;
+	   
+   }
+   .input_div{
+	    height:32px;
+		width:160px; 
+		border: 1px solid #B4B4B4;
+		line-height:32px;
+		background-color:#FFF;
+		border:0;
+   }
+  
+   .getpasswd{ 
+         height: 32px; 
+		 line-height:32px;
+		 width: 180px;
+		 background-image:url(../../images/applepc/but02.gif);
+		 border:0;
+		 cursor:pointer;
+		 position:absolute;
+	     top:110px;
+	     left:270px;
+	 }
+	 .disclaime{  
+		background-image:url(../../images/applepc/contract.gif);
+        height: 32px; 
+		width: 221px;
+		position:absolute;
+		top:316px;
+		left:235px;
+		border:0;
+		cursor:pointer;
+	 }
+	 .chaccept{
+		background-image:url(../../images/applepc/accept.gif);
+	    width:373px;
+		height:32px;
+		border:0;
+		position:absolute;
+		top:360px;
+		left:85px;
+		cursor:pointer;
+	}
+	.chaccept2{
+		background-image:url(../../images/applepc/accept2.gif);
+	    width:373px;
+		height:32px;
+		border:0;
+		position:absolute;
+		top:360px;
+		left:85px;
+	}
+	#password{
+	   position:absolute;
+	   top:412px;
+	   left:85px;	
+	}
+	#Code{
+	   position:absolute;
+	   top:460px;
+	   left:85px;
+	}
+	.but_login{
+	  background-image:url(../../images/appceti/login.png);
+      height: 22px;
+	  width: 180px; 
+	  position:absolute;
+	  top:412px;
+	  left:270px;
+	  cursor:pointer;
+	  border:0;
+	}
+	#CheckHere{
+	   height:32px;
+	   width:150px;
+	   vertical-align:middle;
+	   line-height:32px;
+	   position:absolute;
+	   top:460px;
+	   left:260px;
+	   
+	}
+	#change{
+	   height:32px;
+	   width:60px;
+	   vertical-align:middle;
+	   line-height:32px;
+	   position:absolute;
+	   top:460px;
+	   left:400px;
+	   text-decoration:none;
+	   font-size:18px;
+	   
+   }
+	
+</style>
+<script language="javascript" src="/js/cetisfy/JSCode_IMG.js"></script>
+
+<script src="/js/ajax.js"></script>
+
+
+<script language="javascript" type="text/javascript">
+	
+var ser_count=0;
+var statcode= null;
+var errmessage= null;  	
+
+var xmlHttp = false;
+
+ function callServer(){ 
+   if( xmlHttp && xmlHttp .readyState != 0 ){
+    	xmlHttp.abort();
+   }
+   xmlHttp = createXMLHttpRequest();
+   if(xmlHttp){
+     var web_url="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&xx@"+Math.random()*999;
+   
+    xmlHttp.open("GET",web_url, true);
+    xmlHttp.onreadystatechange = updatePage;
+    xmlHttp.send(null);
+  }
+ }
+
+	 //ajax回调处理函数
+ function updatePage(){
+   if (xmlHttp.readyState == 4){
+    　var response = xmlHttp.responseText;
+    	ser_count=0;
+		  var temp_num = getxmlbyname(response,"<statusCode>","</statusCode>");
+    	statcode=parseInt(temp_num);
+
+      var temp_mesg = getxmlbyname(response,"<message>","</message>");
+    	errmessage = temp_mesg;
+      '[#message#]' = errmessage;
+//alert(response);
+   }
+ }	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    var agree;
+	function agree(){
+		agree = 1;
+		document.getElementById('chaccept').className = 'chaccept2';	
+	}
+
+	function spylogin(){
+		if(document.getElementById("username").value!=""&&document.getElementById("password").value!=""&&agree==1&&document.getElementById("Code").value.toLowerCase() == CheckCode)
+		{
+			document.getElementById("nclogin").submit();
+		}
+		else if(agree!=1){
+			alert('ȫѡձͬӢĢհʹķ');
+			return;
+		}
+		else if(document.getElementById("Code").value.toLowerCase() != CheckCode)
+		{
+		  alert("ҩ֤ë´£¡");
+		  return ;
+		} 
+		else if (document.getElementById("username").value=="" || document.getElementById("password").value=="") {
+			window.alert("ԃ»§Ļ»󄝂벻ŜΪ¿գ¡");
+			return ;
+		}
+	}
+	function ss(e){
+		var key = window.event ? e.keyCode:e.which;
+
+		if(key==13)
+		spylogin();
+	}
+		var p_flag='1';
+		function restore(){
+	  document.getElementById("gpss").disabled="";
+	  document.getElementById("imgm").style.display="none";
+    p_flag='1';
+    document.getElementById("imgm").src='../../../images/sjimage/smspad.gif';
+	}
+
+function chk(tel)
+{
+
+if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel)))
+        {
+           return 0;
+         }
+else
+        {
+          return 1;
+         }
+}
+
+	function getpasswd(){		
+	   if(p_flag=='0') return false;
+	   
+	  document.getElementById("msgs").innerHTML="";
+
+		  if(document.getElementById("nclogin").username.value==''){
+		    alert('ȫˤɫ˖»�;
+		    return false;
+		  }
+		  
+		    var telno=document.getElementById("nclogin").username.value;
+		    if(telno.length!=11){
+		    alert('˖»�ʽ²»¶ҧ);
+		    return false;
+		    } 
+		  if(chk(telno)!='0'){
+		    alert('ȫˤɫֽȷµŊֻ�);
+		  	return false;
+		  }
+
+		  temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value;
+		  
+		  document.getElementById("ifhide").src=temp_html;
+
+	document.getElementById("imgm").src='../../../images/authimage/donghua.gif';
+  document.getElementById("gpss").disabled="true";
+  document.getElementById("imgm").style.display="";
+ p_flag='0';
+
+setTimeout('restore()',50000);
+		  return false;
+		
+		
+	}
+	 function changlogin(flag){
+            self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+	
+</script>
+</head>
+
+<body>
+<center>
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+            [#postarg#]
+	<div id="main">
+    	 <div id="msgs" style="display:none; position:absolute;top:0; left:0; z-index:1">
+        	<font>[#message#]</font>
+        </div>
+    	<div id="header">
+        <span style="margin-left:-9999px">ƻ¹�ҳĦ         ABCDEFsG</span>
+            <ul class="header_ul">
+             	<li class="china" id="chinese" onClick="changlogin('zh')" >אτ</li>
+                <li class="eng" id="english" onClick="changlogin('eng')">EnglishABCDEFsG</li>
+             </ul>
+        </div><img src="../../images/applesms/sms4_02.jpg" /><div id="login_area"><img border="0" src="../../../images/sjimage/smspad.jpg" width="102" height="25" id="imgm" style="display:none; z-index:1; position:absolute; top:120px; left:360px" >
+    		 <input type="text"  id="username" name="username" class="input_div" />
+           
+            <input type="button" value="" id=gpss class="getpasswd"  onClick="getpasswd()" />
+            <a href="#xxm" id="explain" onClick="changlogin('eng')">·Ȗй�˖»�ȫµ㼷´˴¦¡·</a>
+          
+            <input type="button"  class="disclaime" >
+            <input name="chaccept" type="button" value="" id="chaccept" class="chaccept" onClick="agree();">
+            
+            <input  type="password" id="password" name="password" class="input_div" onKeyPress="ss(event)" />
+          
+            <input type="button" value=""  class="but_login" onClick="return spylogin();"/>
+            
+            	<input type="text"   id="Code" class="input_div"  onKeyPress="ss(event)"/>
+
+           
+            <div  id="CheckHere"></div>
+             <script language="javascript">makeCode("CheckHere",4);</script>
+            <a href="javascript:makeCode('CheckHere',4)" id="change"><font style="font-size:14px;color:red;">¿´²»ȥ</font></a>
+        </div>
+        <div id="msgs" style="display:none; position:absolute;top:400px; left:85; z-index:1">
+        	<font>[#message#]</font>
+        </div>
+        <img src="../../images/applesms/sms4_04.jpg" />
+    </div>
+    <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+
+    </form>
+</center>
+</body>
+</html>

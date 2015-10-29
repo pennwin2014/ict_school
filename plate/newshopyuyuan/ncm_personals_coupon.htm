@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script src="/js/jquery-2.0.3.min.js"></script>
+<title>优惠券</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"黑体";
+}
+.wrap {
+	width:480px;
+	margin:0 auto;
+}
+.products{width:460px;margin-left:auto;margin-right:auto;}
+.yhq{ width:100%;}
+.yhq img{ width:100%;}
+.top {
+	height:30px;
+	line-height:30px;
+	text-indent:5px;
+	color:#069;
+	font-size:16px;
+	margin-left:10px;
+	
+}
+.collect {
+	width:100px;
+	border:1px solid #CCC;
+	background:#5fafd4;
+	color:#FFF;
+	margin-right:10px;
+	text-align:center;
+	float:right;
+	border-radius: 8px; /* css 3标准 */
+	-moz-border-radius: 8px;  /* mozilla */
+	-webkit-border-radius: 8px;/*webkit*/
+}
+.del{
+		position: absolute;
+		left:75%; top:5%;
+		width:18%;
+		height:100%;
+		opacity:0.8;
+		z-index:100;
+		display:none;
+	}
+
+.level_logos{
+		float:left;
+		width:460px;
+		border:1px solid #e4e4e4;
+		margin:2px; 
+		position:relative;
+		margin-left:auto;
+		margin-right:auto;
+}
+		
+.level_logos img{
+	width:100%;
+}
+@media screen and (max-width:400px) {
+.wrap {
+ width:100%;
+ margin:0 auto;
+}
+.products{width:300px;margin-left:auto;margin-right:auto; }
+.level_logos{
+		float:left;
+		width:300px;
+		border:1px solid #e4e4e4;
+		margin-bottom:2px; 
+		position:relative;
+		margin-left:auto;
+		margin-right:auto;
+}
+.del{
+		position: absolute;
+		left:0%; top:0%;
+		width:100%;
+		height:100%;
+		opacity:0.8;
+		z-index:100;
+		display:none;
+	}
+.del img{
+		width:18%;
+		position: absolute;
+		left:75%; top:5%;
+		}
+
+}
+
+	
+</style>
+</head>
+
+<script type="text/javascript">
+var num = 0;
+function displayDel(){
+
+//alert("displayDel"+num);
+if(num == 0){
+
+$(".del").css('display','block');
+$(".collect").css('box-shadow','0px 1px 1px 1px #000000');
+
+//document.getElementById("btn_del").innerHTML="";
+num=1;
+}
+else{
+$(".del").css('display','none');
+$(".collect").css('box-shadow','0px 0px 0px 0px #000000');
+num=0;
+}
+
+}
+
+function delProducts(number){
+//alert(number);
+if (confirm("是否要删除此优惠劵？") ) 
+{ 　　
+
+document.getElementById("FunName").value = "ncm_Addcoupons";
+document.getElementById("id").value = ids[number];
+document.getElementById("uid").value = "1";
+document.getElementById("mark").value = "del";
+document.getElementById("form1").submit();
+
+//alert("[#msg#]");
+}
+else{
+
+}
+
+}
+
+var ids = new Array();
+var delimgs;
+function init(){
+
+[#SLPB#]
+ids[[#iNum#]] = "[#id#]";
+[#SLPE#]
+
+delimgs = "[#delimgs#]"
+//alert(delimgs = "[#delimgs#]");
+if( delimgs == "del2"){
+//alert("display:block");
+$(".del").css('display','block');
+$(".collect").css('box-shadow','0px 1px 1px 1px #000000');
+num=1;
+}
+
+}
+</script>
+<body onload="init()">
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+        <input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+		<input type="hidden" id="uid" name="uid" value="">
+		<input type="hidden" id="uid" name="uid" value="">
+		<input type="hidden" id="mark" name="mark" value="">
+		<input type="hidden" id="id" name="id" value="">
+		<input type="hidden" name="plateName" id="plateName" value="zhengzhoudianxin"/>	
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+</form>
+<div class="wrap">
+  <div style="height:5px; clear:both; "></div>
+<div class="top">已下载优惠券
+	<div class="collect" id="btn_del" onclick="displayDel()">删除优惠券</div>
+	
+	</div>
+	<div style="height:5px; clear:both; border-bottom:1px solid #ccc;"></div>
+<div class="products" >
+ <div style="height:2px; clear:both; "></div>
+[#SLPB#]
+	<!-- <div id="info">
+	<div>有效期至： [#effetime#]</div>
+	</div> -->
+	<div id="level_logos" class="level_logos" >
+	<div id="info"><img src="[#imgpath#]"></div>
+	<div class="del" onclick="delProducts([#iNum#])"><img src="/images/suning/delete1.png" ></div>
+	</div>
+	[#SLPE#]
+<div style="height:6px; clear:both; "></div>
+</div>
+</body>
+</html>

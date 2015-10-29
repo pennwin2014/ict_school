@@ -1,0 +1,625 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>无标题文档</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<style type="text/css">
+*{
+	margin:0;
+	padding:0;
+}
+#main{
+	width:630px;
+	margin:0 auto;
+	text-align:center;
+}
+h1 {
+	line-height:74pt
+	font-family:MyriadSet-Thin;
+	font-size:64pt
+	color:#000000;
+	padding-bottom:15px;
+	margin:0 130px;
+	/*border-bottom:2px solid #ced0d5;*/
+}
+hr{
+	height:2px;
+	color:#d2d4d9;
+	margin:50px 0;
+}
+.header_ul{
+	display:table;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+ .header_ul li{
+			 list-style:none;
+			 float:left;
+			 display:block;
+			 height:113px
+			 line-height:113px;
+			 margin-top:34px;
+			 margin-bottom:40px;
+			 font-family:Arial, Helvetica, sans-serif;
+			 font-size:30pt;
+			 *float:none;
+			 *display:inline;
+			 *zoom:1;
+
+   }
+   
+   #split {
+		width:30px;
+		text-align:center;
+		color:#ced0d5;
+		  
+   }
+  .china{
+	   color:#0088CC;
+	   font-family:KozGoPr6N-Regular;
+   }
+   .china2{
+	   color:#0088CC;
+	   font-family:KozGoPr6N-Regular;
+	   text-decoration:underline;
+   }
+   .eng{
+	   color:#000;
+	   font-family:LucidaGrande;
+   }
+   #login_area{
+	   width:592px;
+	   margin:0 auto;
+	   font-family:HelveticaNeue;
+	   font-size:30pt;
+	   color:#000;
+   }
+   .font_style_h4{
+	   font-family:MyriadSet-Thin;
+	   font-size:40pt;
+	   color:#000;
+	   margin-bottom:38px;
+   }
+   
+  .font_style{
+	   font-family:HelveticaNeue;
+	   font-size:30pt;
+	   color:#000000;
+	   line-height:38pt;
+   }
+   .Case{
+	   width:544px;
+	   height:78px;
+	   background-color:#f0f0f0;
+	   margin-bottom:32px;
+	   margin-top:32px;
+   }
+   .Case1{
+	   width:204px;
+	   height:78px;
+	   background-color:#f0f0f0;
+	   margin-bottom:32px;
+	   margin-top:32px;
+	   float:left;
+	   margin-right:10px;
+   }
+   .code{
+	   width:178px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#999999;
+   }
+   .code2{
+	   width:178px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#000;
+   }
+   .username{
+	   width:340px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#999999;
+   }
+   .username2{
+	   width:340px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#000;
+   }
+   .Case2{
+	   width:314px;
+	   height:78px;
+	   background-color:#f0f0f0;
+	   margin-bottom:32px;
+	   margin-top:32px;
+	   float:right;
+   }
+   .password{
+	   width:516px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#999999;
+   }
+   .password2{
+	   width:516px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#000;
+   }
+   .error{
+	   height:0px;
+	   padding-bottom:10px;
+	   font-size:18pt;
+	   color:#ff0000;
+	   clear:both;
+   }
+   .error2{
+	   height:80px;
+	   padding-bottom:10px;
+	   font-size:18pt;
+	   color:#ff0000;
+	   clear:both;
+   }
+   #err{
+	   height:80px;
+	   padding-bottom:10px;
+	   font-size:18pt;
+	   color:#ff0000;
+   }
+   .chaccept{
+	   width:32px;
+	   height:32px;
+   }
+   .getpasscode{
+	   background-image:url(/images/ap/get_passcodesms.png);
+	   width:242px;
+	   height:66px;
+	   border:0;
+	   margin-bottom:20px;
+   }
+   .no_sign{
+	   background-image:url(/images/ap/register_huisms.png);
+	   width:242px;
+	   height:66px;
+	   border:0;
+   }
+    .sign{
+	   background-image:url(/images/ap/registersms.png);
+	   width:242px;
+	   height:66px;
+	   border:0;
+   }
+    .font_style a{
+	  color:#0088cc;
+	  text-decoration:none;
+  }
+  a:hover{
+	  text-decoration:underline;
+  }
+  .disclaimer{
+	  width:550px;
+	  height:980px;
+	  display:none;
+  }
+  .disclaimer2{
+	  width:550px;
+	  height:980px;
+	  display:block;
+  }
+   
+   .condition_head{
+	    font-size:32pt;
+	   
+	   }
+</style>
+<script language="javascript" type="text/javascript">	
+function createXMLHttpRequest() {
+	var C=null;
+		if(window.XMLHttpRequest) { //Mozilla 娴忚鍣?
+			C = new XMLHttpRequest();
+		}
+		else if (window.ActiveXObject) { // IE娴忚鍣?
+			try {
+				C = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					C = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {}
+			}
+		}
+		return C;
+	}
+	//瑙ｆ瀽瀛楃涓? ins-杈撳叆瀛楃涓诧紝   names-寮€濮嬪瓧绗︿覆 namee -缁撴潫瀛楃涓?杩斿洖鍊?锛坣ames 鍜宯amee 涔嬮棿鐨勫瓧绗︿覆 鍙敤浜庤В鏋愮畝鍗曠殑XML
+	function getxmlbyname(ins,names,namee){
+	var start;
+	var end;
+	var ret='';
+
+	start=ins.indexOf(names);
+	end=ins.indexOf(namee);
+	
+	if(start!=-1&&end!=-1){
+		ret=ins.substr(start+names.length,end-start-names.length);
+	}
+	return ret;	
+}
+var statcode= null;
+var errmessage= null;  	
+
+var xmlHttp = false;
+
+ function callServer(){ 
+   if( xmlHttp && xmlHttp .readyState != 0 ){
+    	xmlHttp.abort();
+   }
+   xmlHttp = createXMLHttpRequest();
+   if(xmlHttp){
+     var web_url="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&xx@"+Math.random()*999;
+   
+    xmlHttp.open("GET",web_url, true);
+    xmlHttp.onreadystatechange = updatePage;
+    xmlHttp.send(null);
+  }
+ }
+
+
+ function updatePage(){
+   if (xmlHttp.readyState == 4){
+   	
+var response = xmlHttp.responseText;
+   
+		  var temp_num = getxmlbyname(response,"<statusCode>","</statusCode>");
+    	statcode=parseInt(temp_num);
+
+      var temp_mesg = getxmlbyname(response,"<statusId>","</statusId>");
+    	errmessage = temp_mesg;
+    	
+ //   	alert(response);
+    	alert(errmessage);
+  //    '[#message#]' = errmessage;
+      var htmltest = errmessage;
+	  
+	  if(statcode == 5){
+		  if (errmessage == 1)
+		  {
+				document.getElementById("username_err").innerHTML = "Please enter a valid mobile number. If you have an international phone, please include the country code. For example, 1-234-888-8888.";  
+		  }
+		 
+      	document.getElementById("username_err").innerHTML =htmltest;
+      }
+	  
+      if(statcode == 1){
+      	document.getElementById("username_err").innerHTML =htmltest;
+      }
+      if(statcode == 2){
+      	document.getElementById("chaccept_err").innerHTML =htmltest;
+      }
+      if(statcode == 3){
+      	document.getElementById("err").innerHTML =htmltest;
+      }
+//
+   }
+ }	
+		
+	
+	
+function passcode(){
+	     document.getElementById('password').className='password2';
+		document.getElementById('sign').disabled = 'false';
+    alert(document.getElementById('sign').disabled);
+//		spylogin();
+	
+}
+   
+function spylogin(){
+	document.getElementById('username_err').innerHTML = "";
+	document.getElementById('chaccept_err').innerHTML = "";
+	document.getElementById('username_err').className = 'error';
+	document.getElementById('chaccept_err').className = 'error';
+	var aa =document.getElementById("code").value;	
+    var bb =document.getElementById("username").value;	
+    var cc =  ncPortalCheckMobileNumBer(aa,bb);
+    document.getElementById("username").value = cc ;
+	if(document.getElementById("username").value!=""&&document.getElementById("username").value!='Mobile number'&&document.getElementById('acceptme').checked)
+	{
+		document.getElementById("nclogin").submit();
+	}
+	
+	else if (document.getElementById("username").value==""||document.getElementById("username").value=='Mobile number'){
+		//window.alert("Please fill in your phone number and password!");
+		document.getElementById('username_err').className = 'error2';
+		document.getElementById('username_err').innerHTML = 'Please fill in your phone number';
+		return ;
+	}
+	else if(document.getElementById('chaccept').selected=='false'){
+		document.getElementById('chaccept_err').className = 'error2';
+		document.getElementById('chaccept_err').innerHTML = 'Please accept the Terms and Conditions before signing in.'
+	}
+	
+}
+function ss(e){
+	var key = window.event ? e.keyCode:e.which;
+
+	if(key==13)
+	spylogin();
+}
+	var p_flag='1';
+	function restore(){
+  document.getElementById("gpss").disabled="";
+  document.getElementById("imgm").style.display="none";
+   p_flag='1';
+document.getElementById("imgm").src='/images/sjimage/smspad.gif';
+}
+
+function chk(tel)
+{
+
+if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel)))
+        {
+           return 0;
+         }
+else
+        {
+          return 1;
+         }
+}
+function getpasswd(){	
+	document.getElementById('username_err').innerHTML = "";
+	document.getElementById('chaccept_err').innerHTML = "";	
+	document.getElementById('username_err').className = 'error';
+	document.getElementById('chaccept_err').className = 'error';
+   if(p_flag=='0') return false;
+  
+
+	  if(document.getElementById("nclogin").username.value==''||document.getElementById("username").value=='Mobile number'){
+		 document.getElementById('username_err').className = 'error2' 
+		document.getElementById('username_err').innerHTML = 'Please enter a valid mobile number. If you have an international phone, please include the country code. For example, 1-234-888-8888.';
+		return false;
+	  }
+	 
+		var telno=  ncPortalCheckMobileNumBer(document.getElementById("code").value,document.getElementById("nclogin").username.value);
+		if(telno.length!=11){
+	    document.getElementById('username_err').className = 'error2'
+		document.getElementById('username_err').innerHTML = 'Please enter a valid mobile number. If you have an international phone, please include the country code. For example, 1-234-888-8888.';
+		return false;
+		} 
+		 if(chk(telno)!='0'){
+			document.getElementById('username_err').className = 'error2'
+		    document.getElementById('username_err').innerHTML = 'Please enter a valid mobile number. If you have an international phone, please include the country code. For example, 1-234-888-8888.';
+		  	return false;
+		  }
+		  var temp_value;
+		  temp_value = document.getElementById('username').value;
+		 if(document.getElementById('code').value!=''){
+			temp_value = '+'+document.getElementById('code').value+'-'+document.getElementById('username').value;
+		 }
+		 document.getElementById("nclogin").username.value = temp_value;
+	  callServer();
+	  //temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value;
+		  
+     // document.getElementById("ifhide").src=temp_html;
+
+	  //document.getElementById("imgm").src='/images/authimage/donghua.gif';
+      document.getElementById("gpss").disabled="true";
+     // document.getElementById("imgm").style.display="";
+      p_flag='0';
+	 
+
+      setTimeout('restore()',600000);
+		  return false;
+		
+		
+	}
+	
+	 function changlogin(flag){
+            self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+	function init()
+{
+	document.getElementById('sign').disabled ='ture';
+	if('[#message#]' == 5)
+	{
+	    document.getElementById("err").innerHTML ="Sorry, there is a problem signing in. Please try again another time. ";  	
+	}	
+}
+	function ncPortalCheckMobileNumBer(pInarea,pInphone)
+{
+    var caOut = "";
+    var caIn = "";
+    var caInph = "";
+    var i = 0;
+    var j = 0;
+    
+    for (i = 0 ;i < pInarea.length;i++) 
+    {
+    	 if(pInarea.charAt(i) == '+' || pInarea.charAt(0) == '0' || pInarea.charAt(i) == '-' || pInarea.charAt(i) == ' ')
+    	 {
+    	 
+    	 }
+    	 else
+    	 {//alert(pInarea.charAt(i));
+    	 	  if (i == 0)
+    	 	  {
+    	 	     	caIn = pInarea.charAt(i);
+    	 	     	
+    	 	  }
+    	 	  else
+    	 	  {
+    	 	      caIn += pInarea.charAt(i);	
+    	 	  }
+    	 }
+    }
+
+    for (i = 0 ;i < pInphone.length;i++) 
+    {
+    	 if(pInphone.charAt(i) == '+' || pInphone.charAt(i) == '0' || pInphone.charAt(i) == '-' || pInphone.charAt(i) == ' ')
+    	 {
+    	 	
+    	 }
+    	 else
+    	 {
+    	 	  if (i == 0)
+    	 	  {
+    	 	     	caInph = pInphone.charAt(i);
+    	 	     	
+    	 	  }
+    	 	  else
+    	 	  {
+    	 	      caInph += pInphone.charAt(i);	
+    	 	  }	
+    	 }
+    }
+
+    if(pInarea == 86)
+    {
+    	caOut = caInph;
+    }
+    else
+    {
+    	caOut = caIn + caInph;
+    }
+    return caOut;
+}	
+
+function testa(){
+
+   var aa =document.getElementById("code").value;	
+   var bb =document.getElementById("phonenum").value;	
+   alert("aa = " + aa + "  bb= "+bb);
+   var cc =  ncPortalCheckMobileNumBer(aa,bb);
+   
+   document.getElementById("phonenum").value = cc ;
+   ncPortalCheckMobileNumBer(aa,bb);
+   
+   alert(ncPortalCheckMobileNumBer(aa,bb));
+}
+	function china2(){
+		document.getElementById('chinese').className = 'china2';
+	}
+	function china(){
+		document.getElementById('chinese').className = 'china';
+	}
+	function clearcValue(){
+		if(document.getElementById('code').className=='code'){
+			document.getElementById('code').value='';
+		}
+	}
+	function clearuValue(){
+		if(document.getElementById('username').className=='username'){
+			document.getElementById('username').value='';
+		}
+	
+	}
+	function clearpValue(){
+		if(document.getElementById('password').className=='password'){
+			document.getElementById('password').value='';
+		}
+	}
+	function disclaimer(){
+	document.getElementById('disclaimer').className = 'disclaimer2';
+}
+</script>
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="init();">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+         [#postarg#]
+<center> 
+ <div id="main">
+    <ul class="header_ul">
+        <li class="china" id="chinese" onClick="changlogin('zh')" onmouseover="china2();" onmouseout="china()">中文</li>
+        <li id="split">|</li>
+        <li class="eng" id="english" onClick="changlogin('eng')">English</li>
+    </ul>
+    <!--<h1>Welcome to the Apple Store.</h1>-->
+    <img src="/images/ap/apple_store.png"  style="margin-bottom:44px;" />
+    <div id="login_area">
+        <p >
+           To enjoy the free wireless network at the Apple Store, please register your device using your cellphone.
+        </p>
+        <hr />
+        <!--<h4 class="font_style_h4">1. Get a passcode.</h4>-->
+        <img src="/images/ap/get_a_passcode.png" />
+        <p class="font_style">
+          Enter your mobile number and click "Get passcode." We'll text a code to your cellphone.  
+        </p>
+         <div> 
+        	<div  class="Case1"><input type="text" id="code" name="code" class="code"  value="country code" onfocus="clearcValue();"  onkeyup="this.className='code2'"  /></div>     
+            <div  class="Case2"><input type="text" id="username" name="username" class="username" value="Mobile number" onfocus="clearuValue();" onkeyup="this.className='username2'" /></div>
+        </div>
+         <div id="username_err" class="error"></div>
+         <input type="button" id='gpss' class="getpasscode" onClick="getpasswd()">
+         
+        
+        <!--<h4 class="font_style_h4">2. Register your device.</h4>-->
+        <img src="/images/ap/sign_in.png" />
+        <p class="font_style">
+            Enter the passcode you received, then register. 
+        </p>
+         <div class="Case">
+        	<input type="text" id="password"  class="password" name="password" value="Passcode" onKeyPress="ss(event)" onfocus="clearpValue();"  onkeyup="passcode();" >
+        </div>
+        <p class="font_style">
+       		<span><input type="checkbox" id="acceptme" class="chaccept"/>I have read and agree to the <a href="#xxx" onclick="disclaimer();">Terms and Conditions</a> of the Apple Wireless Network. 
+            </span>
+             <div class="disclaimer" id="disclaimer" >
+             <table>
+            	<tr>
+                	<td><img src=""  onclick="document.getElementById('disclaimer').className='disclaimer'" style=" float:right;"/></td>
+                </tr>
+                <tr>
+                	<td>  
+                     <div class="condition_head">Lorem Ipsum</div>
+Vivamus ac lectus placerat, pulvinar velit pretium, scelerisque nisi. Sed consectetur lectus ac convallis mattis. Fusce accumsan ornare lorem, ac rutrum elit gravida vitae. In scelerisque leo eu lacus interdum mollis et vel enim. Sed ultricies dui eget tortor lacinia, eu tincidunt diam convallis. Vivamus augue metus, tempus vitae dolor et, pharetra aliquet mi.
+
+Definitions
+"Apple Store" means any Apple retail store in PRC where the Wi-Fi Service is provided.
+
+"China Telecom" means the China Telecom Corporation or its designated subsidiaries and affiliates that provide the Wi-Fi Service in Apple Stores.
+
+"Wi-Fi Service" means the Wi-Fi service provided by China Telecom which enables users to have wireless access to the Internet via certain Internet access points in an Apple Store.
+
+Vivamus ac lectus placerat, pulvinar velit pretium, scelerisque nisi. 
+                    </td>
+                </tr>
+            </table>
+            </div>
+        </p>
+        <div id="chaccept_err" class="error"></div>
+        <input type="button" class="no_sign" id="sign" onclick="spylogin();">
+        <div id="err"></div>
+    </div>
+    <div style=" width:964px; float:right;">
+    </div>
+</div>
+</center>
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</body>
+</html>

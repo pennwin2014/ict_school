@@ -1,0 +1,542 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>无标题文档</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1.0, minimum-scale=0.4">
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+       window.onorientationchange = window.onresize = function(){
+//	alert(screen.width+","+screen.height);
+//	alert(window.innerWidth+","+window.innerHeight);
+	if(window.innerWidth == screen.width){
+//	alert(1);
+//	 document.getElementById("products").className="products1";  
+	// $("#products").css('width',window.innerWidth);
+	 }else{
+//	 alert(2);
+//	  document.getElementById("products").className="products2";  
+	
+	 }
+	   $("body").css('width',screen.width);
+//alert(1111111);
+
+}
+			/*
+* 智能机浏览器版本信息:
+*
+*/
+
+
+
+var btn1='';
+var btn2='';
+  var browser={
+    versions:function(){
+           var u = navigator.userAgent, app = navigator.appVersion;
+           return {//移动终端浏览器版本信息
+                trident: u.indexOf('Trident') > -1, //IE内核
+                presto: u.indexOf('Presto') > -1, //opera内核
+                webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                mobile: !!u.match(/AppleWebKit.*Mobile.*/)||!!u.match(/AppleWebKit/), //是否为移动终端
+                ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                iPad: u.indexOf('iPad') > -1, //是否iPad
+                mobilesafari: u.indexOf('Mobile Safari') > -1, //是否
+				 uc: u.indexOf('UC') > -1, //是否UC
+				 xt928:u.indexOf('XT928') > -1,//摩托罗拉XT928
+				 eben:u.indexOf('EBEN T6') > -1,
+				 defaultbrowser:u.indexOf('534.30') > -1,
+            };
+         }(),
+         language:(navigator.browserLanguage || navigator.language).toLowerCase()
+}
+
+if(browser.versions.iPhone ){
+
+
+//	alert("苹果设备");
+ setActiveStyleSheet("ncm_apple_zh.css");
+ 	btn1 = "获取密码";
+	btn2 = "注册";
+//	$("#main").css('width',screen.width);
+//	alert("苹果设备");
+}
+else if(browser.versions.iPad ){
+ //	alert("苹果设备iPad");
+ setActiveStyleSheet("apple_zh.css");
+}
+else{
+//  alert("安卓设备");
+  setActiveStyleSheet("android_zh.css");
+	btn1 = "获取密码";
+	btn2 = "注册";
+}
+
+function setActiveStyleSheet(filename){ 
+  document.write("<link href=\"\/css\/"+filename+"\" type=\"text\/css\" rel=\"stylesheet\">");
+//  document.write("<link href=\"\/"+filename+"\" type=\"text\/css\" rel=\"stylesheet\">");
+}
+
+
+
+</script>
+<style type="text/css">
+
+</style>
+
+
+<script language="javascript" type="text/javascript">
+	
+	 	 
+function createXMLHttpRequest() {
+	var C=null;
+		if(window.XMLHttpRequest) { 
+			C = new XMLHttpRequest();
+		}
+		else if (window.ActiveXObject) { 
+			try {
+				C = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					C = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {}
+			}
+		}
+		return C;
+	}
+	
+	function getxmlbyname(ins,names,namee){
+	var start;
+	var end;
+	var ret='';
+
+	start=ins.indexOf(names);
+	end=ins.indexOf(namee);
+	
+	if(start!=-1&&end!=-1){
+		ret=ins.substr(start+names.length,end-start-names.length);
+	}
+	return ret;	
+}
+var statcode= null;
+var errmessage= null;  	
+
+var xmlHttp = false;
+
+ function callServer(){ 
+   if( xmlHttp && xmlHttp .readyState != 0 ){
+    	xmlHttp.abort();
+   }
+   xmlHttp = createXMLHttpRequest();
+   if(xmlHttp){
+     var web_url="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&xx@"+Math.random()*999;
+   
+    xmlHttp.open("GET",web_url, true);
+    xmlHttp.onreadystatechange = updatePage;
+    xmlHttp.send(null);
+  }
+ }
+
+
+ function updatePage(){
+   if (xmlHttp.readyState == 4){
+   	
+      var response = xmlHttp.responseText;
+   
+//		  var temp_num = getxmlbyname(response,"<statusId>","</statusCode>");
+//    	statcode=parseInt(temp_num);
+//      var temp_mesg = getxmlbyname(response,"<message>","</message>");
+//    	errmessage = temp_mesg;
+    	
+    	var temp_num = getxmlbyname(response,"<statusCode>","</statusCode>");
+    	statcode=parseInt(temp_num);
+
+      var temp_mesg = getxmlbyname(response,"<statusId>","</statusId>");
+    	errmessage = temp_mesg;
+//    		alert(response);
+    	if(statcode == 5){
+			  if (errmessage == 1)            //错误不灰
+			  {
+			  	document.getElementById('username_err').className = 'error1';
+					document.getElementById("username_err").innerHTML = "<span id='errormark'><img src = '/images/ap/mark.png' style = 'margin-bottom:-2px;' ></span>&nbsp;请输入正确的手机号码。";  
+			    document.getElementById('gpss').className = 'getpasscode';
+			    document.getElementById("gpss").disabled="";
+			    document.getElementById('passmesg').innerHTML = "";
+			  }
+      }
+      if(statcode == 0)                //正确灰掉
+      {                 
+//      	   document.getElementById('gpss').className = 'getpasscode_no';
+//      	   document.getElementById("gpss").disabled="true";
+      	   document.getElementById('username_err').className = 'error';
+//    
+//      if(p_flag=='0') return false;
+//      	   setTimeout('restore()',60000);
+     	     
+      }
+   }
+ }	
+	
+var couflag = 0 ;		
+function passcode(){
+//	  document.getElementById('password').className='password2';
+//		document.getElementById('sign').className = 'sign';
+		document.getElementById('err5').className = 'error';
+    document.getElementById("err5").innerHTML = "";
+		document.getElementById('password').className='password2';
+		if(couflag == 0)
+		{
+		  document.getElementById('sign').disabled = false;
+		  couflag++;
+		}
+		document.getElementById('sign').className = 'sign';
+	  	
+//		spylogin();
+	
+}
+
+function ncPortalCheckMobileNumBer(pInarea,pInphone)
+{
+    var caOut = "";
+    var caIn = "";
+    var caInph = "";
+    var i = 0;
+    var j = 0;
+    if(pInarea == "国家代码")
+    {
+       pInarea = ""; 	
+    }
+    for (i = 0 ;i < pInarea.length;i++) 
+    {
+    	 if(pInphone.charAt(i) == '0' && i == 0)
+    	 {
+    	 }
+    	 else
+    	 {
+	    	 if(pInarea.charAt(i) == '+' || pInarea.charAt(i) == '-' || pInarea.charAt(i) == ' ')
+	    	 {
+	    	 
+	    	 }
+	    	 else
+	    	 {
+	    	 	  if (i == 0)
+	    	 	  {
+	    	 	     	caIn = pInarea.charAt(i);
+	    	 	     	
+	    	 	  }
+	    	 	  else
+	    	 	  {
+	    	 	      caIn += pInarea.charAt(i);	
+	    	 	  }
+	    	 }
+    	 }
+    }
+
+    for (i = 0 ;i < pInphone.length;i++) 
+    {
+    	 if(pInphone.charAt(i) == '0' && i == 0)
+    	 {
+    	 }
+    	 else
+    	 {
+	    	 if(pInphone.charAt(i) == '+' || pInphone.charAt(i) == '-' || pInphone.charAt(i) == ' ')
+	    	 {
+	    	 	
+	    	 }
+	    	 else
+	    	 {
+	    	 	  if (i == 0)
+	    	 	  {
+	    	 	     	caInph = pInphone.charAt(i);
+	    	 	  }
+	    	 	  else
+	    	 	  {
+	    	 	      caInph += pInphone.charAt(i);	
+	    	 	  }	
+	    	 }
+    	 }
+    }
+
+    if(pInarea == 86)
+    {
+    	caOut = caInph;
+    }
+    else
+    {
+    	caOut = caIn + caInph;
+    }
+    return caOut;
+}	 
+   
+function spylogin(){
+	document.getElementById('username_err').innerHTML = "";
+	document.getElementById('chaccept_err').innerHTML = "";
+	
+	document.getElementById('err5').className = 'error';
+  document.getElementById("err5").innerHTML = "";
+	
+	var aa =document.getElementById("code").value;	
+  var bb =document.getElementById("usernametmp").value;	
+  var cc =  ncPortalCheckMobileNumBer(aa,bb);
+  document.getElementById("username").value = cc ;
+  
+  if (isNaN(cc))
+  {
+    	document.getElementById('username_err').className = 'error1';
+			document.getElementById('username_err').innerHTML = '<span id="errormark"><img src = "/images/ap/mark.png" style = "margin-bottom:-2px;" ></span>&nbsp;请输入正确的手机号码。' 	
+  		return;
+  }
+  
+	if(document.getElementById("usernametmp").value!=""&&document.getElementById("usernametmp").value!='手机号码'&&document.getElementById('acceptme').checked)
+	{
+		document.getElementById("nclogin").submit();
+	}
+	
+	if (document.getElementById("usernametmp").value==""||document.getElementById("usernametmp").value=='手机号码'){
+		document.getElementById('username_err').className = 'error1';
+		document.getElementById('username_err').innerHTML = '<span id="errormark"><img src = "/images/ap/mark.png" style = "margin-bottom:-2px;" ></span>&nbsp;请输入正确的手机号码。';
+		return ;
+	}
+	if(!document.getElementById('acceptme').checked){ 
+		document.getElementById('chaccept_err').className = 'error3';
+		document.getElementById('chaccept_err').innerHTML = '<span id="errormark"><img src = "/images/ap/mark.png" style = "margin-bottom:-2px;" ></span>&nbsp;请确认接受条款及细则。'
+		return ;
+	}
+	
+}
+function ss(e){
+	var key = window.event ? e.keyCode:e.which;
+
+	if(key==13)
+	spylogin();
+}
+	var p_flag='1';
+function restore(){
+  document.getElementById("gpss").disabled="";
+  document.getElementById('gpss').className = 'getpasscode';
+  document.getElementById('passmesg').innerHTML = "";
+//  document.getElementById("imgm").style.display="none";
+//   p_flag='1';
+//document.getElementById("imgm").src='/images/sjimage/smspad.gif';
+}
+
+function chk(tel)
+{
+
+if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel)))
+        {
+           return 0;
+         }
+else
+        {
+          return 1;
+         }
+}
+function getpasswd(){	
+	document.getElementById('username_err').innerHTML = "";
+	document.getElementById('chaccept_err').innerHTML = "";	
+   
+	  	document.getElementById('err5').className = 'error';
+      document.getElementById("err5").innerHTML = "";
+
+	  if(document.getElementById("nclogin").usernametmp.value==''||document.getElementById("usernametmp").value=='手机号码'){
+			document.getElementById('username_err').className = 'error1';
+			document.getElementById('username_err').innerHTML = '<span id="errormark"><img src = "/images/ap/mark.png" style = "margin-bottom:-2px;" ></span>&nbsp;请输入正确的手机号码。';
+			return false;
+	  }
+	  
+//		var telno=document.getElementById("nclogin").username.value;
+		var telno=  ncPortalCheckMobileNumBer(document.getElementById("code").value,document.getElementById("nclogin").usernametmp.value);
+		if(telno.length<6 || isNaN(telno)){
+			document.getElementById('username_err').className = 'error1';
+			document.getElementById('username_err').innerHTML = '<span id="errormark"><img src = "/images/ap/mark.png" style = "margin-bottom:-2px;" ></span>&nbsp;手机号格式错误。';
+			return false;
+		} 
+		
+		
+		var temp_value;
+		temp_value = document.getElementById('usernametmp').value;
+		
+
+		 if(document.getElementById('code').value!='' && document.getElementById('code').value != "国家代码"){
+		 	 		temp_value = '0'+document.getElementById('code').value+'-'+document.getElementById('usernametmp').value;
+		 }
+		 document.getElementById("nclogin").username.value = temp_value;
+//		 alert(document.getElementById("nclogin").username.value);
+//		 if(chk(telno)!='0'){
+//		    alert('请输入正确的手机号!');
+//		  	return false;
+//		  }
+	  
+	  document.getElementById('gpss').className = 'getpasscode_no';
+	  document.getElementById('passmesg').innerHTML = "如果你没有收到密码，请稍等一分钟，然后再试一次。";
+    document.getElementById("gpss").disabled="true";
+    setTimeout('restore()',60000);
+	  
+	  callServer();
+	    
+//	  temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value;
+//		document.getElementById("ifhide").src=temp_html;
+
+	  //document.getElementById("imgm").src='/images/authimage/donghua.gif';
+//      document.getElementById("gpss").disabled="true";
+     // document.getElementById("imgm").style.display="";
+//      p_flag='0';
+	 
+
+      
+//		  return false;
+		
+		
+	}
+	
+	 function changlogin(flag){
+            self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+	function eng2(){
+	document.getElementById('english').className = 'eng2';
+	}
+	function eng(){
+		document.getElementById('english').className = 'eng';
+	}
+	function clearuValue(){
+		if(document.getElementById('usernametmp').className=='username'){
+			document.getElementById('usernametmp').value='';
+		}
+	}
+	function clearcValue(){
+		if(document.getElementById('code').className=='code'){
+			document.getElementById('code').value='';
+		}
+	}
+	function clearpValue(){
+		if(document.getElementById('password').className=='password'){
+			document.getElementById('password').value='';
+		}
+	}
+	
+	function init()
+	{
+		document.getElementById('sign').disabled = true;
+	  if('[#statusCode#]' == '5')
+	  {
+	  	document.getElementById('err5').className = 'error3';
+		  document.getElementById('err5').innerHTML = '<span id="errormark"><img src = "/images/ap/mark.png" style = "margin-bottom:-2px;" ></span>&nbsp;请输入发送至上述手机号码的正确密码。';
+	  }	
+	  if('[#statusCode#]' == '3')
+	  {
+	  	document.getElementById('err').className = 'error3';
+		  document.getElementById('err').innerHTML = '<span id="errormark"><img src = "/images/ap/mark.png" style = "margin-bottom:-2px;" ></span>&nbsp;很抱歉，注册时出现错误。请稍后再试。';
+	  }	
+	  	if('[#usernametmp#]' != '' && '[#usernametmp#]' != '手机号码')
+	{
+		document.getElementById("usernametmp").value = '[#usernametmp#]';
+		document.getElementById('usernametmp').className = 'username2';
+	}
+	if('[#usernametmp#]' == '手机号码')
+	{
+		document.getElementById("usernametmp").value = '手机号码';
+		document.getElementById('usernametmp').className = 'username';
+	}
+//	alert("[#code#]"+ " username =" +"[#usernametmp#]" );
+	if('[#code#]' != '' && '[#code#]' != '国家代码')
+	{
+		document.getElementById("code").value = '[#code#]';
+		document.getElementById('code').className = 'code2';
+	}
+	if('[#code#]' == '国家代码')
+	{
+		document.getElementById("code").value = '国家代码';
+		document.getElementById('code').className = 'code';
+	}
+	
+}
+	
+	function setButtons(){
+	document.getElementById('gpss').value = btn1;
+	document.getElementById('sign').value = btn2;
+	
+	}
+	
+function openpage(flag)
+{
+	var temp;
+	temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	self.location = temp;
+//	window.open(temp,'','fullscreen=yes','toolsbar=yes');
+}
+	//onClick="changlogin('zh')"
+</script>
+
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload = "init(); setButtons();">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+	<input type = "hidden" name = "username" id = "username" value= "" />
+         [#postarg#]
+<center> 
+ <div id="main">
+
+ 
+	<div id="login_area">
+        <p >
+       仅需通过手机注册你的设备，便可享用商城的免费 WLAN 网络。
+        </p>
+        <hr />
+		
+        <img src="/images/ap/apple_sms_1.png" style="margin-bottom:20px;"/>
+        <p class="font_style">
+         输入你的手机号码，点击“获取密码”。我们会将密码发送至你的手机。
+        </p>
+        <div> 
+	        <div  class="Case1"><input type="text" id="code" name="code" class="code"  value="国家代码" onfocus="clearcValue();"  onkeyup="this.className='code2'"  /></div>     
+	        <div class="Case2">        
+	        	<input type="text" id="usernametmp" name="usernametmp" value="手机号码" class="username" onfocus="clearuValue();" onkeyup="this.className='username2'"  />
+	        </div>
+        </div>
+        <div id="username_err" class="error"></div>
+         <input type="button" id="gpss"  value = "" class="getpasscode" onClick="getpasswd()">
+        <div class= "gocenter">
+         <div id = "passmesg" class = "mesgpass" ></div>
+        </div>
+         <div class="space3">&nbsp;</div>
+		 
+        <img src="/images/ap/apple_sms_2.png" style="margin-bottom:20px;"/>
+        <p class="font_style">
+            请输入你收到的密码，然后点击“注册”。
+        </p>
+        
+         <div class="Case">
+        	<input type="text" id="password" name="password" value="密码" onKeyPress="ss(event)" class="password" onfocus="clearpValue();"  onkeyup="passcode();" >
+        </div>
+       
+        <div id="err5"></div>
+        
+        <div class="space2"></div>
+		<div class = "font_style2">你只有遵守和同意以下条款和条件才能使用 WLAN 网络。<br><br>
+使用 WLAN 网络上网存在一定风险。你负有完全责任确保你对 WLAN 网络的使用符合相关适用的法律和法规的规定。
+		</div>
+		<div class="space1"></div>
+        
+        <p class="font_style">
+       		<span><input type="checkbox" id="acceptme" class="chaccept" >&nbsp;我已阅读并同意商城网络的条款及细则。
+            </span>
+        </p>
+        <div id="chaccept_err" class="error"></div>
+        <input type="button" value="" class="no_sign" id="sign"  onClick="spylogin();">
+        <div id="err"></div>
+        <div height = "30px" ;>&nbsp;</div>
+    </div>
+    <div style=" width:964px; float:right;">
+    </div>
+</div>
+</center>
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</body>
+</html>

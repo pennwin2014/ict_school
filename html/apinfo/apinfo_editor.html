@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>页面列表</title>
+    <meta http-equiv="content-type" content="text/html; charset=GBK">
+    <link rel="stylesheet" type="text/css" href="/newver/chart2/resources/css/ext-all.css">
+    <script type="text/javascript" src="/newver/chart2/ext-all.js"></script>
+    <style type="text/css">
+        .w100{ border:0px; padding:0px; margin:0px; width:100%;}
+    </style>
+    <script type ="text/javascript" src = "apinfo.js"></script>
+    <script type ="text/javascript">
+        
+
+        function onPageUpdate(state)
+        {
+            var mac = document.getElementById("txtAPMac").value;
+            var pos = document.getElementById("txtAPPos").value;
+            //alert("mac :"+mac);
+            //alert("pos: "+pos);
+            store_ap_info.load(
+            {
+                params:
+                {
+                   status: state,
+                   mac: mac,
+                   pos: pos,
+                },
+                callback: function(records, options, success)
+                {
+                    if(success)
+                    {
+							        var obj = eval('(' + options.response.responseText + ')');
+							        if(obj.result == "OK")
+							        {
+							            alert("数据保存成功！");
+							            onLoad();
+							        }
+							        else if(obj.result == "INSERT")
+							        {
+							            alert("错误：插入数据表失败！");
+							        }
+							        else if(obj.result == "UPDATE")
+							        {
+							            alert("错误：修改数据表失败！");
+							        }
+							        else if(obj.result == "DELETE")
+							        {
+							            alert("错误：删除数据表失败！");
+							        }
+								    }
+								    else
+								    {
+								        alert("错误：数据操作失败！");
+								    }
+                    
+                }
+            });
+        }
+        function onClickPageObject1()
+        {
+            var btnPageObj1 = document.getElementById("btnPageObj1");
+            var btnPageObj2 = document.getElementById("btnPageObj2");
+            var btnPageAdd = document.getElementById("btnPageAdd");
+            if(btnPageObj1.value == "取消增加")
+            {
+                btnPageObj1.style.display = "none";
+                btnPageObj2.style.display = "none";
+                btnPageAdd.style.display = "";
+                document.getElementById("txtAPMac").disabled = true;
+                document.getElementById("txtAPPos").disabled = true;
+            }
+            else if(btnPageObj1.value == "修改")
+            {
+                btnPageObj1.value = "取消修改";
+                btnPageObj2.value = "保存数据";
+                btnPageAdd.style.display = "none";
+                document.getElementById("txtAPMac").disabled = false;
+                document.getElementById("txtAPPos").disabled = false;
+                document.getElementById("txtAPPos").focus();
+            }
+            else if(btnPageObj1.value == "取消修改")
+            {
+                btnPageObj1.value = "修改";
+                btnPageObj2.value = "删除";
+                btnPageAdd.style.display = "";
+                document.getElementById("txtAPMac").disabled = true;
+                document.getElementById("txtAPPos").disabled = true;
+
+            }
+            
+        }
+        function onClickPageObject2()
+        {
+            var btnPageObj1 = document.getElementById("btnPageObj1");
+            var btnPageObj2 = document.getElementById("btnPageObj2");
+            var btnPageAdd = document.getElementById("btnPageAdd");
+            if(btnPageObj2.value == "保存数据")
+            {
+                if(btnPageObj1.value == "取消增加")
+                    onPageUpdate('a');
+                else if(btnPageObj1.value == "取消修改")
+                    onPageUpdate('u');
+                btnPageObj1.style.display = "none";
+                btnPageObj2.style.display = "none";
+                btnPageAdd.style.display = "";
+                document.getElementById("txtAPMac").disabled = true;
+                document.getElementById("txtAPPos").disabled = true;
+            }
+            else if(btnPageObj2.value == "删除")
+            {
+                if(confirm("确定要删除 " + document.getElementById("txtAPPos").value + " 吗？"))
+                {
+                    onPageUpdate('d');
+                    btnPageObj1.style.display = "none";
+                    btnPageObj2.style.display = "none";
+                    btnPageAdd.style.display = "";
+                    document.getElementById("txtAPMac").disabled = true;
+                    document.getElementById("txtAPPos").disabled = true;
+
+                }
+            }
+        }	
+        
+        function onClickPageAdd()
+        {
+            var btnPageAdd = document.getElementById("btnPageAdd");
+            var btnPageObj1 = document.getElementById("btnPageObj1");
+            var btnPageObj2 = document.getElementById("btnPageObj2");
+            btnPageObj1.style.display = "";
+            btnPageObj2.style.display = "";
+            btnPageObj1.value = "取消增加";
+            btnPageObj2.value = "保存数据";
+            btnPageAdd.style.display = "none";
+            document.getElementById("txtAPPos").value = "";
+            document.getElementById("txtAPMac").value = "";
+            document.getElementById("txtAPMac").disabled = false;
+            document.getElementById("txtAPPos").disabled = false;
+            document.getElementById("txtAPPos").focus();
+        }
+        
+        
+    </script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body class = "w100" onload = "onLoad();">
+    <table class = "w100">
+        <tr>
+            <td style="width:50%" align = "center">
+                <div id = "divPos"></div>
+            </td>
+            <td style="width:50%" align = "center">
+								<table class = "w100">
+                    <tr>
+                        <td style="padding:8px;width:20%" align = "right">
+                            AP Mac:
+                        </td>
+                        <td style="padding:8px;width:80%" align = "left">
+                            <input style="width:100%" type = "text" id = "txtAPMac" disabled ="disabled">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px;width:20%" align = "right">
+                            AP Pos:
+                        </td>
+                        <td style="padding:8px;width:80%" align = "left">
+                            <input style="width:100%" type = "text" id = "txtAPPos" disabled ="disabled">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:8px;width:20%" align = "right">
+           
+                        </td>
+                        <td style="padding:8px;width:80%" align = "right">
+                            <input style="margin:8px;width:25%" type = "button" onclick = "onClickPageAdd()" id = "btnPageAdd" value = "增加">
+                            <input style="margin:8px;width:25%" type = "button" onclick = "onClickPageObject1()" id = "btnPageObj1" value = "增加">
+                            <input style="margin:8px;width:25%" type = "button" onclick = "onClickPageObject2()" id = "btnPageObj2" value = "修改">
+                        </td>
+                    </tr>
+                    </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:50%" align = "center">
+                <div id = "divBehavior"></div>
+            </td>
+            <td style="width:50%" align = "center">
+                <div id = "div3"></div>
+            </td>
+        </tr>
+    </table>
+    
+</body>
+</html>

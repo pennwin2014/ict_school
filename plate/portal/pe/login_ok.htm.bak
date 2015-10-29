@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ok</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">td img {display: block;}</style>
+
+<style type="text/css">
+	.but_exit { font-size: 9pt;  background-image:url(/images/applepceng/292x32.png);
+   height: 32px; width: 292px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand} 
+
+</style>
+<script language="javascript" type="text/javascript">
+		function tuichu(){
+			document.getElementById("nclogin_0").submit();
+	}
+</script>
+
+<!--Fireworks CS5 Dreamweaver CS5 target.  Created Wed Sep 25 17:26:17 GMT+0800 2013-->
+</head>
+<body bgcolor="#ffffff">
+<table style="display: inline-table;" border="0" cellpadding="0" cellspacing="0" width="1360">
+<!-- fwtable fwsrc="苹果风格的验证界面——电脑english02.png" fwpage="页面 1" fwbase="iphone1000x600english-02.gif" fwstyle="Dreamweaver" fwdocid = "973828503" fwnested="0" -->
+  <tr>
+   <td><img src="/images/applepceng/spacer.gif" width="185" height="1" border="0" alt="" /></td>
+   <td><img src="/images/applepceng/spacer.gif" width="1000" height="1" border="0" alt="" /></td>
+   <td><img src="/images/applepceng/spacer.gif" width="175" height="1" border="0" alt="" /></td>
+   <td><img src="/images/applepceng/spacer.gif" width="1" height="1" border="0" alt="" /></td>
+  </tr>
+
+  <tr>
+   <td colspan="3"><img name="iphone1000x600english02_r1_c1" src="/images/applepceng/iphone1000x600english-02_r1_c1.gif" width="1360" height="61" border="0" id="iphone1000x600english02_r1_c1" alt="" /></td>
+   <td><img src="spacer.gif" width="1" height="61" border="0" alt="" /></td>
+  </tr>
+  <tr>
+   <td rowspan="3"><img name="iphone1000x600english02_r2_c1" src="/images/applepceng/iphone1000x600english-02_r2_c1.gif" width="185" height="659" border="0" id="iphone1000x600english02_r2_c1" alt="" /></td>
+   <td><img name="iphone1000x600english02_r2_c2" src="/images/applepceng/iphone1000x600english-02_r2_c2.gif" width="1000" height="60" border="0" id="iphone1000x600english02_r2_c2" alt="" /></td>
+   <td rowspan="3"><img name="iphone1000x600english02_r2_c3" src="/images/applepceng/iphone1000x600english-02_r2_c3.gif" width="175" height="659" border="0" id="iphone1000x600english02_r2_c3" alt="" /></td>
+   <td><img src="/images/applepceng/spacer.gif" width="1" height="60" border="0" alt="" /></td>
+  </tr>
+  <tr>
+   <td background="/images/applepceng/iphone1000x600english-02_r3_c2.gif">
+   				<table width="1000" height="598">
+				<tr><td colspan="2" height="160">&nbsp;</td><tr>
+				<tr>
+					<td  width="670px">
+					</td>
+					<td>&nbsp;<input type="button" class="but_exit" onClick="tuichu()"></td>
+				</tr>
+			</table>
+   	
+   	</td>
+   <td><img src="/images/applepceng/spacer.gif" width="1" height="541" border="0" alt="" /></td>
+  </tr>
+  <tr>
+   <td><img name="iphone1000x600english02_r4_c2" src="/images/applepceng/iphone1000x600english-02_r4_c2.gif" width="1000" height="58" border="0" id="iphone1000x600english02_r4_c2" alt="" /></td>
+   <td><img src="/images/applepceng/spacer.gif" width="1" height="58" border="0" alt="" /></td>
+  </tr>
+</table>
+</body>
+</html>

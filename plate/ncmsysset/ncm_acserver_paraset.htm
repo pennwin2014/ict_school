@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>AC服务器设置</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" />
+    <script type="text/javascript" src="/newver/resources/js/ext-all_n.js"></script>
+    
+  <script>  
+    
+Ext.require([
+    'Ext.form.*',
+    'Ext.layout.container.Column',
+    'Ext.window.MessageBox',
+    'Ext.fx.target.Element',
+    'Ext.data.*'
+]);
+
+
+Ext.onReady(function(){
+
+
+    Ext.define('State', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'string', name: 'groupid'},
+            {type: 'string', name: 'groupname'}
+        ]
+    });
+
+    var autype = [
+        {"groupid":"Pronetway","groupname":"Pronetway"},
+        {"groupid":"Local","groupname":"Local"}
+    ];
+    var store_autype = Ext.create('Ext.data.Store', {
+        model: 'State',
+        data: autype
+    });
+    
+    var autypeCombo = Ext.create('Ext.form.field.ComboBox', {
+        fieldLabel: '短信发送类型',
+        labelWidth: 140,
+        width: 273,
+        emptyText : '请选择',
+        valueField:'groupid',
+        displayField: 'groupname',
+        name : 'SmsType',      
+        value:'[#SmsType#]',
+        forceSelection: true,
+        store: store_autype,
+        queryMode: 'local',
+        typeAhead: true
+    });
+    
+    var SeriousInfoGroup = {
+        xtype: 'fieldset',
+        width: 350,
+        title: 'AC服务器缺省设置',
+        style:{
+	        marginRight: 'auto',
+	        marginLeft: 'auto'
+				},  
+//        layout: 'hbox',
+       	layout: 'anchor',
+        defaults: {
+            anchor: '100%',
+            height:28,
+            labelStyle: 'padding-left:4px;'
+        },
+        collapsible: true,
+        items: [{
+            labelWidth: 140,
+            layout: 'hbox',
+            xtype: 'container',
+            items:[{
+            xtype: 'textfield',
+            width: 273,
+            name: 'DefAcIp',
+            value: '[#DefAcIp#]',
+            allowBlank: false,
+            fieldLabel: '缺省AC地址'}
+            ]
+        },{
+            labelWidth: 140,
+            layout: 'hbox',
+            xtype: 'container',
+            items:[{
+            xtype: 'textfield',
+            width: 273,
+            emptyText: ' ',
+//            grow:true, 
+            name: 'DefAcPort',
+            value: '[#DefAcPort#]',
+            fieldLabel: '缺省AC端口'}
+            ]
+        },{
+                xtype: 'hidden',
+                name: 'FunName',
+                value:'ncmSmsParaSave_par'
+        }]
+    };
+    var ACserverComSet = {
+        xtype: 'fieldset',
+        width: 350,
+        title: 'AC服务器设置',
+        style:{
+	        marginRight: 'auto',
+	        marginLeft: 'auto'
+				},  
+        layout: 'anchor',
+        defaults: {
+            anchor: '100%',
+            height:28,
+            labelStyle: 'padding-left:4px;'
+        },
+        collapsible: false,
+        items: [  
+         {
+            labelWidth: 140,
+            layout: 'hbox',
+            xtype: 'container',
+            items:[{
+            xtype: 'textfield',
+            width: 273,
+            name: 'DefAcIp',
+            value: '[#DefAcIp#]',
+            allowBlank: false,
+            fieldLabel: 'AC服务器名称'}
+            ]
+        },
+        {
+            labelWidth: 140,
+            layout: 'hbox',
+            xtype: 'container',
+            items:[{
+            xtype: 'textfield',
+            width: 273,
+            name: 'DefAcIp',
+            value: '[#DefAcIp#]',
+            allowBlank: false,
+            fieldLabel: 'AC服务器地址'}
+            ]
+        },
+        {
+            labelWidth: 140,
+            layout: 'hbox',
+            xtype: 'container',
+            items:[{
+            xtype: 'textfield',
+            width: 273,
+            emptyText: ' ',
+            name: 'DefAcPort',
+            value: '[#DefAcPort#]',
+            fieldLabel: 'AC服务器端口'}
+            ]
+        }
+        , {
+                xtype: 'hidden',
+                name: 'FunName',
+                value:'ncmSmsParaSave_par'
+           }
+        ]
+    };
+    
+    var fp = Ext.create('Ext.FormPanel', {         
+        frame: false,
+				border:false,
+        method:'POST',
+        name:'form1',
+        fieldDefaults: {
+            labelWidth: 140
+        },
+        renderTo:'corp_edit',
+        width:980,
+        bodyPadding: 20,
+        items: [
+            SeriousInfoGroup
+//            ,
+//            ACserverComSet
+        ],
+        buttons: [{
+            text: '保存',
+            handler: function(){
+            if(fp.getForm().isValid()){
+             this.disabled=true;
+             var guserid=document.getElementById("form1").userid.value;
+               fp.form.doAction('submit',{
+               url:'/pronline/Msg',
+                method:'POST',
+                params:{userid:guserid},
+                success:function(form,action){ 
+           					Ext.Msg.alert('操作',"保存成功");
+           					document.getElementById("form1").userid.value=action.result.id;
+                 },
+             		 failure:function(form,action){    		 
+                    Ext.Msg.alert('操作',"保存失败");
+            		 }
+               }
+             )
+        		 this.disabled=false; 
+            }
+         }
+        },{
+            text: '重置',
+            style : 'margin-right:5px',
+            handler: function(){
+                fp.getForm().reset();
+            }
+        },{
+            text: '应用',
+            style : 'margin-right:370px',
+            handler: function(){
+                   document.getElementById("form1").userid.value = "app";
+                 if(fp.getForm().isValid())
+                 {
+				             this.disabled=true;
+				             var guserid="app";
+				               fp.form.doAction('submit',{
+				               url:'/pronline/Msg',
+				                method:'POST',
+				                params:{app:guserid},
+				                success:function(form,action){ 
+				           					Ext.Msg.alert('操作',"应用成功");
+				           					document.getElementById("form1").userid.value=action.result.id;
+				                 },
+				             		 failure:function(form,action){    		 
+				                    Ext.Msg.alert('操作',"应用失败");
+				            		 }
+				               }
+				             )
+				        		 this.disabled=false; 
+				         }
+            }
+        }
+        ]
+    });
+});
+</script>
+</head>
+<body >
+	<center>
+    <div id="corp_edit"></div>
+	</center>
+    <div id="joinfac" class="x-hide-display">
+         <select name="faccode"><option value="aaaa">fffff</option>/</select>
+    </div> 
+    <form name="form1" id="form1">
+    	<input type="hidden" name="userid" value="[#userid#]">
+    	<input type="hidden" name="app" value="">
+    	<input type="hidden" name="groupid" value="[#groupid#]">
+    </form>
+    <div id="corp_edit2" align="left"  style="background-color:#dfe9f5;" > 
+	    <iframe height="1800" name="net_list" scrolling="no" id="net_list" style="border:0px solid #d8d8d8;border-top:0;" width="100%"  border="0" frameborder="0" src="/ncmset/ncm_acself_set_man.htm" scrolling="yes" > </iframe>    
+	  </div>	
+</body>
+</html>

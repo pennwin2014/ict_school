@@ -1,0 +1,70 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>德化新街</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+<style type="text/css">
+	body{
+		margin:0 auto;
+		padding:0;
+		width:400px;
+		height:100%;
+	}
+	.wrap{ width:400px;}
+	.level_logos img{
+		width:100%;
+        max-height:50px;
+	}
+	.level_logos{
+		
+		float:left;
+		width:25%;
+	}
+	@media screen and (max-width:400px){
+		.wrap{ width:96%; margin:0 auto;}
+		body{ width:100%;}
+		}
+</style>
+
+<script type="text/javascript">
+
+function loadShops(mark,number){
+parent.document.getElementById("FunName").value = "ncmShops";
+parent.document.getElementById("shopid").value = shopid[number];
+parent.document.getElementById("logoid").value = logoid[number];
+//alert(shopid[number]);
+parent.document.getElementById("form1").submit();
+}
+
+var shopid= new Array();
+function loadShopid(){
+[#SLPB#]
+shopid[[#iNum#]] = "[#shopid#]";
+logoid[[#iNum#]] = "[#id#]";
+[#SLPE#]
+
+}
+</script>
+<body onLoad="loadShopid()">
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="name" name="name" value="">	
+		<input type="hidden" id="logoid" name="logoid" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+		<input type="hidden" name="plateName" id="plateName" value="newshop"/>	
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>	
+        <div class="wrap">
+		[#SLPB#] 
+			<div class="level_logos"><img src="[#img#] " onClick="loadShops([#id#],[#iNum#])" ></div>
+		[#SLPE#] 
+        </div>
+	</form>	
+</body>
+</html>
+
+

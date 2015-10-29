@@ -1,0 +1,786 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>用户访问日志</title>
+    <!-- <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" />  -->
+        <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .x-form-clear-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/clear-trigger.gif);
+        }
+        
+        .x-form-search-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/search-trigger.gif);
+        }
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <!-- <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script> -->
+		<script type="text/javascript" src="/newver/ext-4.2.1.883/ext-all.js"></script> 
+		<link rel="stylesheet" type="text/css" href="/newver/ext-4.2.1.883/resources/css/ext-all.css" /> 
+  <script>  
+function DateUtil(){}  
+/**  
+*功能:格式化时间  
+*示例:DateUtil.Format("yyyy/MM/dd","Thu Nov 9 20:30:37 UTC+0800 2006 ");  
+*返回:2006/11/09  
+*/  
+DateUtil.Format=function(fmtCode,date){  
+var result,d,arr_d;  
+
+var patrn_now_1=/^y{4}-M{2}-d{2}\sh{2}:m{2}:s{2}$/;  
+var patrn_now_11=/^y{4}-M{1,2}-d{1,2}\sh{1,2}:m{1,2}:s{1,2}$/;  
+
+var patrn_now_2=/^y{4}\/M{2}\/d{2}\sh{2}:m{2}:s{2}$/;  
+var patrn_now_22=/^y{4}\/M{1,2}\/d{1,2}\sh{1,2}:m{1,2}:s{1,2}$/;  
+
+var patrn_now_3=/^y{4}年M{2}月d{2}日\sh{2}时m{2}分s{2}秒$/;  
+var patrn_now_33=/^y{4}年M{1,2}月d{1,2}日\sh{1,2}时m{1,2}分s{1,2}秒$/;  
+
+var patrn_date_1=/^y{4}-M{2}-d{2}$/;  
+var patrn_date_11=/^y{4}-M{1,2}-d{1,2}$/;  
+
+var patrn_date_2=/^y{4}\/M{2}\/d{2}$/;  
+var patrn_date_22=/^y{4}\/M{1,2}\/d{1,2}$/;  
+
+var patrn_date_3=/^y{4}年M{2}月d{2}日$/;  
+var patrn_date_33=/^y{4}年M{1,2}月d{1,2}日$/;  
+
+var patrn_time_1=/^h{2}:m{2}:s{2}$/;  
+var patrn_time_11=/^h{1,2}:m{1,2}:s{1,2}$/;  
+var patrn_time_2=/^h{2}时m{2}分s{2}秒$/;  
+var patrn_time_22=/^h{1,2}时m{1,2}分s{1,2}秒$/;  
+
+if(!fmtCode){fmtCode="yyyy/MM/dd hh:mm:ss";}  
+if(date){  
+d=new Date(date);  
+if(isNaN(d)){  
+msgBox("时间参数非法\n正确的时间示例:\nThu Nov 9 20:30:37 UTC+0800 2006\n或\n2006/      10/17");  
+return;}  
+}else{  
+d=new Date();  
+} 
+if(patrn_now_1.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_now_11.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_now_2.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_now_22.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_now_3.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日"+" "+arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+}  
+else if(patrn_now_33.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日"+" "+arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+}  
+
+else if(patrn_date_1.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd;  
+}  
+else if(patrn_date_11.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd;  
+}  
+else if(patrn_date_2.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd;  
+}  
+else if(patrn_date_22.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd;  
+}  
+else if(patrn_date_3.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日";  
+}  
+else if(patrn_date_33.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日";  
+}  
+else if(patrn_time_1.test(fmtCode)){  
+arr_d=splitDate(d,true);  
+result=arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_time_11.test(fmtCode)){  
+arr_d=splitDate(d);  
+result=arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_time_2.test(fmtCode)){  
+arr_d=splitDate(d,true);  
+result=arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+}  
+else if(patrn_time_22.test(fmtCode)){  
+arr_d=splitDate(d);  
+result=arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+}  
+else{  
+msgBox("没有匹配的时间格式!");  
+return;  
+}  
+
+return result;  
+};  
+function splitDate(d,isZero){  
+var yyyy,MM,dd,hh,mm,ss;  
+if(isZero){  
+yyyy=d.getFullYear();  
+MM=(d.getMonth()+1)<10?"0"+(d.getMonth()+1):d.getMonth()+1;  
+dd=d.getDate()<10?"0"+d.getDate():d.getDate();  
+hh=d.getHours()<10?"0"+d.getHours():d.getHours();  
+mm=d.getMinutes()<10?"0"+d.getMinutes():d.getMinutes();  
+ss=d.getSeconds()<10?"0"+d.getSeconds():d.getSeconds();  
+}else{  
+yyyy=d.getFullYear();    //firefox 特别
+MM=d.getMonth()+1;  
+dd=d.getDate();  
+hh=d.getHours();  
+mm=d.getMinutes();  
+ss=d.getSeconds();    
+}  
+return {"yyyy":yyyy,"MM":MM,"dd":dd,"hh":hh,"mm":mm,"ss":ss};    
+} 
+
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+//    'Ext.ModelManager',
+//    'Ext.tip.QuickTipManager'
+]);
+var store;
+function reflash(){
+	  var sysvl_sid=document.getElementById("form1").sysvl_sid.value;
+	  var sysvl_name=document.getElementById("form1").sysvl_name.value;
+	  var sysvl_ipaddr=document.getElementById('form1').sysvl_ipaddr.value;
+	  var sysvl_action=document.getElementById('form1').sysvl_action.value;
+	  var sysvl_result=document.getElementById('form1').sysvl_result.value;
+	  var sysvl_desc=document.getElementById('form1').sysvl_desc.value;
+	  var action=document.getElementById('form1').action.value;
+	  var result=document.getElementById('form1').result.value;
+    var sear=document.getElementById('form1').sear.value;
+	  var sdate=document.getElementById('form1').sdate.value;
+	  var edate=document.getElementById('form1').edate.value;
+	  var cx=document.getElementById('form1').cx.value;
+	  var groupcode=document.getElementById('form1').groupcode.value;
+	  store.load({params: {sysvl_sid:sysvl_sid,sysvl_name:sysvl_name,sysvl_ipaddr:sysvl_ipaddr,sysvl_action:sysvl_action,sysvl_result:sysvl_result,sdate:sdate,edate:edate,action:action,result:result,sear:sear,cx:cx,groupcode:groupcode}});  
+}
+
+function gotoedit1(id){
+     var htmlvar='<iframe src="/pronline/Msg?FunName@ncsWebDispClientAddForm_v4&userid@'+id+'&groupid@'+document.getElementById("form1").groupid.value+' scrolling="no" name="moduleIframe" frameborder="no" style="width:100%;height:100%;"></iframe>';        
+     var win2 = new Ext.Window ({
+                         id:"addwindow",
+                         title:"增加或修改单位信息",
+                         x:0,
+                         y:0,
+                         width:630,
+                         height:600,
+                         bodyPadding: 10,
+                         modal:false,
+                         resizable:true,
+                         draggable:false,
+                         html:htmlvar
+                                           
+     }
+    )
+    win2.show();
+}
+//显示用户信息
+function ShowUser(did,uid){
+     var htmlvar='<iframe src="/pronline/Msg?FunName@ncsWebShowUserinfo&did@"+did+"+uid@"+uid;" scrolling="no" name="moduleIframe" frameborder="no" style="width:100%;height:100%;"></iframe>';              
+     var win = new Ext.Window ({
+                         id:"userwindow",
+                         title:"查看用户信息",
+                         x:0,
+                         y:0,
+                         width:630,
+                         height:600,
+                         bodyPadding: 10,
+                         modal:false,
+                         resizable:true,
+                         draggable:true,
+                         html:htmlvar
+                                           
+     }
+    )
+    win.show();
+}
+
+Ext.onReady(function(){
+//    Ext.tip.QuickTipManager.init();
+
+    Ext.define('EimData', {
+        extend: 'Ext.data.Model',
+        fields: [
+            'sysvl_sid', 'sysvl_sdate', 'sysvl_name', 'sysvl_ipaddr','sysvl_action','sysvl_result','sysvl_desc'
+        ],
+        idProperty: 'sysvl_sid'
+    });
+
+    // create the Data Store
+		//重写排序函数，解决远程条件查询问题
+    Ext.data.Store.prototype.doSort = function() {
+    reflash();
+    }
+    
+    store = Ext.create('Ext.data.Store', {
+        pageSize: 25,
+        model: 'EimData',
+        remoteSort: true,
+ //       autoLoad :{params:{aaad:0,dddd:2}},
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@ncmWebAdmQyeSysLog',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            },         
+            simpleSortMode: true
+
+        },
+//        params:{ffffff:'aaaaaa'},
+        sorters: [{
+            property: 'stime',
+            direction: 'ASC'
+        }]
+    });
+
+    var handleAction = function(action){
+       if(action=='add'){
+       var htmlvar='<iframe src="/pronline/Msg?FunName@ncsWebDispClientAddForm_v4&groupid@'+document.getElementById("form1").groupid.value+' " scrolling="no" name="moduleIframe" frameborder="no" style="width:100%;height:100%;"></iframe>';      
+       var win = new Ext.Window ({
+                             id:"addwindow",
+                             title:"增加或修改单位信息",
+                             x:0,
+                             y:0,
+                             width:630,
+                             height:560,
+                             bodyPadding: 10,
+                             modal:false,
+  //                         headerPosition: 'bottom',
+                             resizable:true,
+                             draggable:true,
+                             html:htmlvar
+                                                
+         }
+        )
+        win.show();
+
+       }
+    
+    };
+
+    // pluggable renders
+    //修改公司信息
+    function editcorp(value,p,record){
+            return Ext.String.format('<a href="#xxm" onclick="gotoedit1({0})">修改</a>',record.getId());
+                
+    }
+    function ipgj(value,p,record){
+        var temp_disp=record.data.dispname;
+        var temp_did=record.data.did;
+        var temp_uid=record.data.uid;
+        return Ext.String.format( '<a href="#xxm" onclick=ShowUser("{0}","{1}")>{2}</a>',temp_did,temp_uid,temp_disp,temp_disp);
+      
+    }
+    
+    function renderLast(value, p, r) {
+        return Ext.String.format('{0}<br/>by {1}', Ext.Date.dateFormat(value, 'M j, Y, g:i a'), r.data['lastposter']);
+    }
+
+    var pluginExpanded = true;
+    
+    var sm = Ext.create('Ext.selection.CheckboxModel',{
+        listeners: {
+            selectionchange: function(sm, selections) {
+           
+            grid.down('#removeButton').setDisabled(selections.length == 0);
+                
+            }
+        }
+    
+    });
+    
+ 		//查询  
+    Ext.define('State', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'string', name: 'groupid'},
+            {type: 'string', name: 'groupname'}
+        ]
+    });
+   
+    var store_group = Ext.create('Ext.data.Store', {
+        model: 'State',
+        remoteSort: true,
+         proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@ncsWebGroupComp',
+            reader: {
+                type:'json',
+                root: 'corpclassdata'              
+            },         
+            simpleSortMode: true
+        }
+    });
+    store_group.load();     
+    var groupCombo = Ext.create('Ext.form.field.ComboBox', {
+        fieldLabel: '单位属组',
+        valueField:'groupid',
+        value:'',
+        displayField: 'groupname',
+        name : 'groupid1',      
+        allowBlank: true,
+        forceSelection: true,
+        store: store_group,
+        triggerAction: 'all',
+//      queryMode:'remote',
+         queryMode: 'local',
+         typeAhead: true
+    });
+    
+	  var myDate = new Date();
+	  var yy = ( myDate.getYear() < 1900 ) ? ( 1900 + myDate.getYear() ) : myDate.getYear();
+	  var mm=myDate.getMonth()+1;
+	  if(mm<10){
+	  		mm='0'+mm;
+	  }
+	  var dd=myDate.getDate();
+	  if(dd<10){
+	  		dd='0'+dd;
+	  }
+		var today=yy+'-'+mm+'-'+dd;
+		var startday=yy+'-'+mm+'-'+'01';
+
+    fp2=Ext.create('Ext.FormPanel', {         
+        frame: true,
+        fieldDefaults: {
+           labelWidth: 65,                        
+           xtype: 'textfield' 
+        },
+        bodyPadding: 10,
+        items: [{                        
+              fieldLabel:'起始日期',
+              xtype: 'datefield',
+              value:startday,
+              name:'sdate'
+        },{
+            fieldLabel:'结束日期',
+            xtype: 'datefield',
+            value:today,
+            name:'edate'
+        },{
+            fieldLabel:'用户名',
+
+            xtype: 'textfield',
+            name:'dispname'
+        },{
+            fieldLabel:'源IP',
+
+            xtype: 'textfield',
+            name:'sip'
+        },{
+            fieldLabel:'Mac地址',
+            xtype: 'textfield',
+            name:'mac'
+        },{
+            fieldLabel:'证件号码',
+            xtype: 'textfield',
+            name:'idno'
+        },{
+            fieldLabel:'位置/房号',
+            xtype: 'textfield',
+            name:'position'
+        },{
+            fieldLabel:'场所代码',
+            xtype: 'textfield',
+            name:'servicecode'
+        },{
+            fieldLabel:'上网单位',
+            xtype: 'textfield',
+            name:'cname'
+        },{
+            xtype: 'button',
+            anchor: 'right',
+            style : 'margin-left:80px',
+            text:'查&nbsp;&nbsp;询',
+            handler: function(){
+               document.getElementById("form1").sip.value=fp2.getForm().getValues().sip;
+               var tm=fp2.getForm().getValues().sdate;                      
+               document.getElementById("form1").sdate.value=tm;
+             
+               document.getElementById("form1").edate.value=fp2.getForm().getValues().edate;
+             
+               document.getElementById("form1").mac.value=fp2.getForm().getValues().mac; 
+
+               document.getElementById("form1").position.value=fp2.getForm().getValues().position; 
+        
+               document.getElementById("form1").servicecode.value=fp2.getForm().getValues().servicecode; 
+                                  
+               document.getElementById("form1").cname.value=fp2.getForm().getValues().cname; 
+     
+               document.getElementById("form1").dispname.value=fp2.getForm().getValues().dispname; 
+               document.getElementById("form1").idno.value=fp2.getForm().getValues().idno;  
+               document.getElementById("form1").keyword.value='';
+               store.currentPage=1;
+               reflash();
+               win2.close();
+            }
+        },{
+            text: '清&nbsp;&nbsp;除',
+            style : 'margin-left:10px',
+            xtype: 'button',
+            handler: function(){
+                fp2.getForm().reset();
+            }
+	      }]
+    });
+    var win2;
+    function showCxForm() {
+        if (!win2) {
+            win2 = Ext.widget('window', {
+                title: '高级查询',
+                closeAction: 'hide',
+                x:600,
+                y:32,
+                width: 280,
+                height: 330,
+                minHeight: 330,
+                resizable: true,
+                modal: false,
+                items: fp2
+            });
+        }
+        win2.show();
+    }
+  
+		//对翻页工具条重新构建，替换翻页函数    
+		Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
+			  doRefresh:function(){
+			   		reflash();
+			  },
+			  moveLast:function(){
+				  	var b=this,a=b.getPageData().pageCount;
+				  	if(b.fireEvent("beforechange",b,a)!==false){
+						  	store.currentPage=a;
+						  	reflash();
+				    }
+				},
+	   		moveFirst:function(){
+				    if(this.fireEvent("beforechange",this,1)!==false){
+						    store.currentPage=1;
+						    reflash();
+				    }
+		    }, 
+			  movePrevious:function(){var b=this,a=b.store.currentPage-1;if(a>0){if(b.fireEvent("beforechange",b,a)!==false){store.currentPage=a;reflash();}}},
+			  moveNext:function(){var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;if(a<=b){if(c.fireEvent("beforechange",c,a)!==false){store.currentPage=a;reflash();}}} 
+		});
+
+    var aaa=screen.width;
+    aaa=aaa-260;
+    
+		var sm = Ext.create('Ext.selection.CheckboxModel',{
+		    listeners: {
+		        selectionchange: function(sm, selections) {
+		       
+		        grid.down('#kickButton').setDisabled(selections.length == 0);
+		//            grid.down('#grantButton ').setDisabled(selections.length == 0);
+		           
+		        }
+		    }
+		
+		});
+		//行为类型
+		var data_s = [['value1', '全部'], 
+		             ['value2', '鉴别与登录'], 
+		             ['value3', '修改鉴别信息'], 
+		             ['value6', '增加修改删除用户'], 
+		             ['value12', '其它']
+		             ];
+		var store_s = new Ext.data.SimpleStore({
+		        fields: ['value', 'text'],
+		        data: data_s
+		});
+		var combo_s = new Ext.form.ComboBox({
+		        store: store_s,
+		//           style:'margin-top:0px;margin-buttom:0px;margin-left:5px;margin-right:925px;height:5px;',
+						style:'margin-top:0px;margin-buttom:0px;margin-left:5px;margin-right:5px;height:5px;',
+		        emptyText: '全部',
+		        mode: 'local',
+		        width:106,
+		        triggerAction: 'all',
+		        displayField: 'text'
+		});
+		combo_s.on("select", function(comboBox,event, target, owner, tool) {
+		    		//webreplace函数重定向到Plate下界面，替换data.xml
+						if(comboBox.getRawValue()=="鉴别与登录"){
+								document.getElementById("form1").action.value="01";
+								reflash();
+						}else if(comboBox.getRawValue()=="修改鉴别信息"){
+								document.getElementById("form1").action.value="02";
+								reflash();
+						}else if(comboBox.getRawValue()=="修改系统配置"){
+								document.getElementById("form1").action.value="03";
+								reflash();
+						}else if(comboBox.getRawValue()=="修改下发审计策略"){
+								document.getElementById("form1").action.value="04";
+								reflash();
+						}else if(comboBox.getRawValue()=="增加修改删除用户"){
+								document.getElementById("form1").action.value="05";
+								reflash();
+						}else if(comboBox.getRawValue()=="查询信息"){
+								document.getElementById("form1").action.value="06";
+								reflash();
+						}else if(comboBox.getRawValue()=="统计各类数据"){
+								document.getElementById("form1").action.value="07";
+								reflash();
+						}else if(comboBox.getRawValue()=="数据接收下发"){
+								document.getElementById("form1").action.value="08";
+								reflash();
+						}else if(comboBox.getRawValue()=="备份与恢复"){
+								document.getElementById("form1").action.value="09";
+								reflash();
+						}else if(comboBox.getRawValue()=="系统启动与关闭"){
+								document.getElementById("form1").action.value="11";
+								reflash();
+						}else if(comboBox.getRawValue()=="其它"){
+								document.getElementById("form1").action.value="99";
+								reflash();
+						}else{
+								document.getElementById("form1").action.value="";
+								reflash();
+						}
+		});
+   
+		//结果
+		var data_v = [['value1', '不限'], 
+		             ['value2', '成功'], 
+		             ['value3', '失败']
+		             ];
+		var store_v = new Ext.data.SimpleStore({
+		        fields: ['value', 'text'],
+		        data: data_v
+		});
+		var combo_v = new Ext.form.ComboBox({
+		        store: store_v,
+						style:'margin-top:0px;margin-buttom:0px;margin-left:5px;margin-right:5px;height:5px;',
+		        emptyText: '不限',
+		        mode: 'local',
+		        width:68,
+		        triggerAction: 'all',
+		        displayField: 'text'
+		});
+		combo_v.on("select", function(comboBox,event, target, owner, tool) {
+						if(comboBox.getRawValue()=="成功"){
+								document.getElementById("form1").result.value="success";
+								reflash();
+						}else if(comboBox.getRawValue()=="失败"){
+								document.getElementById("form1").result.value="Fail";
+								reflash();
+						}else{
+								document.getElementById("form1").result.value="";
+								reflash();
+						}
+		});
+   
+		var grid = Ext.create('Ext.grid.Panel', {
+		    height: 980,
+		    forceFit: true,
+		    scrollOffset: 0,
+		    store: store,
+		    selModel: sm,
+		    frame:false,
+		    border:false,
+		    columns:[{
+		        text: "日期",
+		        dataIndex: 'sysvl_sdate',
+		        width: 150,
+		        sortable: true
+		    },{
+		        text: "操作员",
+		        dataIndex: 'sysvl_name', 
+		        width: 80,
+		        sortable: true
+		    },{
+		        text: "IP地址",
+		        dataIndex: 'sysvl_ipaddr',           
+		        width: 100,
+		        sortable: true
+		    },{
+		        text: "行为类型",
+		        dataIndex: 'sysvl_action',
+		        hidden: false,
+		        width: 120,
+		        sortable: false
+		    },{
+		        text: "结果",
+		        dataIndex: 'sysvl_result',
+		        hidden: false,
+		        width: 80,
+		        sortable: true
+		    },{
+		        text: "事件描述",
+		        dataIndex: 'sysvl_desc',
+		        hidden: false,
+		        width: 200,
+		        align: 'right',
+		        sortable: false
+		    },{
+		        width:3,
+		        flex:1,
+		        sortable: false
+		    }],
+		    
+		    columnLines: true,
+		                                    
+		    // paging bar on the bottom
+		
+		    tbar: Ext.create('Ext.PagingToolbar1', {
+		        store: store,
+		        displayInfo: true,
+		        displayMsg: '显示{0} - {1}条记录 共{2}条记录',
+		        emptyMsg: "没有记录可显示",  
+		        items: [
+		        '-',{
+		            xtype:'textfield',
+		            id:'sysvl_sear',
+		            name:'sysvl_sear',
+		            width:'95px',
+		            style:'color:#7aa7d5',
+		            value:'',
+		            emptyText:'请输入查询内容',
+		            listeners:{
+		               'focus':function(){
+			               	if(this.value=='请输入查询内容'){                
+			                  	this.setValue('');
+			                }
+		               }
+		            }
+		        },{                        
+		            fieldLabel:'从',
+		            labelWidth: 12, 
+		            width:110,
+		            grow:true, 
+		            anchor: '68%' ,   //设置百分比
+		            xtype:'datefield',
+		            columnWidth:'90px',
+		            value:startday,
+		            id:'sdate1',
+		            name:'sdate1'
+		        },{
+		            fieldLabel:'到',
+		            labelWidth: 12,         
+		            width:110,
+		            grow:true,  //控制长度
+		            xtype:'datefield',
+		            value:today,
+		            id:'edate1',
+		            name:'edate1'
+		        },{
+		           	xtype:'label',
+		            html:'&nbsp;行为类型'
+		        },combo_s,{
+		            text:'查询',
+		            iconCls:'accept',
+		            handler: function(){
+		                var aa=Ext.getCmp('sysvl_sear').value;
+		                if(aa!='请输入查询内容'){
+		                  	document.getElementById("form1").sear.value=aa;
+		                }
+						        var cc=DateUtil.Format("yyyy-MM-dd",Ext.getCmp('sdate1').value);
+			              var bb=DateUtil.Format("yyyy-MM-dd",Ext.getCmp('edate1').value);
+			              document.getElementById("form1").cx.value="cx";
+				            document.getElementById("form1").sdate.value=cc;  
+				            document.getElementById("form1").edate.value=bb;
+		                store.currentPage=1;
+		                reflash();
+		            }
+		        }]
+		    }),
+		    renderTo: 'grid-corp'
+		});
+		
+		// trigger the data store load
+		reflash();
+});
+</script>
+</head>
+<body>
+	<form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="ncmWebAdmQyeSysLog" />
+		<input type="hidden" name="groupid" value="" />
+		<input type="hidden" name="did" value="" />	
+		<input type="hidden" name="sdate" value="" />
+		<input type="hidden" name="edate" value="" />
+		<input type="hidden" name="cx" value="" />
+
+		<input type="hidden" name="sysvl_sid" value="" />
+		<input type="hidden" name="sysvl_sdate" value="" />
+		<input type="hidden" name="sysvl_name" value="" />
+		<input type="hidden" name="sysvl_ipaddr" value="" />
+		<input type="hidden" name="sysvl_action" value="" />
+		<input type="hidden" name="sysvl_result" value="" />
+		<input type="hidden" name="sysvl_desc" value="" />
+		<input type="hidden" name="result" value="" />
+		<input type="hidden" name="action" value="" />
+		<input type="hidden" name="sear" value="" />
+		<input type="hidden" name="groupcode" value="" />
+	</form>
+  <div id="grid-corp"></div>
+</body>
+</html>

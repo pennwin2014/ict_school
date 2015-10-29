@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset="GBK">
+<title>模板管理</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+       
+    <script type="text/javascript" src="/newver/resources/js/ext-all_n.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/alert/jquery.alert.css"/>
+    <script type="text/javascript" src="/js/alert/jquery.js"></script>
+    <script type="text/javascript" src="/js/alert/jquery.alert.js"></script>
+
+    <style type="text/css">
+        .upload-icon {
+            background: url('/js/wlan_upload/mage_add.png') no-repeat 0 0 !important;
+        }
+        #fi-button-msg {
+            border: 2px solid #ccc;
+            padding: 5px 10px;
+            background: #eee;
+            margin: 5px;
+            float: left;
+        }
+        .x-debug .x-form-file-wrap .x-form-file-input {
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0.6);
+            opacity: 0.6;
+            background-color: gray;
+        }
+    </style>
+    <script>
+    	function preview()
+    	{
+    	    //
+//    	    jIframe("[#module_result#]", "预览",'880','610');
+    	   //父页面  radiobox切换       
+    	   var tmp = "/pronline/Msg?FunName@ncmWebReplaceOne&resultpath@/ncpmodule/ncmwebpreviewfrm.htm&platepath@" + "[#module_result#]";
+    	    jIframe(tmp, "预览",'880','610');
+    	}
+      function apply_m()
+      {
+      		document.getElementById("form1").submit();
+      }
+      function goback()
+      {
+      	  history.back(-1);	
+      }
+    </script>
+    <link rel="stylesheet" href="/css/css.css" type="text/css">
+
+</head>
+<body >
+<form name="form1" id="form1" action="/pronline/Msg">
+	  <input type="hidden" name="FunName" value="ncmModuleApply">
+    <input type="hidden" name="module_result"  value="[#module_result#]">
+    <input type="hidden" name="module_company" value="[#module_company#]">
+    <input type="hidden" name="module_temtype" value="[#module_temtype#]">
+    <table width="1090" >
+    	<tr height="50px;">
+    		<td></td>
+    	</tr>
+    	<tr height="100px;" align="center">
+    		<td colspan= "3" >
+    				<font color = "red">[#modu_status#]</font>
+    		</td>
+    	</tr>
+    	<tr height="100px;" align="center">
+    		<td>
+    				<input name="ok" type="button" class="an3-1"   value="&nbsp;预 览&nbsp;" onclick="preview();">
+              &nbsp; &nbsp;  &nbsp;  <!--
+            <input name="cancel" type="button" class="an3-1"  onClick="apply_m()"   value="应&nbsp;&nbsp;用">
+             &nbsp; &nbsp;  &nbsp;  -->
+            <input name="cancel" type="button" class="an3-1"  onClick="goback()"   value="重新上传">
+    		</td>
+    	</tr>
+    	<tr height="700px;">
+    		<td></td>
+    	</tr>
+    </table>
+  
+   
+	  
+ </form>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+<style type="text/css">
+body{
+margin:0;
+padding:0;
+width:100%;
+height:100%;
+font-family: arial;
+}
+	#details{
+	width:100%;
+	}
+	#details img{
+	width:100%;
+	}
+	
+	.collect{
+	background:#B40404;
+	color:white;
+	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+	width:50%;
+	border-radius:5px;
+	}
+	
+	.noProducts{
+	width:150px;
+	height:100px;
+	text-align:center;
+	color:#A4A4A4;
+	background:#F2F2F2;
+	float:left;
+	}
+</style>
+
+<script type="text/javascript">
+
+function loadProducts(){
+document.getElementById("FunName").value = "ncmProducts";
+//document.getElementById("name").value = name;
+
+document.getElementById("form1").submit();
+}
+function addcollections(num){
+//alert("收藏"+num);
+//alert(sids[num]+service_codes[num]+imgpaths[num]+descripts[num]);
+if (confirm("是否想要收藏此商品？") ) 
+　　　　　 { 　　
+　　
+document.getElementById("iframe3").contentWindow.document.getElementById("FunName").value="ncm_Addcollections";
+document.getElementById("iframe3").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe3").contentWindow.document.getElementById("uid").value= "1";
+document.getElementById("iframe3").contentWindow.document.getElementById("integral").value="[#integral#]";
+document.getElementById("iframe3").contentWindow.document.getElementById("aid").value=aids[num];
+document.getElementById("iframe3").contentWindow.document.getElementById("sid").value=sids[num];
+document.getElementById("iframe3").contentWindow.document.getElementById("service_code").value=service_codes[num];
+document.getElementById("iframe3").contentWindow.document.getElementById("decript").value=descripts[num];
+document.getElementById("iframe3").contentWindow.document.getElementById("imgpath").value=imgpaths[num];
+document.getElementById("iframe3").contentWindow.document.getElementById("form1").submit();
+}
+else { 
+
+}　
+}
+
+//var cids = new Array();
+var cids = "";
+var servicecode;
+var username;
+var aid;
+var aname;
+//var serno;
+//var usermac;
+var sname;
+//var feetime;
+var uid;
+//var sid;
+//var cid;
+var imgpath;
+
+var rurl;
+var user_online_flag;
+function init(){
+	user_online_flag="[#user_online_flag#]";
+	rurl = parent.document.getElementById("rg").value;
+
+[#SLPB#]
+servicecode="[#servicecode#]";
+username="[#username#]";
+aid="[#aid#]";
+aname="[#aname#]";
+//serno="[#serno#]";
+//usermac="[#usermac#]";
+sname="[#sname#]";
+//feetime="[#feetime#]";
+uid="[#uid#]";
+//sid="[#sid#]";
+//cid="[#cid#]";
+imgpath="[#imgpath#]";
+
+//alert(servicecode);
+if(cids ==""){
+cids = "[#cid#]";
+}
+else{
+cids = cids +","+ "[#cid#]";
+}
+[#SLPE#]
+
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmDiscounts_Coupons";
+
+document.getElementById("iframe1").contentWindow.document.getElementById("cid").value=cids;
+
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+
+}
+
+function download(number,counum,imgpath1){
+
+	if(user_online_flag == 1){
+		if (confirm("是否想要收藏此优惠劵？") ) 
+		{ 　　
+			
+			document.getElementById("iframe2").contentWindow.document.getElementById("FunName").value="ncm_Addcoupons";
+			document.getElementById("iframe2").contentWindow.document.getElementById("servicecode").value=servicecode;
+			document.getElementById("iframe2").contentWindow.document.getElementById("username").value=username;
+			document.getElementById("iframe2").contentWindow.document.getElementById("aid").value=aid;
+			document.getElementById("iframe2").contentWindow.document.getElementById("aname").value=aname;
+		//	document.getElementById("iframe2").contentWindow.document.getElementById("serno").value=serno;
+		//	document.getElementById("iframe2").contentWindow.document.getElementById("usermac").value=usermac;
+			document.getElementById("iframe2").contentWindow.document.getElementById("sname").value=sname;
+		//	document.getElementById("iframe2").contentWindow.document.getElementById("feetime").value=feetime;
+			document.getElementById("iframe2").contentWindow.document.getElementById("uid").value="1";
+		//	document.getElementById("iframe2").contentWindow.document.getElementById("sid").value=sid;
+			document.getElementById("iframe2").contentWindow.document.getElementById("cid").value=number;
+			document.getElementById("iframe2").contentWindow.document.getElementById("imgpath").value=imgpath1;
+		//	alert(counum);
+			document.getElementById("iframe2").contentWindow.document.getElementById("counum").value=counum;
+		　	document.getElementById("iframe2").contentWindow.document.getElementById("form1").submit();
+		//	alert(number);
+
+		}
+		else { 
+
+		}
+		}　
+else{
+	parent.document.getElementById("iframe1").src = "/pronline/Msg?FunName@ncSrvPlate&html@"+"/alogin_main.htm&"+rurl;
+}
+}
+</script>
+<body onload="init()">
+	<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="name" name="name" value="一层">
+		<input type="hidden" id="level" name="level" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="sid" name="sid" value="">
+		<input type="hidden" id="groupid" name="groupid" value="">
+		<input type="hidden" id="limit1" name="limit1" value="0">
+		<input type="hidden" id="limit2" name="limit2" value="10">
+	</form>
+	<form id="form2" name="form2" id="form2" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="ncm_products_collect">
+	</form>
+	
+	[#SLPB#]  
+	<div id="details">
+	
+	<img src="[#imgpath#]">
+	
+	</div>
+	[#SLPE#] 
+
+
+	<iframe id="iframe1" frameborder="no" scrolling="auto"  width="100%" height="100%"  src="/suning/ncm_discounts_coupons.htm" ></iframe>
+	<iframe id="iframe2" frameborder="no" scrolling="auto"  width="100%" height="100%"  src="/suning/ncm_levels_logos_shops_attentions.htm" ></iframe>	
+</body>
+</html>
+
+

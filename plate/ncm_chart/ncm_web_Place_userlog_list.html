@@ -1,0 +1,403 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>用户登录名称表</title>
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+
+<style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+     .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		  height: 16px !important;
+		  line-height: 16px;
+	    }
+
+</style>
+
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+    
+<script>  
+
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*',
+//    'Ext.ModelManager',
+//    'Ext.tip.QuickTipManager'
+]);
+var store;
+var temp_id='';
+var preid='';
+
+function reflash(){
+   var time_flag1=document.getElementById("form1").time_flag.value; //时间
+   var sdate1=document.getElementById("form1").sdate.value; //时间
+   var edate1=document.getElementById("form1").edate.value; //时间
+   var sid1 = document.getElementById('form1').sid.value;
+   var portalname1 = document.getElementById('form1').portalname.value;
+   var userid1 = document.getElementById('form1').userid.value;
+   var username1 = document.getElementById('form1').username.value;
+   var dispname1 = document.getElementById('form1').dispname.value;
+   var ssid1 = document.getElementById('form1').ssid.value;
+   var apname1 = document.getElementById('form1').apname.value;
+   var mac1 = document.getElementById('form1').mac.value;
+   var ip1 = document.getElementById('form1').ip.value;
+   var dev1 = document.getElementById('form1').dev.value;
+   var os1 = document.getElementById('form1').os.value;
+   var devtype1 = document.getElementById('form1').devtype.value;
+   var ubytes1 = document.getElementById('form1').ubytes.value;
+   var dbytes1 = document.getElementById('form1').dbytes.value;
+   var starttime1 = document.getElementById('form1').starttime.value;
+   var endtime1 = document.getElementById('form1').endtime.value;
+   var conntime1 = document.getElementById('form1').conntime.value;
+   var cause1 = document.getElementById('form1').cause.value;
+   var keyword1 = document.getElementById('form1').keyword.value;
+   var caExport1 = document.getElementById('form1').caExport.value; //导出
+   store.load({params: {time_flag:time_flag1,sdate:sdate1,edate:edate1,sid:sid1,portalname:portalname1,userid:userid1,username:username1,dispname:dispname1,ssid:ssid1,apname:apname1,mac:mac1,ip:ip1,dev:dev1,os:os1,devtype:devtype1,ubytes:ubytes1,dbytes:dbytes1,starttime:starttime1,endtime:endtime1,conntime:conntime1,cause:cause1,keyword:keyword1,caExport:caExport1}});
+   
+}
+
+Ext.onReady(function(){
+    Ext.tip.QuickTipManager.init();
+
+    Ext.define('EimData', {
+        extend: 'Ext.data.Model',
+        fields: ['sid', 'portalname', 'userid', 'username', 'dispname', 'ssid', 'apname', 'mac', 'ip', 'dev', 'os', 'devtype', 'ubytes', 'dbytes', 'starttime', 'endtime', 'conntime', 'cause']
+        //idProperty: 'uid'
+    });
+
+    // create the Data Store
+    //重写排序函数，解决远程条件查询问题
+    Ext.data.Store.prototype.doSort = function() {
+    	reflash();
+    }
+    store = Ext.create('Ext.data.Store', {
+        pageSize: 30,
+        model: 'EimData',
+        remoteSort: true,
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@ncm_web_Place_userlog_list',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            },         
+            simpleSortMode: true
+        },
+        sorters: [{
+            property: 'sid',
+            direction: 'DESC'
+        }]
+    });
+    
+    var sm = Ext.create('Ext.selection.CheckboxModel',{
+        listeners: {
+            selectionchange: function(sm, selections) {
+                grid.down('#removeButton').setDisabled(selections.length == 0);
+                //grid.down('#moveButton').setDisabled(selections.length == 0); 
+            }
+        }
+    });
+    
+    var myDate = new Date();
+  	var yy = ( myDate.getYear() < 1900 ) ? ( 1900 + myDate.getYear() ) : myDate.getYear();
+  	var mm=myDate.getMonth()+1;
+  	if(mm<10)
+  	{
+  			mm='0'+mm;
+  	}
+  	var dd=myDate.getDate();
+  	if(dd<10)
+  	{
+  			dd='0'+dd;
+  	}
+  	var today=yy+'/'+mm+'/'+dd;
+  	var startday=yy+'/'+mm+'/'+'01';
+    
+    //对翻页工具条重新构建，替换翻页函数    
+    Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
+		    doRefresh:function(){  
+		       reflash();
+		    },
+		    moveLast:function(){
+		    	var b=this,a=b.getPageData().pageCount;
+		    	if(b.fireEvent("beforechange",b,a)!==false){
+				    	store.currentPage=a;
+				    	reflash();
+		      }},
+		    moveFirst:function(){
+		      if(this.fireEvent("beforechange",this,1)!==false){
+				      store.currentPage=1;
+				      reflash();
+		      }}, 
+		    movePrevious:function(){var b=this,a=b.store.currentPage-1;if(a>0){if(b.fireEvent("beforechange",b,a)!==false){store.currentPage=a;reflash();}}},
+		    moveNext:function(){var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;if(a<=b){if(c.fireEvent("beforechange",c,a)!==false){store.currentPage=a;reflash();}}},
+		      
+		      
+		    onPagingKeyDown:function(i,h){
+		     var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+			     if(b==h.RETURN){h.stopEvent();g=d.readPageFromInput(c);
+			        if(g!==false){
+				         g=Math.min(Math.max(1,g),c.pageCount);
+				         if(d.fireEvent("beforechange",d,g)!==false){
+					         //d.store.loadPage(g)
+					         d.store.currentPage=g;
+					         reflash();
+				        }        
+			        }
+			     } else {
+				       if(b==h.HOME||b==h.END){
+				    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+				       } else {
+					         if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+						           h.stopEvent();g=d.readPageFromInput(c);
+						           if(g){
+						             if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+						             g+=a;
+						             if(g>=1&&g<=c.pages){i.setValue(g)}
+						           }
+					         }
+				       }
+			     }  
+		    } 
+    });
+
+    var aaa=screen.width;
+    if(aaa>1440) aaa=1440;
+    if(aaa<1024) aaa=1024;
+    aaa=aaa-241;
+
+    var grid = Ext.create('Ext.grid.Panel', {
+        //width: aaa,
+        //forceFit: true,
+        scrollOffset: 0,
+        //height: 930,
+        id: 'gridId',
+        margins: '0 0 0 0',
+        store: store,
+        selModel: sm,
+        frame:false,
+        border:false,
+        columns:[{
+            text: "序号",
+            dataIndex: 'sid',
+            width: 100,
+            //align: 'center',
+            hidden: true,
+            sortable: true
+        },{
+            text: "Portal",
+            dataIndex: 'portalname',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false
+        },{
+            text: "用户ID",
+            dataIndex: 'userid',
+            width: 100,
+            //align: 'center',
+            hidden: true,
+            sortable: false
+        },{
+            text: "用户名",
+            dataIndex: 'username',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false
+        },{
+            text: "显示名",
+            dataIndex: 'dispname',
+            width: 100,
+            //align: 'center',
+            hidden: true,
+            sortable: false
+        },{
+            text: "ssid",
+            dataIndex: 'ssid',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false
+        },{
+            text: "apname",
+            dataIndex: 'apname',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false
+        },{
+            text: "Mac",
+            dataIndex: 'mac',
+            width: 150,
+            //align: 'center',
+            hidden: false,
+            sortable: false
+        },{
+            text: "IP",
+            dataIndex: 'ip',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false
+        },{
+            text: "设备",
+            dataIndex: 'dev',
+            width: 80,
+            //align: 'center',
+            hidden: false,
+            sortable: false
+        },{
+            text: "设备类型",
+            dataIndex: 'devtype',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false
+        },{
+            text: "操作系统",
+            dataIndex: 'os',
+            width: 80,
+            //align: 'center',
+            hidden: false,
+            sortable: false
+        },{
+            text: "上行流量(Mb)",
+            dataIndex: 'ubytes',
+            width: 80,
+            align: 'right',
+            hidden: false,
+            sortable: false
+        },{
+            text: "下行流量(Mb)",
+            dataIndex: 'dbytes',
+            width: 80,
+            align: 'right',
+            hidden: false,
+            sortable: false
+        },{
+            text: "开始时间",
+            dataIndex: 'starttime',
+            width: 150,
+            align: 'right',
+            hidden: false,
+            sortable: false
+        },{
+            text: "结束时间",
+            dataIndex: 'endtime',
+            width: 150,
+            align: 'right',
+            hidden: false,
+            sortable: false
+        },{
+            text: "连接时间",
+            dataIndex: 'conntime',
+            width: 100,
+            align: 'right',
+            hidden: false,
+            sortable: false
+        },{
+            text: "终止原因",
+            dataIndex: 'cause',
+            width: 150,
+            align: 'right',
+            hidden: true,
+            sortable: false
+        },{
+        	 flex: 1	
+        }],
+        
+        columnLines: true,
+              
+        // paging bar on the bottom
+        tbar: Ext.create('Ext.PagingToolbar1', {
+            store: store,
+            displayInfo: true,
+            displayMsg: '显示{0} - {1}条记录 共{2}条记录',
+            emptyMsg: "没有记录可显示"
+        })
+    });
+
+    reflash();
+
+    var panel = Ext.create('Ext.panel.Panel', {
+        title: '',
+        margins: '0 0 0 0',
+        renderTo: 'grid-corp',
+       //border:false,
+        frame: false,
+        layout: 'fit',
+        items: grid
+    });
+
+});
+
+</script>
+    
+</head>
+<body>
+	<form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="ncm_web_Place_userlog_list">
+		<input type="hidden" name="time_flag" value="0">
+		<input type="hidden" name="sdate" value="[#sdate#]">
+		<input type="hidden" name="edate" value="[#edate#]">
+		<input type="hidden" name="sid" value="">
+		<input type="hidden" name="portalname" value="">
+		<input type="hidden" name="userid" value="">
+		<input type="hidden" name="username" value="">
+		<input type="hidden" name="dispname" value="">
+		<input type="hidden" name="ssid" value="">
+		<input type="hidden" name="apname" value="">
+		<input type="hidden" name="mac" value="">
+		<input type="hidden" name="ip" value="">
+		<input type="hidden" name="dev" value="[#dev#]">
+		<input type="hidden" name="os" value="[#os#]">
+		<input type="hidden" name="devtype" value="[#devtype#]">
+		<input type="hidden" name="ubytes" value="">
+		<input type="hidden" name="dbytes" value="">
+		<input type="hidden" name="starttime" value="">
+		<input type="hidden" name="endtime" value="">
+		<input type="hidden" name="conntime" value="">
+		<input type="hidden" name="cause" value="">
+		<input type="hidden" name="keyword" value="">
+		<input type="hidden" name="caExport" value="">
+		
+  </form>
+    <div id="grid-corp"></div>
+
+</body>
+</html>

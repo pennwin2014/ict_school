@@ -1,0 +1,772 @@
+/*国内外短信数量限制*/
+Ext.define('shops.shoptypeManager',{
+    extend: 'Ext.grid.Panel',
+		autoScroll: false,
+    frame: false,
+    initComponent : function(){
+		if(store_shops_shoptypemanager.alreadyload !=1){
+			  store_shops_shoptypemanager.groupcode = '';
+		    store_shops_shoptypemanager.groupname = '';
+		    store_shops_shoptypemanager.curcode = '';
+		    store_shops_shoptypemanager.pid = '';
+		    store_shops_shoptypemanager.keyword = '';
+	
+			  store_shops_shoptypemanager.new_params={groupcode:store_shops_shoptypemanager.groupcode,groupname:store_shops_shoptypemanager.groupname,curcode:store_shops_shoptypemanager.curcode,pid:store_shops_shoptypemanager.pid,keyword:store_shops_shoptypemanager.keyword};
+		}
+		function reflash(){
+				store_shops_shoptypemanager.new_params={groupcode:store_shops_shoptypemanager.groupcode,groupname:store_shops_shoptypemanager.groupname,curcode:store_shops_shoptypemanager.curcode,pid:store_shops_shoptypemanager.pid,keyword:store_shops_shoptypemanager.keyword};
+				store_shops_shoptypemanager.currentPage=1;
+				store_shops_shoptypemanager.load();
+		}
+
+		var flagsStore = Ext.create('Ext.data.Store', {
+		    fields:['groupname', 'groupid'],
+		    data:[
+		    		{groupname:'使用', groupid:'0'},
+		    		{groupname:'不使用', groupid:'1'}
+		    ]
+		});
+		var curStore = Ext.create('Ext.data.Store', {
+		    fields:['groupname', 'groupid'],
+		    data:[
+					  {groupname:'无',       groupid:'3'},
+		    		{groupname:'省',       groupid:'0'},
+		    		{groupname:'省/市',    groupid:'1'},
+		    		{groupname:'省/市/区', groupid:'2'}
+		    ]
+		});
+
+		Ext.define('areaData', {
+        extend: 'Ext.data.Model',
+        fields: ['aid', 'aname', 'pid', 'systime', 'lon', 'lat', 'description']
+    });
+	  var store_province = Ext.create('Ext.data.Store', {
+	  	 model:'areaData',
+	  	 pageSize: 10000,
+	  	 remoteSort: true,
+	  	 proxy:{
+	  	 		type:'ajax',
+	  	 		url:'/pronline/Msg?FunName@ncm_webarea_list&flags@1',
+	  	 		reader:{
+	  	 				type:'json',
+	  	 				root:'eimdata'	
+	  	 		},
+	  	 		simplleSortMode:true	
+	  	 }
+	  });
+	  store_province.load();
+	  
+	  var store_province2 = Ext.create('Ext.data.Store', {
+	  	 model:'areaData',
+	  	 pageSize: 10000,
+	  	 remoteSort: true,
+	  	 proxy:{
+	  	 		type:'ajax',
+	  	 		url:'/pronline/Msg?FunName@ncm_webarea_list&flags@1',
+	  	 		reader:{
+	  	 				type:'json',
+	  	 				root:'eimdata'	
+	  	 		},
+	  	 		simplleSortMode:true	
+	  	 }
+	  });
+	  store_province2.load();
+	  
+	  Ext.define("cityIndex", {
+	  		extend:'Ext.data.Model',
+	  		proxy:{
+	  				type:'ajax',
+	  				url:'/pronline/Msg?FunName@ncm_webarea_list',
+	  				reader: new Ext.data.JsonReader({
+         				type:'json',
+          			root: 'eimdata',
+          			totalProperty: 'totalCount'
+            }),        
+            simpleSortMode: true
+	  		},
+	  		fields:['aid', 'aname', 'pid', 'systime', 'lon', 'lat', 'description']	
+	  });
+	  Ext.define("cityIndex2", {
+	  		extend:'Ext.data.Model',
+	  		proxy:{
+	  				type:'ajax',
+	  				url:'/pronline/Msg?FunName@ncm_webarea_list',
+	  				reader: new Ext.data.JsonReader({
+         				type:'json',
+          			root: 'eimdata',
+          			totalProperty: 'totalCount'
+            }),        
+            simpleSortMode: true
+	  		},
+	  		fields:['aid', 'aname', 'pid', 'systime', 'lon', 'lat', 'description']	
+	  });
+	  
+	  var store_city = Ext.create('Ext.data.Store', {
+    		pageSize: 10000,
+    		model: 'cityIndex'
+    });
+	
+	  var store_city2 = Ext.create('Ext.data.Store', {
+    		pageSize: 10000,
+    		model: 'cityIndex2'
+    });
+	
+    Ext.define("areaIndex", {
+	  		extend:'Ext.data.Model',
+	  		proxy:{
+	  				type:'ajax',
+	  				url:'/pronline/Msg?FunName@ncm_webarea_list',
+	  				reader: new Ext.data.JsonReader({
+         				type:'json',
+          			root: 'eimdata',
+          			totalProperty: 'totalCount'
+            }),        
+            simpleSortMode: true
+	  		},
+	  		fields:['aid', 'aname', 'pid', 'systime', 'lon', 'lat', 'description']	
+	  });
+	  Ext.define("areaIndex2", {
+	  		extend:'Ext.data.Model',
+	  		proxy:{
+	  				type:'ajax',
+	  				url:'/pronline/Msg?FunName@ncm_webarea_list',
+	  				reader: new Ext.data.JsonReader({
+         				type:'json',
+          			root: 'eimdata',
+          			totalProperty: 'totalCount'
+            }),        
+            simpleSortMode: true
+	  		},
+	  		fields:['aid', 'aname', 'pid', 'systime', 'lon', 'lat', 'description']	
+	  });
+		var store_area = Ext.create('Ext.data.Store', {
+    		pageSize: 10000,
+    		model: 'areaIndex'
+		});  
+			
+		var store_area2 = Ext.create('Ext.data.Store', {
+    		pageSize: 10000,
+    		model: 'areaIndex2'
+		});  
+			
+		Ext.define('TypeData', {
+				extend:'Ext.data.Model',
+				fields:['id', 'groupname', 'groupcode', 'systime', 'type']
+		});
+		var store_type1 = Ext.create('Ext.data.Store',{
+				model:'TypeData',
+				pageSize: 10000,
+				autoLoad: true,
+      	proxy: {
+        		type: 'ajax',
+        		url: '/pronline/Msg?FunName@ncm_webshopgtype_list&type@1',
+        		reader: {
+	        			type:'json',
+	        			root: 'eimdata',
+	        			totalProperty: 'totalCount'
+        		},
+        		simpleSortMode: true
+      	}
+    });
+    var store_type2 = Ext.create('Ext.data.Store',{
+				model:'TypeData',
+				pageSize: 10000,
+				autoLoad: true,
+      	proxy: {
+        		type: 'ajax',
+        		url: '/pronline/Msg?FunName@ncm_webshopgtype_list&type@2',
+        		reader: {
+	        			type:'json',
+	        			root: 'eimdata',
+	        			totalProperty: 'totalCount'
+        		},
+        		simpleSortMode: true
+      	}
+    });
+
+	 	//高级查询窗口
+		function gotoedit1(value, id){
+				var win3 = null;
+				var city = '';
+				var area = '';
+				var province = '';
+				var curcity = '';
+				var curarea = '';
+				var curprovince = '';
+				var flags = '';
+				var groupname = '';
+				var groupcode = '';
+				var curcode = '';
+				var title='增加';
+				var type1='';
+				var type2='';
+				var curprovince_display=true;
+				var curcity_display=true;
+				var curarea_display=true;
+				var curstore_value='';
+				var pid='';
+				var province_readonly=false;
+				var city_readonly=false;
+				var area_readonly=false;
+				var type1_readonly=false;
+				var type2_readonly=false;
+				
+				if(value == 'update'){
+						title='修改';
+						province_readonly=true;
+						city_readonly=true;
+						area_readonly=true;
+						type1_readonly=true;
+						type2_readonly=true;
+						groupname = store_shops_shoptypemanager.getAt(id).get('groupname');
+						groupcode = store_shops_shoptypemanager.getAt(id).get('groupcode');
+						curcode = store_shops_shoptypemanager.getAt(id).get('curcode');
+						pid = store_shops_shoptypemanager.getAt(id).get('pid');
+						if(curcode.length == 2){
+								curprovince_display=false;
+								curstore_value='0';
+								curprovince = curcode.slice(0,2);
+						}
+						if(curcode.length == 4){
+								curprovince_display=false;
+								curcity_display=false;
+								curstore_value='1';
+								curprovince = curcode.slice(0,2);
+								curcity = curcode.slice(0,4);
+						}
+						if(curcode.length == 6){
+								curprovince_display=false;
+								curcity_display=false;
+								curarea_display=false;
+								curstore_value='2';
+								curprovince = curcode.slice(0,2);
+								curcity = curcode.slice(0,4);
+								curarea = curcode.slice(0,6);
+						}
+						province = groupcode.slice(0,2);
+						city = groupcode.slice(0,4);
+						area = groupcode.slice(0,6);
+						type1 = groupcode.slice(6,8);
+						//if(groupcode.slice(8,10))type2 = groupcode.slice(8,10);
+						if(groupcode.slice(8,12))type2 = groupcode.slice(8,12);
+				}
+			
+		    if (!win3) { //判断如果不存在就创建新的
+		        win3 = new Ext.Window({
+						    title:'商家联盟设置窗口 - '+ title,
+						    closeAction: 'hide',
+						    layout:'form',  
+						    width:300,
+						    draggable:true, //可拖动的
+							  maximizable:true, //可最大化的
+					      //resizable: true, //可改变大小
+							  modal: false,//后面的内容可以操作
+					      //plain：true,//则主体背景透明
+					      //items: fp2
+						    constrain:true, //限制窗口只能在其容器内移动
+					      //minimizable:true, //可最小化
+					      
+		            items:[new Ext.FormPanel({
+										id:'shoptypemanager_form2',
+										layout:"form",
+										baseCls:"x-plain",
+										bodyPadding: 5,
+										items:[{
+                      	fieldLabel:'商家联盟名称',
+                      	xtype: 'textfield',
+												emptyText:'请输入商家联盟名称',
+												value:groupname,
+		                    name:'groupname'
+		                },{
+											xtype:'fieldset',
+											//width:350,
+											title:'组编码',
+											collapsible: true,
+											items:[{
+													xtype:'combo',
+													fieldLabel: '省份',
+													valueField: 'aid',
+													displayField: 'aname',
+												  value:province,
+													emptyText:'请选择省份...',   
+													store: store_province,
+													forceSelection: true,
+													readOnly: province_readonly,
+													triggerAction: 'all',
+													afterLabelTextTpl: required,
+													//allowBlank:false, //是否允许为空
+													//blankText:'省份不能为空！',	
+													msgTarget:'qtip', //显示一个浮动的提示信息 	
+												   // id:'prov',
+													name:'prov',
+													listeners:{
+															afterrender:function(){
+																		store_city.proxy.url= "/pronline/Msg?FunName@ncm_webarea_list&province@" + this.value;  
+																		store_city.load(); 
+																		//Ext.getCmp('city').setValue('[#cityid#]'); 					
+																		Ext.getCmp("shoptypemanager_form2").getForm().findField('city').setValue(city);				
+															},
+															select : function(combo,record,index){  
+																	store_city.proxy.url= "/pronline/Msg?FunName@ncm_webarea_list&province@" + combo.value;
+																	store_city.load();   
+															}
+													}
+										  },{
+													fieldLabel: '城市', 
+													//emptyText:'选择城市...', 
+													xtype:'combo',  
+													store: store_city,  
+													valueField: "aid",  
+													displayField: "aname",
+													mode: 'remote',  
+													forceSelection: true,
+													readOnly: city_readonly,
+													editable: false,
+													triggerAction: 'all',
+													afterLabelTextTpl: required,
+													//allowBlank:false, //是否允许为空
+													//blankText:'城市不能为空！',	
+													msgTarget:'qtip', //显示一个浮动的提示信息
+													//id:'city',
+													name: 'city',
+													listeners:{    
+															afterrender:function(){
+																	store_area.proxy.url= "/pronline/Msg?FunName@ncm_webarea_list&city@" + this.value;  
+																	store_area.load(); 
+																	//Ext.getCmp('area').setValue('[#areaid#]'); 
+																	Ext.getCmp("shoptypemanager_form2").getForm().findField('area').setValue(area);
+															},
+															select : function(combo,record,index){  
+																	store_area.proxy.url= "/pronline/Msg?FunName@ncm_webarea_list&city@" + combo.value;  
+																	store_area.load();
+															}
+													}	
+											},{  
+													fieldLabel: '区域', 
+													//emptyText:'选择区域...', 
+													xtype:'combo',  
+													store: store_area,  
+													valueField: "aid",  
+													displayField: "aname",
+													mode: 'remote', 
+													forceSelection: true,
+													readOnly: area_readonly,
+													editable: false,
+													afterLabelTextTpl: required,
+													triggerAction: 'all',
+													//allowBlank:false, //是否允许为空
+													//blankText:'区域不能为空！',	
+													msgTarget:'qtip', //显示一个浮动的提示信息
+													//id:'area',
+													name: 'area'
+											},{  
+													fieldLabel: '类别', 
+													//emptyText:'选择区域...', 
+													xtype:'combo',  
+													store: store_type1,  
+													valueField: "groupcode",  
+													displayField: "groupname",
+													mode: 'remote', 
+													forceSelection: true,
+													readOnly: type1_readonly,
+													editable: false,
+													afterLabelTextTpl: required,
+													triggerAction: 'all',
+													value:type1,
+													//allowBlank:false, //是否允许为空
+													//blankText:'区域不能为空！',	
+													msgTarget:'qtip', //显示一个浮动的提示信息
+													//id:'area',
+													name: 'type1',
+													listeners:{    
+															select : function(combo,record,index){  
+																	//Ext.getCmp("shoptypemanager_form2").getForm().findField('type2').setValue('00');				
+																	Ext.getCmp("shoptypemanager_form2").getForm().findField('type2').setValue('0000');
+															}
+													}	
+											},{  
+													fieldLabel: '商城名称', 
+													//emptyText:'选择区域...', 
+													xtype:'combo',  
+													store: store_type2,  
+													valueField: "groupcode",  
+													displayField: "groupname",
+													mode: 'remote', 
+													readOnly: type2_readonly,
+													//forceSelection: true,
+													//afterLabelTextTpl: required,
+													//editable: true,
+													triggerAction: 'all',
+													value:type2,
+													msgTarget:'qtip', //显示一个浮动的提示信息
+													//id:'area',
+													name: 'type2'
+											}]
+										},{
+									xtype:'fieldset',
+									//width:350,
+									title:'权限编码',
+									collapsible: true,
+									items:[
+						{
+							xtype:'combo',
+							fieldLabel: '商家联盟权限',
+							valueField: 'groupid',
+							displayField: 'groupname',
+						    value:curstore_value,
+							emptyText:'请选择省市区...',   
+							store: curStore,
+							forceSelection: true,
+							triggerAction: 'all',
+							name:'curstore',
+							listeners:{
+									'change': function(){
+									
+									if(this.value ==0){
+									Ext.getCmp("shoptypemanager_form2").getForm().findField('curprov').setVisible(true);
+									Ext.getCmp("shoptypemanager_form2").getForm().findField('curcity').setVisible(false);
+									Ext.getCmp("shoptypemanager_form2").getForm().findField('curarea').setVisible(false);
+									}
+									if(this.value ==1){
+									Ext.getCmp("shoptypemanager_form2").getForm().findField('curprov').setVisible(true);
+									Ext.getCmp("shoptypemanager_form2").getForm().findField('curcity').setVisible(true);
+									Ext.getCmp("shoptypemanager_form2").getForm().findField('curarea').setVisible(false);
+									}
+									if(this.value ==2){
+									Ext.getCmp("shoptypemanager_form2").getForm().findField('curprov').setVisible(true);
+									Ext.getCmp("shoptypemanager_form2").getForm().findField('curcity').setVisible(true);
+									Ext.getCmp("shoptypemanager_form2").getForm().findField('curarea').setVisible(true);
+									}
+									if(this.value ==3){
+									Ext.getCmp("shoptypemanager_form2").getForm().findField('curprov').setVisible(false);
+									Ext.getCmp("shoptypemanager_form2").getForm().findField('curcity').setVisible(false);
+									Ext.getCmp("shoptypemanager_form2").getForm().findField('curarea').setVisible(false);
+									}
+									}
+							}
+						},
+						{
+							xtype:'combo',
+							fieldLabel: '省份',
+							valueField: 'aid',
+							displayField: 'aname',
+						    value:province,
+							emptyText:'请选择省份...',   
+							store: store_province2,
+						//	forceSelection: true,
+							triggerAction: 'all',
+							afterLabelTextTpl: required,
+							hidden:curprovince_display,
+							msgTarget:'qtip', //显示一个浮动的提示信息 	
+						   // id:'prov',
+							name:'curprov',
+							listeners:{
+								afterrender:function(){
+									store_city2.proxy.url= "/pronline/Msg?FunName@ncm_webarea_list&province@" + this.value;  
+									store_city2.load(); 
+									//Ext.getCmp('city').setValue('[#cityid#]'); 					
+									Ext.getCmp("shoptypemanager_form2").getForm().findField('curcity').setValue(curcity);				
+								},
+									select : function(combo,record,index){  
+									store_city2.proxy.url= "/pronline/Msg?FunName@ncm_webarea_list&province@" + combo.value;
+									store_city2.load();   
+									}
+							}
+						},{
+							fieldLabel: '城市', 
+							//emptyText:'选择城市...', 
+							xtype:'combo',  
+							store: store_city2,  
+							valueField: "aid",  
+							displayField: "aname",
+							mode: 'remote',  
+						//	forceSelection: true,
+							editable: false,
+							triggerAction: 'all',
+							afterLabelTextTpl: required,
+							hidden:curcity_display,
+							msgTarget:'qtip', //显示一个浮动的提示信息
+							name: 'curcity',
+							listeners:{    
+									afterrender:function(){
+									store_area2.proxy.url= "/pronline/Msg?FunName@ncm_webarea_list&city@" + this.value;  
+									store_area2.load(); 
+									//Ext.getCmp('area').setValue('[#areaid#]'); 
+									
+									Ext.getCmp("shoptypemanager_form2").getForm().findField('curarea').setValue(curarea);
+								},
+								
+									select : function(combo,record,index){  
+									store_area2.proxy.url= "/pronline/Msg?FunName@ncm_webarea_list&city@" + combo.value;  
+									store_area2.load();
+									}
+							}	
+						},{  
+							fieldLabel: '区域', 
+							//emptyText:'选择区域...', 
+							xtype:'combo',  
+							store: store_area2,  
+							valueField: "aid",  
+							displayField: "aname",
+							mode: 'remote', 
+						//	forceSelection: true,
+							editable: false,
+							afterLabelTextTpl: required,
+							triggerAction: 'all',
+							hidden:curarea_display,  
+							name: 'curarea'
+						}]},
+						{  
+							fieldLabel: 'pid', 
+							//emptyText:'选择区域...', 
+							xtype:'combo',  
+							store: store_shops_shoptypemanager,  
+							valueField: "groupcode",  
+							displayField: "groupname",
+							mode: 'remote', 
+							//forceSelection: true,
+							//editable: false,
+							hidden:true,
+							triggerAction: 'all',
+							msgTarget:'qtip', //显示一个浮动的提示信息
+							value:pid,
+							name: 'pid'
+						}
+								]  
+		                })],  
+						        buttons:[{
+											  text:"确定",
+											  iconCls:'icon-save',		  
+											  handler:function(){
+							        			var objectTmp = Ext.getCmp("shoptypemanager_form2").getForm().getValues();
+														var pid1 = objectTmp.pid;
+														var groupname1 = objectTmp.groupname;
+														
+														var prov1 = objectTmp.prov;
+														var city1 = objectTmp.city;
+														var area1 = objectTmp.area;
+														var type1 = objectTmp.type1;
+														//var type2 = '00';
+														var type2 = '0000';
+														//alert(objectTmp.type2)
+														if(objectTmp.type2)type2 = objectTmp.type2;
+														
+														var curprov1 = objectTmp.curprov;
+														var curcity1 = objectTmp.curcity;
+														var curarea1 = objectTmp.curarea;
+														var groupcode1="";
+														if(value =="update"){
+																groupcode1 = groupcode;
+														}
+														else{
+																groupcode1 = area1+type1+type2;
+														}
+														var curcode1;
+														var curstore1 = objectTmp.curstore;
+														if(curstore1==0){
+																curcode1 = curprov1;
+														}
+														if(curstore1==1){
+																curcode1 = curcity1;
+														}
+														if(curstore1==2){
+																curcode1 = curarea1;
+														}
+														if(curstore1==3){
+																curcode1 = '';
+														}
+														if(prov1==''){
+																alert('省份不能为空')
+														}
+														else if(city1==''){
+																alert('城市不能为空')
+														}
+														else if(area1==''){
+																alert('区域不能为空')
+														}
+														else if(type1==''){
+																alert('类别不能为空')
+														}
+														else{
+																store_shops_shoptypemanager.load({
+																	  params: {update:value,groupname:groupname1,groupcode:groupcode1,curcode:curcode1,pid:pid1},
+																	  callback:function(records, options, success){
+																				reflash();
+																		}
+																});
+																win3.close();
+														}
+											  }
+										},{
+												text:"取消",
+												handler: function(){
+														win3.close();
+												}
+										}]
+						});
+				}
+		    win3.show();
+		
+	  }
+
+		var sm = Ext.create('Ext.selection.CheckboxModel',{
+        listeners: {
+            selectionchange: function(sm, selections) {
+                Ext.getCmp('shoptypemanager_removeButton').setDisabled(selections.length == 0);
+            }
+        }
+    });	
+		
+    Ext.apply(this,       
+        {
+        border:false,
+		frame:false,
+		//height: Ext.get("layout_center").getHeight()-58,
+		//height:Ext.get("layout_center").getHeight(),
+		autoScroll: true,
+		selModel: sm,
+		//height: grid_height,
+        store: store_shops_shoptypemanager,
+        viewConfig:{
+	        	loadMask : false
+	        },
+        columns:[
+		{
+            header: '编辑',
+            xtype: 'actioncolumn',
+            dataIndex: 'groupcode',
+			sortable: false,
+            width: 50,
+            align: 'center',
+			items:[
+			{
+			iconCls: 'report_edit',
+			tooltip: '点击进入修改界面',
+            handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
+                gotoedit1('update', rowIndex);
+            }}
+			
+			]
+        },{
+            text: "商家联盟名称",
+            dataIndex: 'groupname',
+            width: 250,
+            //align: 'center',
+            hidden: false,
+            sortable: true
+        },{
+            text: "组编码",
+            dataIndex: 'groupcode',
+            width: 150,
+            //align: 'center',
+            hidden: false,
+            sortable: true
+        },{
+            text: "当前权限编码",
+            dataIndex: 'curcode',
+            width: 150,
+            //align: 'center',
+            hidden: false,
+            sortable: true
+        },
+		{
+            text: "pid",
+            dataIndex: 'pid',
+            width: 150,
+            //align: 'center',
+            hidden: true,
+            sortable: true
+        },{
+            text: "加入时间",
+            dataIndex: 'systime',
+            width: 150,
+            //align: 'center',
+            hidden: false,
+            sortable: true
+        },{
+        	 flex: 1	
+        }
+          ],
+            listeners:{
+		'itemdblclick':function(grid,record,item,index,e){
+			gotoedit1('update', index);
+		}
+		},  
+           columnLines: true,
+           tbar:{items:[
+            '-',{
+            	labelWidth: 40,
+            	width:200,
+                fieldLabel:'关键字',
+                xtype: 'textfield',
+                id:'shoptypemanager_keyword',
+                name:'shoptypemanager_keyword',
+				emptyText:'请输商家联盟名称',
+                value:store_shops_shoptypemanager.keyword,
+                enableKeyEvents:true,
+                listeners:{
+	                'focus':function(){
+			                 if(this.value=='请输商家联盟名称'){                
+			                    this.setValue('');
+			                }
+					},
+	                'keydown' : function(i,e){
+	                    var aae=e.getKey(); 
+	                    if(aae==13){
+	                    		var aa=Ext.getCmp('shoptypemanager_keyword').value;
+					       	            store_shops_shoptypemanager.keyword=aa;
+							            store_shops_shoptypemanager.currentPage=1;
+							            reflash();
+	                    }
+	                }
+                }
+            }, '-', {
+                text:'查询',
+            	iconCls:'accept',
+                handler:function(){
+	                 var bb=Ext.getCmp('shoptypemanager_keyword').value;
+		               store_shops_shoptypemanager.keyword=bb;
+		               store_shops_shoptypemanager.currentPage=1;         
+		               reflash();  
+                }
+            },'-',{
+                 text:'增加',
+                 iconCls:'add',
+	               handler : function() {
+	               	  gotoedit1('add', '');
+	               }
+            },'-', {
+                text:'删除',
+				id:'shoptypemanager_removeButton',
+                iconCls:'remove',
+                disabled: true,
+                handler:function(){
+							if(confirm('您真的要执行删除操作吗？')){                  
+			                var groupcode;  
+			                var rows=sm.getSelection();
+			                groupcode='';
+			                for(var i=0;i<rows.length;i++){
+			                  	if(i==0){
+			                  	   groupcode="'" + rows[i].get('groupcode') + "'";
+			                  	}
+			                  	else{
+			                       groupcode=groupcode + "," + "'" + rows[i].get('groupcode') + "'";
+			                    }
+			                }
+							store_shops_shoptypemanager.load({params: {update: "del",groupcode:groupcode}
+							,callback:function(records, options, success){
+												reflash();
+											}
+											});
+                   }
+                }
+            }
+          ]
+         }
+        }
+        
+        );
+		store_shops_shoptypemanager.alreadyload = 1;
+    this.callParent(arguments);
+    }
+})

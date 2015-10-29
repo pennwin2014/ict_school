@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"黑体";
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+}
+.div_2 {
+	width:100%;
+	float:left;
+}
+.div_2 ul {
+	width:100%;
+}
+.div_2 .ul1 li {
+	list-style:none;
+	float:left;
+	color:#666666;
+	font-size:14px;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+.div_2 .ul1 li {
+	width:25%;
+	text-align:center;
+}
+.div_2 .ul2 li {
+	width:20%;
+	text-align:center;
+}
+ @media screen and (max-width:400px) {
+ .wrap {
+ width:100%;
+}
+.ul1 li {
+	font-size:14px;
+	padding-top:3px;
+    padding-bottom:3px;
+}
+.ul1 li a:hover{
+	color:#FF8000
+}
+}
+</style>
+<script type="text/javascript">
+
+function showshoptype(mark){
+//alert(mark);
+//alert(img);
+parent.document.getElementById("sgroupid").value = mark;
+parent.document.getElementById('iframe2').contentWindow.document.getElementById("FunName").value="ncm_ShopType";parent.document.getElementById("iframe2").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+parent.document.getElementById('iframe2').contentWindow.document.getElementById("sgroupid").value=mark;
+parent.document.getElementById('iframe2').contentWindow.document.getElementById("areaid").value=parent.document.getElementById('areaid').value;
+parent.document.getElementById('iframe2').contentWindow.document.getElementById("form1").submit();
+
+}
+
+var ids = new Array();
+function loadInfos(){
+[#SLPB#]
+ids[[#iNum#]]="[#id#]";
+[#SLPE#]
+parent.document.getElementById("sgroupid").value = ids[1];
+//alert(parent.document.getElementById("sgroupid").value);
+parent.document.getElementById('iframe2').contentWindow.document.getElementById("FunName").value="ncm_ShopType";
+parent.document.getElementById("iframe2").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+parent.document.getElementById("iframe2").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+parent.document.getElementById('iframe2').contentWindow.document.getElementById("sgroupid").value=ids[1];
+
+parent.document.getElementById('iframe2').contentWindow.document.getElementById("areaid").value = parent.document.getElementById('areaid').value;
+
+parent.document.getElementById('iframe2').contentWindow.document.getElementById("form1").submit();
+
+}
+</script>
+</head>
+
+<body onload="loadInfos();">
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+<input type="hidden" id="FunName" name="FunName" value="">
+<input type="hidden" id="id" name="id" value="">
+<input type="hidden" id="logoid" name="logoid" value="">
+<input type="hidden" id="shopid" name="shopid" value="">
+<input type="hidden" name="plateName" id="plateName" value="zhengzhoudianxin"/>
+<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+</form>
+<div class="wrap">
+  <div>
+    <div class="div_2">
+      <div style="height:15px; clear:both;"></div>
+      <ul class="ul1">
+        [#SLPB#]
+        <li ><a onclick="showshoptype('[#id#]')">[#name#]</a></li>
+        [#SLPE#]
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>

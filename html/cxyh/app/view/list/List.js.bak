@@ -1,0 +1,118 @@
+Ext.define('proauthRzAuthlog.view.list.List' ,{
+    extend: 'Ext.grid.Panel',
+    alias : 'widget.authloglist',
+    store : 'List', 
+    height:parent.grid_height,
+    width:parent.grid_width,
+    autoScroll: true,
+    title:'',
+    columnLines: true,
+    initComponent: function() {
+
+        this.tbar = Ext.create('Ext.PagingToolbar',{
+            store:'List',
+            displayInfo: true,
+            displayMsg: '显示{0} - {1}条记录 共{2}条记录',
+            emptyMsg: "没有记录可显示",
+            items:[
+
+                {
+                    xtype:'textfield',
+                    id:'keyword_mobileaccount',
+                    width:180,
+                    name:'keyword5',
+                    style:'color:#7aa7d5',             
+                    emptyText:'商品名称/商店',
+                    enableKeyEvents:true,
+                    listeners:{
+                        'focus':function(){
+                        },
+              
+                        'keydown' : function(i,e){
+                             var aae=e.getKey() ; 
+                             if(aae==13){
+                             }
+                         }
+                    }
+                },
+                {
+                    text:'查询',
+                    iconCls:'accept',
+                    action:'keycx'
+                },
+                '-',
+                {
+                    text:'增加',
+                    anchor: 'right',
+                    action:'advancecx',
+                    iconCls:'add'
+                },
+                '-',
+             {
+			     	 	text:'删除',
+			     	 	itemId: 'removeButton',
+			     	 	iconCls:'remove',
+			     	 	disabled: true,
+			     	 	action:'del'
+			     	 },
+                {xtype:'label', html:'<span id="titledx"></span>'}
+            ]// items:[
+        });//this.tbar = Ext.create('Ext.PagingToolbar',{
+    var sm = Ext.create('Ext.selection.CheckboxModel',{
+        listeners: {
+            selectionchange: function(sm, selections) {  
+            	var grid=Ext.ComponentQuery.query('authloglist')[0];                  
+              grid.down('#removeButton').setDisabled(selections.length == 0);             
+            }
+        }
+    
+    });
+     this.selModel=sm;
+        this.columns = [
+        {
+          header: '编辑',
+            xtype: 'actioncolumn',
+            dataIndex: 'sid',
+             icon: '/newver/resources/themes/images/share/page_white_edit.png',
+            tooltip: '点击该图标进入修改界面。',
+            width: 40,
+            align: 'center',
+            sortable: false,
+            handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
+            	
+            	  var win = Ext.create('proauthRzAuthlog.view.common.AddWin',{
+					        title: "促销优惠编辑",
+					        field1: record
+					
+					      });
+					      win.showAt(50,20); 	  	
+            	
+               
+            }
+
+        },
+            {header: '商品名称', dataIndex: 'name',width:110,sortable: false},
+            {header: '商品显示名', dataIndex: 'dispname', width:110,sortable: true},
+            {header: '商品类别', dataIndex: 'tyname',  width:110},
+            {header: '商店', dataIndex: 'shopname',   width:110},
+            {header: '图片路径', dataIndex: 'imgpath',  width:110},
+            {header: '生产厂商', dataIndex: 'factory',   width:110},
+            {header: '型号', dataIndex: 'type',   width:110},
+            {header: '状态', dataIndex: 'flags',   width:60,
+            	 renderer:function(value,metaData,record){
+                    if(value=='0'){return '<font color=green>显示</font>'}
+                    else if(value=='1'){return '<font color=red>不显示</fonnt>'}
+                    else {return ''}
+                }
+            	
+            },
+            {header: '原售价', dataIndex: 'fee',   width:110},
+            {header: '折扣', dataIndex: 'discount',  width:110},
+            {header: '活动起始时间', dataIndex: 'startstoptime',  width:110},
+            {header: '单位', dataIndex: 'indexname', width:110}
+        ];
+     
+        this.callParent(arguments);
+    }// initComponent: function() {
+    
+});

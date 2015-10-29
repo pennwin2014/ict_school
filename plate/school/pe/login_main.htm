@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>校园PC登陆验证</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:1280px;
+	height:800px;
+	margin:0 auto;
+	background: url(/images/school/bg.jpg) no-repeat;
+	background-size:100% 100%;
+}
+.login_main{
+position:relative;
+top:280px;
+left:58%;
+height:260px;
+width:22%;
+
+text-align:center;
+background-color:#FFFFFF;
+}
+.username{
+width:80%;
+height:30px;
+position:relative;
+top:20px;
+border: 1px solid #0075C2;
+border-radius: 5px 5px 5px 5px;
+font-size:1.2em;
+color:#626262;
+}
+.password{
+width:80%;
+position:relative;
+height:30px;
+top:40px;
+border: 1px solid #0075C2;
+border-radius: 5px 5px 5px 5px;
+font-size:1.2em;
+color:#626262;
+}
+.check{
+width:90%;
+position:relative;
+height:30px;
+top:60px;
+font-size:0.9em;
+
+
+}
+.btn_list{
+width:100%;
+position:relative;
+height:40px;
+top:80px;}
+.btnhq{ width:35%; height:100%; background-color:#0075C2;border-radius: 5px 5px 5px 5px; font-size:1em; color:#FFF;}
+.btndl{ width:35%; height:100%;background-color:#0075C2;border-radius: 5px 5px 5px 5px; font-size:1em; color:#FFF;}
+.language{ margin-left:40%; position:relative; top:10px;}
+</style>
+  <script type="text/javascript">
+function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp;
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";
+	}
+var p_flag = '1';
+function restore(){
+		document.getElementById("gpss").disabled = "";
+		p_flag='1';	
+	}
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+	 var i = 59;
+ 		 function fun() {
+       	 if (i == 0) {
+			 document.getElementById("gpss").style.color="#0244a1";
+			 document.getElementById("gpss").value="Get Password";
+             clearInterval(intervalid);
+			 i=59;
+         }
+		 else{
+         document.getElementById("gpss").value = i;
+         i--;
+		 }
+        }
+function getpasswd(){
+		if(p_flag=='0') return false;
+		
+		
+			
+		if(document.getElementById("nclogin").username.value==''||document.getElementById("nclogin").username.value=='Mobile'){
+		    alert('Please enter your mobile phone number');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('Mobile phone number is not in the correct format');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('Please enter the correct mobile phone No.！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&tsid@"+document.getElementById("tsid").value;
+		          
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		document.getElementById("gpss").style.color="#999";
+		document.getElementById("gpss").value = "Has been sent";
+		intervalid= setInterval("fun()", 1000);
+		p_flag='0';
+        setTimeout('restore()',50000);
+		return false;
+	}
+	var mz=0;
+	function xianshi(){
+	mz=1;
+	document.getElementById("password").style.width="240px";
+	document.getElementById("bo").style.display="block";
+	document.getElementById("ok1").style.display="none";
+	document.getElementById("ok2").style.display="block";
+	}
+	function spylogin()
+	{
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="Mobile"||document.getElementById("password").value==""||document.getElementById("password").value=="Password") 
+		{
+		    window.alert("Mobile phone number or password can not be empty!");
+			  return false;
+		}
+		if(document.getElementById('radio1').checked!=1)
+		{window.alert("Please confirm acceptance of Disclaimer！");		
+		return false;
+			}
+    //document.getElementById("nclogin").submit();
+		/*var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}*/
+		
+    return true;
+	}
+	function init()
+	{
+ if('[#statusCode#]' == '2')
+		{
+			document.getElementById('err5').innerHTML = '账号与SSID不匹配！';
+		}	
+		if('[#statusCode#]' == '3')
+		{
+			document.getElementById('err5').innerHTML = '用户账号已过期！';
+		}	
+		if('[#statusCode#]' == '4')
+		{
+			document.getElementById('err5').innerHTML = '此用户在黑名单中！';
+		}	
+		if('[#statusCode#]' == '5')
+		{
+			document.getElementById('err5').innerHTML = '请输入正确的密码！';
+		}	
+		if('[#statusCode#]' == '6')
+		{
+			document.getElementById('err5').innerHTML = '用户不存在！';
+		}	
+
+}
+	function mr(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").style.color="#aaa";
+		}
+		if(document.getElementById("password").value="密码"){
+			 document.getElementById("password").style.color="#aaa";
+		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+  function changlogin(flag){
+        self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+  </script>
+</head>
+<body onload="init();">
+
+<div class="wrap" id="wrap">
+   <form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+			<input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+			[#postarg#]
+	<div class="login_main">
+		<div class="language"><span style="border-right:2px #626262 solid; padding-right:5%; margin-right:5%; " onclick="change(0)" id="zh_language">中文</span><span onclick="change(1)" id="eng_language" style="color:#0000FF;">English</span></div>
+		<div><input class="username" type ="text" value="Mobile No." id="username" name="username" 
+            	onblur="if(this.value==''){this.value='Mobile No.',this.style.color='#BFBFBF'}"  
+                onfocus="this.value='';this.style.color='#000000';document.getElementById('err5').innerHTML=''" /></div>
+		<div><input class="password" type ="text"  value="Password" id="password" name="password" 
+           onblur="if(this.value==''){this.type='text',this.value='Password',this.style.color='#BFBFBF'}"  
+          onfocus="this.value='';this.style.color='#000000';this.type='password';document.getElementById('err5').innerHTML=''"/></div>
+		  <div class="check"><input id="radio1" type="checkbox" />&nbsp;<span>I have read and accepted the<a style="color:#FE0103" target="_blank" href="/images/jiashan/mzsm_sj_en.html">relevant disclaimer</a></span></div>
+		  
+		 <div class="btn_list"><input  type="button" class="btnhq" value="Get Password" id="gpss" onClick="getpasswd();"/>&nbsp;&nbsp;&nbsp;<input  type="submit" class="btndl" value="Sign in" onclick="return spylogin();"/></div>
+	</div>
+        
+   <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+    </form>
+</div>
+</body>
+</html>

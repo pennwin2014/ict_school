@@ -1,0 +1,1055 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>访问统计</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+        <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+     .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		  height: 16px !important;
+		  line-height: 16px;
+	    }
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+    
+  <script>  
+function DateUtil(){}  
+/**  
+*功能:格式化时间  
+*示例:DateUtil.Format("yyyy/MM/dd","Thu Nov 9 20:30:37 UTC+0800 2006 ");  
+*返回:2006/11/09  
+*/  
+DateUtil.Format=function(fmtCode,date){  
+var result,d,arr_d;  
+
+var patrn_now_1=/^y{4}-M{2}-d{2}\sh{2}:m{2}:s{2}$/;  
+var patrn_now_11=/^y{4}-M{1,2}-d{1,2}\sh{1,2}:m{1,2}:s{1,2}$/;  
+
+var patrn_now_2=/^y{4}\/M{2}\/d{2}\sh{2}:m{2}:s{2}$/;  
+var patrn_now_22=/^y{4}\/M{1,2}\/d{1,2}\sh{1,2}:m{1,2}:s{1,2}$/;  
+
+var patrn_now_3=/^y{4}年M{2}月d{2}日\sh{2}时m{2}分s{2}秒$/;  
+var patrn_now_33=/^y{4}年M{1,2}月d{1,2}日\sh{1,2}时m{1,2}分s{1,2}秒$/;  
+
+var patrn_date_1=/^y{4}-M{2}-d{2}$/;  
+var patrn_date_11=/^y{4}-M{1,2}-d{1,2}$/;  
+
+var patrn_date_2=/^y{4}\/M{2}\/d{2}$/;  
+var patrn_date_22=/^y{4}\/M{1,2}\/d{1,2}$/;  
+
+var patrn_date_3=/^y{4}年M{2}月d{2}日$/;  
+var patrn_date_33=/^y{4}年M{1,2}月d{1,2}日$/;  
+
+var patrn_time_1=/^h{2}:m{2}:s{2}$/;  
+var patrn_time_11=/^h{1,2}:m{1,2}:s{1,2}$/;  
+var patrn_time_2=/^h{2}时m{2}分s{2}秒$/;  
+var patrn_time_22=/^h{1,2}时m{1,2}分s{1,2}秒$/;  
+
+if(!fmtCode){fmtCode="yyyy/MM/dd hh:mm:ss";}  
+if(date){  
+d=new Date(date);  
+if(isNaN(d)){  
+msgBox("时间参数非法\n正确的时间示例:\nThu Nov 9 20:30:37 UTC+0800 2006\n或\n2006/      10/17");  
+return;}  
+}else{  
+d=new Date();  
+} 
+if(patrn_now_1.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_now_11.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_now_2.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_now_22.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_now_3.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日"+" "+arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+}  
+else if(patrn_now_33.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日"+" "+arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+}  
+
+else if(patrn_date_1.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd;  
+}  
+else if(patrn_date_11.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd;  
+}  
+else if(patrn_date_2.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd;  
+}  
+else if(patrn_date_22.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd;  
+}  
+else if(patrn_date_3.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日";  
+}  
+else if(patrn_date_33.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日";  
+}  
+else if(patrn_time_1.test(fmtCode)){  
+arr_d=splitDate(d,true);  
+result=arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_time_11.test(fmtCode)){  
+arr_d=splitDate(d);  
+result=arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_time_2.test(fmtCode)){  
+arr_d=splitDate(d,true);  
+result=arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+}  
+else if(patrn_time_22.test(fmtCode)){  
+arr_d=splitDate(d);  
+result=arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+}  
+else{  
+msgBox("没有匹配的时间格式!");  
+return;  
+}  
+
+return result;  
+};  
+function splitDate(d,isZero){  
+var yyyy,MM,dd,hh,mm,ss;  
+if(isZero){  
+yyyy=d.getFullYear();  
+MM=(d.getMonth()+1)<10?"0"+(d.getMonth()+1):d.getMonth()+1;  
+dd=d.getDate()<10?"0"+d.getDate():d.getDate();  
+hh=d.getHours()<10?"0"+d.getHours():d.getHours();  
+mm=d.getMinutes()<10?"0"+d.getMinutes():d.getMinutes();  
+ss=d.getSeconds()<10?"0"+d.getSeconds():d.getSeconds();  
+}else{  
+yyyy=d.getFullYear();    //firefox 特别
+MM=d.getMonth()+1;  
+dd=d.getDate();  
+hh=d.getHours();  
+mm=d.getMinutes();  
+ss=d.getSeconds();    
+}  
+return {"yyyy":yyyy,"MM":MM,"dd":dd,"hh":hh,"mm":mm,"ss":ss};    
+}  
+function msgBox(msg){  
+window.alert(msg);  
+}
+
+var startday;
+var today;
+
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*',
+]);
+Ext.define('Application.chart.axis.ConstrainedStackedNumeric', {  
+    extend: 'Ext.chart.axis.Numeric',  
+    alternateClassName: 'Ext.chart.ConstrainedStackedNumericAxis',  
+    type: 'ConstrainedStackedNumeric',  
+    alias: 'axis.constrainedstackednumeric',  
+    constructor:function(cnfg){  
+        this.callParent(arguments);//Calling the parent class constructor   
+        this.initConfig(cnfg);//Initializing the component   
+    },  
+    processView: function() {  
+        var me = this,  
+        chart = me.chart,  
+        series = chart.series.items,  
+        i, l;  
+        if (me.constrain) {  
+            me.doConstrain();  
+        }  
+    }   
+	}); 
+	Ext.require(['Application.chart.axis.ConstrainedStackedNumeric']);
+  
+Ext.require(['Ext.Window', 'Ext.fx.target.Sprite', 'Ext.layout.container.Fit', 'Ext.window.MessageBox']);
+Ext.require('Ext.chart.*');
+var store1;
+var store2;
+var temp_id='';
+var preid='';
+
+var chart2;
+var grid;
+ function reflash(){
+ 
+
+ 
+  var chart_name=document.getElementById("form1").chart_name.value;
+  var inum=document.getElementById("form1").inum.value;
+  var id=document.getElementById("form1").id.value;
+  var rate=document.getElementById("form1").rate.value;
+  var chart_number=document.getElementById("form1").chart_number.value;
+  var exppdf=document.getElementById("form1").exppdf.value;
+  var expexcel=document.getElementById("form1").expexcel.value;
+  var sdate=document.getElementById("form1").sdate.value;
+  var edate=document.getElementById("form1").edate.value;
+  var area=document.getElementById("form1").area.value;
+  var country=document.getElementById("form1").country.value;
+  var sptype=document.getElementById("form1").sptype.value;
+	var chart_max =0;
+	var chart_min =0;
+ // store1.removeAll();      //清除缓存
+ 
+ store2.load({params: {update:"update_panel",chart_name: chart_name,inum:inum,id:id,chart_number:chart_number,rate:rate,exppdf:exppdf,expexcel:expexcel,sdate:sdate,edate:edate,area:area,country:country,sptype:sptype}});  
+ 
+  store1.load({params: {update:"update",chart_name: chart_name,inum:inum,id:id,chart_number:chart_number,rate:rate,exppdf:exppdf,expexcel:expexcel,sdate:sdate,edate:edate,area:area,country:country,sptype:sptype},
+    callback: function(records, options, success){ 
+		var i;
+		var j;
+		for(i=0;i<records.length;i++){
+			
+			
+			if(chart_max < records[i].get("chart_number")){chart_max = (parseInt(records[i].get("chart_number")/10)+1)*10}
+			if(records[i].get("chart_number")>100){
+			if(chart_max < records[i].get("chart_number")){chart_max = (parseInt(records[i].get("chart_number")/10)+1)*10}
+			}
+			if(records[i].get("chart_number")>1000){
+			if(chart_max < records[i].get("chart_number")){chart_max = (parseInt(records[i].get("chart_number")/100)+1)*100}
+			}
+			if(records[i].get("chart_number")>10000){
+			if(chart_max < records[i].get("chart_number")){chart_max = (parseInt(records[i].get("chart_number")/1000)+1)*1000}
+			}
+			if(records[i].get("chart_number")>100000){
+			if(chart_max < records[i].get("chart_number")){chart_max = (parseInt(records[i].get("chart_number")/10000)+1)*10000}
+			}
+			if(records[i].get("chart_number")>1000000){
+			if(chart_max < records[i].get("chart_number")){chart_max = (parseInt(records[i].get("chart_number")/100000)+1)*100000}
+			}
+		//	if(chart_min > records[i].get("chart_number")){chart_min = (parseInt(records[i].get("chart_number")/100)-1)*100}
+			
+             
+			 }
+			// alert("max: " + chart_max);
+			// alert("min: "+chart_min);
+		
+var sptype_value =document.getElementById("form1").sptype.value;
+var area_value =document.getElementById("form1").area.value;
+var country_value =document.getElementById("form1").country.value;
+var sdate_value=document.getElementById("form1").sdate.value;
+var edate_value=document.getElementById("form1").edate.value;
+	
+	Ext.define('State', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'string', name: 'groupid'},
+            {type: 'string', name: 'groupname'}
+        ]
+    });
+
+	
+  //加载国内国际信息
+	var countryStore = Ext.create('Ext.data.Store', {
+		        model: 'State',
+		        autoLoad:true,
+						proxy:{
+							type:'ajax',
+							url:'countryStore_ch.js',
+							reader:{
+								type:'json',
+								root:'data'
+							}
+						}
+		    });
+	var countryCombo = Ext.create('Ext.form.field.ComboBox', {
+				id:'countryCombo',
+				fieldLabel: '国家',
+		        labelWidth: 40,
+		        width: 130,
+		        valueField:'groupid',
+		        value:country_value,
+		        displayField: 'groupname',    
+		        allowBlank: true,
+		        store: countryStore,
+		        triggerAction: 'all',
+		         queryMode: 'local',
+		         typeAhead: true,
+		              listeners: {
+					          'change':function(){
+							//alert(this.value);
+								document.getElementById("form1").country.value = this.value;
+					            }
+					        },
+		
+							listConfig: 
+		            			{
+		                			loadingText: 'Searching...',
+		                			emptyText: 'No matching found.'
+		            			}
+		    })
+	
+	grid = Ext.create('Ext.grid.Panel', {
+    store: store2,
+	frame:false,
+	border:false,
+    width:330, 
+	height:600,	
+        // grid columns
+        columns:[{
+            id: 'num',
+            text: "序号",
+            dataIndex: 'inum',
+            hidden: false,
+            width: 40,
+            sortable: true
+        },{
+            text: "时间段（小时）",
+            dataIndex: 'chart_name', 
+            width: 90,
+			renderer: showDetail
+        },{
+            text: "访问数量（次）",
+            dataIndex: 'chart_number',           
+            width: 90,
+			align: 'right',
+            sortable: true
+         
+        },
+        {
+            text: "百分比",
+            dataIndex: 'rate',
+            hidden: false,
+            width: 80,
+			align: 'right',
+            sortable: true
+        }
+        ],
+        
+        columnLines: true
+		});
+	chart2= Ext.create(Ext.chart.Chart,{
+		//renderTo:'hello',
+		store:store1,
+		
+		legend:{position:'top'
+				},
+		
+		axes:[//坐标轴定义
+		{type:'Numeric',  position:'left',fields:['chart_number'],
+		title:'访问数量（次）',//坐标标题
+		grid:{even:{fill:'#ccc'}},//设置背景网格线
+		minimum:chart_min,
+		maximum:chart_max,//最大坐标
+		majorTickSteps:9//每格刻度细化到2
+		},
+		{type:'Category',position:'bottom',fields:['chart_name'],
+		title:'时间段（小时）',
+		label:{}//旋转90度
+		}
+		],
+		series:[{ //图表类型定义
+			type:'line',
+			axis:'left',//说明数值在哪条坐标轴上
+			xField:'chart_name',
+			yField:'chart_number',
+			showInLegend:false,
+			highlight:true,
+			style: {
+                    'stroke-width': 2
+                },
+			tips:{//字段渲染，移到坐标点显示什么信息
+			renderer:function(rec){
+			this.update(rec.get('chart_number'));
+			}
+			},
+			
+			fill:true,//以fill配置项定义的颜色填充折线下的区域，不透明度采用opacity配置定义的值，默认为false,
+		//	style:{//定义fill
+		//	fill:'#0f0',//填充颜色
+		//	opacity:0.2//透明度
+		//	},
+			showMarkers:true,
+		//	markerConfig:{
+		//		type:'circle',
+		//		radius:5,
+		//		fill:'#f00',
+		//	},
+			
+			smooth:true//点之间的连线会很平滑的环绕数据点，否则会使用之间连接数据点
+		
+		}]
+	});
+	Ext.getCmp('panel1').destroy();	
+    var panel1 = Ext.create('widget.panel', {
+        height: 570,
+		frame:false,
+		border:false,
+        renderTo: 'grid_first',
+        layout: 'fit',
+        id:'panel1',
+      	 tbar:[
+			      '-',{                        
+                        fieldLabel:'从',labelWidth: 20,width:130,
+                        xtype: 'datefield',
+                        value:sdate_value,
+                        id:'sdate1',
+                        name:'sdate1'
+                  },'-',
+			      {
+                        fieldLabel:'到',labelWidth: 20,  width:130,      
+                        xtype: 'datefield',
+                        value:edate_value,
+                        id:'edate1',
+                        name:'edate1'
+                  },'-',
+						      {
+						      	text:"查询",
+						      	iconCls:'accept',
+						      	handler: function(){
+
+			                 var aa=DateUtil.Format("yyyy/MM/dd",Ext.getCmp('sdate1').value);
+		                	 var bb=DateUtil.Format("yyyy/MM/dd",Ext.getCmp('edate1').value);
+			                 document.getElementById("form1").sdate.value=aa;  
+			                 document.getElementById("form1").edate.value=bb;
+							
+			                 reflash();
+						//	 alert(store1.getAt(0).get('chart_number'))
+		              
+								}
+						    },'-',
+						    {
+						      	text:"导出",
+						      	iconCls:'exp',
+						      	handler: function(){
+		                 	 var aa=DateUtil.Format("yyyy/MM/dd",Ext.getCmp('sdate1').value);
+		                	 var bb=DateUtil.Format("yyyy/MM/dd",Ext.getCmp('edate1').value);
+			                 document.getElementById("form1").sdate.value=aa;  
+			                 document.getElementById("form1").edate.value=bb;
+			                 document.getElementById("form1").expexcel.value='1';
+			                 document.getElementById("form1").action = "/pronline/Msg?FunName@ncwlanWebShowServiceDeptCx?r="+Math.random();
+  							 document.getElementById("form1").method = "POST";
+			                 document.getElementById("form1").submit();
+			                 document.getElementById("form1").expexcel.value="";
+		                 }
+						      	}
+						      ],
+					rbar:grid,
+        items: chart2
+        
+    });
+
+      }  
+});  
+
+	
+}
+
+
+	function openWin(value){
+	if(value=="others"){ value = "";}
+	//var bbbb=parent.document.all('ltitle');
+    //  bbbb.innerHTML='Current Position : '+'User Log';
+	//var tabs=parent.Ext.getCmp('layout_center');
+	// tabs.remove(3);//删除标签 
+      parent.dhsrc("/pronline/Msg?FunName@ncm_web_MC_userlog_list&flag@"+value+"&sdate@"+document.getElementById("form1").sdate.value+"&edate@"+document.getElementById("form1").edate.value+"&devtype@devtype","UserLog","Userlogid");
+	
+	//var html = "/pronline/Msg?FunName@ncm_web_MC_userlog_list&flag@"+value+"&sdate@"+document.getElementById("form1").sdate.value+"&edate@"+document.getElementById("form1").edate.value+"&devtype@devtype";
+	/*
+	var	win2 = new Ext.Window ({
+							id:"addwindow",
+                             title:"Device Type Detail",
+                             x:0,
+                             y:0,
+                             width:1000,
+                             height:600,
+					//		 layout:'fit',  
+					//		 closeAction: 'close',
+                             bodyPadding: 10,
+                    //         modal:true,
+                             resizable:true,
+							 constrain:false,
+                           //  html:'<iframe  id="gdrzIframe_xnsf" name="gdrzIframe_xnsf" src="/ncm_userman/ncm_web_MC_userlog_list.html" scrolling="auto" width=100% height=1000  FrameBorder=0 ></iframe>'
+						   html:  '<iframe  id="gdrzIframe_xnsf" name="gdrzIframe_xnsf" src="/pronline/Msg?FunName@ncm_web_MC_userlog_list" scrolling="auto" width=100% height=1000  FrameBorder=0 ></iframe>'
+	});
+	*/
+	//win2.show();
+	
+	}
+	//详细信息
+	function showDetail(value, cellmeta, record, rowIndex, colIndex, store){
+		
+		if(value == "总计"){
+		
+		return Ext.String.format("<p style='color:red;'>{0}</p>",value);
+		}
+		else{
+		return Ext.String.format('<div  style="cursor:pointer;">{1}:00-{2}:00</div>',value,value,parseInt(value)+1);	
+		}
+	}
+
+Ext.onReady(function(){
+	/**
+ * ovrride 'Ext.chart.LegendItem'
+ */
+Ext.override(Ext.chart.LegendItem, {
+	updatePosition : function(relativeTo) {
+		var me = this, items = me.items, ln = items.length, i = 0, item;
+		if (!relativeTo) {
+			relativeTo = me.legend;
+		}
+		// modify start
+		if (me.legend.height > 0 && me.y > me.legend.maxY) {
+			var r = Math.ceil((me.y - me.legend.maxY) / me.legend.offsetY);
+			me.x += me.legend.columnWidth * r;
+			me.y -= me.legend.offsetY * r;
+		}
+		// modify end
+		for (; i < ln; i++) {
+			item = items[i];
+			switch (item.type) {
+				case 'text' :
+					item.setAttributes({
+						x : 20 + relativeTo.x + me.x,
+						y : relativeTo.y + me.y
+					}, true);
+					break;
+				case 'rect' :
+					item.setAttributes({
+						translate : {
+							x : relativeTo.x + me.x,
+							y : relativeTo.y + me.y - 6
+						}
+					}, true);
+					break;
+				default :
+					item.setAttributes({
+						translate : {
+							x : relativeTo.x + me.x,
+							y : relativeTo.y + me.y
+						}
+					}, true);
+			}
+		}
+	}
+});
+/**
+ * ovrride 'Ext.chart.Legend'
+ */
+Ext.override(Ext.chart.Legend, {
+	createItems : function() {
+		var me = this, chart = me.chart, surface = chart.surface, items = me.items, padding = me.padding, itemSpacing = me.itemSpacing, spacingOffset = 2, maxWidth = 0, maxHeight = 0, totalWidth = 0, totalHeight = 0, vertical = me.isVertical, math = Math, mfloor = math.floor, mmax = math.max, index = 0, i = 0, len = items ? items.length : 0, x, y, spacing, item, bbox, height, width;
+ 
+		if (len) {
+			for (; i < len; i++) {
+				items[i].destroy();
+			}
+		}
+ 
+		items.length = [];
+ 
+		chart.series.each(function(series, i) {
+			if (series.showInLegend) {
+				Ext.each([].concat(series.yField), function(field, j) {
+					item = Ext.create('Ext.chart.LegendItem', {
+						legend : this,
+						series : series,
+						surface : chart.surface,
+						yFieldIndex : j
+					});
+					bbox = item.getBBox();
+					width = bbox.width;
+					height = bbox.height;
+ 
+					if (i + j === 0) {
+						spacing = vertical ? padding + height / 2 : padding;
+					} else {
+						spacing = itemSpacing / (vertical ? 2 : 1);
+					}
+ 
+					item.x = mfloor(vertical ? padding : totalWidth + spacing);
+					item.y = mfloor(vertical ? totalHeight + spacing : padding + height / 2);
+					totalWidth += width + spacing;
+					totalHeight += height + spacing;
+					maxWidth = mmax(maxWidth, width);
+					maxHeight = mmax(maxHeight, height);
+ 
+					items.push(item);
+				}, this);
+			}
+		}, me);
+ 
+		me.width = mfloor((vertical ? maxWidth : totalWidth) + padding * 2);
+		if (vertical && items.length === 1) {
+			spacingOffset = 1;
+		}
+		me.height = mfloor((vertical ? totalHeight - spacingOffset * spacing : maxHeight) + (padding * 2));
+		me.itemHeight = maxHeight;
+		// modify start
+		var outerHeight = me.chart.height - 20;
+		if (items.length >= 2 && me.height > outerHeight) {
+			var row = math.floor((outerHeight - padding * 2) / (items[1].y - items[0].y));
+			if (row > 0) {
+				me.columnWidth = me.width;
+				me.width *= math.ceil(items.length / row);
+				me.height = outerHeight;
+				me.offsetY = items[row].y - items[0].y;
+				me.maxY = items[row - 1].y;
+			}
+		}
+		// modify end
+	}
+});
+
+    var aaa=screen.width;
+    if(aaa>1440) aaa=1440;
+    if(aaa<1024) aaa=1024;
+    aaa=aaa-241;
+
+	 Ext.tip.QuickTipManager.init();
+
+	 //格式化时间
+    Date.prototype.format = function(format){
+        var o = {
+        "M+" : this.getMonth()+1, //month
+        "d+" : this.getDate(),    //day
+        "h+" : this.getHours(),   //hour
+        "m+" : this.getMinutes(), //minute
+        "s+" : this.getSeconds(), //second
+        "q+" : Math.floor((this.getMonth()+3)/3),  //quarter
+        "S" : this.getMilliseconds() //millisecond
+        }
+        if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
+        (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+        for(var k in o)if(new RegExp("("+ k +")").test(format))
+        format = format.replace(RegExp.$1,
+        RegExp.$1.length==1 ? o[k] :
+        ("00"+ o[k]).substr((""+ o[k]).length));
+        return format;
+    }
+	var now   = new Date();
+	var month = now.getMonth();
+	var year  = now.getFullYear();
+	var day   = now.getDate();
+	var wday  = now.getDay;
+	  //最近7天
+	now.endTime   = now.format( "yyyy/MM/dd", now.setDate( day ) );
+	now.beginTime = now.format( "yyyy/MM/dd", now.setDate( day-7 ) );
+
+	startday=now.beginTime;
+	today=now.endTime;
+  	document.getElementById("form1").sdate.value=startday;  
+	document.getElementById("form1").edate.value=today;
+	
+	 Ext.define('EimData', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {name:'chart_name',type:'string'}, 'inum', 'id', {name:'chart_number',type:'int'}, {name:'nets_subytes2',type:'string'},{name:'rate',type:'string'}
+        ],
+        idProperty: 'id'
+    });
+    
+		store1 = Ext.create('Ext.data.Store', {
+//        pageSize: 40,
+//		autoLoad:true,
+        model: 'EimData',
+//        remoteSort: true,               //请求后台排序
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@ncm_Ad_SMSRecountChart',
+            reader: {
+                type:'json',
+                root: 'eimdata'//,
+//                totalProperty: 'totalCount'
+            } 
+        }
+    });
+	
+		store2 = Ext.create('Ext.data.Store', {
+//        pageSize: 40,
+//		autoLoad:true,
+        model: 'EimData',
+//        remoteSort: true,               //请求后台排序
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@ncm_Ad_SMSRecountChart',
+            reader: {
+                type:'json',
+                root: 'eimdata'//,
+//                totalProperty: 'totalCount'
+            }  
+        }
+    });
+	
+    
+	   Ext.define('State', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'string', name: 'groupid'},
+            {type: 'string', name: 'groupname'}
+        ]
+    });
+	//加载运营商
+	   var sptypeStore = Ext.create('Ext.data.Store', {
+		        model: 'State',
+		        autoLoad:true,
+						proxy:{
+							type:'ajax',
+							url:'sptypeStore_ch.js',
+							reader:{
+								type:'json',
+								root:'data'
+							}
+						}
+		    });
+    var sptypeCombo = Ext.create('Ext.form.field.ComboBox', {
+				id:'sptypeCombo',
+				fieldLabel: '运营商',
+		        labelWidth: 60,
+		        width: 180,
+		        valueField:'groupid',
+		        value:'',
+		        displayField: 'groupname',    
+		        allowBlank: true,
+		        store: sptypeStore,
+		        triggerAction: 'all',
+		         queryMode: 'local',
+		         typeAhead: true,
+		              listeners: {
+					          'change':function(){
+							//	alert(this.value);
+								document.getElementById("form1").sptype.value = this.value;
+					            }
+					        },
+		
+							listConfig: 
+		            			{
+		                			loadingText: 'Searching...',
+		                			emptyText: 'No matching found.'
+		            			}
+		    });
+	
+	  Ext.define('State2', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'string', name: 'id'},
+            {type: 'string', name: 'name'}
+        ]
+    });
+	//加载省市信息
+	   var areaStore = Ext.create('Ext.data.Store', {
+		        model: 'State2',
+		        autoLoad:true,
+						proxy:{
+							type:'ajax',
+							url:'/pronline/Msg?FunName@ncm_areaInfo',
+							reader:{
+								type:'json',
+								root:'data'
+							}
+						}
+		    });
+	 var areaCombo = Ext.create('Ext.form.field.ComboBox', {
+				id:'areaCombo',
+				fieldLabel: '地区',
+		        labelWidth: 40,
+		        width: 150,
+		        valueField:'id',
+		        value:'',
+		        displayField: 'name',    
+		        allowBlank: true,
+		        store: areaStore,
+		        triggerAction: 'all',
+		         queryMode: 'local',
+		         typeAhead: true,
+		              listeners: {
+					          'change':function(){
+							//alert(this.value);
+								document.getElementById("form1").area.value = this.value;
+					            }
+					        },
+		
+							listConfig: 
+		            			{
+		                			loadingText: 'Searching...',
+		                			emptyText: 'No matching found.'
+		            			}
+		    })
+  //加载国内国际信息
+	   var countryStore = Ext.create('Ext.data.Store', {
+		        model: 'State',
+		        autoLoad:true,
+						proxy:{
+							type:'ajax',
+							url:'countryStore_ch.js',
+							reader:{
+								type:'json',
+								root:'data'
+							}
+						}
+		    });
+	 var countryCombo = Ext.create('Ext.form.field.ComboBox', {
+				id:'countryCombo',
+				fieldLabel: '国家',
+		        labelWidth: 40,
+		        width: 130,
+		        valueField:'groupid',
+		        value:'',
+		        displayField: 'groupname',    
+		        allowBlank: true,
+		        store: countryStore,
+		        triggerAction: 'all',
+		         queryMode: 'local',
+		         typeAhead: true,
+		              listeners: {
+					          'change':function(){
+							//alert(this.value);
+								document.getElementById("form1").country.value = this.value;
+					            }
+					        },
+		
+							listConfig: 
+		            			{
+		                			loadingText: 'Searching...',
+		                			emptyText: 'No matching found.'
+		            			}
+		    })
+		//
+	grid = Ext.create('Ext.grid.Panel', {
+    store: store2,
+	frame:false,
+	border:false,
+	width:330,
+        // grid columns
+        columns:[{
+            id: 'num',
+            text: "序号",
+            dataIndex: 'inum',
+            hidden: false,
+            width: 40,
+            sortable: false
+        },{
+            text: "时间段（小时）",
+            dataIndex: 'chart_name', 
+            width: 90,
+			renderer: showDetail
+        },{
+            text: "访问数量（次）",
+            dataIndex: 'chart_number',           
+            width: 90,
+			align: 'right',
+            sortable: true
+        },
+        {
+            text: "百分比",
+            dataIndex: 'rate',
+            hidden: false,
+            width: 80,
+			align: 'right',
+            sortable: true
+        }
+        ],
+        
+        columnLines: true
+    });
+	
+		chart2= Ext.create(Ext.chart.Chart,{
+		store:store1,
+		legend:{position:'top'
+				},
+		axes:[//坐标轴定义
+		{type:'Numeric',position:'left',fields:['chart_number'],
+		title:'访问数量（次）',//坐标标题
+		grid:{even:{fill:'#ccc'}},//设置背景网格线
+		minimum:0,
+		maximum:100,//最大坐标
+		majorTickSteps:9//每格刻度细化到2
+		},
+		{type:'Category',position:'bottom',fields:['chart_name'],
+		title:'时间段（小时）',
+		label:{}//旋转90度
+		}
+		],
+		series:[{ //图表类型定义
+			type:'line',
+			axis:'left',//说明数值在哪条坐标轴上
+			xField:'chart_name',
+			yField:'chart_number',
+			showInLegend:false,
+			highlight:true,
+			tips:{//字段渲染，移到坐标点显示什么信息
+			renderer:function(rec){
+			this.update(rec.get('chart_number'));
+			}
+			},
+			
+			fill:true,//以fill配置项定义的颜色填充折线下的区域，不透明度采用opacity配置定义的值，默认为false,
+		//	style:{//定义fill
+		//	fill:'#0f0',//填充颜色
+		//	opacity:0.2//透明度
+		//	},
+			showMarkers:true,
+		//	markerConfig:{
+		//		type:'circle',
+		//		radius:5,
+		//		fill:'#f00',
+		//	},
+			
+			smooth:true//点之间的连线会很平滑的环绕数据点，否则会使用之间连接数据点
+		
+		}]
+	});
+
+//alert(today+" "+startday);
+    var panel1 = Ext.create('widget.panel', {
+ //       width: 800,
+        height: 570,
+        style:'',
+		frame:false,
+		border:false,
+//        title: 'Semester Trends',
+//        renderTo: Ext.getBody(),
+        renderTo: 'grid_first',
+        layout: 'fit',
+        id:'panel1',
+      	 tbar:[
+			      '-',{                        
+                        fieldLabel:'从',labelWidth: 20,width:130,
+                        xtype: 'datefield',
+                        value:startday,
+                        id:'sdate1',
+                        name:'sdate1'
+                  },'-',
+			        	  {
+                        fieldLabel:'到',labelWidth: 20,  width:130,      
+                        xtype: 'datefield',
+                        value:today,
+                        id:'edate1',
+                        name:'edate1'
+                  },'-',
+//						      {pressed:true,text:'查询'}, 
+//						      {xtype:"tbfill"},//加上这句，后面的就显示到右边去了 
+//						      {pressed:true,text:"添加"}, 
+						      {
+						      	text:"查询",
+						      	iconCls:'accept',
+						      	handler: function(){
+
+			                 var aa=DateUtil.Format("yyyy/MM/dd",Ext.getCmp('sdate1').value);
+		                	 var bb=DateUtil.Format("yyyy/MM/dd",Ext.getCmp('edate1').value);
+			                 document.getElementById("form1").sdate.value=aa;  
+			                 document.getElementById("form1").edate.value=bb;
+							
+			                 reflash();
+						//	 alert(store1.getAt(0).get('chart_number'))
+		              
+								}
+						    },'-',
+						    {
+						      	text:"导出",
+						      	iconCls:'exp',
+						      	handler: function(){
+		                 	 var aa=DateUtil.Format("yyyy/MM/dd",Ext.getCmp('sdate1').value);
+		                	 var bb=DateUtil.Format("yyyy/MM/dd",Ext.getCmp('edate1').value);
+			                 document.getElementById("form1").sdate.value=aa;  
+			                 document.getElementById("form1").edate.value=bb;
+			                 document.getElementById("form1").expexcel.value='1';
+			                 document.getElementById("form1").action = "/pronline/Msg?FunName@ncwlanWebShowServiceDeptCx?r="+Math.random();
+  							 document.getElementById("form1").method = "POST";
+			                 document.getElementById("form1").submit();
+			                 document.getElementById("form1").expexcel.value="";
+								}
+						     }
+						      ],
+					rbar:grid,
+        items: chart2
+        
+    });
+
+
+//	alert(document.getElementById("form1").sdate.value);
+	
+	reflash();
+});
+
+
+</script>
+    
+    
+</head>
+<body>
+	 <form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="ncm_Ad_SMSRecountChart">
+		<input type="hidden" name="chart_name" value="">
+		<input type="hidden" name="inum" value="">
+		<input type="hidden" name="id" value="">
+		<input type="hidden" name="chart_number" value="">
+		<input type="hidden" name="rate" value="">
+		<input type="hidden" name="sdate" value="">
+		<input type="hidden" name="edate" value="">
+		<input type="hidden" name="exppdf" value="">
+		<input type="hidden" name="expexcel" value="">
+		<input type="hidden" name="area" value="">
+		<input type="hidden" name="sptype" value="">
+		<input type="hidden" name="country" value="">
+	
+</form>
+  <div style="display:inline;height:300px;white-space:nowrap">
+  	<div id="grid_first" style="width='50%'; text-align:left;"></div>
+  	<div id="grid_sec" width="100%"></div>
+  </div>
+  
+  
+</body>
+</html>

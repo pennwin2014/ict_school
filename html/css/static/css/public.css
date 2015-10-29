@@ -1,0 +1,61 @@
+@charset "utf-8";
+/*----公共样式----*/
+body{overflow-x:hidden;font:normal 100% Helvetica,Arial,sans-serif;font-size:0.75em; margin:0;padding:0;}
+a{outline:0}
+ul{margin:0;padding:0}
+ul li{list-style-type:none;margin:0;padding:0;}
+img{border:0}
+a,a:hover{outline:0;text-decoration:none}
+input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;}
+table{border-collapse:collapse}
+.lft{float:left}
+.rgt{float:right}
+.clear{clear:both;display:block;overflow:hidden;height:0;font-size:0}
+
+/*----丹尼斯注册----*/
+.mobile_register{width:100%;}
+.form_reg{ width:90%; padding:8% 5%;}
+.reg_mian{ width:100%; background:#CCE1DA;}
+.form_reg i{float:left;display:block;margin-right:6px;height:25px;color:#06f;font-style:normal;line-height:30px}
+.l_label{float:left;display:block;color:#333;font:1.2em "微软雅黑"}
+.r_label{margin-left:10px;color:#000;font:1.4em "微软雅黑"}
+.tb_reg{ width:100%;}
+.form_btn{ width:136px; height:42px; border:0;}
+#sub_btn{ background:url(../images/zjdl_03.jpg) no-repeat;}
+#reg{ background:url(../images/zhuce_03.jpg) no-repeat;}
+.txt{ width:90%; border:1px solid #9D9F9E; padding-left:5px;height:25px; font:1.2em "微软雅黑"; color:#333;}
+.tb_reg tr td{padding:10px 0;}
+/*----------欧亚商场—电子导航-----------*/
+.outer{overflow:hidden;width:100%;}
+.dns_top{padding:15px 0 10px 0;height:55px;background:url(../images/dns_top_bg_01.png) no-repeat;text-align:center}
+.dns_tit{color:#FFF;font:2em/45px "微软雅黑"}
+.dns_home{margin-left:14px}
+.dns_more{margin-right:28px}
+.clear01{height:24px;background:url(../images/clear_01_02.jpg) no-repeat}
+.clear02{height:21px;background:url(../images/clear_02_02.jpg) no-repeat}
+.clear03{height:27px;background:url(../images/clear_03_02.jpg) no-repeat}
+.clear04{height:19px;background:url(../images/clear_04_02.jpg) no-repeat}
+
+/*------丹尼斯-登录页面--------*/
+.mobile_login{overflow:hidden;width:100%;background:#d0eae7;font-family:"微软雅黑"}
+.login_form,.out_form{margin:0 14px;padding:10% 5%;background:#eee;color:#22211f;text-align:justify}
+.login_form #login_btn{background:url(../images/login_btn_05.png) no-repeat;width:85px;}
+.login_form #login_code{ border:0; font:1.2em "微软雅黑"; text-decoration:underline; padding: 0;}
+.login{margin-left:7px; margin-top:26px; float:right; height:36px;border:0;}
+.mobile_login #yet,.mobile_login #l_tel{font-size:1.3em; }
+.mobile_login #l_tel{ margin-top:24px; float:left; line-height:40px;}
+.mobile_login #yet{margin-left:10px;}
+.mobile_login #username,.mobile_login #password{ float:left; padding-left:5px; margin-top:24px; width:32%;height:36px;border:1px solid #272624;border-radius:8px;color:#333; font:1.2em/36px "微软雅黑";}
+.mobile_login #hint{display:block;margin-top:24px;font-size:1.2em;}
+.mobile_login #hint1{ text-align:center; display:block; height:40px; font:1.3em/40px "微软雅黑";}
+.mobile_login #hint1 a{ text-decoration:underline; color:#0268A8;}
+.mobile_login h2{margin-top:24px;text-align:center;font-weight:normal;font-size:1.6em;}
+.mobile_login p{font-size:15px;line-height:24px}
+.mobile_login #indent{text-indent:2em}
+.mobile_login #p_head{margin-top:24px}
+
+/*---------丹尼斯-登录页面---------*/
+#out_btn{width:117px;height:38px;border:0;background:url(../images/out_22.png) no-repeat}
+.out_form{padding:55px 55px 80px 55px;text-align:center}
+.out_form h4{margin-bottom:34px;color:#3d6c8a;font:1.5em "楷体"}
+.out_form p{margin-bottom:30px;color:#316384;font:1.125em "微软雅黑"}

@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>ҩ֤³ɹ¦</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width" />
+<style type="text/css">
+	.but_exit { font-size: 9pt;  background-image:url(/images/applepc/exit.gif);
+   height: 32px; width: 292px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand} 
+
+  
+  .title{
+  text-align:center;
+  margin:20px;
+  }
+  .webs{
+  margin-left:5%;
+  margin-right:5%;
+  
+  }
+  .web1{
+  border:1px solid black;
+  margin:10px;
+  width:25%;
+  height:60px;
+  float:left;
+  text-align:center;
+  }
+	
+</style>
+<script language="javascript" type="text/javascript">
+		function tuichu(){
+			document.getElementById("nclogin_0").submit();
+	}
+	function change(mark){alert(1);
+	if(mark ==1 ){
+	
+	document.getElementById("nclogin_0").action="http://www.pronetway.com";
+	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==2 ){location.href = "http://www.baidu.com";
+//	document.getElementById("nclogin_0").action="http://www.baidu.com/";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==3 ){
+		parent.document.getElementById("iframe1").src = "http://www.sina.com.cn"
+//		location.href = "http://www.sina.com.cn/";
+		alert(parent.document.getElementById("iframe1").src);
+//	document.getElementById("nclogin_0").action="http://www.sina.com.cn/";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==4 ){
+	document.getElementById("nclogin_0").action="http://www.qq.com";
+	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==5 ){
+	document.getElementById("nclogin_0").action="http://www.taobao.com";
+	document.getElementById("nclogin_0").submit();
+	}
+	
+	}
+	function init(){
+	alert(11111)
+	
+	}
+</script>
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="init()">
+	<form name="nclogin_0" id="nclogin_0" method="post" action="https://[#ip#]:[#port#]/pronline/Msg" >
+ 	<input type="hidden" name="sid" value="[#sid#]">
+ 	<input type="hidden" name="FunName" value="ncSrvLogOut">
+	<input type="hidden" name="ModiPass" value="">
+	<input type="hidden" name="username" value="[#username#]">
+	<input type="hidden" name="userip" value="[#userip#]">
+	<input type="hidden" name="usermac" value="[#usermac#]">
+	<input type="hidden" name="serialno" value="[#serialno#]">
+
+	<div class="title">认证成功</div>
+	<div class="title"></div>
+	<div class="webs">
+
+	<div class="web1" onclick="change(1)">新网程</div>
+	<div class="web1"  onclick="change(2)">百度</div>
+	<div class="web1"  onclick="change(3)">新浪</div>
+	<div class="web1"  onclick="change(4)">腾讯</div>
+	<div class="web1"  onclick="change(5)">淘宝</div>
+
+	</div>
+	
+</form>
+</body>
+</html>

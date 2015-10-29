@@ -1,0 +1,282 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+<style type="text/css">
+body{
+margin:0;
+padding:0;
+width:100%;
+height:100%;
+}
+
+.logo {
+	background: url(/images/suning/01.png);
+	color:#ffffff;
+	font-size:1.5em;
+	text-align:center;
+	height:30px;
+	border:1px solid #000000;
+	position:fixed; 
+	width:100%;
+	z-index:100;
+	}
+	
+
+		#menu{
+		width:100%;
+		height:60px;
+		
+		margin-bottom:12px;
+		color:#ffffff;
+		float:left;
+		text-align:center;
+		white-space:nowrap;
+		font-size:1em;
+		}
+		
+		#menu_btn1{
+		background:#FFBF00;
+		width:25%;
+		height:100%;
+		padding-top:10px;
+		float:left;
+		
+		}
+		
+		#menu_btn2{
+		background:	#9FF781;
+		width:25%;
+		height:100%;
+		float:left;
+		padding-top:10px;
+		}
+		
+		#menu_btn3{
+	
+		background:	#58ACFA;
+			width:25%;
+		height:100%;
+			float:left;
+			padding-top:10px;
+		}
+		#menu_btn4{
+		background:	#FE2E64;
+		width:25%;
+		height:100%;
+		float:left;
+		padding-top:10px;
+		}
+		
+		.space1{
+		margin-top:5px;
+		}
+		.space1 img{
+		height:30px;
+		}
+		
+			
+		#webs{
+		width:100%;
+		
+		}
+		
+		#web1{
+		float:left;
+		width:65%;
+		height:140px;
+		border:1px solid #d0d0d0;
+		margin-right:2px;
+		}
+		#web2{
+		float:left;
+		width:34%;
+		height:140px;
+		}
+		
+		.web2_1{
+		height:49%;
+		border:1px solid #d0d0d0;
+		margin-bottom:2%;
+		}
+		.web2_2{
+		height:49%;
+		border:1px solid #d0d0d0;
+		
+		}
+		#web3{
+		float:left;
+		
+		width:100%;
+	
+
+		}
+		
+		#webs img{
+		width:100%;
+	
+		}
+		
+		#web1 img{
+		width:100%;
+		height:100%;
+		}
+		#web2 img{
+		width:100%;
+		height:100%;
+		}
+		#web2 img{
+		width:100%;
+		height:100%;
+		}
+		#web3 img{
+		width:100%;
+	
+		}
+		
+		#bottom_webs{
+		width:100%;
+		height:60px;
+		margin-top:2px;
+		margin-bottom:5px;
+		color:#ffffff;
+		float:left;
+		text-align:center;
+		white-space:nowrap;
+		font-size:1em;
+		}
+		
+		#bottom_web1{
+		background:#FFBF00;
+		width:25%;
+		height:100%;
+		padding-top:10px;
+		padding-bottom:10px;
+		float:left;
+		
+		}
+		#bottom_web2{
+		background:	#9FF781;
+		width:25%;
+		height:100%;
+		padding-top:10px;
+		padding-bottom:10px;
+		float:left;
+		
+		}
+		#bottom_web3{
+		background:#58ACFA;
+		width:25%;
+		height:100%;
+		padding-top:10px;
+		padding-bottom:10px;
+		float:left;
+		
+		}
+		#bottom_web4{
+		background:#FE2E64;
+		width:25%;
+		height:100%;
+		padding-top:10px;
+		padding-bottom:10px;
+		float:left;
+		}
+		
+		#positions{
+		width:100%;
+		height:10px;
+		float:left;
+		margin-top:2px;
+		}
+		.position1{
+		width:25%;
+		height:100%;
+		background-image:url(/images/suning/mall_r10_c1.gif);
+		float:left;
+		}
+		.position2{
+		width:25%;
+		height:100%;
+		background-image:url(/images/suning/mall_r10_c3.gif);
+		float:left;
+		
+		}
+		.scrollPic1{
+		display:none;
+		}
+		.scrollPic2{
+		display:block;
+		}
+</style>
+
+<script type="text/javascript">
+
+
+
+function switchPage(mark){
+//alert("11111111");
+
+if(mark == 1){
+//alert("1");
+document.getElementById("FunName").value = "ncmLevels";
+parent.document.getElementById("logo").innerHTML = "楼层信息";
+}
+if(mark == 2){
+//alert("2");
+document.getElementById("FunName").value = "ncmCategories";
+parent.document.getElementById("logo").innerHTML = "商品分类";
+}
+if(mark == 3){
+//alert("3");
+document.getElementById("FunName").value = "ncmDiscounts";
+parent.document.getElementById("logo").innerHTML = "促销优惠";
+}
+if(mark == 4){
+//alert("4");
+document.getElementById("FunName").value = "ncmPersonals";
+parent.document.getElementById("logo").innerHTML = "个人信息";
+}
+if(mark == 'web1'){
+document.getElementById("FunName").value = "ncmLogos_detail";
+parent.document.getElementById("logo").innerHTML = mark;
+}
+
+self.location.href = "http://192.168.21.192:9080/pronline/Msg?FunName@" +document.getElementById("FunName").value;
+//alert(self.location.href);
+//document.getElementById("form1").submit();
+}
+function loadLogos(){
+//alert("aaaaaaaa");
+//alert(parent.document.getElementById("rg").value);
+document.getElementById("FunName").value = "ncmLogos";
+//alert(parent.document.getElementById("hp").value);
+//document.getElementById("hp").value = parent.document.getElementById("hp").value ;
+document.getElementById("form1").submit();
+
+//document.getElementById("form1").action = document.getElementById("hp").value + "/pronline/Msg"
+}
+</script>
+<body onload="loadLogos()">
+
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" name="hp" id="hp" value=""/>	
+			<div id="menu">
+                                
+          <div id="menu_btn1" onclick="switchPage(1)">楼层详情<div class="space1"><img src="/images/suning/floordetail.png" ></div></div>
+          <div id="menu_btn2"  onclick="switchPage(2)">商品分类<div class="space1"><img src="/images/suning/shoptype.png"></div></div>
+          <div id="menu_btn3"  onclick="switchPage(3)">促销优惠<div class="space1"><img src="/images/suning/cuxiaoyouhui.png" ></div></div>
+          <div id="menu_btn4"  onclick="switchPage(4)">个人中心<div class="space1"><img src="/images/suning/personcenter.png" ></div></div>
+           
+			</div>
+	
+	</form>	
+</body>
+</html>
+
+

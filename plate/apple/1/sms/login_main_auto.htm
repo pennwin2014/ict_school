@@ -1,0 +1,248 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>无标题文档</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1, minimum-scale=0.4">
+</head>
+
+
+<script type="text/javascript">
+       
+			/*
+* 智能机浏览器版本信息:
+*
+*/
+var btn1='';
+var btn2='';
+  var browser={
+    versions:function(){
+           var u = navigator.userAgent, app = navigator.appVersion;
+           return {//移动终端浏览器版本信息
+                trident: u.indexOf('Trident') > -1, //IE内核
+                presto: u.indexOf('Presto') > -1, //opera内核
+                webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                mobile: !!u.match(/AppleWebKit.*Mobile.*/)||!!u.match(/AppleWebKit/), //是否为移动终端
+                ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+                iPad: u.indexOf('iPad') > -1, //是否iPad
+                mobilesafari: u.indexOf('Mobile Safari') > -1, //是否
+				 uc: u.indexOf('UC') > -1, //是否UC
+				 xt928:u.indexOf('XT928') > -1,//摩托罗拉XT928
+				 eben:u.indexOf('EBEN T6') > -1,
+				 defaultbrowser:u.indexOf('534.30') > -1,
+            };
+         }(),
+         language:(navigator.browserLanguage || navigator.language).toLowerCase()
+}
+
+if(browser.versions.iPhone || browser.versions.iPad){
+
+	// alert("苹果设备");
+ setActiveStyleSheet("apple_auto_zh.css");
+}
+else{
+ // alert("安卓设备");
+  setActiveStyleSheet("android_auto_zh.css");
+  
+	btn1 = "继续";
+}
+
+
+function setActiveStyleSheet(filename){ 
+  document.write("<link href=\"\/css\/"+filename+"\" type=\"text\/css\" rel=\"stylesheet\">");
+//  document.write("<link href=\"\/"+filename+"\" type=\"text\/css\" rel=\"stylesheet\">");
+}
+
+
+
+</script>
+<style type="text/css">
+
+</style>
+<script language="javascript" type="text/javascript">
+function passcode(){
+		document.getElementById('sign').className = 'sign';
+		document.getElementById('sign').onclick = 'spylogin()';
+	
+}
+   
+function spylogin(){
+		if(document.getElementById('acceptme').checked==false){
+			document.getElementById('chaccept_err').className = 'error3';
+			document.getElementById('chaccept_err').innerHTML = '<span id="errormark"><img src = "/images/ap/mark01.png" style = "margin-bottom:-2px;" ></span>&nbsp;请确认接受条款及细则，再进行登录。';
+			return;
+		}
+		else{
+			document.getElementById("nclogin").submit();
+		}
+	}
+	function eng2(){
+	document.getElementById('english').className = 'eng2'
+}
+function eng(){
+	document.getElementById('english').className = 'eng'
+}
+function china2(){
+		document.getElementById('chinese').className = 'china2';
+	}
+	function china(){
+		document.getElementById('chinese').className = 'china';
+	}
+	function disclaimer(){
+	document.getElementById('disclaimer').className = 'disclaimer2';
+}
+function ss(e){
+	var key = window.event ? e.keyCode:e.which;
+
+	if(key==13)
+	spylogin();
+}
+	var p_flag='1';
+	function restore(){
+  document.getElementById("gpss").disabled="";
+  document.getElementById("imgm").style.display="none";
+p_flag='1';
+document.getElementById("imgm").src='/images/sjimage/smspad.gif';
+}
+
+function chk(tel)
+{
+
+if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel)))
+        {
+           return 0;
+         }
+else
+        {
+          return 1;
+         }
+}
+
+function getpasswd(){	
+	document.getElementById('username_err').innerHTML = "";
+	document.getElementById('chaccept_err').innerHTML = "";	
+   if(p_flag=='0') return false;
+   
+
+	  if(document.getElementById("nclogin").username.value==''||document.getElementById("username").value=='Mobile number'){
+		document.getElementById('username_err').innerHTML = '请输入手机号码';
+		return false;
+	  }
+	  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length<6){
+		alert('手机号格式错误');
+		return false;
+		} 
+	 
+	
+	  
+	  temp_html="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value;
+		  
+      document.getElementById("ifhide").src=temp_html;
+
+	  //document.getElementById("imgm").src='/images/authimage/donghua.gif';
+      document.getElementById("gpss").disabled="true";
+     // document.getElementById("imgm").style.display="";
+      p_flag='0';
+
+      setTimeout('restore()',50000);
+		  return false;
+		
+		
+	}
+	
+	 function changlogin(flag){
+            self.location='https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+   }
+   
+   	function setButtons(){
+	
+	document.getElementById('sign').value = btn1;
+	
+	}
+   
+function openpage(flag)
+{
+	var temp;
+	temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	self.location = temp;
+//	window.open(temp,'','fullscreen=yes','toolsbar=yes');
+}
+</script>
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload = "setButtons();">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+         [#postarg#]
+<center> 
+  <div id="main">
+    <ul class="header_ul">
+        <li class="china" id="chinese" onClick="changlogin('zh')" >中文</li>
+        <li id="split">|</li>
+        <li class="eng" id="english" onClick="changlogin('eng')" onMouseOver="eng2();" onMouseOut="eng();" >English</li>
+    </ul>
+ <img src="/images/ap/apple_store_china05.png" />
+    
+ <!--   <hr /> -->
+  <hr />
+  
+    <div id="login_area">
+     <div id="login_area">
+        <p >
+          此台设备已经注册，可以使用我们的免费 WLAN 网络。如需重新加入网络，请确认接受我们的条款和细则。
+        </p>
+    <div style=" display:none;">
+    <input type="text" id="username" name="username" value="[#username#]" />
+    <input type="password" id="password" name="password" value="[#password#]" />
+    </div>
+		<div class="space2"></div>
+		<div class = "font_style2">请仔细阅读以下内容。 使用 WLAN 网络受到以下<a href="#xxx" onclick="openpage('zh');">条款和条件</a>的约束。 你只有遵守和同意以下条款和条件才能使用 WLAN 网络。<br><br>
+使用 WLAN 网络上网存在一定风险。你负有完全责任确保你对 WLAN 网络的使用符合相关适用的法律和法规的规定。
+		</div>
+		<div class="space1"></div>
+        <p class="font_style">
+       		<span><input type="checkbox" id="acceptme" class="chaccept"/>&nbsp;我已阅读并同意Apple 无线网络的条款及细则。
+            </span>
+             <div class="disclaimer" id="disclaimer" >
+             <table>
+            	<tr>
+                	<td><img src="/images/ap/48x48.png"  onclick="document.getElementById('disclaimer').className='disclaimer'" style=" float:right;"/></td>
+                </tr>
+                <tr>
+                	<td>欢迎光临 Apple Store 零售店。
+
+                        要使用 Apple Store 零售店的免费无线网络，请通过你的手机将设备注册登记。
+                        
+                        1. 获取密码。
+                        输入你的手机号码，点击"获取密码"。我们将把密码发送至你的手机。 手机号码
+                        获取密码 密码已发送 如果你没有收到密码，请稍等一分钟，然后再试一次。
+                        2. 注册你的设备。 请输入收到的密码，注册你的设备。 密码
+                        我已阅读并同意 Apple 无线网络的条款及细则。 注册
+                        
+                        
+                        欢迎再次光临 Apple Store 零售店。
+                        
+                        此台设备已经注册，可以使用我们的免费无线网络。要重新加入网络，请确认接受我们的 条款和细则。
+                        
+                    </td>
+                </tr>
+            </table>
+            </div>
+        </p>
+        <div id="chaccept_err" class="error"></div>
+        <input type="button" class="sign" id="sign" onClick="return spylogin();" >
+        <div id="err"></div>
+        <div height = "30px" ;>&nbsp;</div>
+    </div>
+    <div style=" width:964px; float:right;">
+    </div>
+</div>
+</center>
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</body>
+</html>

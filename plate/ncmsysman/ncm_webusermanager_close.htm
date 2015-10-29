@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>Groupinfo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<style type="text/css">
+body{ font-size:14px;}
+input{ vertical-align:middle; margin:0; padding:0}
+.file-box{ position:relative;width:340px}
+.txt{ height:22px; border:1px solid #cdcdcd; width:180px;}
+.btn{ background-color:#FFF; border:1px solid #CDCDCD;height:24px; width:70px;}
+.file{ position:absolute; top:0; right:80px; height:24px; filter:alpha(opacity:0);opacity: 0;width:260px }	
+</style>
+<script>
+function winclose(){
+	  var win = parent.Ext.getCmp('advmanager2_windr2');
+	  if(win){ 
+		    win.close();
+    }
+}
+
+function setFileName(){
+    parent.Ext.getCmp('usermanager_windr2').close();
+	  return;
+}
+</script>
+</head>
+<!-- <body bgcolor="#DEE8FA" onload="setFileName()"> -->
+<body bgcolor="#DEE8FA" > 
+<div style="text-align:center; margin-top:45px; width:400px;">[#msg#]</div>
+</body>
+</html>

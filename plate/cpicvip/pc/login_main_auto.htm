@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap {
+	width:1024px;
+	margin:0 auto;
+}
+.main_left{ background:#f3f3f3; height:416px; width:560px; float:left;}
+.left_top{ width:80%; margin:0 auto;}
+.left_bottom{ width:80%; margin:0 auto; display:none; color:#666; font-size:14px; border-top:1px dashed #CCC;}
+.btn_ok{ cursor:pointer;
+	width:150px;
+	height:28px;
+	line-height:28px;
+	border:none;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #0066cc), color-stop(1, #0066cc));/*谷歌浏览器渐变*/
+    filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#0066cc", EndColorStr="#0066cc");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #0066cc 10%, #0066cc 100%);/*火狐内核渐变*/
+	color:#fff;}
+.username{ color:#666;}
+.password{ color:#666;}
+</style>
+<script type="text/javascript">
+	function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp; 
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";	
+	}
+var p_flag = '1';
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+function getpasswd(){
+		if(p_flag=='0') return false;
+		
+		
+			
+		if(document.getElementById("nclogin").username.value==''||document.getElementById("nclogin").username.value=='手机号码'){
+		    alert('请输入手机号');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&tsid@"+document.getElementById("tsid").value;
+		          
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		p_flag='0';
+    setTimeout('restore()',50000);
+		return false;
+	}
+		var mz=0;
+	function xianshi(){
+	mz=1;
+	document.getElementById("bo").style.display="block";
+	}
+	function spylogin()
+	{
+	  if(mz==0)
+		{window.alert("请点击免责声明确认接受免责声明条款和条件！");
+		return 0;
+			}
+    document.getElementById("nclogin").submit();
+		/*var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}*/
+		
+    return true;
+	}
+	function mr(){
+		//alert(document.getElementById("password").value);
+//		if( document.getElementById("username").value=="手机号码"){
+//			 document.getElementById("username").style.color="#aaa";
+//		}
+//		if(document.getElementById("password").value="密码"){
+//			 document.getElementById("password").style.color="#aaa";
+//		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+</script>
+</head>
+
+<body>
+<div class="wrap">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+  [#postarg#] 
+       <div style="display:none;">
+       <input type="text" id="username" name="username" value="[#username#]" />
+       <input type="password" id="password" name="password" value="[#password#]" />
+       <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+        </div>
+  <div class="top"><img src="/images/taipingyang/pc-login_r1_c1.jpg" /></div>
+  <div class="main">
+    <div class="main_left">
+    	<div class="left_top">
+        <p style="height:50px;"></p>
+        <p style=" color:#666;">太平洋寿险河南分公司无线网络<a style="color:#06f; text-decoration:underline; cursor:pointer;" onclick="xianshi();">免责声明</a>。</p>
+         <p style="height:20px;"></p>
+        
+        
+        </div>
+        <div class="left_bottom" id="bo">
+        <p style="height:20px;"></p>
+         <p style="text-align:center; color:#333; font-size:18px;">中国太平洋保险网点无线网络免责声明</p>
+         <p style="height:20px;"></p>
+         <p>尊敬的客户，您好：</p>
+         <p style="text-indent:2em;">欢迎您使用中国太平洋保险无线网络，我公司竭诚为您提供免费优质的互联网络接入环境，并负责保证互联网应用渠道畅通，但不承担客户访问互联网应用过程中产生的相关风险。</p>
+         <p style=" text-align:right;">中国太平洋保险（集团）股份有限公司</p>
+                  <p style="height:10px;"></p>
+
+        </div>
+         <p style="text-align:center;"><input type="button" class="btn_ok" value="登录" onClick="return spylogin();"/></p>
+         <p style="height:10px;"></p>
+         <p style="font-size:14px; width:80%; margin:0 auto; color:#666;">温馨提示：同一手机号每日仅登录4次，每次不超过30分钟。</p>
+         <p style="height:20px;"></p>
+    </div>
+    <div class="main_right"><img src="/images/taipingyang/pc-login_r2_c2.jpg" /></div>
+  </div>
+  <div class="foot"><img src="/images/taipingyang/pc-login_r3_c1.jpg"/></div>
+  <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,331 @@
+<html>
+<head>
+<title>用户信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="/css/alert/jquery.alert.css"/>
+<script type="text/javascript" src="/js/alert/jquery.js"></script>
+<script type="text/javascript" src="/js/alert/jquery.alert.js"></script>
+<script language="javascript">
+	
+function changservice(){
+   callServer();
+}
+
+function checkAutodef(){
+	 checkAutodef();	
+}
+
+var xmlHttp = false;
+
+//创建XMLHttpRequest对象       
+function createXMLHttpRequest() {
+	  var C=null;
+		if(window.XMLHttpRequest) { //Mozilla 浏览器
+			C = new XMLHttpRequest();
+		} else if (window.ActiveXObject) { // IE浏览器
+			try {
+				C = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					C = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {}
+			}
+		}
+		return C;
+}
+
+//解析字符串  ins-输入字符串，   names-开始字符串 namee -结束字符串 返回值 （names 和namee 之间的字符串 可用于解析简单的XML
+function getxmlbyname(ins,names,namee){
+		var start;
+		var end;
+		var ret='';
+	
+		start=ins.indexOf(names);
+		end=ins.indexOf(namee);
+		
+		if(start!=-1&&end!=-1){
+				ret=ins.substr(start+names.length,end-start-names.length);
+		}
+		return ret;	
+}
+
+//调用AJAX
+function callServer() { 
+   if( xmlHttp && xmlHttp .readyState != 0 ){
+      xmlHttp.abort();
+   }
+  
+   xmlHttp = createXMLHttpRequest();
+ 
+   if(xmlHttp){
+	    var web_url='/pronline/Msg?FunName@ncmWebShowAreaDet&rollevel@'+document.getElementById("form1").rollevel.value+'&xx@'+Math.random()*999+'&opt@'+document.getElementById("form1").opt.value;
+	    //打开连接
+	    xmlHttp.open("GET",web_url, true);
+	    //设置回调函数
+	    xmlHttp.onreadystatechange = updatePage;
+	
+	    xmlHttp.send(null);
+   }
+}
+	
+//ajax回调处理函数
+function updatePage(){
+   if (xmlHttp.readyState == 4) {
+			var response = xmlHttp.responseText;
+			//alert(response);         
+			//document.getElementById("result").innerHTML = response;
+			var temp_id=getxmlbyname(response,"<sid>","</sid>");
+			var temp_name=getxmlbyname(response,"<sname>","</sname>");
+			var aid=new Array();
+			var aname=new Array();
+			aid=temp_id.split("|");
+			aname=temp_name.split("|");
+			var i;
+			document.all.opt.length=aid.length;
+			for(i=0;i<aid.length;i++){
+					document.all.opt.options[i].value=aid[i];
+				  document.all.opt.options[i].text=aname[i];
+		  }
+   }
+}
+
+function checkAutodef(){
+		if( xmlHttp && xmlHttp .readyState != 0 ){
+		  xmlHttp.abort();
+		}
+		
+		xmlHttp = createXMLHttpRequest();
+		
+		if(xmlHttp){
+		  var web_url='/pronline/Msg?FunName@ncm_webautodef_ajax&groupcode@'+document.getElementById("form1").groupcode.value+'&xx@'+Math.random()*999;
+		  //打开连接
+		  xmlHttp.open("GET",web_url, true);
+		  //设置回调函数
+		  xmlHttp.onreadystatechange = updatechPage;
+		
+		  xmlHttp.send(null);
+		}	
+}
+
+function updatechPage(){
+   if (xmlHttp.readyState == 4) {
+			var response = xmlHttp.responseText;
+			var temp=getxmlbyname(response,"<autodef>","</autodef>");
+			if(temp=='true'){
+				  document.getElementById("form1").fac.value = '';
+				  document.getElementById("form1").fac_desc.value = '';
+					document.all.b.style.display='none';
+			}else{
+					document.all.b.style.display='';
+			}
+   }
+}
+
+function ckeckSame(str){
+	var strf=str.slice(0,1);
+	var arr=str.split(strf);
+	return arr.length-1;
+}
+	
+function checkNum(str){
+	return str.match(/\D/)==null
+}  
+	
+function ckf(){
+	var sum = document.getElementById("form1").privilege.length;
+  for(var i = 0; i < sum; i++){
+			if(document.getElementById("form1").privilege[i].checked){
+				  //alert(document.getElementById("form1").privilege[i].value);
+					document.getElementById("form1").ckid.value= document.getElementById("form1").privilege[i].value;	
+			}
+  }	
+  if(document.getElementById("form1").ckid.value == ''){
+  		alert('使用权限不能为空!');
+			return false;	
+  }
+  
+	var ps=form1.password.value;
+	if(ps.length==0){
+		return true;
+	}
+	if(ps.length>0&&ps.length<7){
+		alert('密码长度不能小于7位');
+		return false;
+	}
+	
+	if(checkNum(ps)){
+		alert('密码不能全部是数字');
+	  return false;
+	}
+	var len2=ckeckSame(ps);
+
+	if(ps.length>0&&ps.length==len2){
+		alert('密码不能用相同字符');
+		return false;
+	}
+	
+	var ps2=form1.password2.value;
+	if(ps != ps2){
+  		alert('口令不相等！');
+  		return false;
+  }
+  
+	return true;
+}
+
+function init(){
+		if(document.getElementById("form1").cflag.value==1){
+				parent.gbck();	
+				document.getElementById("form1").cflag.value="";
+		}
+}
+
+function opselectfac(){
+		jIframe("/ncmm/check_fac_tree.htm", "选择厂商",'300','400');
+}
+
+function deldiv(){
+		var ddiv=document.getElementById("popup_container");
+		ddiv.style.display="none";	
+		ddiv.parentNode.removeChild(ddiv);   
+	  
+	  var ddiv9=document.getElementById("popup_overlay");
+		ddiv9.style.display="none";	
+		ddiv9.parentNode.removeChild(ddiv9);
+}
+
+</script>
+</head>
+
+<body bgcolor="#DEE8FA" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="overflow:hidden" onLoad="init();">
+<div align="center"></div>
+<form id="form1" name="form1" method="post" action="/pronline/Msg" >
+	
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td><table width="100%" height="35" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <tr > 
+          <td colspan="2"> <div style="font-size:11pt;color:#00237e;font-weight:bold;text-align: center;">系统用户信息</div></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td height="108"> 
+        <input type="hidden" name="FunName" value="ncmAdminUserSave">
+        <input type="hidden" name="userid"  value="[#userid#]">
+        <input type="hidden" name="ckid"  value="[#ckid#]">
+        <input type="hidden" name="sumright"  value="[#sumright#]">
+        <input type="hidden" name="cflag" value="[#cflag#]">
+        <input type="hidden" name="fac" value="[#fac#]">
+        <input type="hidden" name="cid" value="[#cid#]">
+        <table width="95%" border="0"    bordercolorlight=#89ACED   bordercolordark=#ffffff    align="center" cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top"><br>
+        <table width="90%" border="0" align="center" cellspacing="0">
+                <tr> 
+                  <td width="17%" valign="bottom" height="21" style="line-height:21px;" > <div align="right">登录名&nbsp;</div></td>
+                  <td width="37%" valign="bottom" height="21" > <input type="text" style=" width:160px;" name="name" size="20" maxlength="31" value="[#name#]"><span style="color:red;font-weight:bold" data-qtip="Required">&nbsp;*</span></td>
+                  <td width="11%" valign="bottom" height="21" style="line-height:21px;"> <div align="right">姓&nbsp;名&nbsp;</div></td>
+                  <td height="21" colspan="2" valign="bottom" > <input type="text" name="dispname" size="24" style=" width:160px;" maxlength="31" value="[#dispname#]"><span style="color:red;font-weight:bold" data-qtip="Required">&nbsp;*</span></td>
+                </tr>
+                <tr> 
+                  <td width="17%" valign="bottom" height="21" style="line-height:21px;"> <div align="right">口&nbsp;令&nbsp;</div></td>
+                  <td width="37%" valign="bottom" height="21" > <input type="password" style=" width:160px;" name="password" size="20" maxlength="31"><span style="color:red;font-weight:bold" data-qtip="Required">&nbsp;*</span></td>
+                  <td width="11%" valign="bottom" height="21" style="line-height:21px;"> <div align="right">口令确认&nbsp;</div></td>
+                  <td colspan="2" valign="bottom" height="21" > <input type="password" style=" width:160px;" name="password2" size="25" maxlength="31"><span style="color:red;font-weight:bold" data-qtip="Required">&nbsp;*</span></td>
+                </tr>
+                <tr>
+                <td style=" text-align:center;" colspan="5" height="21"><input type="text" name="display" style="color:#999; background:none; border:none; font-weight:bold;width:380px;" value="说明：口令必须是字母和数字，口令长度不能小于7位"  disabled ><td>	
+                </tr>
+                <tr> 
+                  <td width="17%" valign="bottom" height="21" style="line-height:21px;"> <div align="right">用户级别&nbsp;</div></td>
+                  <td width="37%" valign="bottom" height="21" >[#slevel#] </td>
+                  <td width="11%" valign="bottom" height="21" style="line-height:21px;"> <div align="right">Email&nbsp;</div></td>
+                  <td colspan="2" valign="bottom" height="21" ><input type="text" name="email" style="width:160px;"  value="[#email#]"></div></td>
+                  <!-- <td width="11%" valign="bottom" height="21" style="line-height:21px;"> <div align="right">管理区域&nbsp;</div></td>
+                  <td colspan="2" valign="bottom" height="21" >[#rlevel#]&nbsp;<select name="opt" style="width:80px;"><option value="[#opt#]">[#optname#]</option></select>
+                  </td> -->
+                </tr>
+                <tr id=a >
+                		<td width="17%" valign="bottom" height="21" style="line-height:21px;"> <div align="right">商超类别&nbsp;</div></td>
+                    <td width="37%" valign="bottom" height="21" >[#stype#]<span style="color:red;font-weight:bold" data-qtip="Required">&nbsp;*</span></td>	
+                </tr>
+                <tr> 
+                  <td width="17%" height="21" style="line-height:21px;" valign="bottom" ><div align="right">加入时间&nbsp;</div></td>
+                  <td width="37%" valign="bottom" ><input type="text" name="addtime" style=" width:160px;" value="[#addtime#]"  disabled ></td>
+                  <td width="11%" height="21" style="line-height:21px;" valign="bottom" ><div align="right">修改时间&nbsp;</div></td>
+                  <td colspan="2" valign="bottom" ><input type="text" name="moditime" style=" width:160px;" value="[#moditime#]" size="24" disabled></td>
+                </tr>
+                <!-- <tr > 
+                  <td width="17%" valign="bottom" height="21" style="line-height:21px;"> <div align="right">Email&nbsp;</div></td>
+                  <td valign="bottom" height="21" > <div align="left"> <input type="text" name="email" style=" width:160px;"  value="[#email#]"></div></td>
+                </tr> -->
+                <tr id=b >
+                	<td width="17%" valign="bottom" height="21" style="line-height:21px;"> <div align="right">管理区域&nbsp;</div></td>
+                  <td valign="bottom" height="21" >[#rlevel#]&nbsp;<select name="opt" style="width:80px;"><option value="[#opt#]">[#optname#]</option></select></td>
+                  <td width="11%" valign="bottom" height="21" style="line-height:21px;"> <div align="right">管理商城&nbsp;</div></td>
+                  <td colspan="2" valign="bottom" height="21" >
+                  	 <input type="text" name="fac_desc" style="width:160px" readonly value="[#fac_desc#]"><a href="#xxm" id="d_m" style="margin-left:10px;"  onClick="opselectfac()">选择</a>
+                     <input type="hidden" name="facid" value="[#facid#]">
+                  </td>
+                </tr>
+                <tr style="height:20px;"></tr>
+                <tr>
+                	<td colspan="5" style="display:[#disprol#]">
+                		<table width="100%"  cellpadding="0" cellspacing="0" >
+                <tr> 
+                  <td colspan="5" height="27" > 
+                    <div align="center"><strong>使用权限<span style="color:red;font-weight:bold" data-qtip="Required">&nbsp;*</span></strong></div></td>
+                </tr>
+                <!-- [#SLPB#] -->
+                <tr> 
+                  <td width="17%" valign="bottom" height="21"> 
+                  	<div align="right"> 
+                      <input type="radio" id="privilege" name="privilege" value="[#rolea#]" [#checka#]>
+                    </div>
+                  </td>
+                  <td width="37%" valign="bottom" height="21">[#labela#]</td>
+                  <td width="11%" valign="bottom" height="21"> 
+                  	<div align="right"> 
+                      <input type="radio" id="privilege" name="privilege" value="[#roleb#]" [#checkb#]>
+                    </div>
+                  </td>
+                  <td colspan="2" valign="bottom" height="21" >[#labelb#]</td>
+                </tr>
+                <!-- [#SLPE#] -->
+                <tr> 
+                  <td colspan="5" height="12" > <div align="left"> </div></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        </td>
+        </tr>
+        </table>
+        <div align="center"></div>
+      </td>
+  </tr>
+  <tr>
+    <td height="70"><table width="50%" border="0" align="center">
+        <tr> 
+          <td> <div align="right">
+              <input name="ok" type="submit" class="an3" value="确 认" onClick="return ckf();">
+              &nbsp; 
+              <input name="cancel" type="reset" class="an3-1"  onClick="parent.gbck()"   value="关闭">
+              &nbsp; </div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</form>
+<script >
+	document.getElementById("form1").opt.value="[#opt#]";
+	</script>
+</body>
+</html>

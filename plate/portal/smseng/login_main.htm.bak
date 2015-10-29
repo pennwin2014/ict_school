@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>auth</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">td img {display: block;}</style>
+<style type="text/css">
+	.but3-1 { font-size: 9pt;  background-image:url(/images/smseng/180x32-03.png);
+   height: 32px; width: 180px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand} 
+  	.but3-2 { font-size: 9pt;  background-image:url(/images/applepc/contract.gif);
+   height: 32px; width: 221px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand} 
+  
+    	.but_login { font-size: 9pt;  background-image:url(/images/smseng/180x32-01.png);
+    		position:relative;top:8px;
+   height: 32px; width: 180px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand}
+</style>
+
+<!--Fireworks CS5 Dreamweaver CS5 target.  Created Wed Sep 25 15:47:24 GMT+0800 2013-->
+</head>
+<body bgcolor="#ffffff">
+<table style="display: inline-table;" border="0" cellpadding="0" cellspacing="0" width="480">
+<!-- fwtable fwsrc="苹果风格的验证界面——手机english01.png" fwpage="页面 1" fwbase="iphone480x800english-01.gif" fwstyle="Dreamweaver" fwdocid = "1683073417" fwnested="0" -->
+  <tr>
+   <td><img src="/images/smseng/spacer.gif" width="480" height="1" border="0" alt="" /></td>
+   <td><img src="/images/smseng/spacer.gif" width="1" height="1" border="0" alt="" /></td>
+  </tr>
+
+  <tr>
+   <td background="/images/smseng/iphone480x800english-01_r1_c1.gif">
+   			<table width="480" height="61">
+				<tr >
+					<td width="330"></td>
+					<td>&nbsp;</td>
+					</tr>
+					<tr>
+					<td ></td>
+					<td><span><input type="button" style="cursor:hand;background-image: url('/images/applepc/china01.png'); width: 53px; height: 31px; border: 0px;" id=chinese  onclick="changlogin('zh')" ></span><span style="position:relative;top:0px"><input type="button" style="cursor:hand;background-image: url('/images/applepc/english02.png'); width: 80px; height: 31px; border: 0px;" id=chinese  onclick="changlogin('eng')" ></span></td>
+					</tr>
+					
+			</table>
+   	
+   	</td>
+   <td><img src="/images/smseng/spacer.gif" width="1" height="62" border="0" alt="" /></td>
+  </tr>
+  <tr>
+   <td><img name="iphone480x800english01_r2_c1" src="/images/smseng/iphone480x800english-01_r2_c1.gif" width="480" height="110" border="0" id="iphone480x800english01_r2_c1" alt="" /></td>
+   <td><img src="/images/smseng/spacer.gif" width="1" height="110" border="0" alt="" /></td>
+  </tr>
+  <tr>
+   <td background="/images/smseng/iphone480x800english-01_r3_c1.gif">
+   	
+   		<table width="480" height="518">
+			<tr><td colspan="2" height="110">&nbsp;</td>
+			<tr><td width="90" height="32"> &nbsp;</td><td><input type="text" id="username" name="username" style="width:160px;height:32px;position:relative;top:-15px;" >&nbsp;<input type="button" id=gpss class="but3-1" onclick="getpasswd()">	<img border="0" src="/images/sjimage/smspad.jpg" width="102" height="25" id="imgm" style="display:none" ></td></tr>
+		  <tr><td colspan="2" height="152">&nbsp;</td>
+		  <tr><td  height="32"> &nbsp;</td><td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=#xxm>the terma and conditions of wireless internet access.</a></td></tr>
+			<tr><td  height="40"> &nbsp;</td><td ><!--<input name="chaccept" type="checkbox" value="1" style="width:25px;height:30px">--><img src="/images/smseng/373x32.png" width="373" height="32" alt=""></td></tr>
+			<tr><td  height="50"> &nbsp;</td><td ><input type="password" id="password" name="password" style="width:160px;height:32px;position:relative;top:-10px;" onKeyPress="ss(event)">&nbsp;<input type="button" class="but_login" onClick="return spylogin();"> </td></tr>
+			<tr><td colspan="2"  align="center" id="msgs">&nbsp;<font color="red">[#message#]</font></td></tr>
+		</table>
+   	
+   	</td>
+   <td><img src="spacer.gif" width="1" height="518" border="0" alt="" /></td>
+  </tr>
+  <tr>
+   <td><img name="iphone480x800english01_r4_c1" src="/images/smseng/iphone480x800english-01_r4_c1.gif" width="480" height="110" border="0" id="iphone480x800english01_r4_c1" alt="" /></td>
+   <td><img src="/images/smseng/spacer.gif" width="1" height="110" border="0" alt="" /></td>
+  </tr>
+</table>
+</body>
+</html>

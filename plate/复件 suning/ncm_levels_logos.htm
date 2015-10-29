@@ -1,0 +1,63 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+<style type="text/css">
+body{
+margin:0;
+padding:0;
+width:100%;
+height:100%;
+}
+		.level_logos img{
+		
+		width:100%;
+		}
+		.level_logos{
+		border:1px solid #E6E6E6;
+		float:left;
+		width:32%;
+		
+		}
+</style>
+
+<script type="text/javascript">
+
+function loadShops(mark,number){
+parent.document.getElementById("FunName").value = "ncmShops";
+parent.document.getElementById("shopid").value = shopid[number];
+alert(shopid[number]);
+parent.document.getElementById("form1").submit();
+
+
+}
+
+var shopid= new Array();
+function loadShopid(){
+[#SLPB#]
+shopid[[#iNum#]] = "[#shopid#]";
+
+[#SLPE#]
+
+}
+</script>
+<body onload="loadShopid()">
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="name" name="name" value="">	
+		<input type="hidden" id="logoid" name="logoid" value="">
+		[#SLPB#] 
+			<div class="level_logos"><img src="[#img#] " onclick="loadShops([#id#],[#iNum#])" ></div>
+
+		[#SLPE#] 
+	
+	</form>	
+</body>
+</html>
+
+

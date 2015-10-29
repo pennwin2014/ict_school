@@ -1,0 +1,483 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script type="text/javascript" src="/a.js"></script>
+<link href="/css/flexslider.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>
+
+<title>郑州电信欢迎您</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+body{margin:0px; padding:0; background:#eee; }
+.wrap {
+	width:450px;
+	margin:0 auto;
+}
+.top {
+	width:450px;
+	background:#1c3146;
+	height:60px;
+	color:#FFF;
+	font-family:"黑体";
+	font-size:24px;
+	line-height:60px;
+	text-align:center;
+}
+.shouye {
+	width:10%;
+	float:left;
+	margin-left:3%;
+	margin-top:10px;
+}
+.wifi {
+	width:10%;
+	float:right;
+	margin-right:3%;
+	margin-top:10px;
+}
+.menu img {
+	width:100%;
+}
+.qiehuan img {
+	width:50%;
+	floag:left;
+}
+.product img {
+	width:100%;
+}
+.main {
+	width:96%;
+	margin:0 auto;
+}
+.main_top {
+	width:100%;
+}
+.img_1 {
+	float:left;
+	width:48%;
+}
+.img_2 {
+	float:left;
+	width:48%;
+	margin-left:4%;
+}
+.img_3 {
+	float:left;
+	width:48%;
+}
+.img_4 {
+	float:left;
+	width:23%;
+	margin-left:4%;
+}
+.img_5 {
+	float:left;
+	width:23%;
+	margin-left:2%;
+}
+.foot {
+	width:96%;
+	margin:0 auto;
+}
+.img_6 {
+	width:23%;
+	float:left;
+}
+.img_7 {
+	width:23%;
+	float:left;
+	margin-left:2%;
+}
+.img_8 {
+	width:23%;
+	float:left;
+	margin-left:3%;
+}
+.img_9 {
+	width:23%;
+	float:left;
+	margin-left:3%;
+}
+
+@media screen and (max-width:450px) {
+ * {
+ margin:0;
+ padding:0;
+}
+ .wrap {
+ width:100%;
+}
+.top{ width:100%;background:#1c3146;
+	height:60px;
+	color:#FFF;
+	font-family:"黑体";
+	font-size:24px;
+	line-height:60px;
+	text-align:center;
+}
+.shouye {
+	width:10%;
+	float:left;
+	margin-left:3%;
+	margin-top:13px;
+}
+.wifi {
+	width:10%;
+	float:right;
+	margin-right:3%;
+	margin-top:13px;
+}
+ .menu img {
+width:100%;
+}
+.qiehuan img {
+	width:50%;
+	floag:left;
+}
+.product img {
+ width:100%;
+}
+.main {
+ width:96%;
+ margin:0 auto;
+}
+.main_top {
+ width:100%;
+}
+.img_1 {
+ float:left;
+ width:48%;
+}
+.img_2 {
+ float:left;
+ width:48%;
+ margin-left:4%;
+}
+.img_3 {
+ float:left;
+ width:48%;
+}
+.img_4 {
+ float:left;
+ width:23%;
+ margin-left:4%;
+}
+.img_5 {
+ float:left;
+ width:23%;
+ margin-left:2%;
+}
+.foot {
+ width:96%;
+ margin:0 auto;
+}
+.img_6 {
+ width:23%;
+ float:left;
+}
+.img_7 {
+ width:23%;
+ float:left;
+ margin-left:2%;
+}
+.img_8 {
+ width:23%;
+ float:left;
+ margin-left:3%;
+}
+.img_9 {
+ width:23%;
+ float:left;
+ margin-left:3%;
+}
+
+}
+</style>
+
+
+
+<script type="text/javascript">
+
+var levels = new Array();
+var imgpaths=new Array();
+var shopids=new Array();
+var i=0;
+var user_online_flag = 0;//用户在线状态
+function loadInfos(){
+var title = ""; //导航栏标题
+title = "[#title#]";
+//title="郑州电信测试店名跑马灯";
+if(title != ""){
+alert(title);
+
+//parent.document.getElementById("logo").innerHTML='<marquee  width="70%" scrollamount=4><span>'+title+'</span></marquee>';
+parent.showTitle2(title);
+
+}
+[#SLPB#]
+levels[[#iNum#]]="[#level#]";
+shopids[[#iNum#]]="[#shopid#]";
+//imgpaths[[#iNum#]]="[#img#]";
+//document.getElementById('position'+[#iNum#]).src=imgpaths[[#iNum#]];
+if(levels[[#iNum#]]>4){
+document.getElementById('position'+[#level#]).src='[#img#]';
+}
+//alert(imgpaths[[#iNum#]]);
+
+[#SLPE#]
+user_online_flag = "[#user_online_flag#]";
+//alert(document.getElementById('position4').src+"  4 =");
+}
+
+function loadShops(number){
+//alert(number);
+document.getElementById("FunName").value = "ncmShops";
+document.getElementById("shopid").value = shopids[number];
+//alert(document.getElementById("shopid").value)
+//document.getElementById("form1").submit();
+window.location.href="/pronline/Msg?FunName@ncmShops&plateName@zhengzhoudianxin&shopid@"+shopids[number]+"&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+
+parent.addURL("/pronline/Msg?FunName@ncmShops&plateName@zhengzhoudianxin&shopid@"+shopids[number]+"&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+
+}
+
+function display(id){
+if(id == 'display1'){
+document.getElementById('display2').style.display ="none";
+document.getElementById('display1').style.display ="block";
+document.getElementById('display_img1').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c7.jpg";
+document.getElementById('display_img2').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c1.jpg";
+}
+if(id == 'display2'){
+document.getElementById('display1').style.display ="none";
+document.getElementById('display2').style.display ="block";
+document.getElementById('display_img1').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c1.jpg";
+document.getElementById('display_img2').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c7.jpg";
+}
+}
+</script>
+<script type="text/javascript">
+
+function switchlevels(mark){
+document.getElementById("id").value = mark;
+document.getElementById("FunName").value = "ncmCategories";
+document.getElementById("form1").submit();
+parent.addURL("/pronline/Msg?FunName@ncmCategories&plateName@zhengzhoudianxin&id@"+mark+"&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+}
+function switchPersonals(){
+document.getElementById("FunName").value = "ncmPersonals";
+document.getElementById("uid").value = "1";
+document.getElementById("form1").submit();
+}
+
+function switchBus(){
+	//user_online_flag=1;
+	//alert(user_online_flag);
+	if(user_online_flag == 1)
+	{
+		self.location.href='http://wap.zhengzhoubus.com'
+		parent.addURL("http://wap.zhengzhoubus.com");
+	}
+	else{
+			alert("请先认证上网,再查看实时公交!");
+			document.getElementById("iframe1").src = "/pronline/Msg?FunName@ncSrvPlate&html@"+"/alogin_main.htm&"+rurl;
+	}
+}
+
+function myqq()
+{
+//alert("tsid2 = "+ '[#tsid#]');
+//         self.location.href="/pronline/Msg?FunName@ncmWebReplace&plate@zhengzhoudianxin/qq.htm&tsid@"+'[#tsid#]';
+//         self.location.href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101078715&redirect_uri=http://qq1.proeim.com&state=test";
+//不能带参数导致出错
+//          alert(encodeURI("http://qq1.proeim.com/pronline/Msg?FunName@ncmWebReplace&plate@zzdx/sms/login_okqq.htm&tsid@[#tsid#]"));
+//         self.location.href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101078715&redirect_uri="+escape("http://qq1.proeim.com/pronline/Msg?FunName@ncmWebReplace&plate=zzdx/sms/login_okqq.htm&tsid=[#tsid#]")+"&state=test";
+    self.location.href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101078715&redirect_uri=http%3A%2F%2Fqq1.proeim.com%2Fpronline%2FMsg%3FFunName%3DncmWebReplace%26plate%3Dzzdx/sms/login_okqqtmp.htm%26tsid%3D[#tsid#]%26ipurl%3D[#ipurl#]&state=test";
+//    document.getElementById("iframe1").src="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101078715&redirect_uri=http%3A%2F%2Fqq1.proeim.com%2Fpronline%2FMsg%3FFunName%3DncmWebReplace%26plate%3Dzzdx/sms/login_okqqtmp.htm%26tsid%3D[#tsid#]&state=test";
+   
+}
+</script>
+<!-- 
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101078715" data-redirecturi="http://qq1.proeim.com" charset="utf-8"></script> 
+
+-->
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101078715" data-redirecturi="http://qq1.proeim.com/pronline/Msg?FunName@ncmWebReplace&plate@zzdx/sms/login_okqq.htm&tsid@[#tsid#]" charset="utf-8"></script> 
+
+<script>
+// function toLogin()
+// {
+//   //以下为按钮点击事件的逻辑。注意这里要重新打开窗口
+//   //否则后面跳转到QQ登录，授权页面时会直接缩小当前浏览器的窗口，而不是打开新窗口
+//   var A=window.open("oauth/index.php","TencentLogin", 
+//   "width=450,height=320,menubar=0,scrollbars=1,
+//   resizable=1,status=1,titlebar=0,toolbar=0,location=1");
+// } 
+</script>
+
+<script type="text/javascript">
+    QC.Login({
+       btnId:"qqLoginBtn",    //插入按钮的节点id
+       scope:"all",
+       //按钮尺寸，可用值[A_XL| A_L| A_M| A_S|  B_M| B_S| C_S]，可选，默认B_S
+       size: "B_M"
+    });
+    
+    var accessToken = window.location.hash.substring(1);  //访问令牌
+//alert(accessToken);	
+if(accessToken != '')
+   callServer();
+function createXMLHttpRequest() {
+	var C=null;
+		if(window.XMLHttpRequest) { 
+			C = new XMLHttpRequest();
+		}
+		else if (window.ActiveXObject) { 
+			try {
+				C = new ActiveXObject("Msxml2.XMLHTTP");
+			} 
+			catch (e) {
+				try {
+					C = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {}
+			}
+		}
+		return C;
+}
+	
+function getxmlbyname(ins,names,namee){
+	var start;
+	var end;
+	var ret='';
+	start=ins.indexOf(names);
+	end=ins.indexOf(namee);
+	if(start!=-1&&end!=-1){
+		ret=ins.substr(start+names.length,end-start-names.length);
+	}
+	return ret;	
+}
+var statcode= null;
+var errmessage= null;  	
+var xmlHttp = false;
+function callServer(){ 
+   if( xmlHttp && xmlHttp .readyState != 0 ){
+    	xmlHttp.abort();
+   }
+   xmlHttp = createXMLHttpRequest();
+   if(xmlHttp){
+//   	 var web_url = "http://"+ip+":"+port+"/pronline/Msg?FunName@ncmcomqqGetOpenid"+accessToken+"&xx@"+Math.random()*999; 
+//   	 var web_url = "http://192.168.20.168:9080/pronline/Msg?FunName@ncmcomqqGetOpenid&"+accessToken+"&xx@"+Math.random()*999; 
+   	 var web_url = "/pronline/Msg?FunName@ncmcomqqGetOpenid&"+accessToken+"&xx@"+Math.random()*999; 
+//     var web_url="https://graph.qq.com/oauth2.0/me?"+accessToken+"&xx@"+Math.random()*999; 
+//     alert(web_url);
+     xmlHttp.open("GET",web_url, true);alert(1);
+     xmlHttp.onreadystatechange = updatePage;alert(2);
+     xmlHttp.send(null);
+     
+   }
+}
+
+
+function updatePage(){alert("state = "+xmlHttp.readyState);
+   if (xmlHttp.readyState == 4){
+		  var response = xmlHttp.responseText;
+		  alert(response);
+      var temp_mesg = getxmlbyname(response,"<openid>","</openid>");
+    	var openid = temp_mesg;
+    	alert(openid);
+//        var htmltest = errmessage;
+//	    if(statcode == 5){
+//			  if (errmessage == 1)           
+//			  {
+//				document.getElementById('gpss').src='/images/getpasswdpczh_2x.png';    
+//				document.getElementById("numberErr").style.display="block";           
+//			    document.getElementById("gpss").disabled="";
+//			  }
+//      }
+//      if(statcode == 0){             
+//      	        
+//      } 
+   }
+ }
+
+
+    
+    
+</script>
+</head>
+<body onload = "loadInfos();e('[#redirecturl#]','[#posturl#]')">
+<div id="top"></div>
+<input type="hidden" name="rg" id="rg" value="[#getarg#]"/>
+<input type="hidden" name="rl" id="rl" value="[#posturl#]"/>
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="id" name="id" value="">
+		<input type="hidden" id="uid" name="uid" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+		<input type="hidden" id="position11" name="position11" value="">
+		<input type="hidden" name="plateName" id="plateName" value="zhengzhoudianxin"/>	
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>	
+</form>		
+<div class="wrap" id="wrap">
+<div class="banner">
+  <section class="slider">
+    <div class="flexslider">
+      <ul class="slides">
+      	[#SLPB#]
+        <li onclick="loadShops([#iNumslider#])"> <img src="[#imgslider#]" /></li>
+        [#SLPE#]
+        <!--
+        <li> <a href=""><img id="position21" src="/images/shop/boead9gy5j673ouk.jpg" /> </a> </li>
+        <li> <a href=""><img id="position31" src="/images/shop/boead9gy5j673ouk.jpg" /> </a> </li>
+        <li> <a href=""><img id="position41" src="/images/shop/95gduj4rrsm3ltji.jpg" /> </a> </li>
+         -->
+      </ul>
+    </div>
+  </section>
+</div>
+ 
+  <div class="qiehuan">
+  <img onclick="display('display1')" src="/images/zhengzhoudianxin/zhengzhoudianxin_r3_c2.jpg" /><img onclick="display('display2')" src="/images/zhengzhoudianxin/zhengzhoudianxin_r3_c3.jpg" /><img id="display_img1" src="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c7.jpg" /><img id="display_img2" src="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c1.jpg" /></div>
+  <div class="product">
+  <div id="display1" ><img onclick="loadShops(5)" id="position5" src="" /></div>
+  <div id="display2" style="display:none;"><img id="position6" src="" onclick="switchlevels()" /></div>
+  </div>
+  <div class="main">
+    <div style="height:10px; clear:both;"></div>
+    <div class="main_top">
+	<img id="position7" class="img_1" onclick="self.location.href='/zhengzhoudianxin/wifiexplain.htm';parent.addURL('/zhengzhoudianxin/wifiexplain.htm');" src="" />
+	<img id="position8" class="img_2" src="" onclick="self.location.href='/zhengzhoudianxin/map.htm';"/>
+	</div>
+    <div style="height:10px; clear:both;"></div>
+    <div class="main_foot">
+	<img id="position9" class="img_3" onclick="switchBus()" src="" />
+	<img id="position10" class="img_4" onclick="self.location.href='/zhengzhoudianxin/weixin.htm'" src="" />
+	<!--<img id="qqLoginBtn" class="img_5" onclick="toLogin()" src="/zhengzhoudianxin/qq.png" />
+ -->
+  <!--  <span id="qqLoginBtn" style = "background-image:url(/zhengzhoudianxin/qq.png")"></span>--> 
+	<img id="position11" class="img_5" onclick="myqq()" src="/images/zhengzhoudianxin/qq.jpg" />
+
+	
+	</div>
+    <div style="height:10px; clear:both;"></div>
+  </div>
+  <div class="foot" >
+  <img id="position12" class="img_6" onclick="loadShops(12)"  src="/images/zhengzhoudianxin/zhengzhoudianxin_r12_c2.jpg" />
+  <img id="position13" class="img_7" onclick="loadShops(13)" src="/images/zhengzhoudianxin/zhengzhoudianxin_r12_c4.jpg" />
+  <img id="position14" class="img_8" onclick="loadShops(14)" src="/images/zhengzhoudianxin/zhengzhoudianxin_r12_c11.jpg" />
+  <img id="position15" class="img_9" onclick="loadShops(15)" src="/images/zhengzhoudianxin/zhengzhoudianxin_r12_c15.jpg" />
+  </div>
+ 
+</div>
+ <div style="margin:10px;">&nbsp;</div>
+<!-- 
+ <button data-icon="star" onclick="switchPersonals()">个人中心</button>  -->
+</body>
+</html>

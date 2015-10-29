@@ -1,0 +1,45 @@
+﻿/*商标类别管理*/
+Ext.define('shops.categoryManager',{
+    extend: 'Ext.tab.Panel',
+    initComponent : function(){
+        Ext.apply(this,{
+		        layout : 'border',
+		        id:'categoryManager',
+		        margins: '0 0 0 0',
+		        forceFit: true,
+		        border:false,
+		        scrollOffset: 0,
+				    autoScroll: false, 
+				    activeTab:0, 
+		        defaults :{
+		             bodyPadding: 0
+		        },
+		        items: [{
+		        		autoScroll:true,id:'category_groupmanager',iconCls: 'star',border:false,frame:false,title: "商品大类管理", items:[Ext.create('shops.groupManager')]	
+		        },{
+		        		autoScroll:true,id:'category_typemanager',iconCls: 'star',border:false,frame:false,title: "商品小类管理", items:[Ext.create('shops.typeManager')]	
+		        }],
+		        listeners: { 
+                tabchange:function(tp,p){
+                  	var tabs_center=Ext.getCmp("categoryManager");
+				            var active = tabs_center.getActiveTab();
+										//隐藏所有模板
+										for(i=1; i<=store_portplate.getCount();i++){
+												Ext.getCmp('plate'+i).setVisible(false); 
+										}
+                  	
+                  	if(p.title=='商品大类管理'){
+                    		Ext.getCmp('page_main').bind(store_shops_groupmanager);
+												Ext.getCmp('page_main').setVisible(true);
+												Ext.getCmp('page_main').doRefresh();
+                  	}else if(p.title=='商品小类管理'){
+                  			Ext.getCmp('page_main').bind(store_shops_typemanager);
+												Ext.getCmp('page_main').setVisible(true);
+												Ext.getCmp('page_main').doRefresh();	
+                  	}
+                }
+            }
+		  	});
+        this.callParent(arguments);
+    }
+})

@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>IndexInfo</title>
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" />
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+<script type="text/css">
+	body{font-family:"微软雅黑"}
+</script>
+
+<script type="text/javascript">
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*'
+]);
+
+Ext.onReady(function(){
+		var form1 = Ext.create('Ext.FormPanel', {
+				frame:true,
+				width:388,
+	      height:518,
+				bodyPadding:10,
+				renderTo:'grid-corp',
+				defaultType:'textfield', //设置表单字段的默认类型  
+				fieldDefaults:{ //统一设置表单字段默认属性
+						labelSeparator:':', //分隔符
+						labelWidth:100, //标签宽度
+						width:300, //字段宽度
+						msgTarget:'side'
+				},
+				items:[{
+						xtype:'fieldset',
+						title:'预览',
+						width:350,
+						height:200,
+						items:{
+								xtype:'image',
+								id:'img',
+								name:'img',
+								autoWidth:true,
+								autoHeight:true,
+								width:350,
+								height:200,
+								src:'[#imgpath#]'
+						}	
+				},{
+						xtype:'fieldset',
+						width:350,
+						items:[{
+								xtype:'filefield',
+								fieldLabel:'上传图片',
+								id:'fname',
+								name:'fname',
+								hidden:false,
+								buttonText: '选择图片'
+						},{
+								xtype:'displayfield',
+								fieldLabel:'提示',
+								id:'imgsize',
+								name:'imgsize',
+								value:'您要上传的图片大小 (500*100)'	
+						}]
+				},{
+						xtype:'fieldset',
+						width:350,
+						title:'基本信息',
+						items:[{
+								xtype:'textfield',
+								fieldLabel:'增/改',
+								id:'key',
+								name:'key',
+								hidden:true,
+								value:'[#key#]'		
+						},{
+								xtype:'textfield',
+								fieldLabel:'序号',
+								id:'cid',
+								name:'cid',
+								hidden:true,
+								value:'[#cid#]'		
+						},{
+								xtype:'numberfield',
+								fieldLabel:'优惠劵面值',
+								id:'fee',
+								name:'fee',
+								value:'[#fee#]',
+								hidden:false,
+								hideTrigger:false, //隐藏微调按钮
+								decimalPrecision:2, //精确到小数点后两位
+		        		allowDecimals:true, //不允许输入小数
+		        		nanText:'请输入有效的小数' //无效数字提示	
+						},{
+							  xtype:'numberfield',
+								fieldLabel:'发行数量',
+								id:'counum',
+								name:'counum',
+								value:'[#counum#]',
+								hidden:false,
+								hideTrigger:false, //隐藏微调按钮
+								decimalPrecision:2, //精确到小数点后两位
+		        		allowDecimals:false, //不允许输入小数
+		        		nanText:'请输入有效的整数' //无效数字提示			
+						},{   						
+		          	fieldLabel:'发行日期',
+		          	xtype: 'datefield',
+		          	format: "Y/m/d",
+		          	id:'addtime',
+		          	name:'addtime',
+		          	value:'[#addtime#]'
+		      	},{   						
+		          	fieldLabel:'有效日期',
+		          	xtype: 'datefield',
+		          	format: "Y/m/d",
+		          	id:'effetime',
+		          	name:'effetime',
+		          	value:'[#effetime#]'
+		      	}]	
+				}],
+				buttons:[{
+					  text:'确定',
+            handler: function() {
+	             form1.form.doAction('submit',{
+			             url:'/pronline/upload',
+			             method:'post',
+			             enctype:'multipart/form-data',
+			             params:{FunName:'ncm_webComCouponImg_dr', UploadPath:'/home/ncmysql/ncsrv/upload'},   
+			             success:function(form,action){
+			             		alert(action.result.success);
+			             		Ext.getCmp('img').setSrc(action.result.imgpath);
+			             }   
+	             })
+            }
+				},{
+					  text:'取消',
+					  handler:function(){
+					  		winclose();
+					  }
+				}]
+		});
+});
+
+function winclose(){
+    var win = parent.Ext.getCmp('windr');
+		if (win) {
+			win.close();
+		}
+}
+
+</script>	
+</head>
+<body bgcolor="#DEE8FA">
+<div id="grid-corp"></div>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<html>
+<head>
+<title>无标题文档</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+#main {
+	width:980px;
+	margin:36px 90px 0;
+	text-align:left;
+}
+.header_ul {
+	float:right;
+	margin-right:120px;
+}
+h1 {
+	height:25px;
+	line-height:25px;
+	font-family:myriadset-thin;
+	font-size:26px;
+	color:#313131;
+	padding-bottom:15px;
+}
+hr {
+	height:2px;
+	color:ced0d5;
+}
+.header_ul li {
+	list-style:none;
+	float:left;
+	display:block;
+	height:30px;
+	line-height:30px;
+	font-size:13pt;
+}
+.header_ul li:hover {
+	text-decoration:none;
+}
+#split {
+	width:30px;
+	text-align:center;
+	color:#ced0d5;
+}
+.china {
+	color:#0088CC;
+	width:35px;
+	font-family:Heiti SC;
+}
+.china2 {
+	color:#0088CC;
+	width:35px;
+	font-family:Heiti SC;
+	text-decoration:underline;
+}
+.eng {
+	color:#000;
+	width:44px;
+	font-family:LucidaGrande;
+}
+.eng2 {
+	color:#000;
+	width:44px;
+	font-family:LucidaGrande;
+	text-decoration:underline;
+}
+#login_area {
+	width:650px;
+	margin-top:49px;
+	margin-left:50px;
+	font-family:LucidaGrande;
+	font-size:13pt;
+	color:#000;
+}
+.font_style {
+	font-family:LucidaGrande;
+	font-size:12pt;
+	color:#333333;
+	margin-top:16px;
+}
+.Case {
+	width:400px;
+	height:39px;
+	background-color:#f0f0f0;
+	margin-bottom:14px;
+	margin-top:14px;
+}
+.Case input {
+	width:386px;
+	height:25px;
+	border:2px solid #d0d0d0;
+	margin:6px;
+	line-height:25px;
+	font-family:HelveticaNeue;
+	font-size:16pt;
+	color:#999999;
+}
+.error {
+	height:0px;
+	padding-bottom:10px;
+	font-size:12pt;
+	color:#ff0000;
+}
+.error3 {
+	height:38px;
+	line-height:38px;
+	font-size:10pt;
+	color:#ff0000;
+	clear:both;
+}
+.chaccept {
+	margin-top:2px;
+	width:12px;
+	height:12px;
+	line-height:12PX;
+}
+.getpasscode {
+	background-image:url(/images/ap/get_passcode.png);
+	width:122px;
+	height:34px;
+	border:0;
+	margin-bottom:70px;
+}
+.no_sign {
+	background-image:url(/images/ap/continuepcgrey.png);
+	width:122px;
+	height:34px;
+	border:0;
+	border-radius:5px;
+}
+.sign {
+	background-image:url(/images/ap/continuepc.png);
+	width:122px;
+	height:34px;
+	border:0;
+	border-radius:5px;
+}
+.font_style a {
+	color:#0088cc;
+	text-decoration:none;
+}
+a {
+	color:#0088cc;
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+.disclaimer {
+	width:550px;
+	height:400px;
+	display:none;
+	overflow-x:hidden;
+	overflow-y:scroll;
+}
+.disclaimer2 {
+	width:550px;
+	height:400px;
+	display:block;
+	overflow-x:hidden;
+	overflow-y:scroll;
+}
+a:link {
+	color:#0088cc;
+}
+.space1 {
+	height:15px;
+}
+.space2 {
+	height:30px;
+}
+.space3 {
+	height:40px;
+}
+.space3 {
+	height:11px;
+}
+a:link {
+	color:#0088cc;
+}
+.font_style {
+	font-family:LucidaGrande;
+	font-size:12pt;
+	color:#333333;
+}
+.font_style2 {
+	font-family:LucidaGrande;
+	font-size:10pt;
+	color:#999999;
+}
+.font_style2 a {
+	text-decoration:none;
+}
+.font_style2 a:hover {
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:none;
+}
+</style>
+<script language="javascript" type="text/javascript">
+function passcode(){
+		document.getElementById('sign').className = 'sign';
+		document.getElementById('sign').onclick = 'spylogin()';
+	
+}
+   
+function spylogin(){
+		if(document.getElementById('acceptme').checked==false){
+			document.getElementById('chaccept_err').className = 'error3';
+			document.getElementById('chaccept_err').innerHTML = '<img src = "/images/ap/mark.png" style="" >&nbsp;Please accept the Terms and Conditions.';
+			return;
+		}
+		else{
+			document.getElementById("nclogin").submit();
+		}
+	}
+function eng(){
+	      document.getElementById('english').className = 'eng2'
+}
+function china2(){
+		  document.getElementById('chinese').className = 'china2';
+	}
+function china(){
+		  document.getElementById('chinese').className = 'china';
+	}
+function disclaimer(){
+       	  document.getElementById('disclaimer').className = 'disclaimer2';
+}
+function ss(e){
+	var key = window.event ? e.keyCode:e.which;
+
+	if(key==13)
+	spylogin();
+}
+	var p_flag='1';
+	function restore(){
+         document.getElementById("gpss").disabled="";
+         document.getElementById("imgm").style.display="none";
+         p_flag='1';
+         document.getElementById("imgm").src='/images/sjimage/smspad.gif';
+}
+
+function chk(tel)
+{
+if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel)))
+        {
+           return 0;
+         }
+else
+        {
+          return 1;
+         }
+}
+
+function getpasswd(){	
+	document.getElementById('username_err').innerHTML = "";
+	document.getElementById('chaccept_err').innerHTML = "";	
+    if(p_flag=='0') return false;
+	  if(document.getElementById("nclogin").username.value==''||document.getElementById("username").value=='Mobile number'){
+		 document.getElementById('username_err').innerHTML = '请输入手机号码';
+		 return false;
+	  }
+	  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length<6){
+		alert('手机号格式错误');
+		return false;
+		} 
+	  temp_html="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value;
+      document.getElementById("ifhide").src=temp_html;
+      document.getElementById("gpss").disabled="true";
+      p_flag='0';
+      setTimeout('restore()',50000);
+	  return false;
+	}
+	 function changlogin(flag){
+       self.location='https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+function openpage(flag)
+{
+	   var temp;
+	   temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_pcexplaineng.htm&[#getarg#]";
+       self.location = temp;	
+}
+</script>
+</head><body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+[#postarg#]
+<center>
+  <div id="main">
+    <ul class="header_ul">
+      <li class="china" id="chinese" onClick="changlogin('zh')"  onmouseover="china2();" onMouseOut="china()">中文</li>
+      <li id="split">|</li>
+      <li class="eng" id="english" onClick="changlogin('eng')">English</li>
+    </ul>
+    <div height= "19px"  style = "margin-left:50px"> <img src="/images/ap/apple_store_pcback_2x.png"  style=" width:344px; height:25px;" /> </div>
+    <div style="border-bottom:1px solid #999999; margin-top:15px;"></div>
+    <div id="login_area">
+      <p> This device is already registered to use our free WLAN network.<br />
+        To rejoin the network, please acknowledge our Terms and Conditions. </p>
+      <div style=" display:none;">
+        <input type="text" id="username" name="username" value="[#username#]" />
+        <input type="password" id="password" name="password" value="[#password#]" />
+      </div>
+      <div class="space2"></div>
+      <div class = "font_style2">Please read this carefully. Your use of the WLAN Network is subject to our <a href="#xxx" onClick="openpage('eng');">Terms and Conditions</a>.<br />
+        You may use the WLAN Network only upon agreeing to these Terms and Conditions. </br>
+        </br>
+        Using the WLAN Network to access the Internet is unsecured. It is your sole responsibility to<br />
+        ensure the use of the WLAN Network is in full compliance with any applicable laws and regulations. </div>
+      <p class="font_style">
+      <div style="float:left;">
+        <input type="checkbox" id="acceptme" class="chaccept" />
+      </div>
+      <div style="margin-left:20px; font-size:10pt; line-height:14pt;">I have read and agree to the <a href="#xxx" onClick="openpage('eng');">Terms and Conditions</a> of the Apple WLAN Network. </div>
+      </p>
+      <div id="chaccept_err" class="error"></div>
+      <input type="button" class="sign" id="sign" onClick="return spylogin();" >
+      <div id="err"></div>
+      <div height = "30px" ;>&nbsp;</div>
+    </div>
+    <div style=" width:964px; float:right;"> </div>
+  </div>
+</center>
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</body>
+</html>

@@ -1,0 +1,522 @@
+		
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }topbg.png
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .book {
+          background-image:url(/newver/resources/themes/images/wlan/first.png);!important;
+          /*width:50px!important;
+          height:45px!important;*/
+          width:50px!important;
+          height:45px!important;
+          margin-right: auto !important;
+          margin-left: auto !important; 
+         }
+         .numpage {
+          background-image:url(/newver/resources/themes/images/wlan/first.png);!important;
+          width:50px!important;
+          height:45px!important;
+          margin-right: auto !important;
+          margin-left: auto !important; 
+         }
+         .mornitor {
+          background-image:url(/newver/resources/themes/images/portal/onlineinfo.png);!important;
+          width:50px!important;
+          height:45px!important;
+          margin-right: auto !important;
+          margin-left: auto !important; 
+         }
+          /*
+          background-repeat: no-repeat ; 
+background-position: center center;
+background-size: 100% ;  !important;
+        }*/
+        .viewlist {
+            background-image:url(/newver/resources/themes/images/share/application_view_list.png) !important;
+        }
+        .logshow {
+        /*    background-image:url(/newver/resources/themes/images/wlan/wlog.png) !important;*/
+            background-image:url(/newver/resources/themes/images/portal/plog.png) !important;
+            width:50px!important;
+            height:45px!important;
+            margin-right: auto !important;
+            margin-left: auto !important; 
+        }
+        
+        .add16 {
+            background-image:url(/newver/resources/themes/images/share/user_add.png) !important;
+        }
+        .fadd {
+            background-image:url(/newver/resources/themes/images/share/feed_add.png) !important;
+        }
+        .iadd {
+            background-image:url(/newver/resources/themes/images/share/image_add.png) !important;
+        }
+        
+        .refresh {
+            background-image:url(/newver/resources/themes/images/share/table_refresh.png) !important;
+        }
+        .close {
+            background-image:url(/newver/resources/themes/images/share/cross.gif) !important;
+        }
+        .useradd {
+            background-image:url(/newver/resources/themes/images/share/user_female.gif) !important;
+        }
+        .info {
+            background-image:url(/newver/resources/themes/images/share/information.png) !important;
+        }
+        .usc {
+            background-image:url(/newver/resources/themes/images/share/user_comment.png) !important;
+        }
+        
+        .firstpage {
+            background-image:url(/newver/resources/themes/images/share/home.png) !important;
+        }
+        .realmor {
+            background-image:url(/newver/resources/themes/images/share/realmor.png) !important;
+        }
+        .business {
+            background-image:url(/newver/resources/themes/images/share/busi.png) !important;
+        }
+        .capability {
+            background-image:url(/newver/resources/themes/images/share/func.png) !important;
+        }
+        .iconhost {
+            background-image:url(/newver/resources/themes/images/portal/sysset.png) !important;
+            width:50px!important;
+	          height:45px!important;
+	          margin-right: auto !important;
+	          margin-left: auto !important; 
+        }
+        .sysman {
+            background-image:url(/newver/resources/themes/images/portal/sysman.png) !important;
+            width:50px!important;
+	          height:45px!important;
+	          margin-right: auto !important;
+	          margin-left: auto !important; 
+        }
+        .netana {
+            background-image:url(/newver/resources/themes/images/portal/authpage.png) !important;
+            width:50px!important;
+	          height:45px!important;
+	          margin-right: auto !important;
+	           margin-top: -0;
+	          margin-left: auto !important; 
+        }
+        .signalicon {
+            background-image:url(/newver/resources/themes/images/wlan/signalicon.png) !important;
+            width:50px!important;
+	          height:45px!important;
+	          margin-right: auto !important;
+	           margin-top: -0;
+	          margin-left: auto !important; 
+        }
+        .capana {
+            background-image:url(/newver/resources/themes/images/portal/userman.png) !important;
+            width:50px!important;
+	          height:45px!important;margin-top: -0;
+	          margin-right: auto !important;
+	          margin-left: auto !important; 
+        }
+        .mansys {
+            background-image:url(/newver/resources/themes/images/share/sysm.png) !important;
+        }
+        .sysuser {
+            background-image:url(/newver/resources/themes/images/wlan/sysuser.png) !important;
+        }
+        .sysrole {
+            background-image:url(/newver/resources/themes/images/wlan/sysrole.png) !important;
+        }
+        .syslog {
+            background-image:url(/newver/resources/themes/images/wlan/syslog.png) !important;
+        }
+        .sysrun {
+            background-image:url(/newver/resources/themes/images/wlan/sysrun.png) !important;
+        }
+        .sysfilech {
+            background-image:url(/newver/resources/themes/images/wlan/sysfilech.png) !important;
+        }
+        .sysnetset {
+            background-image:url(/newver/resources/themes/images/wlan/sysnetset.png) !important;
+        }
+        .sysset {
+            background-image:url(/newver/resources/themes/images/wlan/sysset.png) !important;
+        }
+        .sysuam{
+            background-image:url(/newver/resources/themes/images/wlan/sysuam.png) !important;
+        }
+        .systemm{
+            background-image:url(/newver/resources/themes/images/wlan/systemm.png) !important;
+        }
+        .realap {
+            background-image:url(/newver/resources/themes/images/wlan/realap.png) !important;
+        }
+        .realterm {
+            background-image:url(/newver/resources/themes/images/wlan/realterm.png) !important;
+        }
+        .realip {
+            background-image:url(/newver/resources/themes/images/wlan/realip.png) !important;
+        }
+        .realchk {
+            background-image:url(/newver/resources/themes/images/wlan/realchk.png) !important;
+        }
+        
+        .logradius {
+            background-image:url(/newver/resources/themes/images/wlan/logradius.png) !important;
+        }
+        .logportal {
+            background-image:url(/newver/resources/themes/images/wlan/logportal.png) !important;
+        }
+        .logdhcp {
+            background-image:url(/newver/resources/themes/images/wlan/logdhcp.png) !important;
+        }
+        .logreal {
+            background-image:url(/newver/resources/themes/images/wlan/logreal.png) !important;
+        }
+        
+        
+        .busiuser {
+            background-image:url(/newver/resources/themes/images/wlan/busiuser.png) !important;
+        }
+        .busicomp {
+            background-image:url(/newver/resources/themes/images/wlan/busicomp.png) !important;
+        }
+        .busiwlan{
+            background-image:url(/newver/resources/themes/images/wlan/busiwlan.png) !important;
+        }
+        .busichan {
+            background-image:url(/newver/resources/themes/images/wlan/busichan.png) !important;
+        }
+        .busissid {
+            background-image:url(/newver/resources/themes/images/wlan/busissid.png) !important;
+        }
+        .busiap {
+            background-image:url(/newver/resources/themes/images/wlan/busiap.png) !important;
+        }
+        .busiterm {
+            background-image:url(/newver/resources/themes/images/wlan/busiterm.png) !important;
+        }
+        
+        .busiservpie {
+            background-image:url(/newver/resources/themes/images/wlan/busiservpie.png) !important;
+        }
+        .busiservqst {
+            background-image:url(/newver/resources/themes/images/wlan/busiservqst.png) !important;
+        }
+        .busiwebpie {
+            background-image:url(/newver/resources/themes/images/wlan/busiwebpie.png) !important;
+        }
+        .busiwebqst {
+            background-image:url(/newver/resources/themes/images/wlan/busiwebqst.png) !important;
+        }
+        
+        
+        .capa_http {
+            background-image:url(/newver/resources/themes/images/wlan/capa_http.png) !important;
+        }
+        .capa_wlan {
+            background-image:url(/newver/resources/themes/images/wlan/capa_wlan.png) !important;
+        }
+        .capa_flow {
+            background-image:url(/newver/resources/themes/images/wlan/capa_traffic.png) !important;
+        }
+        .capa_gold {
+            background-image:url(/newver/resources/themes/images/wlan/capa_gold.png) !important;
+        }
+        .tbicon {
+/*            background-image:url(/newver/resources/themes/images/wlan/topbg2.png) !important; */
+  					background-image:url(/newver/resources/themes/images/portal/topbg.png) !important;
+        }
+        
+        .hotmanicon {
+            background-image:url(/newver/resources/themes/images/wlan/hotman.png) !important;
+        }        
+        .sysparicon {
+            background-image:url(/newver/resources/themes/images/wlan/sysparset.png) !important;
+        }
+        .areamanicon {
+            background-image:url(/newver/resources/themes/images/wlan/areaman.png) !important;
+        }
+        
+.btn-panel td {
+    padding-left:5px;
+}
+
+h2 {
+    color:#083772 !important;
+    margin: 20px 0 0 !important;
+    padding: 5px;
+    background:#eee;
+    width:400px;
+}
+
+h3 {
+    font-weight:normal !important;
+}
+
+.company {
+  float: left;
+  width: 179px;
+  height: 30px;
+  margin: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.company h3 {
+  font-weight: bold !important;
+}
+
+.company .up {
+    color: green;
+}
+
+.company .down {
+    color: red;
+}
+
+.company.x-view-selected {
+    background-color: #efefef;
+}
+
+#toolbarBackground{
+    background-image: url(/images/large/toolbarbackground.png) !important;
+}
+.x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		height: 14px !important;
+		line-height: 16px;
+	}
+.dvd{
+	background-image: url(/images/large/earth.png) !important;
+}
+.zxxx{
+	background-image: url(/images/large/zxxx.png) !important;
+}
+.onlineinfo{
+	background-image: url(/newver/resources/themes/images/share/world.png) !important;
+}
+.refresh{
+	background-image: url(/images/large/refresh.png) !important;
+}
+.unlock{
+	background-image: url(/images/large/unlock.png) !important;
+}
+.reports{
+	background-image: url(/images/large/reports.png) !important;
+}
+.report{
+	background-image:url(/newver/resources/themes/images/share/table.png) !important;
+}
+.users{
+	background-image: url(/images/large/users.png) !important;
+}
+.user{
+	background-image:url(/newver/resources/themes/images/share/user.png) !important;
+}
+.user_edit{
+	background-image:url(/newver/resources/themes/images/share/user_edit.png) !important;
+}
+.group{
+	background-image:url(/newver/resources/themes/images/share/group.png) !important;
+}
+.group_edit{
+	background-image:url(/newver/resources/themes/images/share/group_edit.png) !important;
+}
+.tag{
+	background-image:url(/newver/resources/themes/images/share/tag_blue.png) !important;
+}
+.tag_edit{
+	background-image:url(/newver/resources/themes/images/share/tag_blue_edit.png) !important;
+}
+.email{
+	background-image:url(/newver/resources/themes/images/share/email.png) !important;
+}
+.email_go{
+	background-image:url(/newver/resources/themes/images/share/email_go.png) !important;
+}
+.shops{
+	background-image: url(/images/large/shops.png) !important;
+}.shop{
+	background-image: url(/images/large/shop.png) !important;
+}.ad{
+	background-image: url(/images/large/ad.png) !important;
+}.product{
+	background-image: url(/images/large/product.png) !important;
+}
+.shops_ad{
+	background-image:url(/newver/resources/themes/images/share/coins.png) !important;
+}
+.shops_product{
+	background-image:url(/newver/resources/themes/images/share/cart.png) !important;
+}
+.shops_vip{
+	background-image:url(/newver/resources/themes/images/share/ruby.png) !important;
+}
+.shops_active{
+	background-image:url(/newver/resources/themes/images/share/new.png) !important;
+}
+.shops_shop{
+	background-image:url(/newver/resources/themes/images/share/building.png) !important;
+}
+.shops_type{
+	background-image:url(/newver/resources/themes/images/share/box.png) !important;
+}
+.charts{
+	background-image: url(/images/large/charts.png) !important;
+}
+.chart_bar{
+	background-image:url(/newver/resources/themes/images/share/chart_bar.png) !important;
+}
+.chart_pie{
+	background-image:url(/newver/resources/themes/images/share/chart_pie.png) !important;
+	
+}
+.chart_curve{
+	background-image:url(/newver/resources/themes/images/share/chart_curve.png) !important;
+	
+}
+.logs{
+	background-image: url(/images/large/logs.png) !important;
+	
+}
+.rule{
+    background-image:url(/newver/resources/themes/images/share/page.png) !important;
+}
+.settings{
+	background-image: url(/images/large/settings.png) !important;
+	
+}
+.set{
+	background-image: url(/newver/resources/themes/images/share/cog.png) !important;
+	
+}
+.systems{
+	background-image: url(/images/large/systems.png) !important;
+	
+}
+.system{
+	background-image: url(/newver/resources/themes/images/share/computer.png) !important;
+}
+.system_edit{
+	background-image: url(/newver/resources/themes/images/share/computer_edit.png) !important;
+}
+.accounts{
+	background-image: url(/images/large/accounts.png) !important;
+	
+}
+.adcharts{
+	background-image: url(/images/large/adcharts.png) !important;
+	
+}
+.icon1{
+	background-image: url(/images/large/icon1.png) !important;
+	
+}
+.icon2{
+	background-image: url(/images/large/zxxx2.png) !important;
+	
+}
+.p1{
+	background-image:url(/images/large/p1.jpg) !important;
+	
+}
+.excel{
+    background-image:url(/newver/resources/themes/images/share/page_excel.png) !important;
+}
+.key{
+	background-image: url(/newver/resources/themes/images/share/key.png) !important;
+}
+.star{
+	background-image: url(/newver/resources/themes/images/share/star.png) !important;
+}
+.rules{
+	background-image: url(/images/large/rules.png) !important;
+}
+.log{
+	background-image: url(/newver/resources/themes/images/share/report.png) !important;
+}
+.icon-save {
+    background-image:url(/newver/resources/themes/images/share/save.png) !important;
+}
+.play{
+	background-image:url(/newver/resources/themes/images/share/control_play_blue.png) !important;
+}
+.pause{
+	 background-image:url(/newver/resources/themes/images/share/control_pause_blue.png) !important;
+}
+.repeat{
+	 background-image:url(/newver/resources/themes/images/share/control_repeat_blue.png) !important;
+}
+.edit{
+	 background-image:url(/newver/resources/themes/images/share/page_white_edit.png) !important;
+}
+.report_edit{
+	 background-image:url(/newver/resources/themes/images/share/page_edit.png) !important;
+}
+.page_edit{
+	 background-image:url(/newver/resources/themes/images/share/report_edit.png) !important;
+}
+.shops_comp{
+	 background-image:url(/newver/resources/themes/images/share/medal_silver_3.png) !important;
+}
+.phone{
+	 background-image:url(/newver/resources/themes/images/share/phone.png) !important;
+}
+.exclamation{
+	 background-image:url(/newver/resources/themes/images/share/exclamation.png) !important;
+}
+.information{
+	 background-image:url(/newver/resources/themes/images/share/information.png) !important;
+}
+.shoptype{
+	 background-image:url(/newver/resources/themes/images/share/brick.png) !important;
+}
+.search{
+	 background-image:url(/images/large/search.png) !important;
+}
+.search2{
+	 background-image:url(/newver/resources/themes/images/share/zoom.png) !important;
+}
+.hidden{
+	 background-image:url(/images/large/hidden.png) !important;
+}
+.help{
+	 background-image:url(/images/large/bz.png) !important;
+}
+   *{font-size:12px!important;}
+.gallery {
+	text-align:center !important;
+	font-size:25px !important;
+	color:#dedede;
+	font-weight:Bold !important;
+	font-family: "微软雅黑",Helvetica,Arial,sans-serif !important;
+	text-shadow: 0 2px 2px #333; 
+	padding:10px;
+
+}
+.gallery2 {
+	text-align:center !important;
+	font-size:15px !important;
+	color:#dedede;
+	font-weight:Bold !important;
+	font-family: "微软雅黑",Helvetica,Arial,sans-serif !important;
+	text-shadow: 0 2px 2px #333; 
+	margin:10px;
+}
+ .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }

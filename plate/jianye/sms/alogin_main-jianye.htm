@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />
+
+<link rel="stylesheet" type="text/css" href="/css/static/css/public.css">
+
+
+<title>无标题文档</title>
+
+<script type="text/javascript">
+	function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp;
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";
+	}
+var p_flag = '1';
+	
+	function restore(){
+		document.getElementById("gpss").disabled = "";
+		p_flag='1';	
+	}
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+var i = 59;
+function fun() {
+       	 if (i == 0) {
+			 document.getElementById("gpss").value="获取密码";
+             clearInterval(intervalid);
+			 i=59;
+         }
+		 else{
+         document.getElementById("gpss").value = i;
+		
+         i--;
+		 }
+}
+function getpasswd(){
+		if(p_flag=='0') return false;	
+		if(document.getElementById("nclogin").username.value==''||document.getElementById("nclogin").username.value=='手机号'){
+		    alert('请输入用户名');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&tsid@[#tsid#]&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&tsid@"+document.getElementById("tsid").value;
+
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		 document.getElementById("gpss").value= "已发送";
+	   intervalid= setInterval("fun()", 1000);//写在document.getElementById("gpss").disabled="true";的后面
+
+		p_flag='0';
+        setTimeout('restore()',60000);
+		return false;
+	}
+	
+	var mz;
+	function xianshi(){
+	mz=1;
+	document.getElementById("password").style.width="100%";
+	document.getElementById("bo").style.display="block";
+	document.getElementById("ok1").style.display="none";
+	document.getElementById("ok2").style.display="block";
+	
+	}
+	
+	function spylogin()
+	{
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="手机号"||document.getElementById("password").value==""||document.getElementById("password").value=="密码") 
+		{
+		    window.alert("用户名或密码不能为空!");
+			  return false;
+		}
+		if(document.getElementById("yes").checked!=1)
+		{
+			window.alert("请确认接受免责声明！");			
+			return false;
+		}
+    document.getElementById("nclogin").submit();
+		/*var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}*/
+		
+    return true;
+	}
+	function mr(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").style.color="#aaa";
+		}
+		if(document.getElementById("password").value="密码"){
+			 document.getElementById("password").style.color="#aaa";
+		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+  	function init()
+	{
+		//alert('[#statusCode#]');
+		if('[#statusCode#]' == '2')
+		{
+			/*document.getElementById('err5').innerHTML = '账号与SSID不匹配。';*/
+			alert('账号与SSID不匹配');
+		}	
+		if('[#statusCode#]' == '3')
+		{
+			/*document.getElementById('err5').innerHTML = '用户账号已过期。';*/
+			alert('用户账号已过期');
+		}	
+		if('[#statusCode#]' == '4')
+		{
+			/*document.getElementById('err5').innerHTML = '您登录的账号在黑名单中。';*/
+			alert('您登录的账号在黑名单中');
+		}	
+		if('[#statusCode#]' == '5')
+		{
+			/*document.getElementById('err5').innerHTML = '请输入正确的密码。';*/
+			alert('请输入正确的密码');
+		}	
+		if('[#statusCode#]' == '6')
+		{
+			/*document.getElementById('err5').innerHTML = '该用户不存在。';*/
+			alert('该用户不存在');
+		}	
+    if('[#statusCode#]' == '7')
+		{
+			/*document.getElementById('err5').innerHTML = '超出Mac最大绑定数量。';*/
+			alert('超出Mac最大绑定数量');
+		}	
+}
+
+function changlogin(flag){
+        self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+
+</script>
+<style>
+.weixin2{  margin-left:2%; float:left; width:90%; text-align:center;}
+.weixin2 img{ width:90%;}
+</style>
+</head>
+
+
+
+<body onload="init();">
+
+      <div class="mobile_login">
+        <div class="top_login">
+            <img src="/css/static/images/top_login_01.jpg" width="100%" height="auto">
+        </div>
+        <span class="clear"></span>
+		
+		<form id="nclogin" name="nclogin" id="nclogin" class="login_form" method="post" action="[#posturl#]">
+			<input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+				[#postarg#]
+        <div class="login_main">
+				
+            		 <!--[#postarg#]-->
+				<input type="hidden" name="postarg" id="postarg" value='[#postarg#]' >
+                <input id="yes" type="checkbox" checked/><label for="yes" id="yet">我已经阅读免责声明所述内容</label>
+                <span class="clear"></span>
+                <label id="l_tel">手 机 号：</label>
+                <input id="username" name="username" type="text" />
+                <input onClick="getpasswd();" class="login" id="gpss" type="button"  value="获取验证码"/>
+                <div class="clear"></div>
+                <label id="l_tel">验 证 码：</label>
+                <input id="password" name="password" type="password" />
+                <input onClick="return spylogin();" class="login" id="login_btn" name="login_btn" type="button" value="" />
+                <span id='err5' class="clear"> 
+               </span>
+               
+                <div style="height:30px; clear:both;"></div>
+                 <div style="width:90%;text-align:center;font-size:1.5em;">扫描二维码添加官方微信</div>
+               	 <div class="weixin2"><img  src="/css/static/images/wenxin_jianye.png"/></div>
+									<div style="height:30px; clear:both;"></div>
+                <h2>建业凯旋广场无线网络免责声明</h2>
+                <p id="p_head">尊敬的客户,您好：</p>
+                <p id="indent">欢迎您使用建业凯旋广场无线网络,我公司竭诚为您提供免费优质的互联网络接入环境,并负责保证互联网公司应用渠道通畅,但不承担客户访问互联网应用过程中产生的相关风险</p>
+            
+        </div>
+        <span class="clear"></span>
+	 <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+
+  </form>
+        
+    </div>
+
+</body>
+
+</html>
+

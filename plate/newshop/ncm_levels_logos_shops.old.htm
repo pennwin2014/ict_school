@@ -1,0 +1,281 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>郑州电信欢迎您</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+<style type="text/css">
+	* {
+	margin:0;
+	padding:0;
+	font-family:"黑体";
+}
+	body{
+		margin:0 auto;
+		padding:0;
+		width:480px;
+		height:100%;
+		font-family: arial;
+		background:#E6E6E6;
+	}
+
+	#logo_detail{
+		width:100%;
+		background:#E6E6E6;
+		float:left;
+	}
+	.logoimg img{
+		width:100%;
+	}
+		
+	.logoimg{
+		margin-top:5px;
+		width:37%;
+		float:left;
+	}
+	#shopInfo{
+		width:60%;
+		background:#E6E6E6;
+		float:right;
+	}
+	.shopInfo{
+		padding:5 0 0 5;
+	}
+	.title1{
+		padding:2px;
+		width:100%;
+		background:#0088cc;
+		color:#ffffff;
+		text-align:center;
+		
+	}
+	.text1{
+		font-size:0.8em;
+		color:#2E2E2E;
+		background:#E6E6E6;
+		padding:5 5 5 5;
+	}
+	#iframe1{
+	height:1500px;
+	}
+	#iframe2{
+		
+	}
+	#iframe3{
+		margin-top:2px;
+
+		height:0px;
+	}
+	.btn1
+	{
+	width:90%;
+	border:1px solid #CCC;
+	background:#5fafd4;
+	color:#FFF;
+	margin-left:5%;
+	text-align:center;
+	float:left;
+	border-radius: 8px; /* css 3标准 */
+	-moz-border-radius: 8px;  /* mozilla */
+	-webkit-border-radius: 8px;/*webkit*/
+	}
+	.collect{
+		color:#fff;
+		text-align:center;
+		margin-right:10px ;
+		width:10%;
+		border-radius:5px;
+		float:right;
+		text-align:center;
+		text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 7px #fff, 0 0 40px #fff, 0 0 70px #fff;
+	}
+	.collect1{
+		color:#fff;
+		text-align:center;
+		margin-left:10px ;
+		width:10%;
+		border-radius:5px;
+		float:left;
+		text-align:center;
+		text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 7px #fff, 0 0 40px #fff, 0 0 70px #fff;
+	}
+	@media screen and (max-width:420px) {
+			body{ width:320px; margin:0 auto;}
+		}
+</style>
+
+<script type="text/javascript">
+
+var limit1=0;
+var limit2=10;
+function loadProducts(){
+	//alert(window.location)
+	//alert(window.location.href="180.169.1.204:8000")
+	//alert(window.location.hostname);
+	//alert(window.location.port);
+//	alert(window.location.pathname);
+//var stateObject = {};
+//var title = "Wow Title";
+//var newUrl = "/180.169.1.204:8000";
+//history.pushState(stateObject,title,newUrl);
+//alert(222);
+	
+//alert("[#id#]");
+//alert(limit1+","+limit2);
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmProducts";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value="[#id#]";
+document.getElementById("iframe1").contentWindow.document.getElementById("limit1").value=limit1;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit2").value=limit2;
+//alert(document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value);
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+//alert("222");
+
+document.getElementById("iframe2").contentWindow.document.getElementById("FunName").value="ncmShops_Discounts";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe2").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe2").contentWindow.document.getElementById("shopid").value="[#id#]";
+
+//alert(document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value);
+document.getElementById("iframe2").contentWindow.document.getElementById("form1").submit();
+//alert("1111");
+
+}
+
+function addattentions(){
+//	alert(user_online_flag);
+user_online_flag = 1;
+	if(user_online_flag == 1){
+		document.getElementById("iframe3").contentWindow.document.getElementById("FunName").value="ncm_Addattentions";
+		document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+		document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+		document.getElementById("iframe3").contentWindow.document.getElementById("level").value= "1";
+		document.getElementById("iframe3").contentWindow.document.getElementById("uid").value= "1";
+		document.getElementById("iframe3").contentWindow.document.getElementById("logoid").value="[#logoid#]";
+		document.getElementById("iframe3").contentWindow.document.getElementById("shopid").value="[#id#]";
+		document.getElementById("iframe3").contentWindow.document.getElementById("service_code").value="[#service_code#]";
+		document.getElementById("iframe3").contentWindow.document.getElementById("imgpath").value="[#imgpath#]";
+		document.getElementById("iframe3").contentWindow.document.getElementById("form1").submit();
+	}
+	else{
+		parent.document.getElementById("iframe1").src = "/pronline/Msg?FunName@ncSrvPlate&html@"+"/alogin_main.htm&"+rurl;
+	//	alert(parent.document.getElementById("iframe1").src);
+	}
+}
+function next(){
+
+limit1 +=10;
+//alert(limit1+","+limit2);
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmProducts";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value="[#id#]";
+document.getElementById("iframe1").contentWindow.document.getElementById("limit1").value=limit1;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit2").value=limit2;
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+
+}
+function pervious(){
+if(limit1<=0){
+alert("第一页");
+}
+else{
+limit1 -=10;
+//alert(limit1+","+limit2);
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmProducts";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value="[#id#]";
+document.getElementById("iframe1").contentWindow.document.getElementById("limit1").value=limit1;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit2").value=limit2;
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+}
+
+}
+
+var rurl;
+var user_online_flag;
+function init(){
+
+	user_online_flag="[#user_online_flag#]";
+	rurl = parent.document.getElementById("rg").value;
+	 
+}
+function checkstate(){
+
+if(user_online_flag == 1){
+
+	}
+	else{
+		alert("请先认证上网再进行分享");
+		parent.document.getElementById("iframe1").src = "/pronline/Msg?FunName@ncSrvPlate&html@"+"/alogin_main.htm&"+rurl;
+	//	alert(parent.document.getElementById("iframe1").src);
+	}
+
+}
+</script>
+<body onLoad="loadProducts(); init();" >
+
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="logoid" name="logoid" value="">	
+		<input type="hidden" id="detail" name="detail" value="">	
+		<input type="hidden" id="shopid" name="shopid" value="">	
+		<input type="hidden" id="sid" name="sid" value="">	
+		<input type="hidden" id="uid" name="uid" value="">	
+		<input type="hidden" name="plateName" id="plateName" value="zhengzhoudianxin"/>	
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+		<input type="hidden" name="httphost" id="httphost" value="[#httphost#]"/>	
+        <input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+	<div id="logo_detail">	
+	<div class="logoimg"><img src="[#imgpath#]">
+	<div id="btn1" class="btn1" onClick="addattentions()"/>加入关注</div>
+	<iframe id="iframe3" frameborder="no" scrolling="No"  width="100%" src="/suning/ncm_levels_logos_shops_attentions.htm" ></iframe>
+	<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_24x24" onClick="checkstate()">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_renren"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END --> </div>
+	
+	<div id="shopInfo">
+	<div class="shopInfo">
+	<div>品牌： <span style="color:#0088cc">[#name#]</div>
+	<div>地址： [#address#]</div>
+	<div>楼层： [#floor#] [#service_code#]</div>
+	<div>电话： [#code#]-[#tel#]</div>
+	<div>网址： <a href="http://[#url#]"/>[#url#]</a> </div>
+	</div>
+	</div>
+	</div>
+
+	<div class="title1">店铺简述</div>
+	<div class="text1"> [#detail#]</div>
+
+	<div class="title1"><div class="collect1" id="btn_del" onClick="pervious()">《</div>
+	店长推荐
+		
+		<div class="collect" id="btn_del" onClick="next()">》</div>
+		
+	</div>
+	
+	<iframe id="iframe1" frameborder="no" scrolling="No"  width="100%" src="/zhengzhoudianxin/ncm_levels_logos_shops_products.htm" ></iframe>
+	
+	<!-- <div class="title1">促销活动</div>
+	<iframe id="iframe2" frameborder="no" scrolling="No"  width="100%" src="/zhengzhoudianxin/ncm_levels_logos_shops_discounts.htm" ></iframe> -->
+	
+	</form>	
+</body>
+</html>
+
+

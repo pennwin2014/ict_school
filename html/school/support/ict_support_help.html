@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>客服与帮助</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+        <style type="text/css">
+.x-grid3-cell-inner{
+white-space:normal !important;
+overflow:visible!important;
+}
+	 .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .x-form-clear-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/clear-trigger.gif);
+        }
+        
+        .x-form-search-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/search-trigger.gif);
+        }
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+
+  <script>  
+
+
+Ext.require([
+    'Ext.form.*',
+    'Ext.data.*',
+    'Ext.tip.QuickTipManager'
+]);
+
+Ext.onReady(function() {
+    Ext.QuickTips.init();
+
+      Ext.define('globparm', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {name: 'StartBack',type: 'string'},
+            {name: 'BackTime',type: 'string'},
+            {name: 'BackBaseDB',type: 'string'},
+            {name: 'BackIm',type: 'string'},
+            {name: 'BackScreen',type: 'string'},
+            {name: 'BackWeblog',type: 'string'},
+            {name: 'BackProcess',type: 'string'},
+            {name: 'BackDev',type: 'string'},
+            {name: 'BackFile',type: 'string'},
+            {name: 'BackWarnlog',type: 'string'},
+            {name: 'StartRmBack',type: 'string'},
+            {name: 'rip',type: 'string'},
+            {name: 'rhost',type: 'string'},
+            {name: 'ruser',type: 'string'},
+            {name: 'rpass',type: 'string'},
+            {name: 'rshare',type: 'string'}
+        ]
+    });
+
+    var form = Ext.create('Ext.form.Panel', {
+        renderTo: 'docbody',
+        title   : '客服与帮助',
+        autoHeight: true,
+        width   : 500,
+        height:350,
+        bodyPadding: 10,
+        frame:true,
+        defaults: {
+            anchor: '100%',
+            labelWidth: 100
+        },
+        items   : [{
+                xtype: 'fieldset',
+                title: '常见问题',
+                collapsible: true,
+                defaults: {
+                    labelWidth: 89,
+                    anchor: '100%',
+                    layout: {
+                        type: 'hbox',
+                        defaultMargins: {top: 0, right: 5, bottom: 0, left: 0}
+                    }
+                },
+                items: [{
+					xtype:'tbtext',
+					//这个地方可以动态从后台加载数据
+					text:'套餐名称:100元包月套餐<br>套餐内容:100元不限时上网<br>套餐费用:100元/月<br>生效时间:次月生效'
+					}
+                ]
+            },
+            {
+                xtype: 'fieldset',
+                title: '留言',
+                collapsible: true,
+                defaults: {
+					//调整文本显示框的长度
+                    labelWidth: 60,
+                    anchor: '100%',
+                    layout: {
+                        type: 'hbox',
+                        //defaultMargins: {top: 0, right: 5, bottom: 0, left: 0}
+                    }
+                },
+				items: [
+                    {
+                        xtype     : 'textfield',
+                        name      : 'messageTitle',
+                        fieldLabel: '留言标题',
+                        //margin: '0 5 0 0',
+                        allowBlank: false,
+						blankText:'留言标题不能为空'
+                    },
+                    {
+                        xtype     : 'textareafield',
+                        name      : 'messageContent',
+                        fieldLabel: '留言内容',
+                        allowBlank: false,
+						blankText:'留言内容不能为空'
+                    }
+                ]
+                /*items: [                
+                       {
+                        xtype: 'fieldcontainer',
+                        fieldLabel: '',
+                        defaults: {hideLabel: false},
+                        items: [
+                           { xtype: 'textfield',name: 'messageTitle',id :'messageTitle',margins: '0 0 0 10', fieldLabel: '留言标题'}     
+                        ]
+                       },{
+                        xtype: 'fieldcontainer',
+                        fieldLabel: '',
+                        defaults: {hideLabel: false},
+                        items: [
+                           { xtype: 'textareafield',name: 'messageContent',preventScrollbars:'true', id:'messageContent', margins: '0 0 0 10', fieldLabel: '留言内容'}
+                           
+                        ]
+                       }
+                ]*/
+            }
+        ],
+        buttons: [
+            {
+                text   : '提交',
+                handler: function() {
+                 /*this.up('form').getForm().doAction('submit',{
+                 url:'/pronline/Msg',
+                 method:'post',
+                 params:{FunName:'lanBackParmSet_Save'},   
+                  success:function(form,action){
+             //   	var msgaa=action.result.reason;
+                 alert(action.result.success);
+                 }   
+                 })*/
+				
+				 //向后台传输数据
+				 this.up('form').getForm().doAction('submit', {
+				 	url : '/pronline/Msg',
+				 	method : 'post',
+				 	params : {
+				 		//FunName : 'support_help',messageTitle : packagesName,messageContent : packagesName},
+						FunName : 'support_help'},
+				 	success : function (form, action) {
+				 		//   	var msgaa=action.result.reason;
+				 		//           store.load();
+				 		alert('更换套餐!');
+
+				 	}
+				 })
+				 
+				 
+				 
+				 alert("提交成功！");
+
+                }
+            }
+        ]
+    });
+    
+       //初始化,可以通过store来从前台获取数据，来动态显示常见问题
+       var store = Ext.create('Ext.data.Store', {
+        model: 'globparm',
+        autoLoad: true,
+        remoteSort: true,
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@lanBackParmSet',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            },         
+            simpleSortMode: true
+        },
+		//监听页面加载事件
+        listeners:{'load':function(){      
+        	form.loadRecord(this.getAt(0));
+        	if(Ext.getCmp('StartRmBack').value=='FtpBackup'){
+        		Ext.getCmp('rshare').setDisabled(true);
+        		Ext.getCmp('rhost').setDisabled(true);
+        	}
+        	}}
+    });
+    
+    
+    
+});
+</script>
+    
+</head>
+<body style="background-color:#DEE8FA">
+
+    <div id="docbody" ></div>
+
+</body>
+</html>

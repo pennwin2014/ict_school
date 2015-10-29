@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>OK</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+	.but_exit { font-size: 9pt;  background-image:url(/images/applepc/exit.gif);
+   height: 32px; width: 292px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand} 
+
+</style>
+<script language="javascript" type="text/javascript">
+		function tuichu(){
+			document.getElementById("nclogin_0").submit();
+	}
+</script>
+
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+	<form name="nclogin_0" id="nclogin_0" method="post" action="http://[#ip#]:[#port#]/pronline/Msg" >
+ 	<input type="hidden" name="sid" value="[#sid#]">
+ 	<input type="hidden" name="FunName" value="ncSrvLogOut">
+	<input type="hidden" name="ModiPass" value="">
+	<input type="hidden" name="username" value="[#username#]">
+	<input type="hidden" name="userip" value="[#userip#]">
+	<input type="hidden" name="usermac" value="[#usermac#]">
+	<input type="hidden" name="serialno" value="[#serialno#]">
+<table id="__01" width="480" height="800" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td>
+			<img src="/images/applesms/sms-4_01.jpg" width="480" height="62" alt=""></td>
+	</tr>
+	<tr>
+		<td>
+			<img src="/images/applesms/sms-4_01-02.jpg" width="480" height="62" alt=""></td>
+	</tr>
+	<tr>
+		<td>
+			<img src="/images/applesms/sms-4_03.jpg" width="480" height="310" alt=""></td>
+	</tr>
+	<tr>
+		<td background="/images/applesms/sms-4_04.jpg" width="480" height="366" >
+			<table width="480" height="366">
+				
+				<tr>
+					<td  width="10px">
+					</td>
+					<td>&nbsp;<input type="button" class="but_exit" onClick="tuichu()"></td>
+				</tr>
+				<tr>
+					<td height="270px" colspan="2"></td>
+				</tr>
+			</table>
+			
+			</td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

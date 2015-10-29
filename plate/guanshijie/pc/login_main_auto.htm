@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap{ background:url(/images/i_shanghai/i-shanghai01.jpg) no-repeat; height:469px; width:1058px; margin:0 auto; padding-top:210px;}
+.main{ width:510px; height:300px;  margin-left:66px; text-align:center;}
+.btn_tuichu{ width:239px; height:47px; border:none; cursor:pointer; background:url(/images/guanshijie/re-login.png) no-repeat;}
+</style>
+<script type="text/javascript">
+
+	function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp; 
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";	
+	}
+var p_flag = '1';
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+
+	function spylogin()
+	{
+
+    document.getElementById("nclogin").submit();
+	
+		
+    return true;
+	}
+
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+</script>
+
+</head>
+
+<body>
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+  [#postarg#] 
+       <div style="display:none;">
+       <input type="text" id="username" name="username" value="[#username#]" />
+       <input type="password" id="password" name="password" value="[#password#]" />
+       <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+        </div>
+<div class="wrap">
+<div class="main">
+<div style="height:40px; clear:both;"></div>
+<div style="font-size:20px;">欢迎您再次使用无线网络!</div>
+<div style="height:80px; clear:both;"></div>
+<div><input type="button" class="btn_tuichu"  value="" onClick="return spylogin();"/></div>
+</div>
+
+</div>
+ <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</body>
+</html>

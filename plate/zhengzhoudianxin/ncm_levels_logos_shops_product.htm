@@ -1,0 +1,242 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+<style type="text/css">
+body {
+	margin:0;
+	padding:0;
+	height:100%;
+	font-family: "黑体";
+}
+.tit_wrap {
+	width:95%;
+	margin:0 auto;
+}
+.pro_name {
+	float:left;
+	color:#ff6600;
+	font-size:20px;
+}
+.product1 {
+	width:100%;
+	height:100%;
+	float:left;
+	text-align:left;
+}
+.product1 img {
+	width:100%;
+}
+.collect {
+	float:right;
+	background:#B40404;
+	color:white;
+	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+	width:25%;
+	border-radius:5px;
+}
+.zan {
+	float:right;
+	margin-left:15px;
+	color:white;
+	text-align:center;
+	width:8%;
+	border-radius:5px;
+}
+.feeclass {
+	font-size:1em;
+	display:none;
+}
+.feeclass2 {
+	font-size:1em;
+	text-decoration:line-through;
+	margin-left:15px;
+	color:#666666;
+}
+.discountclass {
+}
+.discountclass2 {
+	font-size:1.4em;
+	color:#ff6600;
+	visibility:visible;
+}
+.noProducts {
+	width:150px;
+	height:100px;
+	text-align:center;
+	color:#A4A4A4;
+	background:#F2F2F2;
+}
+
+</style>
+<script type="text/javascript">
+
+	window.onorientationchange = window.onresize = function(){
+	//alert(screen.width+","+screen.height);
+//	alert(window.innerWidth+","+window.innerHeight);
+	if(window.innerWidth == screen.width){
+//	alert(1);
+//	 document.getElementById("products").className="products1";  
+	// $("#products").css('width',window.innerWidth);
+	 }else{
+//	 alert(2);
+//	  document.getElementById("products").className="products2";  
+	
+	 }
+	   $("#products").css('width',window.innerWidth);
+//alert(1111111);
+
+	}
+
+
+	function hengshuping(){
+	//alert(screen.width+","+screen.height);
+//	alert(window.innerWidth+","+window.innerHeight);
+		$("#products").css('width',window.innerWidth);
+	
+	 //  document.getElementById("products").className="products2"; 
+	 }
+ 
+
+
+
+	function loadProducts(){
+		document.getElementById("FunName").value = "ncmProducts";
+		//document.getElementById("name").value = name;
+
+		document.getElementById("form1").submit();
+	}
+	function addcollections(num){
+	//user_online_flag=1;
+	//alert("收藏"+num);
+	//alert(sids[num]+service_codes[num]+imgpaths[num]+descripts[num]);
+		if(user_online_flag == 1)
+		{
+		if (confirm("是否想要收藏此商品？") ) 
+		{ 　　　　
+			document.getElementById("iframe3").contentWindow.document.getElementById("FunName").value="ncm_Addcollections";
+			document.getElementById("iframe3").contentWindow.document.getElementById("level").value= "1";
+			document.getElementById("iframe3").contentWindow.document.getElementById("uid").value= "1";
+			document.getElementById("iframe3").contentWindow.document.getElementById("integral").value="[#integral#]";
+			document.getElementById("iframe3").contentWindow.document.getElementById("aid").value=aids[num];
+			document.getElementById("iframe3").contentWindow.document.getElementById("sid").value=sids[num];
+			document.getElementById("iframe3").contentWindow.document.getElementById("service_code").value=service_codes[num];
+			document.getElementById("iframe3").contentWindow.document.getElementById("decript").value=descripts[num];
+			document.getElementById("iframe3").contentWindow.document.getElementById("imgpath").value=imgpaths[num];
+			document.getElementById("iframe3").contentWindow.document.getElementById("plateid").value=document.getElementById("plateid").value;
+			document.getElementById("iframe3").contentWindow.document.getElementById("tsid").value=document.getElementById("tsid").value;
+			document.getElementById("iframe3").contentWindow.document.getElementById("plateName").value=document.getElementById("plateName").value;
+			document.getElementById("iframe3").contentWindow.document.getElementById("form1").submit();
+		}
+		else { 
+
+		}　
+		
+		}else{
+			alert("请先认证上网，再收藏商品。")
+			parent.document.getElementById("iframe1").src = "/pronline/Msg?FunName@ncSrvPlate&html@"+"/alogin_main.htm&"+rurl;
+		}
+	}
+	function addzan(num){
+	user_online_flag=1;
+	//alert("收藏"+num);
+	//alert(sids[num]+service_codes[num]+imgpaths[num]+descripts[num]);
+		if(user_online_flag == 1)
+		{
+		if (confirm("是否想要称赞此商品？") ) 
+		{ 　　　　
+			
+		}
+		else { 
+
+		}　
+		
+		}else{
+			parent.document.getElementById("iframe1").src = "/pronline/Msg?FunName@ncSrvPlate&html@"+"/alogin_main.htm&"+rurl;
+		}
+	}
+	var aids = new Array();
+	var sids = new Array();
+	var shgroupid = new Array();
+	var service_codes = new Array();
+	var imgpaths = new Array();
+	var descripts = new Array();
+	var rurl;//我要上网路径
+	var user_online_flag = 0;//用户在线状态
+	function init(){
+
+		[#SLPB#]
+		aids[[#iNum#]] = "[#aid#]";
+		sids[[#iNum#]] = "[#sid#]";
+		shgroupid[[#iNum#]] = "[#shgroupid#]";
+		service_codes[[#iNum#]] = "[#service_codes#]";
+		imgpaths[[#iNum#]] = "[#imgpath#]";
+		descripts[[#iNum#]] = "[#descr#]";
+		[#SLPE#]
+		user_online_flag = "[#user_online_flag#]";
+		rurl = parent.parent.document.getElementById("rg").value;
+	}
+	var number;
+	function loadshops(number){
+//	alert(shgroupid[number]);
+	parent.document.getElementById("FunName").value = "ncmShops";
+	parent.document.getElementById("shopid").value=shgroupid[number];
+	parent.document.getElementById("form1").submit();
+	
+	}
+</script>
+<body onLoad="hengshuping();init()">
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+<input type="hidden" id="FunName" name="FunName" value="">
+<input type="hidden" id="name" name="name" value="一层">
+<input type="hidden" id="level" name="level" value="">
+<input type="hidden" id="shopid" name="shopid" value="">
+<input type="hidden" id="sid" name="sid" value="">
+<input type="hidden" id="uid" name="uid" value="">
+<input type="hidden" name="plateName" id="plateName" value="zhengzhoudianxin"/>	
+<input type="hidden" id="groupid" name="groupid" value="">
+<input type="hidden" id="limit1" name="limit1" value="0">
+<input type="hidden" id="limit2" name="limit2" value="10">
+<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+</form>
+<form id="form2" name="form2" id="form2" method="post" action="/pronline/Msg">
+<input type="hidden" id="FunName" name="FunName" value="ncm_products_collect">
+</form>
+
+[#SLPB#]
+<div class="product1">
+ <div style="border:1px solid #E6E6E6;"><img src="[#imgpath#]" onClick="loadshops([#iNum#])"></div>
+  <div class="tit_wrap">
+    <div style="height:10px; clear:both;"></div>
+    <div class="pro_name">[#name#]</div> 
+	<div class="collect" id="[#sid#]" onclick="addcollections([#iNum#])">❤ 收藏</div> 
+    <div style="height:10px; clear:both;"></div>
+   <div style="float:left;"><span class="[#discountclass#]">￥[#discount#]</span> <span class="[#feeclass#]">￥[#fee#]</span></div>
+   <!-- <div class="zan" id="[#sid#]" onclick="addzan([#iNum#])"><img src="/images/zhengzhoudianxin/nozan.png"></div>  -->
+    <div class="zan" id="[#sid#]" onclick="addzan([#iNum#])"><img src="/images/zhengzhoudianxin/zan.png"></div> 
+    <div style="height:10px; clear:both;"></div>
+  </div>
+ 
+ 
+  <!-- <div style="height:10px">&nbsp;</div> -->
+  <div style="width:95%; margin:0 auto; color:#666666;">
+    <div style="height:10px; clear:both;"></div>
+    <div style="color:#ff6600; font-size:18px;">产品介绍</div>
+    <div style="height:10px; clear:both;"></div>
+    <div style="font-size:14px; line-height:18px;">[#detail#]</div>
+  </div>
+</div>
+[#SLPE#]
+<iframe id="iframe3" frameborder="no" scrolling="No"  width="100%" height="10px" src="/zhengzhoudianxin/ncm_products_collections.htm" ></iframe>
+用户评论
+</body>
+</html>

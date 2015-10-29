@@ -1,0 +1,59 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+<style type="text/css">
+body{
+margin:0;
+padding:0;
+height:100%;
+}
+
+	
+</style>
+
+<script type="text/javascript">
+function loadProducts(){
+
+document.getElementById("FunName").value = "ncmShops_Discounts";
+//document.getElementById("name").value = name;
+document.getElementById("form1").submit();
+
+}
+
+function init(){
+parent.document.getElementById("[#sid#]").innerHTML = "[#btn#]";
+alert("[#msg#]");
+}
+
+</script>
+<body >
+
+	
+	<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="name" name="name" value="一层">
+		<input type="hidden" id="logoid" name="logoid" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="sid" name="sid" value="">
+		<input type="hidden" id="aid" name="aid" value="">
+		<input type="hidden" id="imgpath" name="imgpath" value="">
+		<input type="hidden" id="uid" name="uid" value="">
+		<input type="hidden" id="username" name="username" value="">
+		<input type="hidden" id="nickname" name="nickname" value="">
+		<input type="hidden" id="membernum" name="membernum" value="">
+		<input type="hidden" id="integral" name="integral" value="">
+		<input type="hidden" id="service_code" name="service_code" value="">
+		<input type="hidden" id="decript" name="decript" value="">
+		<input type="hidden" id="level" name="level" value="">
+	</form>
+	
+</body>
+</html>
+
+

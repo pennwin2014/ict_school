@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <title>Tabs Example</title>
+    <style type="text/css">
+    	
+ .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		height: 16px !important;
+		line-height: 16px;
+	}
+    	
+    
+      *{font-size:12px!important;}
+    .page{margin:0 auto;width:[#swidth#]px;background-color:#E9F2FC;overflow:hidden; border:1px solid #D4E0F5;}
+  </style>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" />
+
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+        <script type="text/javascript">
+        	var tabs_gdrz;
+        	function reflash(){
+        		gdrzIframe.document.getElementById("form1").groupid.value=document.getElementById("form1").groupid.value;
+        		gdrzIframe.document.getElementById("form1").did.value=document.getElementById("form1").did.value;
+        		tabs_gdrz.doLayout();
+        	  gdrzIframe.reflash();
+        	}
+        	
+        	Ext.require('Ext.tab.*');
+
+    Ext.onReady(function(){
+    var aaa=screen.width;
+    aaa=aaa-241;
+     tabs_gdrz = Ext.createWidget('tabpanel', {
+        renderTo: 'gdrz',
+        forceFit: true,
+        scrollOffset: 0,
+//        width: aaa,
+        height:970,
+        activeTab: 0,
+         defaults :{
+            bodyPadding: 1
+        },
+        items: [
+        {
+            title: '促销广告主页',
+            html: '<iframe  id="gdrzIframe" name="gdrzIframe" src="/ncmshop/ncm_webcomactive_list.html" scrolling="no" width=100% height=1000  FrameBorder=0 ></iframe>'
+           
+        }
+        ,
+        {          
+            title: '促销广告明细',
+            html: '<iframe  id="dhIframe" name="gdrzIframe" src="/ncmshop/ncm_webcomseries_list.html" scrolling="no" width=100% height=1000  FrameBorder=0 ></iframe>'           
+        }
+         
+        ]
+    });
+ 
+
+});
+
+        </script> 
+</head>
+<body>
+    <div id="gdrz">
+
+    </div>
+    	    
+  <form name="form1" id="form1" >
+		<input type="hidden" name="groupid" value="">
+		<input type="hidden" name="did" value="">
+	</form> 
+    
+   
+</body>
+</html>

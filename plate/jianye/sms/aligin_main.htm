@@ -1,0 +1,687 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />
+
+<link rel="stylesheet" type="text/css" href="/css/static/css/public.css">
+<!--link href="/css/flexslider3.css" rel="stylesheet" type="text/css" /-->
+
+
+
+<script src="/js/jquery-1.10.2.min.js"></script>
+
+<script src="/js/jquery.flexslider-min.js"></script>
+
+<script src="/js/shop_home.js"></script>
+
+<script src="/js/ajax.js"></script>
+
+<title>无标题文档</title>
+
+
+
+<script type="text/javascript">
+
+	function change1(){
+
+			document.getElementById("img1").src= "/images/sc/20.png";	
+
+			var temp;
+
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+
+	    var flag = 'zh';
+
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+
+	    self.location = temp;
+
+	}
+
+	function change2(){
+
+			document.getElementById("img2").src= "/images/sc/21.png";
+
+	}
+
+var p_flag = '1';
+
+	
+
+	function restore(){
+
+		document.getElementById("gpss").disabled = "";
+
+		p_flag='1';	
+
+	}
+
+function chk(tel){
+
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+
+			    return 0;
+
+			} else {
+
+			    return 1;
+
+			}
+
+	}
+
+var i = 59;
+
+function fun() {
+
+       	 if (i == 0) {
+
+			 document.getElementById("gpss").value="获取密码";
+
+             clearInterval(intervalid);
+
+			 i=59;
+
+         }
+
+		 else{
+
+         document.getElementById("gpss").value = i;
+
+		
+
+         i--;
+
+		 }
+
+}
+
+function getpasswd(){
+	alert('ddddddddd');
+
+		if(p_flag=='0') return false;	
+
+		if(document.getElementById("username").value==''){
+
+		    alert('请输入手机号');
+
+		    return false;
+
+		}
+
+		  
+
+		var telno=document.getElementById("username").value;
+		
+		if(telno.length!=11){
+
+			  alert('手机号格式不对');
+
+			  return false;
+
+		}
+		
+		if(chk(telno)!='0'){
+
+		    alert('请输入正确地手机号！');
+
+		  	return false;
+
+		}
+		
+		//document.getElementById("input1").value='';
+
+		
+
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvUserGetPass&tsid@[#tsid#]&lang@[#lang#]&username@"+document.getElementById("username").value+"&tsid@"+document.getElementById("tsid").value+'&posturl@[#posturl#]&postarg@[#postarg#]';
+
+
+
+		document.getElementById("ifhide").src=temp_html;
+
+		document.getElementById("gpss").disabled="true";
+
+		intervalid=setInterval("fun()", 1000);   
+
+		p_flag='0';
+
+        setTimeout('restore()',60000);
+
+		return false;
+
+	}
+
+	
+
+	var mz=0;
+
+	function xianshi(){
+
+	mz=1;
+
+	document.getElementById("password").style.width="100%";
+
+	document.getElementById("bo").style.display="block";
+
+	document.getElementById("ok1").style.display="none";
+
+	document.getElementById("ok2").style.display="block";
+
+	
+
+	}
+
+	
+
+	function spylogin()
+
+	{
+		//var arg = document.getElementById("getarg").value;
+		//alert(arg);
+		var url = '[#posturl#]';
+		var arg = '[#postarg#]';
+		//alert(url);
+		//alert(arg);
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="手机号码"||document.getElementById("password").value==""||document.getElementById("password").value=="密码") 
+
+		{
+
+		    window.alert("手机号或密码不能为空!");
+
+			  return false;
+
+		}
+		var yes = document.getElementById("yes");
+		if(yes.checked)
+		{
+			mz=1;
+		}
+
+		if(mz==0)
+
+		{
+
+			var a=window.confirm("请点击免责声明确认接受免责声明条款和条件！");
+
+			if(a==1){
+
+			  mz=1;
+
+
+
+			   return 0;
+
+			}
+
+			else{
+
+			   return 0;
+
+			}
+
+			}
+
+		var telno=document.getElementById("nclogin").username.value;
+		
+		if(telno.length!=11){
+
+			  alert('手机号格式不对');
+
+			  return false;
+
+		}
+		
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}
+		document.getElementById("nclogin").submit();
+    return true;
+	}
+	function mr(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").style.color="#aaa";
+		}
+		if(document.getElementById("password").value="密码"){
+			 document.getElementById("password").style.color="#aaa";
+		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		} 
+	}	
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+
+  	function init()
+
+	{
+
+		//alert('[#statusCode#]');
+
+		if('[#statusCode#]' == '2')
+
+		{
+
+			document.getElementById('err5').innerHTML = '账号与SSID不匹配。';
+
+		}	
+
+		if('[#statusCode#]' == '3')
+
+		{
+
+			document.getElementById('err5').innerHTML = '用户账号已过期。';
+
+		}	
+
+		if('[#statusCode#]' == '4')
+
+		{
+
+			document.getElementById('err5').innerHTML = '您登录的账号在黑名单中。';
+
+		}	
+
+		if('[#statusCode#]' == '5')
+
+		{
+
+			document.getElementById('err5').innerHTML = '请输入正确的密码。';
+
+		}	
+
+		if('[#statusCode#]' == '6')
+
+		{
+
+			document.getElementById('err5').innerHTML = '该用户不存在。';
+
+		}	
+
+    if('[#statusCode#]' == '7')
+		{
+			document.getElementById('err5').innerHTML = '超出Mac最大绑定数量。';
+		}	
+}
+function registerVip()
+{
+	document.getElementById("register_form").submit();
+}
+</script>
+
+</head>
+
+
+
+<body onload="init();">
+	
+		<form name="register_form" id="register_form" method="post" action="/pronline/Msg?FunName@ncm_sms_send_register_list">
+			<input type="hidden"  name="getarg"  id="getarg" value="[#getarg#]"/>
+			<input type="hidden"  name="ip"  id="ip" value="[#ip#]"/>
+			<input type="hidden"  name="port"  id="port" value="[#port#]"/>
+			<input type="hidden"  name="tsid"  id="tsid" value="[#tsid#]"/>	
+			<input type="hidden"  name="postarg"  id="postarg" value="[#postarg#]"/>	
+		</form>
+
+<!--div class="wrap"-->
+
+
+  <!--form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+
+  <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" -->
+
+<!--  [#postarg#]
+
+<!--  <div class="top"><img src="/images/zx/logo01.jpg" /></div>-->
+
+  <!--div style="height:10px; clear:both;"></div>
+
+  <div class="banner">
+
+    <section class="slider">
+
+      <div class="flexslider">
+
+        <ul  class="slides">
+
+          <script type="text/javascript">
+
+	  var statcode= null;
+
+var errmessage= null;   
+
+var xmlHttp = false;
+
+ 
+
+ function callServer()
+
+ { 
+
+   if( xmlHttp && xmlHttp .readyState != 0 )
+
+   {
+
+     xmlHttp.abort();
+
+   }
+
+   xmlHttp = createXMLHttpRequest();
+
+   if(xmlHttp)
+
+   {
+
+     var web_url = "/pronline/Msg?FunName@ncm_yuyuan_home_ajax&tsid@[#tsid#]"+"&xx@"+Math.random()*999;
+
+   
+
+     xmlHttp.open("GET",web_url, true);
+
+     xmlHttp.onreadystatechange = updatePage;
+
+     xmlHttp.send(null);
+
+   }
+
+ }
+
+ var j=0;
+
+ callServer();
+
+ var event_n=new Array(); 
+
+ var img_n=new Array();   
+
+ //处理函数
+
+ function updatePage()
+
+ {  
+
+   if (xmlHttp.readyState == 4)
+
+   {
+
+      var response = xmlHttp.responseText;
+
+	  //alert(response);
+
+      var temp_num = getxmlbyname(response,"<statusCode>","</statusCode>");
+
+      statcode=parseInt(temp_num);   
+
+      
+
+      var temp_num=getxmlbyname(response,"<TotRec>","</TotRec>");
+
+	    MAX=parseInt(temp_num);
+
+	    var tmptext = "";
+
+	    
+
+	    //图片 
+
+		  for(j=1;j<=parseInt(temp_num);j++){
+
+		  	  var st_name="<iNumslider"+j+">";
+
+		  	  var en_name="</iNumslider"+j+">";
+
+		      var pro_na=getxmlbyname(response,st_name,en_name);
+
+		      img_n[j-1]=pro_na;
+
+		      
+
+		  }
+
+		  //事件 
+
+		  for(j=1;j<=parseInt(temp_num);j++){
+
+		  	  var st_name="<imgslider"+j+">";
+
+		  	  var en_name="</imgslider"+j+">";
+
+		      var pro_na=getxmlbyname(response,st_name,en_name);
+
+		      event_n[j-1]=pro_na;
+
+		      
+
+		  }
+
+		/* i=0;
+
+		     	  tmptext = "<li  onclick=\"loadShops("+img_n[i]+")\"> <img src=\""+event_n[i]+"\" /></li>";
+
+				  tmptext1 = "<li  onclick=\"loadShops("+img_n[i+1]+")\"> <img src=\""+event_n[i+1]+"\" /></li>";
+
+				  tmptext2 = "<li  onclick=\"loadShops("+img_n[i+2]+")\"> <img src=\""+event_n[i+2]+"\" /></li>";
+
+				  tmptext3 = "<li  onclick=\"loadShops("+img_n[i+3]+")\"> <img src=\""+event_n[i+3]+"\" /></li>";*/
+
+				  j=0;
+
+		     	  tmptext = event_n[j];
+
+				  tmptext1 = event_n[j+1];
+
+				  tmptext2 = event_n[j+2];
+
+				  tmptext3 = event_n[j+3];
+
+		  
+
+		
+
+		  document.getElementById("myportal").src = tmptext;
+
+		  document.getElementById("myportal1").src = tmptext1;
+
+		  document.getElementById("myportal2").src = tmptext2;
+
+  		  document.getElementById("myportal3").src = tmptext3;
+
+		  
+
+   }
+
+ }
+
+
+
+	  </script> 
+
+          <!-- 循环解析广告图片 --> 
+
+
+        <!--  <li> <a href=""><img id="myportal" /> </a> </li>
+
+          <li> <a href=""><img id="myportal1" /> </a> </li>
+
+          <li> <a href=""><img id="myportal2" /> </a> </li>
+
+          <li> <a href=""><img id="myportal3" /> </a> </li>>
+          <li> <a href=""><img src="/images/zx/c1.jpg"/> </a> </li>
+
+          <li> <a href=""><img src="/images/zx/c2.jpg"/> </a> </li>
+
+          <li> <a href=""><img src="/images/zx/c3.jpg" /> </a> </li>
+
+          <li> <a href=""><img src="/images/zx/c4.jpg" /> </a> </li>
+         
+
+        </ul>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <div style="height:15px; clear:both;"></div>
+
+  <div class="main_top">
+
+    <div class="top_nei">
+
+      <p style="height:20px;"></p>
+
+      <p >
+
+        <input type="text" value="手机号码" id="username" name="username" class="username" onFocus="if(document.getElementById('nclogin').username.value=='手机号码'){this.value=''; this.style.color='#000';document.getElementById('err5').style.display='none';}"  />
+
+        <input type="button" onClick="getpasswd();" id="gpss" value="获取密码"  class="btn_hq" />
+
+      </p>
+
+      <p style="height:15px; clear:both;"></p>
+
+      <p>
+
+        <input type="text" value="密码" id="password" name="password" class="password" onFocus="if(document.getElementById('nclogin').password.value=='密码'){this.value=''; this.style.color='#000'; this.type='password';document.getElementById('err5').style.display='none';}"  />
+
+        <a href="#foot">
+
+        <input type="button" class="btn_ok" id="ok1" value="登录" onClick="return spylogin();"/>
+
+        </a> </p>
+
+      <p style="height:5px; clear:both;"></p>
+
+      <div id="err5" style="color:#F00; text-align:center; font-size:12px;"></div>
+
+      <p style="height:5px; clear:both; "></p>
+
+      <!--<p style="text-align:center; font-weight:bold;">欢歌天天KTV</p>-->
+
+      <!--p style="text-align:center; font-weight:bold;">无线网络<a href="#foot" style="font-family:'黑体'; color:#000; font-style:italic;  text-decoration:none; cursor:pointer;" onclick="xianshi();">免责声明</a></p>
+
+      <p style="height:15px;"></p>
+
+    </div>
+
+    <div class="bottom_nei" id="bo"> 
+
+      <!--   <p style="height:15px;"></p>
+
+      <p style="text-align:center; color:#333; font-size:14px;">中国太平洋保险网点无线网络免责声明</p>-->
+
+      
+
+      <!--p>尊敬的客户，您好：</p>
+
+      <p style="height:5px;"></p>
+
+      <p style="text-indent:2em;">欢迎您使用本公司无线网络，我公司竭诚为您提供免费优质的互联网络接入环境，并负责保证互联网应用渠道畅通，但不承担客户访问互联网应用过程中产生的相关风险。</p>
+
+      <!--  <p style="text-indent:2em;">欢迎您使用本店免费WiFi。在使用前请您认真阅读以下免费WiFi服务的条款与细则，使用者须遵守本服务条款与细则才可以享用本服务：</p>
+
+     <p>1.使用者在使用本服务时须遵守国家法律、法规和互联网各项规章制度，不得利用本网络从事任何违反中华人民共和国法律法规的活动。</p>
+
+      <p>2.申请的上网密码，仅允许自己使用，不得变更或转借他人使用，用户要对该帐号的所有活动和事件负全部责任。</p>
+
+      <p>3.用户对服务的使用必须遵循：</p>
+
+      <p style="text-indent:2em;">（1）从中国境内向外传输技术性资料时必须符合中国有关法规；</p>
+
+      <p style="text-indent:2em;">（2）使用网络服务不作非法用途，不干扰或混乱网络服务；</p>
+
+      <p style="text-indent:2em;">（3）遵守所有使用网络服务的网络协议、规定、程序和惯例；</p>
+
+      <p style="text-indent:2em;">（4）不散布谣言，扰乱社会秩序，破坏社会稳定；不散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪；不侮辱或者诽谤他人，侵害他人合法权益；不传输涉及国家安全的资料；不传输任何不符合当地法规、国家法律和国际法律的资料。</p>
+
+      <p>4.用户需对自己在网上的行为承担法律责任。用户若在网上散布和传播反动、色情或其他违反国家法律的信息，本系统记录有可能作为用户违反法律的证据。</p>
+
+      <p>5.我公司不会对于使用本无线网络以外的有关费用负责，（包括无线网络暂停 服务或无线上网连线终断而导致使用者的损失）不管此类损失是直接还是间接。</p>-->
+
+      <!--p style="height:5px;"></p>
+
+      <!--<p style=" text-align:right;">欢歌天天KTV</p>-->
+
+      <!--p style="height:15px;"></p>
+
+      <p>
+
+        <input type="button" class="btn_ok1" id="ok1" value="同意" onClick="return spylogin();"/>
+
+      </p>
+
+      <p style="height:10px;"></p>
+
+    </div>
+
+   <!-- <div style="width:80%; margin:0 auto;">
+
+      <p style="color:#666; font-size:12px;">温馨提示：同一手机号每日仅登录4次，每次一个小时。</p>
+
+    </div>-->
+
+    <!--p style="height:15px;"></p>
+
+  </div>
+
+  <div style="height:10px; clear:both;"></div-->
+      <div class="mobile_login">
+        <div class="top_login">
+            <img src="/css/static/images/top_login_01.jpg" width="100%" height="auto">
+        </div>
+        <span class="clear"></span>
+
+        <div class="login_main">
+            <form id="nclogin" name="nclogin" class="login_form" method="post" action="[#posturl#]">
+            		<input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+            		 [#postarg#]
+                <input id="yes" type="checkbox"><label for="yes" id="yet">我已经阅读免责声明所诉内容</label>
+                <span class="clear"></span>
+                <label id="l_tel">手机号码：</label>
+                <input id="username" name="username" type="text" />
+                <input onClick="getpasswd();" class="login" id="gpss" type="button"  value="获取验证码"/>
+                <div class="clear"></div>
+                <label id="l_tel">验 证 码&nbsp;：</label>
+                <input id="password" name="password" type="text" />
+                <input onClick="return spylogin();" class="login" id="login_btn" name="login_btn" type="button" value="" />
+                <span class="clear"></span>
+                <span id="hint">温馨提示：同一手机号每日仅登录4次,每次不超过2小时</span>
+                <span id="hint1">我要&nbsp;<a href="javascript:void(0)" onClick="registerVip();" target="_self">成为会员</a></span>
+               
+                
+                <h2>丹尼斯百货网店无线网络免责声明</h2>
+                <p id="p_head">尊敬的客户,您好：</p>
+                <p id="indent">欢迎您使用丹尼斯百货无线网络,我公司竭诚为您提供免费优质的互联网络接入环境,并负责保证互联网公司应用渠道通畅,但不承担客户访问互联网应用过程中产生的相关风险</p>
+            </form>
+        </div>
+        <span class="clear"></span>
+
+        <div class="login_footer"><img src="/css/static/images/reg_footer_02.jpg" width="100%" height="auto"></div>
+    </div>
+  <a name=foot></a>
+
+  <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+
+  </form>
+
+
+
+</body>
+
+</html>
+

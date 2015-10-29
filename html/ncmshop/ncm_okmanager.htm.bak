@@ -1,0 +1,356 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>系统用户管理</title>
+    <!-- <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" />  -->
+        <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+		.x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		  height: 16px !important;
+		  line-height: 16px;
+	    }
+		.system_edit{
+			background-image:url(/newver/resources/themes/images/share/computer_edit.png) !important;
+		}	
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <!-- <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script> -->
+         <script type="text/javascript" src="/newver/ext-4.2.1.883/ext-all.js"></script> 
+		<link rel="stylesheet" type="text/css" href="/newver/ext-4.2.1.883/resources/css/ext-all.css" /> 
+  <script>  
+
+
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging'
+ 
+//    'Ext.ModelManager',
+//    'Ext.tip.QuickTipManager'
+]);
+	var  store_oksecord = Ext.create('Ext.data.Store', {pageSize: 400,autoLoad:true,fields: ['plateid', 'level', 'imgpath','title','url'], autoLoad: false,remoteSort: true,
+			      proxy: {type: 'ajax',url: '/pronline/Msg?FunName@ncmAdSecord&plateid@0&level@9999',reader: {type:'json',root: 'eimdata',totalProperty: 'totalCount'},simpleSortMode: true
+			      }});
+
+Ext.onReady(function() {
+
+    var fppan=Ext.create('Ext.form.Panel', {
+        renderTo: Ext.getBody(),
+        title: '验证成功广告页面管理',
+        
+        bodyStyle: 'padding:5px 5px 0',
+      height:1000,
+ //    width: 800,
+        frame:true,
+       
+       	defaultType:'textfield', //设置表单字段的默认类型  
+						fieldDefaults:{ //统一设置表单字段默认属性
+					//			labelSeparator:':', //分隔符
+								labelWidth:100, //标签宽度
+								width:320, //字段宽度
+								msgTarget:'side'
+						},
+
+        layout: 'vbox',
+        items: [
+          {xtype: 'hidden',name: 'plateid', id:'plateid_s', value:'0'},
+          {xtype:'hidden',name:'imgpath',id:'imgpath',value:''},
+					 {xtype: 'hidden',name: 'level',id:'level_s',value:'9999'},
+         { 
+								xtype:'fieldcontainer',
+								layout: 'hbox',	
+								width:800,			
+								items:[           
+							 {
+								  width:450,
+								  xtype:'textfield',
+								  labelWidth:70,
+								  fieldLabel:'标题',
+								  id:'stitle',
+								  name:'title'				
+               },
+               {
+                xtype:'textfield',
+                labelWidth:60,
+                fieldLabel: '&nbsp;&nbspURL',
+                width:350,
+                id:'surl',
+                name: 'url'
+            }
+            ]
+           },
+           {
+								xtype:'fieldset',
+								title:'预览',
+								collapsible: true,
+								width:800,
+								height:450,	
+								items:{
+										xtype:'image',
+										id:'advmanager5_defad',
+										name:'defad',
+										autoWidth:true,
+										autoHeight:true,
+										width:800,
+										height:450,
+															listeners:{       			
+							         				el:{ 
+																	click:function(){
+															
+							         						}
+							         				}
+						         		}
+								}	
+							},
+			       { 
+								xtype:'fieldcontainer',
+								layout: 'hbox',	
+								width:800,			
+								items:[           
+							 {
+								 xtype:'button',
+					  		text:'上传图片',
+		            action: 'uffile',
+		            style : 'margin-left:270px',
+		            	handler:function(){
+					  			var tplateid=Ext.getCmp('plateid_s').value;
+					  			var tlevel=Ext.getCmp('level_s').value;
+					  		
+					  			 
+					  
+					          var fp_up= Ext.create('Ext.form.Panel', {       
+                            width: 460,
+                            frame: true,
+                            bodyPadding: '10 10 0',
+                             defaults: {
+                               anchor: '100%',
+                               allowBlank: false,
+                               msgTarget: 'side',
+                               labelWidth: 90
+                             },
+
+                   items: [{
+                      xtype: 'filefield',
+             //         id: 'form-file',
+                      emptyText: '选择文件上传',
+                      fieldLabel: '模版页面文件',
+                      name: 'adfile',
+                      value:'',
+                      buttonText: '',
+                      buttonConfig: {
+                         iconCls: 'upload-icon'
+                      }
+                  }
+                 ,
+                 {xtype: 'hidden',name: 'plateid', value: tplateid},
+                 {xtype: 'hidden',name: 'level', id:'dlevel',value: tlevel}
+               
+                 ],
+
+					        buttons: [{
+					            text: '上传',
+					            handler: function(thisbtn){
+					            	var twin=this.up('window');					            
+					            	var temp=this.up('form').getForm().findField('adfile').getValue();
+					            	if(temp==''){
+					            		alert('请先选取文件上传');
+					            		return;
+					            	}
+           	    
+					            	  this.up('form').getForm().doAction('submit',{
+					                  url:'/pronline/upload',
+					                 method:'post',
+					                 enctype:'multipart/form-data',
+					                 waitMsg: '正在上传文件...',
+					                  params:{FunName:'ncm_adsecord_dr_images',UploadPath:'/home/ncmysql/ncsrv/upload'},
+					                  success:function(form,action){
+					                
+					                //    store_adsecord.load({params: {id:tplateid,level:tlevel}});
+					                   Ext.getCmp('advmanager5_defad').setSrc(action.result.filepath);	
+					                   Ext.getCmp('imgpath').setValue(action.result.filepath);	
+					                  store_oksecord.load();
+					                  alert('上传成功后，请按“保存”');			                  	
+					   //              var tstore=Ext.getCmp('store_plateindex');
+					   //              Ext.Msg.alert(action.result.msg);
+					         //       tstore.load();
+					             //      alert(tstore);
+					                   twin.close();
+                           
+					   //            	Ext.Msg.alert(action.result.msg);
+					   //               	 fpprocy.getForm().findField('adfile').setValue(action.result.adfile);
+			//		                  	 fp2.getForm().findField('sid').setValue(action.result.sid);
+			//		                  	 fp2.getForm().findField('addtime').setValue(action.result.adtime);
+					
+					    //              	 store_plateindex.new_params={pid:pid};
+					    //              	  store_plateindex.load();
+					
+					   //                  win3.close();
+					                  }
+					                  ,
+					                 failure:function(form,action){
+					                 	Ext.Msg.alert(action.result.msg);
+					         
+					                   }
+					                  
+					                  
+					                     
+					                 })
+					            	
+					            	
+					            	
+					
+					            }
+					        },{
+					            text: '取消',
+					            handler: function() {
+					                this.up('form').getForm().reset();
+					               this.up('window').close();
+					               
+					            }
+					        }]
+					    });
+					  var windt= Ext.widget('window', 
+            			{
+                			title: '上传文件',
+               			  closeAction: 'hide',
+                			x:380,
+                			y:102,
+                			width: 470,
+                			height: 120,
+                			minHeight: 120,
+                			draggable:true,
+                			resizable: true,
+                			modal: false,
+                		
+              			items: fp_up
+            			});
+					  	windt.on("beforeclose", function() {
+   //         document.getElementById("time_flag").value=document.getElementById("form1").time_flag.value;
+          	
+         });
+        		
+        		windt.show();
+					  
+					  
+					  
+					  
+					  
+					  			 
+					  			 
+					  			 
+					  		}	
+               },
+               {
+								 xtype:'button',
+					  		text:'保存',
+		            action: 'uffile',
+		            	style : 'margin-left:10px',
+		            	handler:function(){
+		            		 if(Ext.getCmp('imgpath').value==''){
+		            	 		alert('请先选取图片！');	
+		            	 }else{
+					             fppan.form.doAction('submit',{
+							             url:'/pronline/Msg',
+							             method:'post',
+							             params:{FunName:'ncmAdSecord',update:'update'},
+							             success:function(form,action){							           
+                           store_oksecord.load();
+                           alert('信息已保存');
+							             	
+							             }  
+					             })
+					           }
+			            
+		            	}
+               },
+               {
+               xtype:'button',
+					  		text:'删除',
+		            action: 'uffile',
+		            style : 'margin-left:10px',
+		            handler:function(){
+		                if(confirm('您真的要执行删除操作吗？'))
+									  {
+									  	 var selsid;
+									  	 var plateid=Ext.getCmp('plateid_s').value;
+									  	 selsid = Ext.getCmp('level_s').value;
+									     var imgpath=Ext.getCmp('imgpath').value;
+									     
+									  	 store_oksecord.load({params: {update:'del',plateid:plateid,level:selsid,imgpath:imgpath},
+									  	 	callback:function(records, options, success){
+											  			 Ext.getCmp('advmanager5_defad').setSrc('');	
+											  		}});
+									
+									  }
+		            }
+            }
+            ]
+           }
+							
+       
+        
+        
+    ]
+    });
+   store_oksecord.load({params: {plateid:0,level:9999},
+   callback:function(records, options, success){
+    for(j=0; j<store_oksecord.getCount(); j++){
+    	if(store_oksecord.getAt(j).get('level')=='9999'){
+
+    		fppan.loadRecord(store_oksecord.getAt(j));
+    		Ext.getCmp('advmanager5_defad').setSrc(store_oksecord.getAt(j).get('imgpath'));
+    	}
+    }
+  }
+   }
+  );
+    
+});
+
+
+
+
+
+
+</script>
+    
+    
+</head>
+<body>
+	<form name="form1" id="form1" action="/pronline/Msg">
+
+	</form>
+    <div id="grid-corp"></div>
+
+</body>
+</html>

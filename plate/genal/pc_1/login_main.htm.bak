@@ -1,0 +1,451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="/css/flexslider3.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>
+<script src="/js/ajax.js"></script>
+<title>无标题文档</title>
+<style  type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	position:relative;
+}
+.bg {
+	width:100%;
+}
+.main_top {
+	width:94%;
+	margin:0 auto;
+	font-size:14px;
+	border:1px solid #09f;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+}
+.username {
+	width:65%;
+	text-indent:5px;
+	font-size:1em;
+	border:1px solid #06f;
+	color:#666;
+	height:24px;
+	line-height:24px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	font-size:1em;
+	float:left;
+}
+.password {
+	width:65%;
+	text-indent:5px;
+	font-size:1em;
+	border:1px solid #06f;
+	color:#666;
+	height:24px;
+	line-height:24px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	font-size:1em;
+	float:left;
+}
+.main_bottom {
+	width:94%;
+	margin:0 auto;
+	border:1px solid #09f;
+	color:#666;
+	font-size:12px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+}
+.top_nei {
+	width:80%;
+	margin:0 auto;
+}
+.bottom_nei {
+	width:80%;
+	margin:0 auto;
+	display:none;
+}
+.btn_ok {
+	width:30%;
+	margin-left:4%;
+	height:24px;
+	line-height:24px;
+	border:none;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	background:#06c;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #0066cc), color-stop(1, #0066cc));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#0066cc", EndColorStr="#0066cc");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #0066cc 10%, #0066cc 100%);/*火狐内核渐变*/
+	color:#fff;
+}
+.btn_ok1 {
+	width:100%;
+	height:24px;
+	line-height:24px;
+	border:none;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	background:#06c;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #0066cc), color-stop(1, #0066cc));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#0066cc", EndColorStr="#0066cc");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #0066cc 10%, #0066cc 100%);/*火狐内核渐变*/
+	color:#fff;
+}
+.btn_hq {
+	width:30%;
+	margin-left:4%;
+	height:24px;
+	line-height:24px;
+	border:none;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	background:#06c;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #0066cc), color-stop(1, #0066cc));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#0066cc", EndColorStr="#0066cc");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #0066cc 10%, #0066cc 100%);/*火狐内核渐变*/
+	color:#fff;
+}
+.top {
+	width:100%;
+	border-bottom:2px solid #08f;
+}
+.top img {
+	width:100%;
+}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+ .main_top {
+font-size:12px;
+}
+}
+</style>
+ <script type="text/javascript">
+	function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp;
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";
+	}
+var p_flag = '1';
+	
+	function restore(){
+		document.getElementById("gpss").disabled = "";
+		p_flag='1';	
+	}
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+var i = 59;
+function fun() {
+       	 if (i == 0) {
+			 document.getElementById("gpss").value="获取密码";
+             clearInterval(intervalid);
+			 i=59;
+         }
+		 else{
+         document.getElementById("gpss").value = i;
+		
+         i--;
+		 }
+}
+function getpasswd(){
+		if(p_flag=='0') return false;	
+		if(document.getElementById("nclogin").username.value==''||document.getElementById("nclogin").username.value=='手机号码'){
+		    alert('请输入手机号');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&tsid@"+document.getElementById("tsid").value;
+		       
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		intervalid=setInterval("fun()", 1000);   
+		p_flag='0';
+        setTimeout('restore()',60000);
+		return false;
+	}
+	
+	var mz=0;
+	function xianshi(){
+	mz=1;
+	document.getElementById("password").style.width="100%";
+	document.getElementById("bo").style.display="block";
+	document.getElementById("ok1").style.display="none";
+	document.getElementById("ok2").style.display="block";
+	
+	}
+	
+	function spylogin()
+	{
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="手机号码"||document.getElementById("password").value==""||document.getElementById("password").value=="密码") 
+		{
+		    window.alert("手机号或密码不能为空!");
+			  return false;
+		}
+		if(mz==0)
+		{
+			var a=window.confirm("请点击免责声明确认接受免责声明条款和条件！");
+			if(a==1){
+			  mz=1;
+			  document.getElementById("password").style.width="100%";
+	          document.getElementById("bo").style.display="block";
+	          document.getElementById("ok1").style.display="none";
+              document.getElementById("ok2").style.display="block";
+			   return 0;
+			}
+			else{
+			   return 0;
+			}
+			}
+    document.getElementById("nclogin").submit();
+		/*var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}*/
+		
+    return true;
+	}
+	function mr(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").style.color="#aaa";
+		}
+		if(document.getElementById("password").value="密码"){
+			 document.getElementById("password").style.color="#aaa";
+		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+  	function init()
+	{
+		//alert('[#statusCode#]');
+		if('[#statusCode#]' == '2')
+		{
+			document.getElementById('err5').innerHTML = '账号与SSID不匹配。';
+		}	
+		if('[#statusCode#]' == '3')
+		{
+			document.getElementById('err5').innerHTML = '用户账号已过期。';
+		}	
+		if('[#statusCode#]' == '4')
+		{
+			document.getElementById('err5').innerHTML = '您登录的账号在黑名单中。';
+		}	
+		if('[#statusCode#]' == '5')
+		{
+			document.getElementById('err5').innerHTML = '请输入正确的密码。';
+		}	
+		if('[#statusCode#]' == '6')
+		{
+			document.getElementById('err5').innerHTML = '该用户不存在。';
+		}	
+
+}
+
+
+
+</script>
+</head>
+
+<body onload="init();">
+<div class="wrap">
+  <form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+  <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+  [#postarg#]
+  <div class="top"><img src="/images/taipingyang/login.jpg" /></div>
+  <div style="height:10px; clear:both;"></div>
+  <div class="banner">
+    <section class="slider">
+      <div class="flexslider">
+        <ul  class="slides">
+      <script type="text/javascript">
+	  var statcode= null;
+var errmessage= null;   
+var xmlHttp = false;
+ 
+ function callServer()
+ { 
+   if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+     xmlHttp.abort();
+   }
+   xmlHttp = createXMLHttpRequest();
+   if(xmlHttp)
+   {
+     var web_url = "/pronline/Msg?FunName@ncm_yuyuan_home_ajax"+"&xx@"+Math.random()*999;
+   
+     xmlHttp.open("GET",web_url, true);
+     xmlHttp.onreadystatechange = updatePage;
+     xmlHttp.send(null);
+   }
+ }
+ var j=0;
+ callServer();
+ var event_n=new Array(); 
+ var img_n=new Array();   
+ //处理函数
+ function updatePage()
+ {  
+   if (xmlHttp.readyState == 4)
+   {
+      var response = xmlHttp.responseText;
+	  //alert(response);
+      var temp_num = getxmlbyname(response,"<statusCode>","</statusCode>");
+      statcode=parseInt(temp_num);   
+      
+      var temp_num=getxmlbyname(response,"<TotRec>","</TotRec>");
+	    MAX=parseInt(temp_num);
+	    var tmptext = "";
+	    
+	    //图片 
+		  for(j=1;j<=parseInt(temp_num);j++){
+		  	  var st_name="<iNumslider"+j+">";
+		  	  var en_name="</iNumslider"+j+">";
+		      var pro_na=getxmlbyname(response,st_name,en_name);
+		      img_n[j-1]=pro_na;
+		      
+		  }
+		  //事件 
+		  for(j=1;j<=parseInt(temp_num);j++){
+		  	  var st_name="<imgslider"+j+">";
+		  	  var en_name="</imgslider"+j+">";
+		      var pro_na=getxmlbyname(response,st_name,en_name);
+		      event_n[j-1]=pro_na;
+		      
+		  }
+		/* i=0;
+		     	  tmptext = "<li  onclick=\"loadShops("+img_n[i]+")\"> <img src=\""+event_n[i]+"\" /></li>";
+				  tmptext1 = "<li  onclick=\"loadShops("+img_n[i+1]+")\"> <img src=\""+event_n[i+1]+"\" /></li>";
+				  tmptext2 = "<li  onclick=\"loadShops("+img_n[i+2]+")\"> <img src=\""+event_n[i+2]+"\" /></li>";
+				  tmptext3 = "<li  onclick=\"loadShops("+img_n[i+3]+")\"> <img src=\""+event_n[i+3]+"\" /></li>";*/
+				  j=0;
+		     	  tmptext = event_n[j];
+				  tmptext1 = event_n[j+1];
+				  tmptext2 = event_n[j+2];
+				  tmptext3 = event_n[j+3];
+		  
+		
+		  document.getElementById("myportal").src = tmptext;
+		  document.getElementById("myportal1").src = tmptext1;
+		  document.getElementById("myportal2").src = tmptext2;
+		 document.getElementById("myportal3").src = tmptext3;
+		  
+   }
+ }
+
+	  </script>
+          <!-- 循环解析广告图片 -->
+     <!--  <li id="myportal"></li>
+       <li id="myportal1"></li>
+       <li id="myportal2"></li>
+       <li id="myportal3"></li>-->
+       <li><a><img id="myportal" /></a></li>
+       <li><a><img id="myportal1" /></a></li>
+       <li><a><img id="myportal2" /></a></li>
+       <li><a><img id="myportal3"  /></a></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+  <div style="height:15px; clear:both;"></div>
+  <div class="main_top">
+    <div class="top_nei">
+      <p style="height:20px;"></p>
+      <p >
+        <input type="text" value="手机号码" id="username" name="username" class="username" onFocus="if(document.getElementById('nclogin').username.value=='手机号码'){this.value=''; this.style.color='#000';document.getElementById('err5').style.display='none';}"  />
+        <input type="button" onClick="getpasswd();" id="gpss" value="获取密码"  class="btn_hq" />
+      </p>
+      <p style="height:15px; clear:both;"></p>
+      <p>
+        <input type="text" value="密码" id="password" name="password" class="password" onFocus="if(document.getElementById('nclogin').password.value=='密码'){this.value=''; this.style.color='#000'; this.type='password';document.getElementById('err5').style.display='none';}"  />
+        <a href="#foot"><input type="button" class="btn_ok" id="ok1" value="登录" onClick="return spylogin();"/></a>
+      </p>
+      <p style="height:5px; clear:both;"></p>
+      <div id="err5" style="color:#F00; text-align:center; font-size:12px;"></div>
+      <p style="height:5px; clear:both; "></p>
+      <p style="font-size:14px; color:#666;">太平洋寿险河南分公司无线网络<a href="#foot" style="color:#06f; text-decoration:underline; cursor:pointer;" onclick="xianshi();">免责声明</a></p>
+      <p style="height:15px;"></p>
+    </div>
+    <div class="bottom_nei" id="bo">
+      <p style="height:15px;"></p>
+      <p style="text-align:center; color:#333; font-size:14px;">中国太平洋保险网点无线网络免责声明</p>
+      <p style="height:10px;"></p>
+      <p>尊敬的客户，您好：</p>
+      <p style="height:5px;"></p>
+      <p style="text-indent:2em;">欢迎您使用中国太平洋保险无线网络，我公司竭诚为您提供免费优质的互联网络接入环境，并负责保证互联网应用渠道畅通，但不承担客户访问互联网应用过程中产生的相关风险。</p>
+      <p style="height:5px;"></p>
+      <p style=" text-align:right;">中国<a style="color:#06f; text-decoration:underline; cursor:pointer;" onclick="window.open('http://www.cpic.com.cn/cpic/index.shtml')">太平洋保险</a>（集团）股份有限公司</p>
+      <p style="height:15px;"></p>
+      <p><input type="button" class="btn_ok1" id="ok1" value="同意" onClick="return spylogin();"/></p>
+      <p style="height:10px;"></p>
+    </div>
+    <div style="width:80%; margin:0 auto;">
+      <p style="color:#666; font-size:12px;">温馨提示：同一手机号每日仅登录4次，每次不超过30分钟。</p>
+    </div>
+    <p style="height:15px;"></p>
+  </div>
+  <div style="height:10px; clear:both;"></div>
+ <a name=foot></a>
+  <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<link href="/css/flexslider.css" rel="stylesheet" type="text/css" />
+<link href="/css/flexslider2.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/jquery.flexslider2-min.js"></script>
+<script src="/js/shop_home.js"></script>
+
+</head>
+<title>联盟商家</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"黑体";
+}
+.img_1 {
+	width:22%;
+	float:left;
+}
+.wrap {
+	width:450px;
+	margin:0 auto;
+}
+.tit {
+	background:url(/images/zhengzhoudianxin/logo.jpg) no-repeat left center;
+	height:65px;
+	line-height:65px;
+	width:100%;
+	float:left;
+}
+.select1 {
+	float:right;
+	margin-top:20px;
+	width:100px;
+	height:30px;
+	font-size:18px;
+	border:1px solid #aad82f;
+	color:#aad82f;
+}
+.lx img {
+	width:100%;
+}
+.gg img {
+	width:100%;
+}
+.menu img {
+	width:100%;
+}
+.hx img {
+	width:100%;
+}
+.menu_ul {
+	width:100%;
+	height:35px;
+	line-height:35px;
+}
+.menu_ul li {
+	float:left;
+	list-style:none;
+	width:14%;
+	text-align:center;
+	color:#666666;
+	cursor:pointer;
+	
+}
+.menu_ul li a:hover {color:#FF8000}
+.slides p{ width:20%; float:left; font-size:1.2em; margin-top:4px; margin-bottom:2px;}
+.keyword {
+	
+	width:65%;
+	float:left;
+	margin-left:2%;
+	margin-top:5px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	border:1px solid #0c97e2;
+	height:30px;
+	line-height:25px;
+	text-indent:5px;
+	font-size:18px;
+	color:#bdbdbd;
+}
+.btn_ok {
+	
+	width:30%;
+	margin-left:2%;
+	margin-top:5px;
+	float:left;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	border:1px solid #0c97e2;
+	height:30px;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #0c97e2), color-stop(1, #0061E5));/*谷歌浏览器渐变*/
+	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#0c97e2", EndColorStr="#0061E5");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #0c97e2 50%, #0061E5 100%);/*火狐内核渐变*/
+	cursor:pointer;
+	color:#c9effe;
+	font-size:16px;
+}
+ @media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+.menu_ul li{ font-size:13px;}
+}
+</style>
+
+<script type="text/javascript">
+
+function switchlevels(mark,img){
+//alert(mark);
+//alert(img);
+document.getElementById("id").value = mark;
+document.getElementById('iframe1').contentWindow.document.getElementById("FunName").value="ncmCategories_Types";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById('iframe1').contentWindow.document.getElementById("id").value=mark;
+document.getElementById('iframe1').contentWindow.document.getElementById("form1").submit();
+document.getElementById('categories_img').src=img;
+
+}
+function init(){
+
+
+
+}
+function changeAreaid(){
+var i=document.getElementById('select1').selectedIndex; 
+var areaid=document.getElementById('select1').options[i].value; 
+document.getElementById('areaid').value = areaid;
+document.getElementById('iframe2').contentWindow.document.getElementById('areaid').value=areaid;
+document.getElementById('iframe2').contentWindow.document.getElementById("FunName").value="ncm_ShopType";
+document.getElementById('iframe2').contentWindow.document.getElementById("sgroupid").value=document.getElementById("sgroupid").value;
+document.getElementById('iframe2').contentWindow.document.getElementById('form1').submit();
+
+}
+function searchShop(){
+document.getElementById('iframe2').contentWindow.document.getElementById("FunName").value="ncm_ShopType";
+document.getElementById('iframe2').contentWindow.document.getElementById('areaid').value=document.getElementById("areaid").value;;
+document.getElementById('iframe2').contentWindow.document.getElementById("sgroupid").value=document.getElementById("sgroupid").value;
+document.getElementById('iframe2').contentWindow.document.getElementById('keyword').value=document.getElementById("keyword").value;
+document.getElementById("iframe2").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe2").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById('iframe2').contentWindow.document.getElementById('form1').submit();
+}
+</script>
+  <script type="text/javascript">  
+    $(document).ready(function(){  
+        var range = 50;             //距下边界长度/单位px  
+        var elemt = 500;           //插入元素高度/单位px  
+        var maxnum = 20;            //设置加载最多次数  
+        var num = 1;  
+        var totalheight = 0;   
+        var main = $("#content");                     //主体元素  
+        $(window).scroll(function(){  
+            var srollPos = $(window).scrollTop();    //滚动条距顶部距离(页面超出窗口的高度)  
+              
+            console.log("滚动条到顶部的垂直高度: "+$(document).scrollTop());  
+            console.log("页面的文档高度 ："+$(document).height());  
+            console.log('浏览器的高度：'+$(window).height());  
+              
+            totalheight = parseFloat($(window).height()) + parseFloat(srollPos);  
+            if(($(document).height()-range) <= totalheight  && num != maxnum) {  
+                main.append("<div style='border:1px solid tomato;margin-top:20px;color:#ac"+(num%20)+(num%20)+";height:"+elemt+"' >hello world"+srollPos+"---"+num+"</div>");  
+                num++;  
+            }  
+        });  
+    });  
+    </script>  
+
+</head>
+
+<body onLoad="switchlevels(1,'/images/zhengzhoudianxin/zhengzhoudianxin02_r7_c1.jpg'); init();">
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="id" name="id" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="areaid" name="areaid" value="">
+		<input type="hidden" id="sgroupid" name="sgroupid" value="">
+		<input type="hidden" name="plateName" id="plateName" value="zhengzhoudianxin"/>
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+        <input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+</form>		
+
+<div class="wrap">
+	 
+
+  <div class="tit">
+    <select onchange="changeAreaid()" id="select1" class="select1">
+	<option value="">全部</option>
+	[#SLPB#]
+      <option value="[#aid#]">[#aname#]</option>
+	[#SLPE#]
+    </select>
+  </div>
+  <div class="lx"><img src="/images/zhengzhoudianxin/zhengzhoudianxin02_r3_c1.jpg" /></div>
+<div class="banner">
+  <section class="slider">
+    <div class="flexslider">
+      <ul class="slides">
+
+        <!-- <li onclick="loadShops([#iNumslider#])"> <img src="[#imgslider#]" /></li> -->
+		<li> <img id="position21" src="/images/zhengzhoudianxin/zhengzhoudianxin02_r4_c1.jpg" /> </li>
+        <li> <img id="position21" src="/images/zhengzhoudianxin/zhengzhoudianxin02_r4_c4.jpg" /> </li>
+        <li> <img id="position31" src="/images/zhengzhoudianxin/zhengzhoudianxin02_r4_c2.jpg" /> </li>
+        <li> <img id="position41" src="/images/zhengzhoudianxin/zhengzhoudianxin02_r4_c3.jpg" /> </li>
+     
+      </ul>
+    </div>
+  </section>
+</div>
+  <div class="menu">
+    <ul class="menu_ul">
+<!-- 	[#SLPB#]
+      <li id="[#id#]" class="levels1" ><a onClick="switchlevels([#id#],'[#imgpath#]')" >[#name#]</a></li>
+     [#SLPE#] -->
+  <div class="banner">
+  <section class="slider">
+  <div class="flexslider2">
+  <ul class="slides">
+<script type="text/javascript">
+var names = new Array();
+var imgpaths=new Array();
+var ids=new Array();
+var i=0;
+var user_online_flag = 0;//用户在线状态
+
+document.write("\<li\>");
+[#SLPB#]
+names[[#iNum#]]="[#name#]";
+ids[[#iNum#]]="[#id#]";
+imgpaths[[#iNum#]]="[#imgpath#]";
+	document.write("\<p id=\"category1\" class=\"levels1\" \>\<a onClick=\"switchlevels([#id#],\'[#imgpath#]\')\" \>"+"[#name#]"+"\<\/a\>\<\/p\>");
+if([#iNum#]%5==0){
+	document.write("\<\/li\>\<li\>");
+}
+
+[#SLPE#]
+document.write("\<\/li\>");	
+	
+</script>
+<!-- 		<li> 
+		<p id="category1" class="levels1" ><a onClick="switchlevels([#id#],'[#imgpath#]')" >女装2</a></p>		
+		</li> -->
+
+      </ul>
+    </div>
+  </section>
+</div>
+    </ul>
+  </div>
+  
+  <div style="box-shadow: 0 1px 10px rgba(0,0,0,.2); margin-top:6px;"><img id="categories_img" class="img_1" src="/images/zhengzhoudianxin/zhengzhoudianxin02_r7_c1.png" /><iframe id="iframe1" frameborder="no" scrolling="No"  style="height:80px;" width="78%" src="/zhengzhoudianxin/menu_small.htm" ></iframe></div>
+  <div style="border-bottom:0px solid #CCC; height:4px; clear:both;"></div>
+  <input type="text" value="寻找商店" id="keyword" name="keyword" class="keyword" onFocus="if(document.getElementById('keyword').value=='寻找商店'){this.value=''; this.style.color='#000'; this.type='keyword';}" />
+  <input type="button" value="搜索" class="btn_ok" onClick="searchShop()"/>
+    <div style="height:10px; clear:both;"></div>
+    <div style="margin-left:10px;">
+	<span style="color:#666666; float:left; font-weight:Bold;">热门推荐</span><span style="color:#ff6600; float:right;"></span>
+	</div>
+
+  <iframe id="iframe2" frameborder="no" scrolling="yes"  style="height:1800px;" width="100%" src="/zhengzhoudianxin/shop_list.htm" ></iframe>
+</div>
+
+
+</body>
+</html>

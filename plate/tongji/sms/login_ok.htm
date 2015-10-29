@@ -1,0 +1,97 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />
+<title>同济医院</title>
+<style  type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	position:relative;
+}
+.top{ width:100%; }
+.top img{width:100%;}
+.banner img{ width:100%;}
+.main_top{
+	width:80%; margin:0 auto;
+	}
+
+.btn_ok{
+	border-radius: 5px; /* css 3标准 */
+-moz-border-radius: 5px;  /* mozilla */
+-webkit-border-radius: 5px;/*webkit*/
+border:none;
+background:#409f97;
+background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #409f97), color-stop(1, #409f97));/*谷歌浏览器渐变*/
+ filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#409f97", EndColorStr="#409f97");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #409f97 10%, #409f97 100%);/*火狐内核渐变*/
+width:100%;
+height:34px;
+line-height:34px;
+color:#fff;
+font-size:1.1em;
+	}
+.weixin_wrap img{ width:100%;}
+.foot_left{ float:left; width:33%; border-right:1px solid #409f97;}
+.foot_right{ float:left;width:66%; }
+.foot_left img{ width:50%; margin-left:20%; }
+.foot_p img{ margin-left:10%; width:20%;}
+@media screen and (max-width:400px) {
+.wrap {
+width:100%;
+}
+
+}
+</style>
+<script language="javascript" src="https://1.1.1.1/loginscript.js"></script>
+<script>
+function checkUserStatus(){
+// Check Illegal Access of logout Page
+// if userStatus == 0, it means user hasn't logged in
+// so just redirect the user to login.html page
+    if(document.forms[0].userStatus.value == 0){
+        location.href = "login.html";
+    }
+}
+</script>
+</head>
+
+<body>
+<div class="wrap">
+  <form method="post" action="https://1.1.1.1/logout.html">
+  <div class="top"><img src="/images/tongji/logo.png" /></div>
+  <div class="main_top" >
+      <p style="height:20px;"></p>
+      <p style="text-align:center;">您已经成功登录</p>
+      <p style="height:10px;"></p>
+      <p style="text-align:center;">同济医院的免费wifi！</p>
+      <p style="height:30px;"></p>
+      <p style="text-align:center;">上网时间为：<a>2</a>小时</p>
+      <p style="height:20px; clear:both;"></p>
+      <p>
+        <a style="display:none;"><script>getHtmlForButton("Logout","Logout","button","document.forms[0].submit()"); </script></a><input type="button" name="Logout" value="退出上网" class="btn_ok" onClick="document.forms[0].submit()">
+      </p>
+      <p style="height:10px;"></p>
+      <p class="weixin_wrap"><img src="/images/tongji/weixin.png" /></p>
+      <p style="height:10px;"></p>
+      <div>
+      	<div class="foot_left"><img src="/images/tongji/jinrizhuanjia.png" /></div>
+        <div class="foot_right">
+        	<p class="foot_p"><img src="/images/tongji/jiuyi.png" /><img src="/images/tongji/baogao.png" /><img src="/images/tongji/zhuanjia.png" /></p>
+            <p class="foot_p"><img src="/images/tongji/tongjitijian.png" /><img src="/images/tongji/yuyue.png" /><img src="/images/tongji/manyidu.png" /></p>
+        </div>
+      </div>
+       </div>
+        <input type="hidden" name="userStatus" size="16" maxlength="15" value="1">
+  <input type="hidden" name="err_flag" size="16" maxlength="15" value="0">
+  <input type="hidden" name="err_msg" size="32" maxlength="31" value="">
+   </form>
+</div>
+</body>
+</html>

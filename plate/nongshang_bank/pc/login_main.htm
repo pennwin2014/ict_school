@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>登录 - 上海农商银行</title>
+<link href="/css/login_pc.css" rel="stylesheet"/>
+
+  <script type="text/javascript">
+function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp;
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";
+	}
+var p_flag = '1';
+function restore(){
+		document.getElementById("gpss").disabled = "";
+		p_flag='1';	
+	}
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+	 var i = 59;
+ 		 function fun() {
+       	 if (i == 0) {
+			 document.getElementById("gpss").style.color="#0244a1";
+			 document.getElementById("gpss").value="获取密码";
+             clearInterval(intervalid);
+			 i=59;
+         }
+		 else{
+         document.getElementById("gpss").value = i;
+         i--;
+		 }
+        }
+function getpasswd(){
+		if(p_flag=='0') return false;
+		
+		
+			
+		if(document.getElementById("nclogin").username.value==''||document.getElementById("nclogin").username.value=='手机号'){
+		    alert('请输入手机号');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&tsid@"+document.getElementById("tsid").value;
+		          
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		document.getElementById("gpss").style.color="#999";
+		document.getElementById("gpss").value = "密码已发送";
+		intervalid= setInterval("fun()", 1000);
+		p_flag='0';
+        setTimeout('restore()',50000);
+		return false;
+	}
+	var mz=0;
+	function xianshi(){
+	mz=1;
+	document.getElementById("password").style.width="240px";
+	document.getElementById("bo").style.display="block";
+	document.getElementById("ok1").style.display="none";
+	document.getElementById("ok2").style.display="block";
+	}
+	function spylogin()
+	{
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="手机号"||document.getElementById("password").value==""||document.getElementById("password").value=="密码") 
+		{
+		    window.alert("手机号或密码不能为空!");
+			  return false;
+		}
+		if(document.getElementById('radio1').checked!=1)
+		{window.alert("请确认同意免责声明！");
+		return false;
+			}
+    document.getElementById("nclogin").submit();
+		/*var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}*/
+		
+    return true;
+	}
+	function init()
+	{
+ if('[#statusCode#]' == '2')
+		{
+			/*document.getElementById('err5').innerHTML = '账号与SSID不匹配！';*/
+			alert("账号与SSID不匹配");
+		}	
+		if('[#statusCode#]' == '3')
+		{
+			/*document.getElementById('err5').innerHTML = '用户账号已过期！';*/
+			alert("用户账号已过期");
+		}	
+		if('[#statusCode#]' == '4')
+		{
+			/*document.getElementById('err5').innerHTML = '此用户在黑名单中！';*/
+			alert("此用户在黑名单中");
+		}	
+		if('[#statusCode#]' == '5')
+		{
+			/*document.getElementById('err5').innerHTML = '请输入正确的密码！';*/
+			alert("请输入正确的密码");
+		}	
+		if('[#statusCode#]' == '6')
+		{
+			/*document.getElementById('err5').innerHTML = '用户不存在！';*/
+			alert("用户不存在");
+		}	
+
+}
+	function mr(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").style.color="#aaa";
+		}
+		if(document.getElementById("password").value="密码"){
+			 document.getElementById("password").style.color="#aaa";
+		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+  function changlogin(flag){
+        self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+  </script>
+</head>
+<body onload="init();">
+
+<div class="logtop">
+  <h1><a href="#" title="上海农商银行" target="_blank"><img src="/images/nongshang_bank/logo.gif" width="273" height="34" alt="上海农商银行"/></a></h1>
+</div>
+<div class="login_mainwrap">
+  <div class="login_wrap_lef">
+    <p><img src="/images/nongshang_bank/main_view.jpg" width="506" height="346" alt="上海农商银行"/></p>
+    <div class="log_nav"> <a href="http://www.srcb.com" title="" target="_blank">官方网站</a> <a href="http://www.srcb.com/html/zt/phonebank/index.html" title="" target="_blank">手机银行</a> <a href="http://www.srcb.com/privikactive/index.shtml" title="" target="_blank">优惠活动</a> <a href="http://www.srcb.com/noticeNew/index.shtml" title="" target="_blank">服务公告</a> </div>
+  </div>
+  <div class="login_wrap_right">
+    <h2>用户登录</h2>
+    <!--<form action="" method="get" class="forlist">-->
+     <form id="nclogin" name="nclogin" id="nclogin" method="post" class="forlist" action="[#posturl#]">
+    <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+    [#postarg#]
+      <p><i class="lit_01"></i>
+        <input name="username" id="username" style="color:#999;" type="text" value="手机号" class="formbt" onblur="if(this.value==''){this.value='手机号',this.style.color='#999'}"  onfocus="this.value='';this.style.color='#000';"/>
+      </p>
+      <div class="passwd">
+        <p><i class="lit_02"></i>
+          <input name="password" id="password" style="color:#999;" value="验证码" class="formbt"  type="text" onblur="if(this.value==''){this.type='text',this.value='验证码',this.style.color='#999'}"  onfocus="this.value='';this.style.color='#000';this.type='password';" />
+        </p>
+        <input name="" class="hq_btn" onmouseout="this.className='hq_btn'" onmouseover="this.className='hq_btn_m'" type="button" value="点击获取" id="gpss" onClick="getpasswd();"/>
+      </div>
+      <div class="select_wd"><span>
+        <input name="radio1" type="radio" class="iradi" checked="checked" value="" id="radio1" />
+        <i>同意</i></span><span>
+        <input name="radio1" type="radio" class="iradi" value="" />
+        <i>不同意</i></span> <span><a href="#" title="">免责条款</a></span></div>
+      <input name="" type="button" value="登录" class="subt_btn" onmouseout="this.className='subt_btn'" onmouseover="this.className='subt_btn_m'" onClick="return spylogin();"/>
+    <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+    </form>
+    <div class="syzn_main">
+      <h3>使用指南</h3>
+      <ul>
+        <li><i>·</i>在
+          <手机号>
+          一栏内输入您的手机号码</li>
+        <li><i>·</i>点击
+          <点击获取>
+          按钮，稍等片刻之后，随机密码将发送到您的手机</li>
+        <li><i>·</i>在
+          <验证码>
+          一栏内输入您刚刚所获得的随机密码</li>
+        <li><i>·</i>点击
+          <登录>
+          按钮，进行登录</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="fot_main">
+  <p>2005-2013 上海农商银行. 版权所有. 保留所有权利 沪ICP备06030408号</p>
+</div>
+ 
+</body>
+</html>

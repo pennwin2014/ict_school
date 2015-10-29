@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <title>上网注册认证</title>
+   <style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	background:#f6f6f6;
+}
+.main_con {
+	width:86%;
+	margin:0 auto;
+	border:4px solid #c4e8ff;
+}
+.con_con {
+	width:80%;
+	margin:0 auto;
+}
+.tit {
+	text-align:center;
+	font-size:22px;
+}
+.username {
+	width:100%;
+	text-align:center;
+	color:#aaa;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	height:30px;
+	line-height:30px;
+	text-indent:10px;
+	border:1px solid #119af6;
+	font-size:1em;
+}
+.password{
+		width:50%;
+		float:left;
+	text-align:center;
+	color:#aaa;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	height:30px;
+	line-height:30px;
+	text-indent:10px;
+	border:1px solid #119af6;
+	font-size:1em;
+	}
+.btn_hq{
+background:-webkit-gradient(linear,left top,left bottom, color-stop(0,#119af6),color-stop(1,#119af6));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr="#119af6",EndColorStr="#119af6");/*IE浏览器渐变*/
+background:-moz-linear-gradient(center top,#119af6 10%,#119af6 100%);/*火狐内核渐变*/
+border:none;
+cursor:pointer;
+width:40%;
+float:right;
+height:30px;
+border-radius:5px;/* css 3标准 */
+-moz-border-radius:5px;/* mozilla */
+-webkit-border-radius:5px;/*webkit*/
+color:#fff;
+
+}
+.top img {
+	width:100%;
+}
+.foot img {
+	width:100%;
+}
+.lang_en {
+	background:url(/images/laowang/re_login_shouji_02.png) no-repeat;
+	float:right;
+	height:34px;
+	width:80px;
+	text-align:center;
+	line-height:48px;
+	font-size:13px;
+}
+.lang_zh {
+	background:url(/images/laowang/re_login_shouji_01.png) no-repeat;
+	float:right;
+	height:34px;
+	width:80px;
+	text-align:center;
+	line-height:48px;
+	font-size:13px;
+}
+.btn_relo{
+background:-webkit-gradient(linear,left top,left bottom, color-stop(0,#119af6),color-stop(1,#119af6));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr="#119af6",EndColorStr="#119af6");/*IE浏览器渐变*/
+background:-moz-linear-gradient(center top,#119af6 10%,#119af6 100%);/*火狐内核渐变*/
+border:none;
+cursor:pointer;
+width:100%;
+height:34px;
+border-radius:5px;/* css 3标准 */
+-moz-border-radius:5px;/* mozilla */
+-webkit-border-radius:5px;/*webkit*/
+color:#fff;
+font-size:20px;
+font-weight:bold;
+}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+}
+</style>
+<script type="text/javascript">
+	function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp;
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";
+	}
+var p_flag = '1';
+	
+	function restore(){
+		document.getElementById("gpss").disabled = "";
+		p_flag='1';	
+	}
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+var i = 59;
+function fun() {
+       	 if (i == 0) {
+			 document.getElementById("gpss").value="获取密码";
+             clearInterval(intervalid);
+			 i=59;
+         }
+		 else{
+         document.getElementById("gpss").value = i;
+		
+         i--;
+		 }
+}
+function getpasswd(){
+		if(p_flag=='0') return false;	
+		if(document.getElementById("nclogin").username.value==''||document.getElementById("nclogin").username.value=='手机号'){
+		    alert('请输入手机号');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&tsid@[#tsid#]&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&tsid@"+document.getElementById("tsid").value;
+
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		 document.getElementById("gpss").value= "已发送";
+	   intervalid= setInterval("fun()", 1000);//写在document.getElementById("gpss").disabled="true";的后面
+
+		p_flag='0';
+        setTimeout('restore()',60000);
+		return false;
+	}
+	
+	var mz;
+	function xianshi(){
+	mz=1;
+	document.getElementById("password").style.width="100%";
+	document.getElementById("bo").style.display="block";
+	document.getElementById("ok1").style.display="none";
+	document.getElementById("ok2").style.display="block";
+	
+	}
+	
+	function spylogin()
+	{
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="手机号"||document.getElementById("password").value==""||document.getElementById("password").value=="密码") 
+		{
+		    window.alert("手机号或密码不能为空!");
+			  return false;
+		}
+		if(document.getElementById("radio1").checked!=1)
+		{
+			window.alert("请确认接受免责声明！");			
+			return false;
+		}
+    //document.getElementById("nclogin").submit();
+		/*var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}*/
+		
+    return true;
+	}
+	function mr(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").style.color="#aaa";
+		}
+		if(document.getElementById("password").value="密码"){
+			 document.getElementById("password").style.color="#aaa";
+		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+  	function init()
+	{
+		//alert('[#statusCode#]');
+		if('[#statusCode#]' == '2')
+		{
+			document.getElementById('err5').innerHTML = '账号与SSID不匹配。';
+		}	
+		if('[#statusCode#]' == '3')
+		{
+			document.getElementById('err5').innerHTML = '用户账号已过期。';
+		}	
+		if('[#statusCode#]' == '4')
+		{
+			document.getElementById('err5').innerHTML = '您登录的账号在黑名单中。';
+		}	
+		if('[#statusCode#]' == '5')
+		{
+			document.getElementById('err5').innerHTML = '请输入正确的密码。';
+		}	
+		if('[#statusCode#]' == '6')
+		{
+			document.getElementById('err5').innerHTML = '该用户不存在。';
+		}	
+    if('[#statusCode#]' == '7')
+		{
+			document.getElementById('err5').innerHTML = '超出Mac最大绑定数量。';
+		}	
+}
+
+function changlogin(flag){
+        self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+
+</script>
+   </head>
+
+   <body onload="init();">
+ 
+     <div class="wrap">
+		<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+			<input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+				[#postarg#]
+       <div class="top"> <img src="/images/laowang/sj_top1.jpg" /> </div>
+       <div style="height:20px; clear:both;"></div>
+       <div class="main">
+       <div class="main_con" style="height:34px; border:none;">
+           <p class="lang_en" onclick="changlogin('eng')">ENGLISH</p>
+           <p class="lang_zh" onclick="changlogin('zh')">中文</p>
+         </div>
+         <div class="main_con">
+           <div class="con_con">
+             <div style="height:20px; clear:both;"></div>
+             <p class="tit">上网认证注册</p>
+              <div style="height:20px; clear:both;"></div>
+             
+             <div style="height:20px; clear:both;"></div>
+             <div>
+               <input type="text" id="username" class="username" name="username" value="输入手机号" onclick="if(document.getElementById('username').value=='输入手机号'){document.getElementById('username').value='';this.style.color='#000';}" />
+             </div>
+             <div style="height:10px;"></div>
+              <div>
+               <input type="text" id="password" class="password" name="password" value="密码" onclick="if(document.getElementById('password').value=='密码'){document.getElementById('password').value='';this.style.color='#000';this.type='password';}" /> <input type="button" value="获取密码" id="gpss" class="btn_hq" onClick="getpasswd();"/>
+             </div>
+             <div style="height:10px;"></div>
+             <div style="text-align:center;" id="msgs"></div>
+             <div style="text-align:center;" id="checkPass"></div>
+             <div style="height:10px; clear:both;"></div>
+             
+             <div style="height:10px; clear:both;"></div>
+             <div>
+             <input type="submit" class="btn_relo" onClick="return spylogin();" value="登录" />
+             </div>
+              <div style="height:10px; clear:both;"></div>
+            <!-- <p style=" text-indent:2em; color:#666;">请用手机编辑短信内容<a style="color:#119af6;">116116116</a>，发送到<a style="color:#119af6;">12114</a>进行短信验证。如果你已经获取过密码，请输入密码后点击登录进行验证。</p>-->
+             <div style="height:30px; clear:both;"></div>
+           </div>
+         </div>
+       </div>
+       <div class="foot"><img src="/images/laowang/sj_foot.jpg" /></div>
+	    <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+  </form>
+     </div>
+   
+</body>
+</html>

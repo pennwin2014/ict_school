@@ -1,0 +1,249 @@
+/*黑名单设置*/
+var tempr = '';
+var pidd = store_rules_white.pid;
+var ptyped = store_rules_white.ptype;
+
+Ext.define('rules.white',{
+    extend: 'Ext.form.Panel',
+	  autoScroll: false,
+    frame: false,
+    
+    initComponent : function(){
+		if(store_rules_white.alreadyload !=1){
+		    store_rules_white.pid = pidd;
+		    store_rules_white.ptype = ptyped;
+		    store_rules_white.wtype = '';
+		    store_rules_white.nametype = '';
+		    store_rules_white.allname = '';
+		    store_rules_white.keyword = '';
+		    store_rules_white.caExport = ''; //导出
+		
+				store_rules_white.new_params={pid:store_rules_white.pid,ptype:store_rules_white.ptype,wtype:store_rules_white.wtype,nametype:store_rules_white.nametype,allname:store_rules_white.allname,keyword:store_rules_white.keyword,caExport:store_rules_white.caExport};
+   
+		}
+		
+		function reflash(){
+				store_rules_white.new_params={pid:store_rules_white.pid,ptype:store_rules_white.ptype,wtype:store_rules_white.wtype,nametype:store_rules_white.nametype,allname:store_rules_white.allname,keyword:store_rules_white.keyword,caExport:store_rules_white.caExport};
+				//store_rules_white.currentPage=1;
+				store_rules_white.load({
+						callback:function(){
+							  var user = store_rules_white.first();
+							  Ext.getCmp('white_pid').setValue(user.get('pid'));
+							  Ext.getCmp('white_ptype').setValue(user.get('ptype'));
+							  Ext.getCmp('white_wtype').setValue(user.get('wtype'));
+							  Ext.getCmp('white_nametype').setValue(user.get('nametype'));
+							  var reg = new RegExp(",", "g");
+								tempr = user.get('allname').replace(reg, "\n");
+								Ext.getCmp('white_allname').setValue(tempr);	
+						}
+				});
+		}
+		
+		var ptypeStore = Ext.create('Ext.data.Store', {
+        fields:['groupname', 'groupid'],
+        data:[
+        		{groupname:'全局', groupid:'0'},
+        		{groupname:'Group', groupid:'1'},
+        		{groupname:'SSID', groupid:'2'}
+        ]
+		});
+		
+		var wtypeStore = Ext.create('Ext.data.Store', {
+        fields:['groupname', 'groupid'],
+        data:[
+        		{groupname:'黑名单', groupid:'0'},
+        		{groupname:'白名单', groupid:'1'}
+        ]
+		});
+		
+		var nametypeStore = Ext.create('Ext.data.Store', {
+        fields:['groupname', 'groupid'],
+        data:[
+        		{groupname:'IP', groupid:'1'},
+        		{groupname:'URL', groupid:'2'},
+        		{groupname:'MAC', groupid:'3'}
+        ]
+		});
+
+    Ext.apply(this,{
+        bodyStyle:'padding:20 20 20 20',//表单边距  
+				frame:true,
+				fieldDefaults:{
+					  labelSeparator :':',  //分隔符
+					  labelWidth : 80,//标签宽度  
+            width : 400,//字段宽度 
+						labelAlign:'left',  //标签对齐方式
+						msgTarget:'side'	// 在字段的右边显示一个提示信息
+				},
+				items:[{
+						xtype:'container',
+						anchor:'100%',
+						layout:'column',
+						items:[{
+								xtype:'container',
+								columnWidth:.5,
+								layout:'anchor',
+								items:[{
+										xtype:'textfield',
+										fieldLabel:'ID',  // 和ptype关联的ID,如:Groupid, 
+										id:'white_pid',
+										name:'white_pid',
+										value:pidd,
+										hidden:true
+								},{
+										xtype:'combo',
+										id:'white_wtype',
+										name:'white_wtype',
+										fieldLabel:'黑白名单',
+										emptyText:'请选择黑白名单',
+										triggerAction:'all',
+										store:wtypeStore,
+										displayField:'groupname',
+										valueField:'groupid',
+										queryMode:'local',
+										forceSelection:false,
+										typeAhead:true,
+										hidden:false,
+										allowBlank:true, //是否允许为空
+			     					blankText:'黑白名单不能为空！',	
+			     					msgTarget:'qtip', //显示一个浮动的提示信息 
+			     					afterLabelTextTpl: required,
+										listeners: {
+							          'change':function(){
+							          	  store_rules_white.pid=Ext.getCmp('white_pid').value;
+							          	  store_rules_white.ptype=Ext.getCmp('white_ptype').value;
+							              store_rules_white.wtype=this.value;
+														reflash();
+						            }
+						        },
+										listConfig:{
+						      			loadingText: 'Searching...',
+						      			emptyText: 'No matching found.'
+						        }
+								}]	
+						},{
+								xtype:'container',
+								columnWidth:.5,
+								layout:'anchor',
+								items:[{
+										xtype:'combo',
+										id:'white_ptype',
+										name:'white_ptype',
+										fieldLabel:'类别',
+										emptyText:'请选择类别',
+										triggerAction:'all',
+										store:ptypeStore,
+										displayField:'groupname',
+										valueField:'groupid',
+										queryMode:'local',
+										forceSelection:false,
+										typeAhead:true,
+										allowBlank:true,
+										value:ptyped,
+										hidden:true
+								},{
+										xtype:'combo',
+										id:'white_nametype',
+										name:'white_nametype',
+										fieldLabel:'名单类别',
+										emptyText:'请选择名单类别',
+										triggerAction:'all',
+										store:nametypeStore,
+										displayField:'groupname',
+										valueField:'groupid',
+										queryMode:'local',
+										forceSelection:false,
+										typeAhead:true,
+										hidden:false,
+										allowBlank:false, //是否允许为空
+								    blankText:'名单类别不能为空！',	
+								    msgTarget:'qtip', //显示一个浮动的提示信息 
+								    afterLabelTextTpl: required,
+										listeners: {
+							          'change':function(){
+							          	  store_rules_white.pid=Ext.getCmp('white_pid').value;
+							          	  store_rules_white.ptype=Ext.getCmp('white_ptype').value;
+							              store_rules_white.nametype=this.value;
+							              if(this.value == 1){
+							              		Ext.getCmp('white_display').setValue("以下文本框一行一条数据，不得多于500行！例如：192.168.20.201:8080");	
+							              }else if(this.value == 2){
+							              		Ext.getCmp('white_display').setValue("以下文本框一行一条数据，不得多于500行！例如：short.weixin.qq.com:80");		
+							              }else if(this.value == 3){
+							              		Ext.getCmp('white_display').setValue("以下文本框一行一条数据，不得多于500行！例如：00:19:21:C4:BA:DB");	
+							              }else{
+							              		Ext.getCmp('white_display').setValue("以下文本框一行一条数据，不得多于500行！");	
+							              }
+														reflash();
+						            }
+						        },
+										listConfig:{
+						      			loadingText: 'Searching...',
+						      			emptyText: 'No matching found.'
+						        }
+								}]	
+						}]	
+				},{
+						xtype:'displayfield',
+						id:'white_display',
+						name:'white_display',
+						width:800,
+						fieldLabel:'注意',
+						value:'以下文本框一行一条数据，不得多于500行！'	
+				},{
+						xtype:'textarea',
+						fieldLabel:'名称',
+						id:'white_allname', 	//字段组件id
+						name:'white_allname',
+						height:document.body.clientHeight-263,
+						width:document.body.clientWidth-235,
+						grow:true,
+						preventScrollbar:true   //设置多行文本框没有滚动条显示
+				}],
+				buttonAlign:'center',
+				buttons:[{
+						text:'保存',
+						//style:'margin-right:550;',
+					  handler:function(){
+					  		if(Ext.getCmp('white_wtype').value == ''){
+					  				alert("黑白名单不能为空！");
+					  		}else if(Ext.getCmp('white_nametype').value == ''){
+					  				alert("名单类别不能为空！");	
+					  		}else{
+							  		var pid1 = Ext.getCmp('white_pid').value;
+							  		var ptype1 = Ext.getCmp('white_ptype').value;
+							  		var wtype1 = Ext.getCmp('white_wtype').value;
+							  		var nametype1 = Ext.getCmp('white_nametype').value;
+							  		var allname1 = Ext.getCmp('white_allname').value;
+							  		if(nametype1 == 3){
+							  				allname1 = allname1.toLocaleUpperCase();	
+							  		}
+							  		var arrname = allname1.split("\n");
+							  		if(arrname.length > 500){
+							  				alert("输入数据不能超过500行！");	
+							  		}else{
+									  		store_rules_white.load({
+									  				params: {update: "update",pid:pid1,ptype:ptype1,wtype:wtype1,nametype:nametype1,allname:allname1,tmp:tempr},
+									  				
+									  				callback:function(){
+									  					  alert('数据保存成功！');
+						    	  					  var user = store_rules_white.first();
+						    	  					  Ext.getCmp('white_pid').setValue(user.get('pid'));
+						    	  					  Ext.getCmp('white_ptype').setValue(user.get('ptype'));
+						    	  					  Ext.getCmp('white_wtype').setValue(user.get('wtype'));
+						    	  					  Ext.getCmp('white_nametype').setValue(user.get('nametype'));
+						    	  					  var reg = new RegExp(",", "g");
+						    	  						var tempt = '';
+						    	  						tempt = user.get('allname').replace(reg, "\n");
+						    	  						Ext.getCmp('white_allname').setValue(tempt);	
+						    	  				}	
+									  		});
+							  	  }
+					  	  }
+					  }	
+				}]
+    });
+    reflash();
+		store_rules_white.alreadyload = 1;
+    this.callParent(arguments);
+    }
+})

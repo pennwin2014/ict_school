@@ -1,0 +1,373 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>模板管理</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+    <script type="text/javascript" src="/newver/resources/js/ext-all_n.js"></script>
+    
+  <script>  
+    
+Ext.require([
+    'Ext.form.*',
+    'Ext.layout.container.Column',
+    'Ext.window.MessageBox',
+    'Ext.fx.target.Element',
+    'Ext.data.*'
+]);
+
+
+Ext.onReady(function(){
+
+    Ext.define('State', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'string', name: 'groupid'},
+            {type: 'string', name: 'groupname'}
+        ]
+    });
+    // The data for all states
+    var states = [
+    [#SLPB#]
+        {"groupid":"[#groupid#]","groupname":"[#groupname#]"},
+    [#SLPE#]
+        {"groupid":"0","groupname":"未知"}
+        
+    ];
+    var store = Ext.create('Ext.data.Store', {
+        model: 'State',
+        data: states
+    });
+
+    Ext.define('State', {
+        extend: 'Ext.data.Model',
+        fields: [
+            {type: 'string', name: 'groupid'},
+            {type: 'string', name: 'groupname'}
+        ]
+    });
+    // The data for all states
+//    var datan = [
+//        {"groupid":"1","groupname":"PC"},
+//        {"groupid":"2","groupname":"平板"},
+//        {"groupid":"3","groupname":"手机"}
+//    ];
+//    var store_datan = Ext.create('Ext.data.Store', {
+//        model: 'State',
+//        data: datan
+//    });
+    
+    var store_datan = Ext.create('Ext.data.Store', {
+        model: 'State',
+        remoteSort: true,
+         proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@ncmWebModuleManSelect&flag@2',
+            reader: {
+                type:'json',
+                root: 'corpclassdata'              
+            },         
+            simpleSortMode: true
+        }
+    });
+    store_datan.load(); 
+    
+    
+    var datanCombo = Ext.create('Ext.form.field.ComboBox', {
+        fieldLabel: '适用终端类型',
+        labelWidth: 80,
+        width: 160,
+        valueField:'groupid',
+        displayField: 'groupname',
+        name : 'temtype',      
+        value:'[#temtype#]',
+        allowBlank: true,
+        forceSelection: true,
+        store: store_datan,
+        queryMode: 'local',
+        typeAhead: true
+    });
+    
+//    var flown = [
+//        {"groupid":"1","groupname":"中文"},
+//        {"groupid":"2","groupname":"英文"}
+//    ];
+//    var store_flown = Ext.create('Ext.data.Store', {
+//        model: 'State',
+//        data: flown
+//    });
+    var store_flown = Ext.create('Ext.data.Store', {
+        model: 'State',
+        remoteSort: true,
+         proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@ncmWebModuleManSelect&flag@1',
+            reader: {
+                type:'json',
+                root: 'corpclassdata'              
+            },         
+            simpleSortMode: true
+        }
+    });
+    store_flown.load(); 
+    var flownCombo = Ext.create('Ext.form.field.ComboBox', {
+        fieldLabel: '语言',
+        labelWidth: 80,
+        width: 160,
+        valueField:'groupid',
+        displayField: 'groupname',
+        name : 'lanflags',      
+        value:'[#lanflags#]',
+        allowBlank: true,
+        forceSelection: true,
+        store: store_flown,
+        queryMode: 'local',
+        typeAhead: true
+    });
+    
+    var SeriousInfoGroup = {
+        xtype: 'fieldset',
+        width: 450,
+        title: '模板属性设置',
+        style:{
+	        marginRight: 'auto',
+	        marginLeft: 'auto'
+				},  
+//        layout: 'hbox',
+
+       layout: 'anchor',
+        defaults: {
+            anchor: '100%',
+            height:28,
+            labelStyle: 'padding-left:4px;'
+        },
+        collapsible: false,
+        items: [     
+            {
+            labelWidth: 160,
+            layout: 'hbox',
+            xtype: 'container',
+            items:[
+            	datanCombo      
+            ]
+        },
+        {
+            labelWidth: 140,
+            layout: 'hbox',
+            xtype: 'container',
+            items:[
+            	flownCombo
+            ]
+        }
+        
+        ]
+    };
+    
+    //~~~~~~~~~~~~~
+    if (window.location.href.indexOf('debug') !== -1) {
+			        Ext.getBody().addCls('x-debug');
+			    }
+			
+			    var msg = function(title, msg) {
+			        Ext.Msg.show({
+			            title: title,
+			            msg: msg,
+			            minWidth: 200,
+			            modal: true,
+			            icon: Ext.Msg.INFO,
+			            buttons: Ext.Msg.OK
+			        });
+			    };
+			
+			    var fibasic = Ext.create('Ext.form.field.File', {
+//			        renderTo: 'fi-basic',
+			        width: 450,
+			        style:{
+				        marginRight: 'auto',
+				        marginLeft: 'auto'
+							},  
+			        hideLabel: true
+			    });
+    
+    var moduletype = [
+        {"groupid":"1","groupname":"认证页面模板"},
+        {"groupid":"2","groupname":"认证通过页面模板"},
+        {"groupid":"3","groupname":"认证退出页面模板"}
+//        {"groupid":"3","groupname":"认证退出成功页面模板"},
+//        {"groupid":"4","groupname":"认证退出失败页面模板"}
+    ];
+    var store_mtype = Ext.create('Ext.data.Store', {
+        model: 'State',
+        data: moduletype
+    });
+    
+    var mtypeCombo = Ext.create('Ext.form.field.ComboBox', {
+        fieldLabel: '模板类型',
+        labelWidth: 80,
+        width: 260,
+        valueField:'groupid',
+        displayField: 'groupname',
+        name : 'mtype',      
+        value:'[#mtype#]',
+        allowBlank: true,
+        forceSelection: true,
+        store: store_mtype,
+        queryMode: 'local',
+        typeAhead: true
+    });
+   
+    var ComInfoGroup = {
+        xtype: 'fieldset',
+        width: 450,
+        title: '模板名称',
+        
+        style:{
+	        marginRight: 'auto',
+	        marginLeft: 'auto'
+				},  
+       layout: 'anchor',
+        defaults: {
+            anchor: '100%',
+            height:28,
+            labelStyle: 'padding-left:4px;'
+        },
+        collapsible: false,
+        items: [           
+        {
+	            labelWidth: 120,
+	            
+	            layout: 'hbox',
+	            xtype: 'container',
+	            items:[{
+		            xtype: 'textfield',
+		            width: 260,
+		            name: 'mname',
+		            value: '[#mname#]',
+		            allowBlank: false,
+		            fieldLabel: '模板名称'
+            	}
+            	
+            	]
+        }
+        ,
+        {
+	            labelWidth: 120,
+	            
+	            layout: 'hbox',
+	            xtype: 'container',
+	            items:[{
+		            xtype: 'textfield',
+		            width: 260,
+		            name: 'pagemesg',
+		            value: '[#pagemesg#]',
+		            allowBlank: true,
+		            fieldLabel: '描述'
+            	}
+            	
+            	]
+        }
+//        ,
+//        {
+//	            labelWidth: 120,
+//	            layout: 'hbox',
+//	            xtype: 'container',
+//	            items:[
+//		            mtypeCombo
+//            	
+//            	]
+//        }
+//        , {
+//                xtype: 'hidden',
+//                name: 'FunName',
+//                value:'ncmModuleCreate'
+//           }
+        ]
+    };
+     
+    
+    
+    var fp = Ext.create('Ext.FormPanel', {         
+        frame: true,
+//        method:'POST',
+//        name:'form',
+        fieldDefaults: {
+            labelWidth: 80
+        },
+        style:{
+	        marginLeft: 30
+				},  
+        width: 947,
+        height:300,
+        renderTo:'corp_edit',
+        
+//        style : 'text-align:center',              //SeriousInfoGroup 文字居中
+        
+        bodyPadding: 4,
+        items: [
+        		 ComInfoGroup,
+             SeriousInfoGroup    ,
+             fibasic       
+        ],
+        buttons: [{
+            text: '保存',
+            handler: function(){
+            	
+
+//	            document.getElementById("form1").action = "/pronline/Msg?FunName@ncmModuleDrNext?r="+Math.random();
+//  						document.getElementById("form1").method = "POST";
+			        document.getElementById("form1").submit();
+	         }
+        },{
+            text: '重置',
+            style : 'margin-right:370px',
+            handler: function(){
+                fp.getForm().reset();
+            }
+        }
+        ]
+    });
+   
+});
+
+
+
+
+</script>
+    
+      <style type="text/css">
+        .upload-icon {
+            background: url('/js/wlan_upload/mage_add.png') no-repeat 0 0 !important;
+        }
+        #fi-button-msg {
+            border: 2px solid #ccc;
+            padding: 5px 10px;
+            background: #eee;
+            margin: 5px;
+            float: left;
+        }
+        .x-debug .x-form-file-wrap .x-form-file-input {
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0.6);
+            opacity: 0.6;
+            background-color: gray;
+        }
+        body
+				{/*
+				  background-image: url("abc.gif");*/
+				  background-color:#dfe9f5;
+				} 
+    </style>
+</head>
+<body >
+  <form action="/pronline/upload" method="post" enctype="multipart/form-data" name="form1" id="form1" style="background-color:#dfe9f5;">
+			<input type="hidden" name="FunName" value="ncmModuleCreate">
+			<input type="hidden" name="groupid" value="[#groupid#]">
+		 	<input type="hidden" name="UploadPath" value="/home/ncmysql/ncsrv/upload">
+		 	
+    <div id="fi-basic"></div>
+    <table height="20px;" ></table>
+    <div id="fi-basic-btn"></div>	
+    <div id="corp_edit"></div>
+    
+  </form>
+</body>
+</html>

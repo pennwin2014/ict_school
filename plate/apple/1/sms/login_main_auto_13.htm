@@ -1,0 +1,306 @@
+<html>
+<head>
+<title>Auth</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+*{
+	margin:0;
+	padding:0;
+	font-size:16px;
+}
+#main{
+	width:480px;
+	height:518px;
+	margin:0 auto;
+}
+/*img{
+	float:left;
+}*/
+#header{
+	width:480px;
+	height:62px;
+	background-image:url(../../images/applesms/sms4_01.jpg);
+	position:relative;
+}
+.header_ul li{
+			 list-style:none;
+			 float:left;
+			 display:block;
+			 height:31px;
+			 line-height:31px;
+			 font-family:'黑体' '宋体';
+			 font-size:16px;	
+   }
+   .china{
+	   width:53px;
+	   position:absolute;
+	   top:31px;
+	   left:330px;
+   }
+   .eng{
+	   width:80px;
+	   position:absolute;
+	   top:31px;
+	   left:383px;
+	   color:#06F;
+   }
+   #login_area{
+	   width:480px;
+	   height:518px;
+	   background-image:url(../../images/applesms/sms4_03.jpg);
+	   position:relative;
+   }
+   input{
+	   border:0;
+   }
+   #explain{
+	   position:absolute;
+	   top:165px;
+	   left:85px;
+	   text-decoration:none;
+	   color:red;
+   }
+   #username{
+	   position:absolute;
+	   top:125px;
+	   left:85px;
+	   
+   }
+   .input_div{
+	    height:32px;
+		width:160px; 
+		border: 1px solid #B4B4B4;
+		line-height:32px;
+		background-color:#FFF;
+		border:0;
+   }
+  
+   .getpasswd{ 
+         height: 32px; 
+		 line-height:32px;
+		 width: 180px;
+		 background-image:url(../../images/applepc/but02.gif);
+		 border:0;
+		 cursor:pointer;
+		 position:absolute;
+	     top:125px;
+	     left:270px;
+	 }
+	 .disclaime{  
+		background-image:url(../../images/applepc/contract.gif);
+        height: 32px; 
+		width: 221px;
+		position:absolute;
+		top:350px;
+		left:235px;
+		border:0;
+		cursor:pointer;
+	 }
+	 .chaccept{
+		background-image:url(../../images/applepc/accept.gif);
+	    width:373px;
+		height:32px;
+		border:0;
+		position:absolute;
+		top:390px;
+		left:85px;
+		cursor:pointer;
+	}
+	.chaccept2{
+		background-image:url(../../images/applepc/accept2.gif);
+	    width:373px;
+		height:32px;
+		border:0;
+		position:absolute;
+		top:390px;
+		left:85px;
+	}
+	#password{
+	   position:absolute;
+	   top:440px;
+	   left:85px;	
+	}
+	
+	.but_login{
+	  background-image:url(../../images/appceti/login.png);
+      height: 22px;
+	  width: 180px; 
+	  position:absolute;
+	  top:440px;
+	  left:270px;
+	  cursor:pointer;
+	  border:0;
+	}
+	
+</style>
+<script language="javascript" src="/js/cetisfy/JSCode_IMG.js"></script>
+<script language="javascript" type="text/javascript">
+	 var agree;
+	function agree(){
+		agree = 1;
+		document.getElementById('chaccept').className = 'chaccept2';	
+	}
+			
+		
+	
+	function spylogin(){
+		if(agree==1){
+			document.getElementById("nclogin").submit();
+		}
+		else if(agree!==1){
+			alert('请选择同意免责声明');
+			return;
+		}
+	}
+	function ss(e){
+		var key = window.event ? e.keyCode:e.which;
+
+		if(key==13)
+		spylogin();
+	}
+		var p_flag='1';
+		function restore(){
+	  document.getElementById("gpss").disabled="";
+	  document.getElementById("imgm").style.display="none";
+    p_flag='1';
+    document.getElementById("imgm").src='../../images/sjimage/smspad.gif';
+	}
+
+function chk(tel)
+{
+
+if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel)))
+        {
+           return 0;
+         }
+else
+        {
+          return 1;
+         }
+}
+
+	function getpasswd(){		
+	   if(p_flag=='0') return false;
+	   
+	  document.getElementById("msgs").innerHTML="";
+
+		  if(document.getElementById("nclogin").username.value==''){
+		    alert('请输入手机号');
+		    return false;
+		  }
+		  
+		    var telno=document.getElementById("nclogin").username.value;
+		    if(telno.length!=11){
+		    alert('手机号格式不对');
+		    return false;
+		    } 
+		  if(chk(telno)!='0'){
+		    alert('请输入正确的手机号!');
+		  	return false;
+		  }
+		  
+		
+		  
+		  temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value;
+		  
+		  document.getElementById("ifhide").src=temp_html;
+
+	document.getElementById("imgm").src='../../images/authimage/donghua.gif';
+  document.getElementById("gpss").disabled="true";
+  document.getElementById("imgm").style.display="";
+ p_flag='0';
+
+setTimeout('restore()',50000);
+		  return false;
+		
+		
+	}
+	 function changlogin(flag){
+          self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+	
+</script>
+
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<center>
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+         [#postarg#]
+   <div id="main">
+    	<div id="header">
+        	<span style="margin-left:-9999px">苹果登录页面</span>
+            <ul class="header_ul">
+             	<li class="china" id="chinese" onClick="changlogin('zh')" >中文</li>
+                <li class="eng" id="english" onClick="changlogin('eng')">English</li>
+             </ul>
+        </div><img src="../../images/applesms/sms4_02.jpg" /><div id="login_area"><img border="0" src="../../../images/sjimage/smspad.jpg" width="102" height="25" id="imgm" style="display:none; z-index:1; position:absolute; top:120px; left:360px" >
+    		 <input type="text"  id="username" name="username" class="input_div" value="[#username#]" />
+           
+            <input type="button" value="" id=gpss class="getpasswd"  onClick="getpasswd()" />
+            <a href="#xxm" id="explain" onclick="changlogin('eng')">非中国大陆手机用户请点击此处》</a>
+          
+            <input type="button"  class="disclaime" >
+            <input name="chaccept" type="button" value="" id="chaccept" class="chaccept" onclick="agree();">
+            
+            <input  type="password" id="password" name="password" class="input_div" value="[#password#]" onKeyPress="ss(event)" />
+          
+            <input type="button" value=""  class="but_login" onClick="return spylogin();"/> 
+          </div><img src="../../images/applesms/sms4_04.jpg" />
+    
+   </div>
+    <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</center>
+
+<!--<table id="__01"  width="480" height="518" border="0" cellpadding="0" cellspacing="0">
+	
+	
+	
+	<tr>
+		<td background="../../images/applesms/sms4_01.jpg" width="480" height="62">
+			
+			
+						<table width="480" height="62">
+				<tr >
+					<td width="330"></td>
+					<td>&nbsp;</td>
+					</tr>
+					<tr>
+					<td ></td>
+					<td><span><input type="button" style="cursor:hand;background-image: url('../../images/applepc/china02.png'); width: 53px; height: 31px; border: 0px;" id=chinese  onclick="changlogin('zh')" ></span><span style="position:relative;top:0px"><input type="button" style="cursor:hand;background-image: url('../../images/applepc/english01.png'); width: 80px; height: 31px; border: 0px;" id=chinese  onclick="changlogin('eng')" ></span></td>
+					</tr>
+					
+			</table>
+			
+			</td>
+	</tr>
+	<tr>
+		<td>
+			<img src="../../images/applesms/sms4_02.jpg" width="480" height="110" alt=""></td>
+	</tr>
+	<tr>
+		<td background="../../images/applesms/sms4_03.jpg">
+			
+			<table width="480" height="518">
+			<tr><td colspan="2" height="140">&nbsp;</td>
+			<tr><td width="90" height="32">&nbsp; </td><td><input type="text" id="username" name="username" value="[#username#]" style="width:160px;height:32px;position:relative;top:5px;" >&nbsp;<input type="button" id=gpss class="but3-1" onClick="getpasswd()">	<img border="0" src="../../images/sjimage/smspad.jpg" width="102" height="25" id="imgm" style="display:none" ></td></tr>
+		  <tr><td colspan="2" height="162">&nbsp;</td>
+		  <tr><td  height="32">&nbsp; </td><td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button"  class="but3-2" ></td></tr>
+			<tr><td  height="40">&nbsp; </td><td ><!--<input name="chaccept" type="checkbox" value="1" style="width:25px;height:30px"><img src="../../images/applepc/accept.gif" width="373" height="32" alt=""></td></tr>
+			<tr><td  height="24">&nbsp; </td><td ><input type="password" id="password" name="password" value="[#password#]" style="width:160px;height:22px;position:relative;top:5px;" onKeyPress="ss(event)">&nbsp;<input type="button" class="but_login" onClick="return spylogin();"> </td></tr>
+			
+			
+			<tr><td colspan="2"  align="center" id="msgs">&nbsp;<font color="red">[#message#]</font></td></tr>
+		</table></td>
+	</tr>
+	<tr>
+		<td>
+			<img src="../../images/applesms/sms4_04.jpg" width="480" height="130" alt=""></td>
+	</tr>
+</table>
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+
+</form>-->
+
+</body>
+</html>

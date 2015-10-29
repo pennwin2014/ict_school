@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>商品</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap {
+	width:100%;
+	margin:0 auto;
+}
+.main{ background:#f4f4f4;}
+.top_menu {
+	border-top:1px solid #dedede;
+	border-bottom:1px solid #dedede;
+}
+.top_menu p {
+	float:left;
+	text-align:center;
+	cursor:pointer;
+}
+.p1 {
+	width:25%;
+	color:#666;
+	height:24px;
+	line-height:24px;
+}
+.p2 {
+	color:#666;
+	width:24%;
+	border-left:1px solid #ccc;
+	height:24px;
+	line-height:24px;
+}
+.px{ width:14%;}
+.pro_le{ width:50%; float:left;  position:relative;}
+.img_b{width:100%;height:100%;}
+.img_1{width:70%; height:90%;position:absolute;left:15%;top:5%;}
+.pro_ma{ width:90%; margin:0 auto;}
+
+.p_jg{ color:#933;  width:94%; margin:0 auto; overflow:hidden;
+	text-overflow:ellipsis;
+    white-space:nowrap;/*禁止换行*/}
+.p_name{ width:94%; margin:0 auto;
+    overflow:hidden;
+	text-overflow:ellipsis;
+    white-space:nowrap;/*禁止换行*/}
+.p_yj{ color:#ccc; width:94%; margin:0 auto; text-decoration:line-through;font-size:0.8em;}
+.p_jg span{color:#CCC;
+	text-decoration:line-through;
+	font-size:12px;
+	margin-left:10%;
+	}
+.p_fy1{ width:20%; float:left; border:1px solid #666; color:#666; cursor:pointer; text-align:center; }
+.p_fy2{ width:24%; float:left; border:1px solid #666; color:#666; cursor:pointer; text-align:center; margin-left:16%; }
+.p_fy3{ width:20%; float:left; border:1px solid #666; color:#666; cursor:pointer; text-align:center; margin-left:16%;}
+.hsfg {
+	height:10px;
+	background:#efefef;
+	border-top:1px solid #dedede;
+	border-bottom:1px solid #dedede;
+	margin-bottom:4px;
+	clear:both;
+}
+@media screen and (max-width:400px){
+	.main{ width:100%;}
+	.p_fy1{ font-size:12px;}
+	.p_fy2{ font-size:12px;}
+	.p_fy3{ font-size:12px;}
+	}
+</style>
+<script type="text/javascript">
+	function addcollections(num){
+	user_online_flag=1;
+	//alert("收藏"+num);
+	//alert(sids[num]+service_codes[num]+imgpaths[num]+descripts[num]);
+		if(user_online_flag == 1)
+		{
+		if (confirm("是否想要收藏此商品？") ) 
+		{ 　　　　
+			document.getElementById("iframe3").contentWindow.document.getElementById("FunName").value="ncm_Addcollections";
+			document.getElementById("iframe3").contentWindow.document.getElementById("level").value= "1";
+			document.getElementById("iframe3").contentWindow.document.getElementById("uid").value= "1";
+			document.getElementById("iframe3").contentWindow.document.getElementById("integral").value="[#integral#]";
+			document.getElementById("iframe3").contentWindow.document.getElementById("aid").value=aids[num];
+			document.getElementById("iframe3").contentWindow.document.getElementById("sid").value=sids[num];
+			document.getElementById("iframe3").contentWindow.document.getElementById("service_code").value=service_codes[num];
+			document.getElementById("iframe3").contentWindow.document.getElementById("decript").value=descripts[num];
+			document.getElementById("iframe3").contentWindow.document.getElementById("imgpath").value=imgpaths[num];
+			document.getElementById("iframe3").contentWindow.document.getElementById("form1").submit();
+		}
+		else { 
+
+		}　
+		
+		}else{
+			parent.parent.document.getElementById("iframe1").src = "/pronline/Msg?FunName@ncSrvPlate&html@"+"/alogin_main.htm&"+rurl;
+		}
+	}
+
+	var aids = new Array();
+	var sids = new Array();
+	var shgroupid = new Array();
+	var service_codes = new Array();
+	var imgpaths = new Array();
+	var descripts = new Array();
+	var names = new Array();
+	var rurl;//我要上网路径
+	var user_online_flag = 0;//用户在线状态
+	function init(){
+
+		[#SLPB#]
+		aids[[#iNum#]] = "[#aid#]";
+		sids[[#iNum#]] = "[#sid#]";
+		shgroupid[[#iNum#]] = "[#shgroupid#]";
+		service_codes[[#iNum#]] = "[#service_codes#]";
+		imgpaths[[#iNum#]] = "[#imgpath#]";
+		descripts[[#iNum#]] = "[#descr#]";
+		
+		parent.document.getElementById("book_name"+[#iNum#]).innerHTML ="《[#name#]》";
+
+		[#SLPE#]
+		user_online_flag = "[#user_online_flag#]";
+		rurl = parent.parent.document.getElementById("rg").value;
+		
+	}
+	var number;
+	function loadshops(number){
+//	alert(shgroupid[number]);
+	parent.document.getElementById("FunName").value = "ncmShops";
+	parent.document.getElementById("shopid").value=shgroupid[number];
+	parent.document.getElementById("form1").submit();
+	
+	}
+	function loadProducts(number){
+	//alert(sids[number]);
+	parent.document.getElementById("FunName").value = "ncmProducts";
+	parent.document.getElementById("sid").value=sids[number];
+	//parent.document.getElementById("form1").submit();
+	window.parent.location.href="/pronline/Msg?FunName@ncmProducts&plateName@newshop&sid@"+sids[number]+"&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+	
+	parent.parent.addURL("/pronline/Msg?FunName@ncmProducts&plateName@newshop&sid@"+sids[number]+"&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+	
+	}
+
+</script>
+</head>
+
+<body onload="init();">
+	<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="name" name="name" value="一层">
+		<input type="hidden" id="level" name="level" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="sid" name="sid" value="">
+		<input type="hidden" id="groupid" name="groupid" value="">
+		<input type="hidden" id="limit1" name="limit1" value="0">
+		<input type="hidden" id="limit2" name="limit2" value="10">
+        <input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+		<input type="hidden" name="plateName" id="plateName" value="newshop"/>	
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+	</form>
+		<form id="form2" name="form2" id="form2" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="ncm_products_collect">
+	</form>
+<div class="wrap">
+
+  <div class="main">
+      <div>
+   [#SLPB#]  
+      <div class="pro_le">
+        <div class="pro_ma" >
+          <div style="height:4px; clear:both;"></div>
+		  <img class="img_b" src="/images/shbook/shubeijing.png"/>
+          <img class="img_1" src="[#imgpath#]"/>
+<!--           <p class="p_name">[#name#]</p>
+          <p class="p_jg">￥[#discount#]</p>
+          <p class="p_yj">￥[#fee#]</p> -->
+        </div>
+      </div>
+	  [#SLPE#] 
+  
+    </div>
+   
+  </div>
+</div>
+</body>
+</html>

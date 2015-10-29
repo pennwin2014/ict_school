@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>商店</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+}
+.logo {
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	border:1px solid #dedede;
+	float:left;
+	width:20%;
+	margin-left:3%;
+	text-align:center;
+	background:#FFF;
+}
+.logo_img {
+	width:94%;
+	margin:0 auto;
+}
+.data {
+	float:left;
+	margin-left:2%;
+	width:73%;
+}
+.data1 {
+	width:90%;
+	margin:0 auto;
+	font-size:14px;
+	color:#666;
+}
+.gybd_p {
+	float:left;
+	height:36px;
+	width:30%;
+	text-align:center;
+	font-size:16px;
+	
+}
+.gybd_p1 {
+	float:left;
+	height:36px;
+	width:20%;
+	text-align:center;
+	border-left:1px solid #CCC;
+	line-height:36px;
+	cursor:pointer;
+}
+.gybd_p2 {
+	float:left;
+	height:36px;
+	width:34%;
+	text-align:center;
+	border-left:1px solid #CCC;
+	line-height:36px;
+	cursor:pointer;
+}
+.hsfg {
+	height:10px;
+	background:#efefef;
+	border-top:1px solid #dedede;
+	border-bottom:1px solid #dedede;
+	margin-bottom:4px;
+	clear:both;
+}
+.fx{   width:400px; border-bottom:1px solid #dedede; background:#F3F3F3; margin-top:5px;}
+.fx_1 .p_tb{ width:14%; text-align:center; float:left; margin-bottom:10px; cursor:pointer; padding-left:10%;}
+.fx_img{ width:35px;border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	margin-bottom:5px;}
+.fx_span{ font-size:12px; color:#666;}
+.p_name{ width:24%; text-align:center; float:left; margin-bottom:10px; cursor:pointer;  font-size:12px; color:#666;}
+.p_fy1{ width:80%; margin:0 auto; border:1px solid #ccc; color:#666; cursor:pointer; text-align:center; height:24px; line-height:24px; display:none;}
+.p_fy2{ width:24%; float:left; border:1px solid #666; color:#666; cursor:pointer; text-align:center; margin-left:16%; }
+.p_fy3{ width:80%; margin:0 auto; border:1px solid #ccc; color:#666; cursor:pointer; text-align:center; height:24px; line-height:24px; display:none;}
+.top_menu {
+	border-top:1px solid #dedede;
+	border-bottom:1px solid #dedede;
+}
+.top_menu p {
+	float:left;
+	text-align:center;
+	cursor:pointer;
+}
+.p1 {
+	width:25%;
+	color:#666;
+	height:24px;
+	line-height:24px;
+}
+.p2 {
+	color:#666;
+	width:24%;
+	border-left:1px solid #ccc;
+	height:24px;
+	line-height:24px;
+}
+.px{ width:14%;}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+.fx{ width:100%;}
+
+}
+#iframe3{
+		margin-top:2px;
+
+		height:0px;
+	}
+</style>
+<script type="text/javascript">
+function dianji(){
+	
+	var fx=document.getElementById("fx");
+	if(fx.style.display=="none"){
+		fx.style.display="block";
+		}
+	else if(fx.style.display=="block"){
+		fx.style.display="none";}
+	checkstate();
+	}
+</script>
+
+<script type="text/javascript">
+
+var limit1=0;
+var limit2=10;
+
+function loadProducts(){
+	//alert(window.location)
+	//alert(window.location.href="180.169.1.204:8000")
+	//alert(window.location.hostname);
+	//alert(window.location.port);
+//	alert(window.location.pathname);
+//var stateObject = {};
+//var title = "Wow Title";
+//var newUrl = "/180.169.1.204:8000";
+//history.pushState(stateObject,title,newUrl);
+
+//alert("[#id#]");
+//alert(limit1+","+limit2);
+var totalProducts = [#totalProducts#];
+	if(totalProducts >= 10){
+	document.getElementById('next').style.display="block";
+	}else{
+	document.getElementById('next').style.display="none";
+	}
+	
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmProducts";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value="[#id#]";
+document.getElementById("iframe1").contentWindow.document.getElementById("limit1").value=limit1;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit2").value=limit2;
+//alert(document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value);
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+//alert("222");
+
+//document.getElementById("iframe2").contentWindow.document.getElementById("FunName").value="ncmShops_Discounts";
+//document.getElementById("iframe2").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+//document.getElementById("iframe2").contentWindow.document.getElementById("level").value= "1";
+//document.getElementById("iframe2").contentWindow.document.getElementById("shopid").value="[#id#]";
+
+//alert(document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value);
+//document.getElementById("iframe2").contentWindow.document.getElementById("form1").submit();
+//alert("1111");
+
+}
+
+function addattentions(){
+//	alert(user_online_flag);
+//user_online_flag = 1;
+	if(user_online_flag == 1){
+		document.getElementById("iframe3").contentWindow.document.getElementById("FunName").value="ncm_Addattentions";
+		document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+		document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+		document.getElementById("iframe3").contentWindow.document.getElementById("level").value= "1";
+		document.getElementById("iframe3").contentWindow.document.getElementById("uid").value= "1";
+		document.getElementById("iframe3").contentWindow.document.getElementById("logoid").value="[#logoid#]";
+		document.getElementById("iframe3").contentWindow.document.getElementById("shopid").value="[#id#]";
+		document.getElementById("iframe3").contentWindow.document.getElementById("service_code").value="[#service_code#]";
+		document.getElementById("iframe3").contentWindow.document.getElementById("imgpath").value="[#imgpath#]";
+		document.getElementById("iframe3").contentWindow.document.getElementById("form1").submit();
+	}
+	else{
+		parent.document.getElementById("iframe1").src = "/pronline/Msg?FunName@ncSrvPlate&html@"+"/alogin_main.htm&"+rurl;
+//		alert(parent.document.getElementById("iframe1").src);
+	}
+}
+function next(){
+
+limit1 +=10;
+document.getElementById('pervious').style.display="block";
+//alert(limit1+","+limit2);
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmProducts";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value="[#id#]";
+document.getElementById("iframe1").contentWindow.document.getElementById("limit1").value=limit1;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit2").value=limit2;
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+window.location.href="#productsinfo";
+
+}
+function pervious(){
+if(limit1<=0){
+alert("第一页");
+	document.getElementById('pervious').style.display="none";
+}
+else{
+limit1 -=10;
+if(limit1 ==0){
+document.getElementById('pervious').style.display="none";
+}
+//alert(limit1+","+limit2);
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmProducts";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value="[#id#]";
+document.getElementById("iframe1").contentWindow.document.getElementById("limit1").value=limit1;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit2").value=limit2;
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+window.location.href="#next";
+}
+
+}
+
+var rurl;
+var user_online_flag;
+function init(){
+	//window.location.href="#start";
+	
+	user_online_flag="[#user_online_flag#]";alert(user_online_flag);
+	rurl = parent.document.getElementById("rg").value;
+
+}
+function checkstate(){
+alert("2 = "+user_online_flag);
+if(user_online_flag == 1){
+
+	}
+	else{
+		alert("请先认证上网再进行分享");
+		parent.document.getElementById("iframe1").src = "/pronline/Msg?FunName@ncSrvPlate&html@"+"/alogin_main.htm&"+rurl;
+//		alert(parent.document.getElementById("iframe1").src);
+	}
+
+}
+
+</script>
+</head>
+
+<body onLoad="loadProducts(); init();" >
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="logoid" name="logoid" value="">	
+		<input type="hidden" id="detail" name="detail" value="">	
+		<input type="hidden" id="shopid" name="shopid" value="">	
+		<input type="hidden" id="sid" name="sid" value="">	
+		<input type="hidden" id="uid" name="uid" value="">	
+		<input type="hidden" name="plateName" id="plateName" value="zhengzhoudianxin"/>	
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+		<input type="hidden" name="httphost" id="httphost" value="[#httphost#]"/>	
+        <input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+	<div id="logo_detail">	
+	
+<div class="wrap" id="start">
+  <div>
+    <div style="height:5px; clear:both;"></div>
+    <div class="logo">
+      <div style="height:3px; clear:both;"></div>
+      <img class="logo_img" src="[#imgpath#]" />
+      <div style="height:3px; clear:both;"></div>
+    </div>
+    <div class="data">
+      <div style="height:3px; clear:both;"></div>
+      <div style="color:#933; font-size:18px;">[#name#]</div>
+       <div style="height:3px; clear:both;"></div>
+      <div class="gybd">
+        <p class="gybd_p">
+            <span>[#totalProducts#]</span><br />
+       	    <span style="font-size:12px; color:#666;">全部商品</span>
+        </p>
+        <p class="gybd_p1" onclick="dianji();">分享</p>
+        <p class="gybd_p2" onClick="addattentions()">收藏本店</p>
+		<iframe id="iframe3" frameborder="no" scrolling="No"  width="100%" src="/suning/ncm_levels_logos_shops_attentions.htm" ></iframe>
+      </div>
+    </div>
+	   <div class="fx" id="fx" style="display:none;">
+  	  <div style="height:10px; clear:both;"></div>
+	  <div class="fx_1">
+	  <div class="jiathis_style_24x24" onClick="checkstate()">
+      <p class="p_tb"><a class="jiathis_button_qzone"></a></p>
+      <p class="p_tb"><a class="jiathis_button_tsina"></a></p>
+      <p class="p_tb"><a class="jiathis_button_tqq"></a></p>
+      <p class="p_tb"><a class="jiathis_button_renren"></a></p>
+      <div style="height:1px; clear:both;"></div>
+       <p class="p_name">qq空间</p>
+       <p class="p_name">新浪微博</p>
+        <p class="p_name">腾讯微博</p>
+         <p class="p_name">人人网</p>
+         <div style="height:5px; clear:both;"></div>
+	  	<!-- JiaThis Button BEGIN -->
+	</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END --> </div>
+	</div>
+	
+    <div style="height:6px; clear:both;"></div>
+    <div class="hsfg"></div>
+    <div style="height:4px; clear:both;"></div>
+    <div style="width:96%; margin:0 auto; color:#933;">商店信息</div>
+    <div style="height:8px; clear:both;"></div>
+    <div class="data1">
+      <p>地址：[#address#]</p>
+      <p>楼层：[#floor#] [#service_code#]</p>
+      <p>电话：[#code#]-[#tel#]</p>
+      <p>网址：<a href="http://[#url#]"/>[#url#]</a> </p>
+      <p>简介：[#detail#]</p>
+    </div>
+  </div>
+  <div style="height:6px; clear:both;"></div>
+   <div id="productsinfo" class="hsfg"></div>
+  <div style="height:5px; clear:both;"></div>
+  <div style="width:96%; margin:0 auto; color:#933;">商品信息</div>
+    <div style="height:5px; clear:both;"></div>
+  <div class="top_menu">
+  <div style="height:7px; clear:both;"></div>
+    <p class="p1">综合</p>
+    <p class="p2">销量<img class="px" src="/images/zhengzhoudianxin/products/02.png" /></p>
+    <p class="p2">人气<img class="px" src="/images/zhengzhoudianxin/products/02.png" /></p>
+    <p class="p2">价格<img class="px" src="/images/zhengzhoudianxin/products/02.png" /></p>
+      <div style="height:7px; clear:both;"></div>
+  </div>
+   <div style="height:7px; clear:both;"></div>
+	<p id="pervious" class="p_fy1" onClick="pervious()">显示更多...</p>
+       <div style="height:7px; clear:both;"></div>
+  	<iframe id="iframe1" frameborder="no" scrolling="No"  width="100%" height="1400px" src="/zhengzhoudianxin/ncm_levels_logos_shops_products.htm" ></iframe>
+     <div style="height:10px; clear:both;"></div>
+       <div style=" margin:0 auto;"><p id="next" class="p_fy3" onClick="next()">显示更多...</p></div>
+     <div style="height:10px; clear:both;"></div>
+   </div>
+   
+</div>
+</body>
+</html>

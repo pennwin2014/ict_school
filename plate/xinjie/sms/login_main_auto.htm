@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script src="/js/ajax.js"></script>
+<title>新杰物流</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	font-family:"宋体";
+	background:#04071d;
+}
+.ding {
+	position:relative;
+}
+.ding img {
+	width:100%;
+}
+.foot {
+	position:relative;
+}
+.foot img {
+	width:100%;
+}
+.content {
+	width:90%;
+	margin:0 auto;
+}
+.img_wrap {
+	width:43%;
+	margin-left:2%;
+	float:left;
+	border:1px solid #2e4068;
+	text-align:center;
+	padding:2%;
+	margin-bottom:15px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	background:#081037;
+}
+.img_wrap img {
+	width:100%;
+    height:120px;
+}
+.main {
+	width:90%;
+	margin:0 auto;
+	position:relative;
+}
+.main img {
+	width:100%;
+}
+.main_con {
+	width:90%;
+	margin:0 auto;
+	position:absolute;
+	top:30%;
+	left:5%;
+}
+.name_p {
+	float:left;
+	width:23%;
+	color:#fff;
+	font-size:14px;
+	text-align:right;
+	margin-right:2%;
+	height:26px;
+	line-height:26px;
+	font-size:12px;
+}
+.pass_p {
+	float:left;
+	width:23%;
+	color:#fff;
+	font-size:14px;
+	text-align:right;
+	margin-right:2%;
+	height:26px;
+	line-height:26px;
+	font-size:12px;
+}
+.username {
+	width:40%;
+	height:26px;
+	line-height:26px;
+	text-indent:5px;
+	background:#fff;
+	float:left;
+	font-size:1em;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	border:none;
+}
+.btn_hq {
+	width:30%;
+	margin-left:3%;
+	float:left;
+	height:26px;
+	line-height:26px;
+	background:#ff952c;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #ff952c), color-stop(1, #ff952c));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#ff952c", EndColorStr="#ff952c");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #ff952c 10%, #ff952c 100%);/*火狐内核渐变*/
+	border:none;
+	font-size:12px;
+	color:#fff;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+}
+.password {
+	width:73%;
+	float:left;
+	height:26px;
+	line-height:26px;
+	text-indent:5px;
+	background:#fff;
+	font-size:1em;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	border:none;
+}
+.btn_wrap{ text-align:center;}
+.btn_wrap img {
+	width:80px;
+}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+}
+</style>
+<script type="text/javascript">
+	function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp; 
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";	
+	}
+var p_flag = '1';
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+function getpasswd(){
+		if(p_flag=='0') return false;
+		
+		
+			
+		if(document.getElementById("nclogin").username.value==''||document.getElementById("nclogin").username.value=='手机号码'){
+		    alert('请输入手机号');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&tsid@"+document.getElementById("tsid").value;
+		          
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		p_flag='0';
+    setTimeout('restore()',50000);
+		return false;
+	}
+	var mz=0;
+	function xianshi(){
+	mz=1;
+	
+	document.getElementById("bo").style.display="block";
+	}
+	function spylogin()
+	{
+	
+    document.getElementById("nclogin").submit();
+		
+		
+    return true;
+	}
+	function mr(){
+		//alert(document.getElementById("password").value);
+//		if( document.getElementById("username").value=="手机号码"){
+//			 document.getElementById("username").style.color="#aaa";
+//		}
+//		if(document.getElementById("password").value="密码"){
+//			 document.getElementById("password").style.color="#aaa";
+//		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+</script>
+</head>
+
+<body onload="init();">
+<div class="wrap">
+  <form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+  [#postarg#]
+  <div style="display:none;">
+    <input type="text" id="username" name="username" value="[#username#]" />
+    <input type="password" id="password" name="password" value="[#password#]" />
+    <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+  </div>
+  <div class="ding"><img src="/images/Hongkong/bg_top.jpg" /></div>
+  <div class="content">
+    <script type="text/javascript">
+	  var statcode= null;
+var errmessage= null;   
+var xmlHttp = false;
+ 
+ function callServer()
+ { 
+   if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+     xmlHttp.abort();
+   }
+   xmlHttp = createXMLHttpRequest();
+   if(xmlHttp)
+   {
+     var web_url = "http://[#ip#]:[#port#]/pronline/Msg?FunName@ncm_yuyuan_home_ajax&tsid@[#tsid#]"+"&xx@"+Math.random()*999;
+
+     xmlHttp.open("GET",web_url, true);
+	  
+     xmlHttp.onreadystatechange = updatePage;
+	 
+     xmlHttp.send(null);
+	  
+   }
+ }
+ var j=0;
+ callServer();
+ var event_n=new Array(); 
+ var img_n=new Array();   
+ //处理函数
+ function updatePage()
+ {  
+ 
+   if (xmlHttp.readyState == 4)
+   {
+
+      var response = xmlHttp.responseText;
+	 
+      var temp_num = getxmlbyname(response,"<statusCode>","</statusCode>");
+      statcode=parseInt(temp_num);   
+      
+      var temp_num=getxmlbyname(response,"<TotRec>","</TotRec>");
+	    MAX=parseInt(temp_num);
+	    var tmptext = "";
+	    
+	    //图片 
+		  for(j=1;j<=parseInt(temp_num);j++){
+		  	  var st_name="<iNumslider"+j+">";
+		  	  var en_name="</iNumslider"+j+">";
+		      var pro_na=getxmlbyname(response,st_name,en_name);
+		      img_n[j-1]=pro_na;
+		      
+		  }
+		  //事件 
+		  for(j=1;j<=parseInt(temp_num);j++){
+		  	  var st_name="<imgslider"+j+">";
+		  	  var en_name="</imgslider"+j+">";
+		      var pro_na=getxmlbyname(response,st_name,en_name);
+		      event_n[j-1]=pro_na;
+		      
+		  }
+		  
+		/* i=0;
+		     	  tmptext = "<li  onclick=\"loadShops("+img_n[i]+")\"> <img src=\""+event_n[i]+"\" /></li>";
+				  tmptext1 = "<li  onclick=\"loadShops("+img_n[i+1]+")\"> <img src=\""+event_n[i+1]+"\" /></li>";
+				  tmptext2 = "<li  onclick=\"loadShops("+img_n[i+2]+")\"> <img src=\""+event_n[i+2]+"\" /></li>";
+				  tmptext3 = "<li  onclick=\"loadShops("+img_n[i+3]+")\"> <img src=\""+event_n[i+3]+"\" /></li>";*/
+				  j=0;
+		     	  tmptext = event_n[j];
+				  tmptext1 = event_n[j+1];
+				  tmptext2 = event_n[j+2];
+				  tmptext3 = event_n[j+3];
+//	alert(tmptext3);	
+  
+	      var ur="http://[#ip#]:[#port#]";
+		  document.getElementById("myportal").src = ur+tmptext;
+		  document.getElementById("myportal1").src = ur+tmptext1;
+		  document.getElementById("myportal2").src = ur+tmptext2;
+  		  document.getElementById("myportal3").src = ur+tmptext3;
+		 
+		  //alert(document.getElementById('myportal1').src);
+		  
+   }
+ }
+
+	  </script> 
+    <div class="img_wrap"><img id="myportal" onclick="window.open('http://[#ip#]:[#port#]/pronline/Msg?FunName@ncmSecordDispAd&tsid@[#tsid#]&level@1')" /></div>
+    <div class="img_wrap"><img id="myportal1" onclick="window.open('http://[#ip#]:[#port#]/pronline/Msg?FunName@ncmSecordDispAd&tsid@[#tsid#]&level@2')" /></div>
+    <div class="img_wrap"><img id="myportal2" onclick="window.open('http://[#ip#]:[#port#]/pronline/Msg?FunName@ncmSecordDispAd&tsid@[#tsid#]&level@3')" /></div>
+    <div class="img_wrap"><img id="myportal3" onclick="window.open('http://[#ip#]:[#port#]/pronline/Msg?FunName@ncmSecordDispAd&tsid@[#tsid#]&level@4')" /></div>
+  </div>
+  <div style="height:1px; clear:both;"></div>
+  <div class="main"> <img src="/images/Hongkong/beijing.png" />
+    <div class="main_con">
+     <!-- <div>
+        <p class="name_p" >Phone No:</p>
+        <input type="text" id="username" name="username" class="username" onFocus="document.getElementById('err5').style.display='none';"/>
+        <input type="button" class="btn_hq" onClick="getpasswd();" id="gpss" value="Get Password" />
+      </div>
+      <div style="height:10px; clear:both;"></div>
+      <div>
+        <p class="pass_p" >Password:</p>
+        <input type="password"  id="password" name="password" class="password" onFocus="document.getElementById('err5').style.display='none';"  />
+      </div>
+      <div style="height:10px; clear:both;"></div>
+      <div>
+        <p style="margin-left:25%; color:#fff;  font-size:10px;">
+          <input type="checkbox" />
+          Remember Me<a href="#" style="color:#fff; text-decoration:underline; float:right;">Forget Password?</a></p>
+      </div>
+      <div style="height:10px; clear:both;"></div>
+      <div id="err5" style="color:#F00; text-align:center; font-size:12px;"></div>
+      <div style="height:10px; clear:both; "></div>-->
+      <div style="height:30px; clear:both; "></div>
+      <div style="width:100%; color:#fff; font-weight:bold; text-align:center;">欢迎再次使用新杰物流无线服务！</div>
+      <div style="height:30px; clear:both; "></div>
+      <div class="btn_wrap"><img src="/images/Hongkong/login.png" onClick="return spylogin();"/></div>
+    </div>
+  </div>
+  <div class="foot"><img src="/images/Hongkong/bg_bottom.jpg" /></div>
+  <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+  </form>
+</div>
+</body>
+</html>

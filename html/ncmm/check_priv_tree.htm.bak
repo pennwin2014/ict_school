@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>自定义权限</title>
+<link href="/css/css_main.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/toolbars.css" />
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script> 
+<style type="text/css">
+.accept {
+    background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+}	
+</style>
+<script> 
+
+Ext.onReady(function(){
+		Ext.define('treedata',{
+		    extend: 'Ext.data.Model',
+		    fields: [
+		        {name: 'text',      type: 'string'},
+		        {name: 'id',        type: 'string'},
+		        {name: 'groupcode', type: 'string'},
+		        {name: 'ctext',     type: 'string'}
+		    ]
+		});
+		
+    var store_systems_autopri = Ext.create('Ext.data.TreeStore', {
+   	    model:'treedata',
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@ncm_autopri&styped@'+[#styped#]
+        },
+        root: {
+            text: '全部',
+            id: '',
+            expanded: true
+        },
+        folderSort: true,
+        sorters: [{
+ //           property: 'text',
+//            direction: 'ASC'
+        }]
+    });
+    
+	  Ext.create('Ext.tree.TreePanel',{                      	
+    		renderTo:Ext.getBody(),
+        //	rootVisible:false,
+        height:1024,
+        title: '',
+    	  id:'tree_autopri',
+        store: store_systems_autopri,
+        autoScroll: true,
+        border:false,
+		    forceFit: true,
+        //  width: 110,
+        useArrows: false,
+        dockedItems: [{
+            xtype: 'toolbar',
+            items: [{
+								xtype:'textfield',
+								id:'privtree_keyword',
+								name:'privtree_keyword',
+								style:'color:#7aa7d5',
+								width:110,
+								emptyText:'Factory',
+								enableKeyEvents:true,
+								listeners:{
+										'focus':function(){
+												if(this.value=='Factory'){                
+														this.setValue('');
+												}
+										},
+										'keydown' : function(i,e){
+												var aae=e.getKey() ; 
+												if(aae==13){
+														var aa=Ext.getCmp('privtree_keyword').value;
+														if(aa!='Factory'){
+																var vkeyword=Ext.getCmp('privtree_keyword').value;
+														}else{
+																var vkeyword='';	
+														}
+														store_systems_autopri.load({params: {keyword:vkeyword}});
+												}
+										}
+								}
+						},{
+                text:'查询',
+                iconCls:'accept',
+                //  disabled: true,
+                handler:function(){
+                	  var aa=Ext.getCmp('privtree_keyword').value;
+                		if(aa!='Factory'){
+		                    var vkeyword=Ext.getCmp('privtree_keyword').value;
+				            }else{
+				            	  var vkeyword='';		
+				            }
+				            store_systems_autopri.load({params: {keyword:vkeyword}});
+                }
+            },'-',{
+            		text:'确定',
+            		handler:function(){
+										parent.form1.priv_man.value = Ext.getCmp("tree_autopri").getSelectionModel().getLastSelected().get("text");
+										parent.form1.priv.value = Ext.getCmp("tree_autopri").getSelectionModel().getLastSelected().get("id");	
+            				parent.deldiv();
+            		}	
+            }]
+        }]
+    });
+});
+</script>
+</head>
+<body>
+</body>
+</html>

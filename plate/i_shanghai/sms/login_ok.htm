@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>无标题文档</title>
+<link href="/css/flexslider3.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>
+<script src="/js/ajax.js"></script>
+<style  type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	position:relative;
+}
+.main img {
+	width:100%;
+	position:relative;
+}
+.con {
+	position:absolute;
+	width:70%;
+	margin-left:15%;
+	top:26%;
+}
+.username {
+	height:30px;
+	line-height:30px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	width:100%;
+	font-size:1em;
+	text-indent:5px;
+	border:1px solid #ccc;
+}
+.password {
+		height:30px;
+	line-height:30px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	width:100%;
+	font-size:1em;
+	text-indent:5px;
+	border:1px solid #ccc;
+}
+.btn_hq {
+	width:60%;
+	height:48px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #e0e0e0), color-stop(1, #e0e0e0));/*谷歌浏览器渐变*/
+    filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#e0e0e0", EndColorStr="#e0e0e0");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #e0e0e0 10%, #e0e0e0 100%);/*火狐内核渐变*/
+	background:#e0e0e0;
+	border:none;
+	color:#09f;
+}
+.btn_ok {
+	width:60%;
+	height:36px;
+	background:#0e83d6;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #0e83d6), color-stop(1, #0e83d6));/*谷歌浏览器渐变*/
+    filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#0e83d6", EndColorStr="#0e83d6");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #0e83d6 10%, #0e83d6 100%);/*火狐内核渐变*/
+	border:none;
+	color:#fff;
+	font-size:1em;
+}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+ .main_top {
+font-size:12px;
+}
+}
+</style>
+<script type="text/javascript">
+function init(){
+	  parent.document.getElementById("i").src = "/e.png"; 
+	  parent.document.getElementById("logo").innerHTML = "退出上网"; 
+	}
+	function change(mark){
+//	alert(111);
+	if(mark ==1 ){
+	
+	parent.document.getElementById("iframe1").src="http://kh.htsec.com/";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==2 ){
+	parent.document.getElementById("iframe1").src="http://www.htsec.com/static/jifen/f/chggl/index.html";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==3 ){
+	parent.document.getElementById("iframe1").src="http://www.htsec.com/htsec/Info/3910135";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==4 ){
+	parent.document.getElementById("iframe1").src="http://www.eshanghai.cn/";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==5 ){
+	parent.document.getElementById("iframe1").src="http://3g.sina.com.cn/?vt=4";
+//	document.getElementById("nclogin_0").submit();
+	}
+	
+	if(mark ==6 ){
+	parent.document.getElementById("iframe1").src="http://t.3g.qq.com";
+//	document.getElementById("nclogin_0").submit();
+	}
+if(mark ==7 ){
+	parent.document.getElementById("iframe1").src="http://wap.htsec.com/htwap/Stock_gt_Pro-hait.apk";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==8 ){
+	parent.document.getElementById("iframe1").src="https://itunes.apple.com/us/app/id554910048";
+//	document.getElementById("nclogin_0").submit();
+	}
+	
+	if(mark ==9 ){
+	parent.document.getElementById("iframe1").src="https://itunes.apple.com/cn/app/hai-tong-zheng-quan-cai-hong/id554913695?mt=8";
+//	document.getElementById("nclogin_0").submit();
+	}
+}
+	function tuichu(){
+			document.getElementById("nclogin_0").submit();
+	}
+</script>
+</head>
+
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload = "init()">
+<div class="wrap">
+<form name="nclogin_0" id="nclogin_0" method="post" action="http://[#ip#]:[#port#]/pronline/Msg" >
+  <input type="hidden" name="sid" value="[#sid#]">
+  <input type="hidden" name="FunName" value="ncSrvLogOut">
+  <input type="hidden" name="ModiPass" value="">
+  <input type="hidden" name="username" value="[#username#]">
+  <input type="hidden" name="userip" value="[#userip#]">
+  <input type="hidden" name="usermac" value="[#usermac#]">
+  <input type="hidden" name="serialno" value="[#serialno#]">
+ <div class="main"><img src="/images/i_shanghai/i-shanghai-iphone01.jpg" /></div>
+  <div class="con">
+    <div style="height:30px; clear:both;"></div>
+    <div style="text-align:center;"><a style="color:#C00; font-size:36px; margin-left:10px;">登录成功</a></div>
+   
+    <div style="height:20px; clear:both;"></div>
+    <div style="text-align:center; font-size:24px;">欢迎使用<a style="color:#09F;margin-left:10px;">i-Shanghai</a></div>
+   
+    <div style="height:50px; clear:both;"></div>
+    <div style="text-align:center;">
+      <input type="button" class="btn_ok" value="开始上网" onClick="window.open('http://www.baidu.com')"/>
+    </div>
+  </div>
+ </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>展馆浏览图</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	font-family:"微软雅黑";
+	background:#f6f6f6;
+}
+.img_wrap img {
+	width:100%;
+}
+.tit {
+	height:40px;
+	background:url(/images/shanghai_SZ/01-shuzhan_r1_c2.jpg) repeat-x;
+	text-align:center;
+	color:#fff;
+	line-height:40px;
+}
+.p1 {
+	float:left;
+}
+.p2 {
+}
+.top {
+	background:url(/images/shanghai_SZ/01-shuzhan_r1_c2.jpg) repeat-x;
+	height:46px;
+	line-height:46px;
+	color:#ffffff;
+	text-align:center;
+	font-size:1.4em;
+	text-indent:-3%;
+}
+.btn_1 {
+	float:left;
+	border-radius:0px; /* css 3标准 */
+	-moz-border-radius: 0px;  /* mozilla */
+	-webkit-border-radius: 0px;/*webkit*/
+	background:#ffffff;
+	border:1px solid #333;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #ffffff));/*谷歌浏览器渐变*/
+ filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#ffffff", EndColorStr="#ffffff");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #ffffff 10%, #ffffff 100%);/*火狐内核渐变*/
+	width:70%;
+	height:24px;
+	line-height:24px;
+	text-indent:5%;
+	color:#666;
+}
+.btn_2 {
+	float:left;
+	background:#fef200;
+	border:1px solid #333;
+	border-radius:0px; /* css 3标准 */
+	-moz-border-radius: 0px;  /* mozilla */
+	-webkit-border-radius: 0px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fef200), color-stop(1, #fef200));/*谷歌浏览器渐变*/
+ filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#fef200", EndColorStr="#fef200");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #fef200 10%, #fef200 100%);/*火狐内核渐变*/
+	width:30%;
+	margin-left:-1%;
+	height:26px;
+	line-height:26px;
+}
+.content {
+	width:92%;
+	margin:0 auto;
+}
+.btn_jt1 {
+	width:30%;
+	float:left;
+	height:26px;
+	line-height:26px;
+	background:#ccc;
+	border:1px solid #CCC;
+	border-radius:0px; /* css 3标准 */
+	-moz-border-radius: 0px;  /* mozilla */
+	-webkit-border-radius: 0px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #cccccc), color-stop(1, #cccccc));/*谷歌浏览器渐变*/
+ filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#cccccc", EndColorStr="#cccccc");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #cccccc 10%, #cccccc 100%);/*火狐内核渐变*/
+	color:#444;
+}
+.btn_jt2 {
+	width:30%;
+	margin-left:5%;
+	float:left;
+	height:26px;
+	line-height:26px;
+	background:#ccc;
+	border:1px solid #CCC;
+	border-radius:0px; /* css 3标准 */
+	-moz-border-radius: 0px;  /* mozilla */
+	-webkit-border-radius: 0px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #cccccc), color-stop(1, #cccccc));/*谷歌浏览器渐变*/
+ filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#cccccc", EndColorStr="#cccccc");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #cccccc 10%, #cccccc 100%);/*火狐内核渐变*/
+	color:#444;
+}
+.btn_jt3 {
+	width:30%;
+	margin-left:5%;
+	float:left;
+	height:26px;
+	line-height:26px;
+	background:#ccc;
+	border:1px solid #CCC;
+	border-radius:0px; /* css 3标准 */
+	-moz-border-radius: 0px;  /* mozilla */
+	-webkit-border-radius: 0px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #cccccc), color-stop(1, #cccccc));/*谷歌浏览器渐变*/
+ filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#cccccc", EndColorStr="#cccccc");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #cccccc 10%, #cccccc 100%);/*火狐内核渐变*/
+	color:#444;
+}
+.tit1 input {
+	background:#fef200;
+	margin-left:5%;
+	border:none;
+	border-radius:0px; /* css 3标准 */
+	-moz-border-radius: 0px;  /* mozilla */
+	-webkit-border-radius: 0px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fef200), color-stop(1, #fef200));/*谷歌浏览器渐变*/
+ filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#fef200", EndColorStr="#fef200");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #fef200 10%, #fef200 100%);/*火狐内核渐变*/
+	width:16%;
+	font-weight:bold;
+	height:24px;
+	line-height:24px;
+	float:left;
+}
+.tit1 p {
+	float:left;
+	margin-left:3%;
+	color:#333;
+	font-size:0.9em;
+}
+.tit2 p {
+	float:left;
+	margin-left:24%;
+	color:#333;
+	font-size:0.9em;
+}
+.hou {
+	width:3%;
+	margin-left:3%;
+}
+.neirong {
+	width:92%;
+	margin:0 auto;
+	text-indent:2em;
+	font-size:0.9em;
+	color:#333;
+	display:none;
+}
+.img_wrap2 img{width:100%;  position:relative; z-index:1000;}
+.img_wrap1 img{ width:100%; margin-top:-2%; position:relative; z-index:100;}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+}
+</style>
+<script type="text/javascript">
+var j=0;
+var i=0;
+var k=0;
+var l=0;
+function jieshao1(){
+	if(j==0)
+	{
+	    document.getElementById("img1").src="/images/shanghai_SZ/liulan_shouzhan/zhan1.png";
+	    document.getElementById("neirong1").style.display="block";
+        j=1;
+	}
+  else if(j==1){
+		document.getElementById("img1").src="/images/shanghai_SZ/liulan_shouzhan/shou1.png";
+		document.getElementById("neirong1").style.display="none";
+		j=0;
+		}
+	}
+function jieshao2(){
+	if(i==0)
+	{
+	    document.getElementById("img2").src="/images/shanghai_SZ/liulan_shouzhan/zhan2.png";
+	    document.getElementById("neirong2").style.display="block";
+        i=1;
+	}
+  else if(i==1){
+		document.getElementById("img2").src="/images/shanghai_SZ/liulan_shouzhan/shou2.png";
+		document.getElementById("neirong2").style.display="none";
+		i=0;
+		}
+	}
+function jieshao3(){
+	if(k==0)
+	{
+	    document.getElementById("img3").src="/images/shanghai_SZ/liulan_shouzhan/zhan3.png";
+	    document.getElementById("neirong3").style.display="block";
+        k=1;
+	}
+  else if(k==1){
+		document.getElementById("img3").src="/images/shanghai_SZ/liulan_shouzhan/shou3.png";
+		document.getElementById("neirong3").style.display="none";
+		k=0;
+		}
+	}
+function jieshao4(){
+	if(l==0)
+	{
+	    document.getElementById("img4").src="/images/shanghai_SZ/liulan_shouzhan/zhan4.png";
+	    document.getElementById("neirong4").style.display="block";
+        l=1;
+	}
+  else if(l==1){
+		document.getElementById("img4").src="/images/shanghai_SZ/liulan_shouzhan/shou4.png";
+		document.getElementById("neirong4").style.display="none";
+		l=0;
+		}
+	}
+
+</script>
+</head>
+
+<body>
+<div class="wrap">
+  <div class="top"><img style="width:4%; float:left; margin-top:10px; margin-left:3%;" src="/images/shanghai_SZ/fanhui.png" />展馆浏览图</div>
+  <div style="height:3px; background:#666; clear:both;"></div>
+  <div class="img_wrap"><img src="/images/shanghai_SZ/02-shuzhan_r3_c1.jpg" /></div>
+  <div class="img_wrap2"><img src="/images/shanghai_SZ/jieshao.png" /></div>
+  <div class="img_wrap1"><img src="/images/shanghai_SZ/liulan_shouzhan/shou1.png" id="img1" onclick="jieshao1();" /></div>
+  <div id="neirong1" class="neirong">
+    <div style="height:10px; clear:both;"></div>
+    上海书展是由上海市新闻出版局主办。每届书展为读者精心准备了15万余种图书，全面展示全国出版界图书、音像电子、报刊、数字出版、版权等领域最新的出版产品和成果。2010上海书展相对往届，在功能上进一步拓展、延伸，打造了一个涵盖出版物展销、图书订货团购、版权贸易、产业信息发布、新品首发、作品研讨、高峰论坛、全民阅读等综合功能的大型出版文化盛会。
+    <div style="height:15px; clear:both;"></div>
+  </div>
+  <div class="img_wrap"><img src="/images/shanghai_SZ/liulan_shouzhan/shou2.png" id="img2" onclick="jieshao2();" /></div>
+  <div id="neirong2" class="neirong">
+    <div style="height:10px; clear:both;"></div>
+   在图书订货团购、版权贸易服务之外，展销范围涉及图书、报纸、期刊、音像制品、电子出版物、文化用品等，将展示传统出版和数字出版的最新成果。每届书展汇集了上海和全国470多家出版社，突出了上海书展的"全国"概念，展示了上海出版服务长三角、服务全国的大胸怀和大气魄。
+     <div style="height:1em; clear:both;"></div>
+   上海书展虽在上海举办，但是，主办方一直强调，上海书展不是上海的书展，而是上海打造的服务长三角乃至全国出版界的文化大平台。随着"服务长三角、服务全国"理念定位的逐步明确，上海书展正以更为开放的胸怀，面向全国办展，努力为全国出版业打造一个展示、交流、交易、研讨的大平台。如今，上海书展已成为国家标准的书展。据悉，早在春节过后，新闻出版局相关领导就带队，先后奔赴北京等地向各地出版界作2010上海书展的推广和宣传，其成果便是，不仅吸引了全国400多家出版社前来参展，而且还吸引了全国科技出版联合体、地科联、古联体、少联体、中国童书联盟等参展，众多联合体集体亮相上海书展将成为本届书展的一大亮点和突破。
+    <div style="height:15px; clear:both;"></div>
+    
+  </div>
+  <div class="img_wrap"><img src="/images/shanghai_SZ/liulan_shouzhan/shou3.png" id="img3" onclick="jieshao3();" /></div>
+   <div id="neirong3" class="neirong">
+    <div style="height:10px; clear:both;"></div>
+ 暂无内容
+    <div style="height:15px; clear:both;"></div>
+  </div>
+  <div class="img_wrap"><img src="/images/shanghai_SZ/liulan_shouzhan/shou4.png" id="img4" onclick="jieshao4();" /></div>
+   <div id="neirong4" class="neirong">
+    <div style="height:10px; clear:both;"></div>
+  暂无内容
+    <div style="height:15px; clear:both;"></div>
+  </div>
+  <div class="img_wrap"><img src="/images/shanghai_SZ/02-shuzhan_r5_c1.jpg" /></div>
+  <div class="content">
+    <div style="height:20px; clear:both;"></div>
+    <div>
+      <input type="text" value="出版社" onclick="if(document.getElementById('cbs').value='出版社'){ this.value=''}" id="cbs" class="btn_1" />
+      <input type="button" value="搜索" class="btn_2" />
+    </div>
+   
+    <div style="height:20px; clear:both;"></div>
+
+    <div>
+      <div style="color:#03b293; margin-left:5%;">东一馆展位分布图<img class="hou" src="/images/shanghai_SZ/hou.png" /></div>
+      <div style="height:20px; clear:both;"></div>
+      <div style="color:#03b293; margin-left:5%;">东一馆展位分布图<img class="hou" src="/images/shanghai_SZ/hou.png" /></div>
+      <div style="height:20px; clear:both;"></div>
+      <div style="color:#03b293; margin-left:5%;">东一馆展位分布图<img class="hou" src="/images/shanghai_SZ/hou.png" /></div>
+      <div style="height:20px; clear:both;"></div>
+      <div style="color:#03b293; margin-left:5%;">东一馆展位分布图<img class="hou" src="/images/shanghai_SZ/hou.png" /></div>
+      <div style="height:20px; clear:both;"></div>
+      <div style="color:#03b293; margin-left:5%;">西一馆展位分布图<img class="hou" src="/images/shanghai_SZ/hou.png" /></div>
+      <div style="height:20px; clear:both;"></div>
+      <div style="color:#03b293; margin-left:5%;">西一馆展位分布图<img class="hou" src="/images/shanghai_SZ/hou.png" /></div>
+      <div style="height:20px; clear:both;"></div>
+      <div style="color:#03b293; margin-left:5%;">西一馆展位分布图<img class="hou" src="/images/shanghai_SZ/hou.png" /></div>
+      <div style="height:20px; clear:both;"></div>
+      <div style="color:#03b293; margin-left:5%;">西一馆展位分布图<img class="hou" src="/images/shanghai_SZ/hou.png" /></div>
+      <div style="height:20px; clear:both;"></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

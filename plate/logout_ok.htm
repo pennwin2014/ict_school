@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>login</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">td img {display: block;}</style>
+<style type="text/css">
+	.hqmm { font-size: 9pt;  background-image:url(/images/lt/getpass.png);
+   height: 39px; width: 176px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand} 
+  	.dl { font-size: 9pt;  background-image:url(/images/lt/login.png);
+   height: 39px; width: 104px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand} 
+  
+   .title_lab { font-size: 16pt;font-weight:bold; }
+   .normal_lab { font-size: 11pt; }
+   
+   A:link {text decoration:none;font-size: 14px;color:#1A70CE;}
+ A:active   {text-decoration:none; font-size: 14px;color:#CE7700;} 
+ A:visited {text-decoration:none;  font-size: 14x; color:#1A70CE;} 
+ A:hover {text-decoration:none; font-size: 14px;color:#CE7700;} 
+   
+</style>
+
+<script language="javascript" type="text/javascript">
+	function spylogin(){
+		if (document.getElementById("username").value=="" || document.getElementById("password").value=="") {
+			window.alert("用户名或密码不能为空！");
+			return ;
+		}
+	
+	
+		document.getElementById("nclogin").submit();
+	}
+	function ss(e){
+		var key = window.event ? e.keyCode:e.which;
+
+		if(key==13)
+		spylogin();
+	}
+		var p_flag='1';
+		function restore(){
+	  document.getElementById("gpss").disabled="";
+	  document.getElementById("imgm").style.display="none";
+    p_flag='1';
+    document.getElementById("imgm").src='/images/sjimage/smspad.gif';
+	}
+
+function chk(tel)
+{
+
+if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel)))
+        {
+           return 0;
+         }
+else
+        {
+          return 1;
+         }
+}
+
+	function getpasswd(){		
+	   if(p_flag=='0') return false;
+	   
+		  document.getElementById("msgs").innerHTML="";
+
+		  if(document.getElementById("nclogin").username.value==''){
+		    alert('请输入手机号');
+		    return false;
+		  }
+		  
+		    var telno=document.getElementById("nclogin").username.value;
+		    if(telno.length!=11){
+		    alert('手机号格式不对');
+		    return false;
+		    } 
+		  if(chk(telno)!='0'){
+		    alert('请输入正确的手机号!');
+		  	return false;
+		  }
+		  
+		
+		  
+		  temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&username@"+document.getElementById("nclogin").username.value;
+		  
+		  document.getElementById("ifhide").src=temp_html;
+
+	document.getElementById("imgm").src='/images/authimage/donghua.gif';
+  document.getElementById("gpss").disabled="true";
+  document.getElementById("imgm").style.display="";
+ p_flag='0';
+
+setTimeout('restore()',50000);
+		  return false;
+		
+		
+	}
+	
+	
+</script>
+
+
+</head>
+<body bgcolor="#ffffff" topmargin=0>
+	<form id="nclogin" name="nclogin" id="nclogin" method="post" action="http://[#ip#]:[#port#]/pronline/Msg?">
+  <input type="hidden" name="FunName" value="ncSrvLogin">
+  <input type="hidden" name="url" value="[#url#]" >
+  <input type="hidden" name="sid" value="[#sid#]" >
+  <input type="hidden" name="userip" value="[#userip#]" >
+  <input type="hidden" name="usermac" value="[#usermac#]" >
+  <input type="hidden" name="acip" value="[#acip#]" >
+  <input type="hidden" name="ModiPass" value="">
+  <input type="hidden" name="eng_flag" value="0">
+	
+<table style="display: inline-table;" border="0" cellpadding="0" cellspacing="0" width="640">
+<!-- fwtable fwsrc="联通—登录.png" fwpage="页面 1" fwbase="联通—登录.gif" fwstyle="Dreamweaver" fwdocid = "1621137282" fwnested="0" -->
+  <tr>
+   <td><img src="spacer.gif" width="640" height="1" border="0" alt="" /></td>
+   <td><img src="spacer.gif" width="1" height="1" border="0" alt="" /></td>
+  </tr>
+
+  <tr>
+   <td><img name="n_r1_c1" src="/images/lt/lt_login_r1_c1.gif" width="640" height="121" border="0" id="n_r1_c1" alt="" /></td>
+   <td><img src="spacer.gif" width="1" height="121" border="0" alt="" /></td>
+  </tr>
+  <tr>
+   <td><img name="n_r2_c1" src="/images/lt/lt_login_r2_c1.gif" width="640" height="239" border="0" id="n_r2_c1" alt="" /></td>
+   <td><img src="spacer.gif" width="1" height="239" border="0" alt="" /></td>
+  </tr>
+  <tr>
+   <td background="/images/lt/lt_login_r3_c1.gif" width="640" height="348">
+   			<table width="640" height="348">
+			<tr><td colspan="3" height="15">&nbsp;</td>
+			<tr><td width="90" height="35"> &nbsp;</td><td width="90" align="right" class="title_lab">手机号</td><td><input type="text" id="username" name="username" value="" style="width:180px;height:28px;" >&nbsp;&nbsp;	<img border="0" src="/images/sjimage/smspad.jpg" width="80" height="25" id="imgm" style="display:none" ></td></tr>
+		 
+		 	<tr><td width="90" height="35"> &nbsp;</td><td width="90" align="right" class="title_lab">密&nbsp;&nbsp;&nbsp;&nbsp;码</td><td><input type="password" id="password" name="password" value="" style="width:180px;height:28px;" onKeyPress="ss(event)" >&nbsp;&nbsp;	</tr>
+		 
+		 
+			<tr><td>&nbsp;</td><td colspan="2" class="normal_lab">&nbsp;&nbsp;&nbsp;&nbsp;<input name="chaccept" type="checkbox" value="1" checked>&nbsp;本人接收并已阅读联通<span>无线上网服务条款和细则</span></td></tr>
+      <tr><td colspan="3" align="center"> <input type="button" id=gpss class="hqmm" onclick="getpasswd()" >&nbsp;&nbsp;<input type="button" class="dl" onClick="return spylogin();" ></td></tr>
+			<tr><td>&nbsp;</td><td colspan="2" height="90" align="center" id="msgs">&nbsp;<font color="red">[#message#]</font></td></tr>
+		</table>
+   	</td>
+   <td><img src="spacer.gif" width="1" height="348" border="0" alt="" /></td>
+  </tr>
+  <tr>
+   <td><img name="n_r4_c1" src="/images/lt/lt_login_r4_c1.gif" width="640" height="252" border="0" id="n_r4_c1" alt="" /></td>
+   <td><img src="spacer.gif" width="1" height="252" border="0" alt="" /></td>
+  </tr>
+</table>
+
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+
+</form>
+
+</body>
+</html>

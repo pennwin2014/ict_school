@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+</head>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+#main {
+	width:900px;
+	margin:36px 90px 0;
+	text-align:left;
+}
+.header_ul {
+	float:right;
+}
+h1 {
+	height:25px;
+	line-height:25px;
+	font-family:Heiti SC;
+	font-size:26px;
+	color:#313131;
+	padding-bottom:15px;
+}
+hr {
+	height:2px;
+	color:ced0d5;
+}
+.header_ul li {
+	list-style:none;
+	float:left;
+	display:block;
+	height:30px;
+	line-height:30px;
+	font-size:13pt;
+	text-decoration:none;
+}
+.header_ul li:hover {
+	text-decoration:none;
+}
+#split {
+	width:30px;
+	text-align:center;
+	color:#ced0d5;
+}
+.china {
+	color:#000;
+	width:35px;
+	font-family:Heiti SC;
+}
+.eng {
+	color:#0088CC;
+	width:104px;
+	font-family: Heiti SC;
+}
+.eng2 {
+	color:#0088CC;
+	width:104px;
+	font-family: Heiti SC;
+	text-decoration:underline;
+}
+.eng3 {
+	background:url(../images/ap/arrow1.png) no-repeat left center;
+	color:#0088CC;
+	width:104px;
+	font-family: Heiti SC;
+	text-decoration:underline;
+	padding-left:10px;
+}
+#login_area {
+	margin-top:15px;
+	padding-left:50px;
+	padding-right:50px;
+	font-family: Heiti SC;
+	font-size:16pt;
+	color:#000;
+}
+.font_style {
+	font-family: Heiti SC;
+	font-weight:Bold;
+	font-size:15pt;
+	color:#333333;
+}
+.Case {
+	width:400px;
+	height:39px;
+	background-color:#f0f0f0;
+	margin-bottom:14px;
+	margin-top:14px;
+}
+.username {
+	width:386px;
+	height:25px;
+	border:2px solid #d0d0d0;
+	margin:6px;
+	line-height:25px;
+	font-family:Heiti SC;
+	font-size:16pt;
+	color:#999999;
+}
+.username2 {
+	width:386px;
+	height:25px;
+	border:2px solid #d0d0d0;
+	margin:6px;
+	line-height:25px;
+	font-family:Heiti SC;
+	font-size:16pt;
+	color:#000;
+}
+.password {
+	width:386px;
+	height:25px;
+	border:2px solid #d0d0d0;
+	margin:6px;
+	line-height:25px;
+	font-family:Heiti SC;
+	font-size:16pt;
+	color:#999999;
+}
+.password2 {
+	width:386px;
+	height:25px;
+	border:2px solid #d0d0d0;
+	margin:6px;
+	line-height:25px;
+	font-family:Heiti SC;
+	font-size:16pt;
+	color:#000;
+}
+.error {
+	height:0px;
+	padding-bottom:10px;
+	font-size:12pt;
+	color:#ff0000;
+}
+.error1 {
+	height:18px;
+	padding-bottom:10px;
+	font-size:12pt;
+	color:#ff0000;
+	clear:both;
+}
+.error2 {
+	height:80px;
+	padding-bottom:10px;
+	font-size:12pt;
+	color:#ff0000;
+	clear:both;
+}
+.error_monum {
+	height:48px;
+	padding-bottom:10px;
+	font-size:12pt;
+	color:#ff0000;
+	clear:both;            /*zms*/
+}
+.chaccept {
+	width:14px;
+	height:14px;
+}
+.getpasscode {
+	background-image:url(/images/ap/getpasswdpczh.png);
+	width:122px;
+	height:34px;
+	border:0;
+	margin-bottom:70px;
+}
+.getpasscode_no {
+	background-image:url(/images/ap/passwdpczhalready.png);
+	width:122px;
+	height:34px;
+	border:0;
+	margin-bottom:70px;
+}
+.no_sign {
+	background-image:url(/images/ap/registergreypczh.png);
+	width:122px;
+	height:34px;
+	border:0;
+}
+.sign {
+	background-image:url(/images/ap/registerpczh.png);
+	width:122px;
+	height:34px;
+	border:0;
+}
+.font_style a {
+	color:#0088cc;
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+.font_style {
+	font-family: Heiti SC;
+	font-weight:Bold;
+	font-size:15pt;
+	color:#333333;
+}
+.font_style1 {
+	font-family: Heiti SC;
+	font-size:12pt;
+	color:#333333;
+	line-height:16pt;
+}
+.font_style3 {
+	font-family: Heiti SC;
+	font-weight:Bold;
+	font-size:12pt;
+}
+.bstyle {
+	font-family: Heiti SC;
+	font-weight:Bold;
+	font-size:12pt;
+}
+.bstyle a {
+	text-decoration:none;
+}
+</style>
+<script language="javascript" type="text/javascript">
+	
+	  
+	function changlogin(flag){
+            self.location = "https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"login_pcexplaineng.htm&[#getarg#]";	
+                            }
+	function engstyle(){
+	    	document.getElementById('english').className = 'eng2';
+                       }
+
+
+
+	function goback(flag){
+  	    	self.location = "https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@"+flag+"&html@"+"login_main.htm&[#getarg#]";	
+						}
+</script>
+</head><body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  style = "overflow-x:hidden;overflow-y:scroll">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+<input type = "hidden" name = "username" id = "username" value= "" />
+<center>
+  <div id="main"> <img src="/images/ap/termspc_zh_2x.png"  style="margin-bottom:10px;margin-left:50px; height:25px; widoth:555px;" />
+    <ul class="header_ul" >
+      <li class="china" id="chinese" >中文</li>
+      <li id="split">|</li>
+      <li class="eng" id="english" onClick="changlogin('eng')" onmouseover="engstyle();"><span style=" font-family:Lucida Grande;">English</span></li>
+    </ul>
+    <div style="border-bottom:1px solid #999999; margin-top:15px; margin-bottom:30px;"></div>
+    <div id="login_area">
+      <div   height = "30px;" width ="150px;" class =  "bstyle"> &nbsp;<a href = "#xx" onclick = "goback('zh');"  class = "eng3" >返回 </a></div>
+      <div height = "20px;">&nbsp; </div>
+      <div class="font_style1">
+        <div class="font_style">定义</div>
+        “<span style=" font-family:Lucida Grande;">Apple Store</span> 零售店”是指任何在中国境内提供 <span style=" font-family:Lucida Grande;">WLAN</span> 网络的 <span style=" font-family:Lucida Grande;">Apple</span> 直营零售店。</br>
+        </br>
+        “中国电信”是指为 <span style=" font-family:Lucida Grande;">Apple Store</span> 零售店提供使用 <span style=" font-family:Lucida Grande;">WLAN</span> 网络的注册系统的中国电信公司或其指定的子公司及关联公司。</br>
+        </br>
+        “<span style=" font-family:Lucida Grande;">WLAN</span> 网络”是指由<span style=" font-family:Lucida Grande;"> Apple </span>和中国电信提供的、帮助用户通过 <span style=" font-family:Lucida Grande;">Apple Store</span> 零售店及其邻近区域内的无线网络接入点通过注册系统进行无线上网的服务。</br>
+        </br>
+        “你”或“用户”是指使用或尝试使用 WLAN 网络的人。</br>
+        </br>
+        <div class="font_style">用户认可</div>
+        你特此认可： <span style=" font-family:Lucida Grande;">(1)</span> 你在 <span style=" font-family:Lucida Grande;">Apple Store</span> 零售店享受到的 <span style=" font-family:Lucida Grande;">WLAN</span> 网络系一项无偿提供的免费服务； <span style=" font-family:Lucida Grande;">(2)</span>上网服务注册系统由中国电信而非 <span style=" font-family:Lucida Grande;">Apple Store</span> 零售店提供、运营； <span style=" font-family:Lucida Grande;">(3)</span> 使用 <span style=" font-family:Lucida Grande;">WLAN</span> 网络可能需要你接受由中国电信制定的一些条款和条件。但是，在你和 <span style=" font-family:Lucida Grande;">Apple Store</span> 零售店之间，你对 <span style=" font-family:Lucida Grande;">WLAN</span> 网络的使用仅受本条款和条件，以及<span style=" font-family:Lucida Grande;"> Apple </span>的隐私政策 <span style=" font-family:Lucida Grande;">(https://www.apple.com/cn/privacy/)</span> 的约束。 </br>
+        </br>
+        <div class="font_style"><span style=" font-family:Lucida Grande;">WLAN</span> 网络的功能</div>
+        <span style=" font-family:Lucida Grande;">WLAN</span> 网络的提供受制于<span style=" font-family:Lucida Grande;"> Apple </span>和中国电信控制和运营的必要设备和相关设施的可用性和功能局限性。你已理解并同意，在提供 <span style=" font-family:Lucida Grande;">WLAN</span> 网络的过程中可能会发生正常的暂时性服务中断。<span style=" font-family:Lucida Grande;">Apple Store</span> 零售店不保证任何 <span style=" font-family:Lucida Grande;">WLAN</span> 网络功能不会中断或发生错误，也不保证与提供 <span style=" font-family:Lucida Grande;">WLAN</span> 网络有关的网站或服务器不存在病毒或其他有害内容。</br>
+        </br>
+        <div class="font_style">安全和隐私</div>
+        使用 <span style=" font-family:Lucida Grande;">WLAN</span> 网络登录互联网就其本质而言是不安全的。因此，当登录互联网时，你需要自行负责采取或实施你认为合适的安全措施以保护本人的隐私或个人信息及财产。<span style=" font-family:Lucida Grande;">Apple Store</span> 零售店对你因为使用 <span style=" font-family:Lucida Grande;">WLAN</span> 网络而遭受的隐私或个人信息及财产的损失、破坏或被非法侵入或使用均不负有任何责任。</br>
+        </br>
+        你已理解，用户在使用 <span style=" font-family:Lucida Grande;">WLAN</span> 网络时必须注册他/她的个人信息。同时，使用 <span style=" font-family:Lucida Grande;">WLAN</span> 网络可能会披露你的当前位置。你还理解，<span style=" font-family:Lucida Grande;"> Apple </span>和中国电信可能可以获取你在使用 <span style=" font-family:Lucida Grande;">WLAN</span> 网络过程中提交的信息或其他数据。你承认，你(而非 <span style=" font-family:Lucida Grande;">Apple Store</span> 零售店)应当对自己所提交的所有信息或数据的合法性、可靠性或正当性负有全部责任。你负有完全责任确保你对 <span style=" font-family:Lucida Grande;">WLAN</span> 网络的使用符合相关适用的法律和法规的规定。<span style=" font-family:Lucida Grande;">Apple Store</span> 零售店及其分支机构、关联机构、所有权人或其代表并不承担任何监控、追踪、记录、保存或披露你对 <span style=" font-family:Lucida Grande;">WLAN</span> 网络的使用(包括但不限于，你访问页面的 <span style=" font-family:Lucida Grande;">URL</span>、你所输入、传送或接收的数据)的义务。然而，为执法目的或应司法或政府部门的命令或要求，中国电信或 <span style=" font-family:Lucida Grande;">Apple Store</span> 零售店可能会被要求访问前述信息，并协助披露该等用户信息。</br>
+        </br>
+        <div class="font_style">使用政策</div>
+        使用 <span style=" font-family:Lucida Grande;">WLAN</span> 网络应当遵守以下政策。用户不得从事以下行为： <span style=" font-family:Lucida Grande;">(1)</span> 出于任何欺诈、非法、骚扰或滥用的目的，或为了对 <span style=" font-family:Lucida Grande;">Apple Store</span> 零售店或任何其他个人或实体的业务、声誉、员工或顾客造成损害或风险而使用或试图使用 <span style=" font-family:Lucida Grande;">WLAN</span> 网络； <span style=" font-family:Lucida Grande;">(2)</span> 试图或协助他人对与 <span style=" font-family:Lucida Grande;">WLAN</span> 网络有关的任何安全组件进行规避、反向工程、反编译、反汇编或以其他方式妨碍该等安全组件的正常运作； <span style=" font-family:Lucida Grande;">(3)</span> 使用 <span style=" font-family:Lucida Grande;">WLAN</span> 网络发布、传播、发表、传送、链接或陈列任何可能侵犯任一第三方的权利或违反任何可适用的法律法规的内容、信息或材料。</br>
+        </br>
+        如果发生<span style=" font-family:Lucida Grande;">(</span>或 <span style=" font-family:Lucida Grande;">Apple Store</span> 零售店有合理理由怀疑可能发生<span style=" font-family:Lucida Grande;">)</span>任何违反前述“使用政策”而使用或试图使用 <span style=" font-family:Lucida Grande;">WLAN</span> 网络的情形，<span style=" font-family:Lucida Grande;">Apple Store</span> 零售店，除其可能采取的任何其他救济手段外，无论其是否已事先通知相关用户，有权自行决定以任何方式移除、拦截、过滤或限制其认为违反或可能违反前述使用政策的任何材料或信息<span style=" font-family:Lucida Grande;">(</span>包括但不限于电子邮件<span style=" font-family:Lucida Grande;">)</span>，和/或停止向违反或潜在违反前述使用政策的用户提供 <span style=" font-family:Lucida Grande;">WLAN</span> 网络。</br>
+        </br>
+        <div class="font_style">无保证和责任限制</div>
+        你明确承认并且同意完全自行承担使用 <span style=" font-family:Lucida Grande;">WLAN</span> 网络的风险。在适用法律允许的最大限度内，你所享受的 <span style=" font-family:Lucida Grande;">WLAN</span> 网络是根据“现状”及“现有”基础提供，并附带所有瑕疵且不加任何保证。据此，<span style=" font-family:Lucida Grande;">Apple Store</span> 零售店特此否认对 <span style=" font-family:Lucida Grande;">WLAN</span> 网络做出任何明示、默示或法定的保证和条件。</br>
+        </br>
+        在不被适用法律禁止的范围内，在任何情况下，对于你因使用或无法使用 <span style=" font-family:Lucida Grande;">WLAN</span> 网络所引起或与此有关的任何人身伤害，以及附带的、特别的、间接的或后果性的损害，包括但不限于利润损失、数据损失、业务中断的损失或任何其它商业损害或损失，无论其成因基于何种责任理论<span style=" font-family:Lucida Grande;">(</span>合同、侵权或其它<span style=" font-family:Lucida Grande;">)</span>，即使 <span style=" font-family:Lucida Grande;">Apple Store</span> 零售店已被告知发生上述损失或损害的可能性，<span style=" font-family:Lucida Grande;">Apple Store</span> 零售店一律概不负责。如果此处责任限制条款在任何适用法律下被认定无效，<span style=" font-family:Lucida Grande;">Apple Store</span> 零售店的损害赔偿责任应限于法律所允许的最低金额内。</br>
+        </br>
+        <div class="font_style">一般性条款</div>
+        本条款和条件系 <span style=" font-family:Lucida Grande;">Apple Store</span> 零售店和使用 <span style=" font-family:Lucida Grande;">WLAN</span> 网络的用户之间的最终及全部约定。如果本条款和条件的任何部分被认定为无效或不可执行，应按照相关适用法对这些部分依据最大程度地反映该条款和条件本意的方式进行解释，在此情形下，本条款和条件的其余部分仍应被视为完全有效。<span style=" font-family:Lucida Grande;">Apple Store</span> 零售店未行使本条款和条件下的任何权利并不构成放弃该等权利或本条款和条件下的任何其他权利。</br>
+        </br>
+        在法律允许的范围内，<span style=" font-family:Lucida Grande;">Apple Store</span> 零售店保留如下权利：不论其是否已事先通知相关用户，<span style=" font-family:Lucida Grande;">Apple Store</span> 零售店可随时或不时对关于使用 <span style=" font-family:Lucida Grande;">WLAN</span> 网络的条款和条件进行更新、修订、补充或其他修改，并且可以施加新的或额外的规定、政策、条款或条件。</br>
+        </br>
+      </div>
+      <div   height = "30px;" width ="150px;" class =  "bstyle"> &nbsp;<a href = "#xx" onclick = "goback('zh');"  class = "eng3" >返回 </a></div>
+      <br />
+      <br />
+    </div>
+    <div style=" width:964px; float:right;"> </div>
+  </div>
+</center>
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</body>
+</html>

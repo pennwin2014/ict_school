@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>对象管理</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+    <script type="text/javascript" src="/newver/resources/js/ext_tree_base.js"></script>
+   
+ <script> 
+function clicknode(did,pid,gname){
+parent.passid(did,pid,gname);
+parent.doreflashTab();
+
+//parent.viewIframe.document.getElementById("form1").groupid.value=id;
+//parent.viewIframe.document.getElementById("form1").did.value='';
+//parent.viewIframe.reflash();
+
+}
+
+Ext.require([
+    'Ext.tree.*',
+    'Ext.data.*',
+    'Ext.tip.*',
+    'Ext.tab.*'
+]);
+var store;
+Ext.onReady(function() {
+
+    Ext.QuickTips.init();
+
+    store = Ext.create('Ext.data.TreeStore', {
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@ncwlanTreeUser_v4'
+        },
+        root: {
+            text: '<span onclick=clicknode("","")>行政区域</span>',
+            id: '',
+            expanded: true
+        },
+        folderSort: true,
+        sorters: [{
+            property: 'text',
+            direction: 'ASC'
+        }]
+    });
+
+    var tree = Ext.create('Ext.tree.Panel', {
+        store: store,
+ //       viewConfig: {
+//            plugins: {
+ //               ptype: 'treeviewdragdrop'
+//            }
+ //       },
+        renderTo: 'tree-div',
+        height: 980,
+        width: 350,
+        useArrows: false
+/*
+        dockedItems: [{
+            xtype: 'toolbar',
+            items: [{
+                text: '全部展开',
+                handler: function(){
+                    tree.expandAll();
+                }
+            }, {
+                text: '全部收缩',
+                handler: function(){
+                    tree.collapseAll();
+                }
+            }]
+        }]
+*/
+    });
+});
+function cx(){
+		var corpname=document.getElementById("form1").cname.value;
+    if(corpname!='热点名称'){
+   			store.load({params: {cname: corpname}});
+    }
+}
+function ss(){
+	if(event.keyCode==13){
+	  cx();
+	  return false;
+	}
+}
+</script>
+<body onKeyPress="return ss()">
+	<div id="search" style="height:24px">
+		<p >
+	<form id="form1" >
+		<div id="toolusr">
+	&nbsp;<input type="text" name="cname" id="cname"  value="热点名称" style="color:#7aa7d5;width:140px;height:20px;position:relative;top:2px;"  onfocus="this.value=''">
+	<input type="button" name="ok" value="&nbsp;查&nbsp;询&nbsp;" style="height:20px;width:50px;position:relative;top:2px;" onclick="cx()">
+
+</div>
+</form>
+</p>
+</div>
+<div id="tabs1">
+    <div id="tree-div"></div>
+</div>   
+</body>
+</html>
+
+
+
+

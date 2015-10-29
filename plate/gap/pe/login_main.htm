@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	color:#2251a1;
+}
+.wrap {
+	width:1024px;
+	margin:0 auto;
+}
+.main {
+	width:900px;
+	margin:0 auto;
+}
+.username {
+	width:150px;
+	height:30px;
+	line-height:30px;
+	border:1px solid #aaa;
+	text-indent:5px;
+	font-size:20px;
+	float:left;
+	font-family:"微软雅黑";
+}
+.password {
+	width:150px;
+	height:30px;
+	line-height:30px;
+	border:1px solid #aaa;
+	text-indent:5px;
+	font-size:20px;
+	float:left;
+	font-family:"微软雅黑";
+}
+.code {
+	width:100px;
+	height:30px;
+	line-height:30px;
+	border:1px solid #aaa;
+	text-indent:5px;
+	font-size:20px;
+	float:left;
+	font-family:"微软雅黑";
+}
+.yz {
+	width:70px;
+	height:30px;
+	line-height:30px;
+	font-family:Bradley Hand ITC, "黑体";
+	background:#CCC;
+	text-align:center;
+	border:none;
+	color:#f00;
+	border-radius: 0px; /* css 3标准 */
+	-moz-border-radius: 0px;  /* mozilla */
+	-webkit-border-radius: 0px;/*webkit*/
+	text-indent:5px;
+	font-size:22px;
+	font-weight:bold;
+	float:left;
+	margin-left:8px;
+}
+.btn_hq {
+	height:32px;
+	line-height:30px;
+	border:1px solid #3b65ad;
+	background:#3b65ad;
+	color:#fff;
+	margin-left:5px;
+	width:120px;
+	float:left;
+	cursor:pointer;
+	
+}
+.btn_ok {
+	height:32px;
+	line-height:30px;
+	border:1px solid #3b65ad;
+	background:#3b65ad;
+	color:#fff;
+	width:220px;
+	font-size:18px;
+	float:left;
+	cursor:pointer;
+}
+</style>
+<script type="text/javascript">
+var code; //在全局定义验证码
+	function createCode()
+	{
+		code = "";
+		var codeLength = 4; //验证码的长度
+		var selectChar = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'); //所有候选组成验证码的字符，当然也可以用中文的
+		
+		for(var i=0;i<codeLength;i++){
+			var charIndex = Math.floor(Math.random()*9);
+			code += selectChar[charIndex];	
+		}
+		document.getElementById("nclogin").ver.value=code;
+	}
+	function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp;
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";
+	}
+var p_flag = '1';
+	
+	function restore(){
+		document.getElementById("gpss").disabled = "";
+		p_flag='1';	
+	}
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+var i = 59;
+function fun() {
+	     document.getElementById("gpss").style.fontFamily="微软雅黑";
+       	 if (i == 0) {
+			 document.getElementById("gpss").style.fontFamily=Georgia, "Times New Roman", Times, serif;	 
+			 document.getElementById("gpss").value="GET PASSWORD";
+             clearInterval(intervalid);
+			 i=59;
+         }
+		 else{
+         document.getElementById("gpss").value = i;
+		
+         i--;
+		 }
+}
+function getpasswd(){
+		if(p_flag=='0') return false;	
+		if(document.getElementById("nclogin").username.value==''||document.getElementById("nclogin").username.value=='手机号'){
+		    alert('Please enter your phone number');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&tsid@[#tsid#]&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&tsid@"+document.getElementById("tsid").value;
+
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		 document.getElementById("gpss").value= "has been sent";
+	   intervalid= setInterval("fun()", 1000);//写在document.getElementById("gpss").disabled="true";的后面
+
+		p_flag='0';
+        setTimeout('restore()',60000);
+		return false;
+	}
+	
+	var mz;
+	function xianshi(){
+	mz=1;
+	document.getElementById("password").style.width="100%";
+	document.getElementById("bo").style.display="block";
+	document.getElementById("ok1").style.display="none";
+	document.getElementById("ok2").style.display="block";
+	
+	}
+	
+	function spylogin()
+	{
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="手机号"||document.getElementById("password").value==""||document.getElementById("password").value=="密码") 
+		{
+		    window.alert("Phone number or password can not be empty!");
+			  return false;
+		}
+		var temp=document.getElementById("yzm").value;
+		if(temp!=code){
+		alert('Verification code input error!');
+		return false;
+		}
+		if(document.getElementById("check1").checked!=1)
+		{
+			window.alert("Please make sure to accept the disclaimer！");			
+			return false;
+		}
+    document.getElementById("nclogin").submit();
+		/*var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}*/
+		
+    return true;
+	}
+	function mr(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").style.color="#aaa";
+		}
+		if(document.getElementById("password").value="密码"){
+			 document.getElementById("password").style.color="#aaa";
+		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+  	function init()
+	{
+		//alert('[#statusCode#]');
+		if('[#statusCode#]' == '2')
+		{
+			/*document.getElementById('err5').innerHTML = '账号与SSID不匹配。';*/
+			window.alert("账号与SSID不匹配");
+		}	
+		if('[#statusCode#]' == '3')
+		{
+			/*document.getElementById('err5').innerHTML = '用户账号已过期。';*/
+			window.alert("用户账号已过期");
+		}	
+		if('[#statusCode#]' == '4')
+		{
+			/*document.getElementById('err5').innerHTML = '您登录的账号在黑名单中。';*/
+			window.alert("您登录的账号在黑名单中");
+		}	
+		if('[#statusCode#]' == '5')
+		{
+			/*document.getElementById('err5').innerHTML = '请输入正确的密码。';*/
+			window.alert("请输入正确的密码");
+		}	
+		if('[#statusCode#]' == '6')
+		{
+			/*document.getElementById('err5').innerHTML = '该用户不存在。';*/
+			window.alert("该用户不存在");
+		}	
+    if('[#statusCode#]' == '7')
+		{
+			/*document.getElementById('err5').innerHTML = '超出Mac最大绑定数量。';*/
+			window.alert("超出Mac最大绑定数量");
+		}	
+}
+
+function changlogin(flag){
+        self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+</script>
+</head>
+
+<body onload="createCode();init();">
+<div class="wrap">
+  <form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+  <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+  [#postarg#]
+  <div style="height:50px; clear:both;"></div>
+  <div class="main">
+    <div><img style="float:left;" src="/images/gap/tubiao1.jpg" />
+      <div style="height:94px; float:right; width:780px; line-height:100px; border-bottom:1px solid #2251a1; font-size:50px;">WELCOME TO GAP WI-FI
+        <p style=" float:right; height:94px; line-height:120px; font-size:16px;"><a style="cursor:pointer;" onclick="changlogin('zh')">简体中文</a>&nbsp;|&nbsp;<a style="cursor:pointer;">ENGLISH</a></p>
+      </div>
+      <div style="height:60px; clear:both;"></div>
+      <div>
+        <div style=" float:left;">Mobile:<br />
+          <input type="text" class="username" id="username" name="username" />
+          <input type="button" class="btn_hq" value="GET PASSWORD" id="gpss" onclick="getpasswd()" />
+        </div>
+        <div style=" float:left; margin-left:15px;">Verification Code:<br />
+          <input type="text" id="yzm" class="code" name="yzm" />
+          <input id="ver" name="ver" class="yz" readonly onselectstart="return false" onclick="createCode();" />
+        </div>
+        <div style=" float:left;margin-left:15px;">Password:<br />
+          <input type="password" class="password" id="password" name="password" />
+        </div>
+        <div style=" float:left;margin-left:15px;">
+          <input type="checkbox" class="check1" id="check1" checked="checked" />
+          &nbsp;<span style="text-decoration:underline; cursor:pointer;" onclick="window.open('/images/gap/pc/mzsm_en.htm')">GAP Wireless Internet Terms</span><br />
+          <input type="button" value="LOGIN" class="btn_ok" onclick="return spylogin();" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="height:70px; clear:both;"></div>
+  <div class="foot"><img src="/images/gap/logo1.jpg" /></div>
+</div>
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</div>
+</body>
+</html>

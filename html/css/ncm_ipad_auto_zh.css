@@ -1,0 +1,254 @@
+*{
+	margin:0;
+	padding:0;
+}
+#main{
+	width:100%;
+	margin:0 auto;
+	text-align:center;
+}
+h1 {
+	line-height:74pt
+	font-family:MyriadSet-Thin;
+	font-size:64pt
+	color:#000000;
+	padding-bottom:15px;
+	margin:0 130px;
+	/*border-bottom:2px solid #ced0d5;*/
+}
+hr{
+	height:2px;
+	color:#d2d4d9;
+	margin:50px 0;
+}
+.header_ul{
+	display:table;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+ .header_ul li{
+			 list-style:none;
+			 float:left;
+			 display:block;
+			 height:113px
+			 line-height:113px;
+			 margin-top:34px;
+			 margin-bottom:40px;
+			 font-family:Arial, Helvetica, sans-serif;
+			
+			 *float:none;
+			 *display:inline;
+			 *zoom:1;
+
+   }
+   
+   #split {
+		width:30px;
+		text-align:center;
+		color:#ced0d5;
+		  
+   }
+  .china{
+	   color:#000;
+	   font-family:KozGoPr6N-Regular;
+   }
+   .china2{
+	   color:#000;
+	   font-family:KozGoPr6N-Regular;
+	   text-decoration:underline;
+   }
+   .eng{
+	   color:#0088CC;
+	   font-family:LucidaGrande;
+   }
+   .eng2{
+	   color:#0088CC;
+	   font-family:LucidaGrande;
+	   text-decoration:underline;
+   }
+   #login_area{
+	   width:90%;
+	   margin:0 auto;
+	   font-family:HelveticaNeue;
+	   font-size:1.2em;
+	   color:#000;
+   }
+   .font_style_h4{
+	   font-family:MyriadSet-Thin;
+	   font-size:40pt;
+	   color:#000;
+	   margin-bottom:38px;
+   }
+   
+  .font_style{
+	   font-family:HelveticaNeue;
+	   
+	   color:#000000;
+	
+   }
+   .Case{
+	   width:544px;
+	   height:78px;
+	   background-color:#f0f0f0;
+	   margin-bottom:32px;
+	   margin-top:32px;
+   }
+   .Case1{
+	   width:204px;
+	   height:78px;
+	   background-color:#f0f0f0;
+	   margin-bottom:32px;
+	   margin-top:32px;
+	   float:left;
+	   margin-right:10px;
+   }
+   .code{
+	   width:178px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#999999;
+   }
+   .code2{
+	   width:178px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#000;
+   }
+   .username{
+	   width:340px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#999999;
+   }
+   .username2{
+	   width:340px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#000;
+   }
+   .Case2{
+	   width:314px;
+	   height:78px;
+	   background-color:#f0f0f0;
+	   margin-bottom:32px;
+	   margin-top:32px;
+	   float:right;
+   }
+   .password{
+	   width:516px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#999999;
+   }
+   .password2{
+	   width:516px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#000;
+   }
+   .error{
+	   height:78px;
+	   padding-bottom:10px;
+	   font-size:32pt;
+	   color:#ff0000;
+   }
+   .chaccept{
+		width:22px;
+	   height:22px;
+   }
+   .getpasscode{
+	   background-image:url(/images/ap/get_passcodesms.png);
+	   width:242px;
+	   height:66px;
+	   border:0;
+	   margin-bottom:20px;
+   }
+   .no_sign{
+		background:#585858;
+		color:#ffffff;
+		width:30%;
+		height:60px;
+		border:0;
+		border-radius:10px;
+		font-size:1em;
+   }
+    .sign{
+	    background: #000000;
+		color:#ffffff;
+		width:30%;
+		height:60px;
+		border:0;
+	    border-radius:10px;
+	    font-size:1em;
+   }
+    .font_style a{
+	  color:#0088cc;
+	  text-decoration:none;
+  }
+  a:hover{
+	  text-decoration:underline;
+  }
+  .disclaimer{
+	  width:550px;
+	  height:400px;
+	  display:none;
+	  font-size:40pt;
+	  overflow-x:hidden;
+	  overflow-y:scroll;
+  }
+  .disclaimer2{
+	  width:550px;
+	  height:400px;
+	  display:block;
+	  font-size:40pt;
+	  overflow-x:hidden;
+	  overflow-y:scroll;
+  }
+   
+    
+    .font_style2{
+	   font-family:HelveticaNeue;
+	   font-size:0.7em;
+	   color:#999999;
+   }
+   .space1{
+    height:32px;
+   }
+   .space2{
+     height:50px;
+
+   }
+     .error3{
+	   height:45px;
+	   padding-bottom:10px;
+	   font-size:14pt;
+	   color:#ff0000;
+	   clear:both;
+   }
+   img{width:60%}
+   #errormark img{width: 3%; }

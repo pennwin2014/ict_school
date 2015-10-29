@@ -1,0 +1,137 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+  <link href="/css/video-js.css" rel="stylesheet" type="text/css">
+  <!-- video.js must be in the <head> for older IEs to work. -->
+  <script src="/js/video.js"></script>
+</head>
+<style type="text/css">
+body{
+margin:0;
+padding:0;
+width:100%;
+height:100%;
+
+}
+
+		#introduce{
+		width:100%;
+		}
+		#logoimg{
+		width:75%;
+		float:left;
+		}
+		
+		#logoimg img{
+		width:100%;
+		}
+		
+		#others{
+		width:25%;
+		float:left;
+		margin-top:2px;
+		text-align:center;
+		}
+		.others_1{
+		margin-bottom:2px;
+		}
+		#others img{
+		width:90%;
+		}
+		#video1{
+		width:100%;
+		
+		}
+		.space{
+		margin:50px;
+		}
+		#iframe1{
+		height:170px;
+		}
+		.title1{
+		float:left;
+		padding:2px;
+		width:100%;
+		background:#0088cc;
+		color:#ffffff;
+		text-align:center;
+		}
+</style>
+
+<script type="text/javascript">
+
+function changeTitle(){
+
+//alert("[#id#]");
+parent.document.getElementById("logo").innerHTML = "[#name#]";
+document.getElementById("FunName").value = "ncmProducts";
+document.getElementById("logoid").value = "[#id#]";
+document.getElementById("form1").submit();
+}
+
+</script>
+
+  <!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
+  <script type="text/javascript">
+    videojs.options.flash.swf = "/videos/suning/video-js.swf";
+  </script>
+  
+  <script type="text/javascript">
+function loadProducts(){
+//alert("[#id#]");
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmProducts";
+document.getElementById("iframe1").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value="[#id#]";
+
+//alert(document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value);
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+//alert("222");
+
+
+}
+</script>
+<body onload="loadProducts([#shopid#])">
+
+
+<div id="video1"> 
+ <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="100%"
+      poster="http://video-js.zencoder.com/oceans-clip.png"
+      data-setup="{}">
+  
+	<source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
+    <track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+    <track kind="subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+  </video>
+</div>
+<div id="introduce">
+<div id="logoimg"><img src="[#img#]"/> </div>
+
+<div id="others">
+<div class="others_1"><img src="/images/suning/weixin.png"></div> 
+<div class="others_1"><img src="/images/suning/weibo.png"></div>
+</div>
+</div>
+	<div class="title1">商品信息
+	</div>
+  
+  <iframe id="iframe1" frameborder="no" scrolling="auto"  width="100%"  height="170px" src="/suning/ncm_levels_logos_shops_products.htm" ></iframe>
+	
+	<div class="space"><br>
+	</div>
+  
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="logoid" name="logoid" value="">
+		<input type="hidden" id="limit1" name="limit1" value="0">
+		<input type="hidden" id="limit2" name="limit2" value="3">		
+
+	</form>	
+</body>
+</html>
+
+

@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style type="text/css">
+*{ margin:0; padding:0;}
+.wrap{ width:400px; margin:0 auto; font-family:"微软雅黑";}
+.top{width:100%; padding-top:5px; padding-bottom:5px;}
+.top .img1{ width:20%; margin-left:25%;}
+.top .img2{ width:20%; margin-left:10%;}
+.banner img{ width:100%;}
+.main{ width:80%; margin:0 auto;}
+.logo_wrap{ background:#de6667; width:100%; border-bottom:1px solid #000;}
+.logo_wrap img{ width:20%; margin-left:3%;}
+.username{ width:100%;
+height:32px;
+line-height:32px;
+border-radius: 3px; /* css 3标准 */
+-moz-border-radius: 3px;  /* mozilla */
+-webkit-border-radius: 3px;/*webkit*/
+border:1px solid #999;
+text-indent:5px;
+color:#666;
+font-size:1em;
+}
+.password{width:100%;
+height:32px;
+line-height:32px;
+border-radius: 3px; /* css 3标准 */
+-moz-border-radius: 3px;  /* mozilla */
+-webkit-border-radius: 3px;/*webkit*/
+border:1px solid #999;
+text-indent:5px;
+color:#666;
+font-size:1em;
+}
+.btn_hq{ width:100%; background:#de6667;
+border-radius: 3px; /* css 3标准 */
+-moz-border-radius: 3px;  /* mozilla */
+-webkit-border-radius: 3px;/*webkit*/
+background:-webkit-gradient(linear,left top,left bottom, color-stop(0,#de6667),color-stop(1,#de6667));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr="#de6667",EndColorStr="#de6667");/*IE浏览器渐变*/
+background:-moz-linear-gradient(center top,#de6667 10%,#de6667 100%);/*火狐内核渐变*/
+border:1px solid #a92b2c;
+color:#fff;
+height:32px;
+line-height:32px;
+}
+.btn_ok{ width:100%; background:#de6667;
+border-radius: 3px; /* css 3标准 */
+-moz-border-radius: 3px;  /* mozilla */
+-webkit-border-radius: 3px;/*webkit*/
+background:-webkit-gradient(linear,left top,left bottom, color-stop(0,#de6667),color-stop(1,#de6667));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr="#de6667",EndColorStr="#de6667");/*IE浏览器渐变*/
+background:-moz-linear-gradient(center top,#de6667 10%,#de6667 100%);/*火狐内核渐变*/
+border:1px solid #a92b2c;
+color:#fff;
+height:32px;
+line-height:32px;
+}
+.mz_wrap{ font-size:0.8em; color:#333;}
+#check1{ margin-right:5px;}
+@media screen and (max-width:400px){
+	.wrap{ width:100%;}
+	}
+
+</style>
+<script type="text/javascript">
+
+	function spylogin()
+	{
+	
+    document.getElementById("nclogin").submit();
+		
+		
+    return true;
+	}
+
+</script>
+</head>
+
+<body onload="init();">
+<div class="wrap">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+  <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+  [#postarg#]
+       <div style="display:none;">
+       <input type="text" id="username" name="username" value="[#username#]" />
+       <input type="password" id="password" name="password" value="[#password#]" />
+       <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+        </div>
+
+<div style="height:5px; background:#000; clear:both;"></div>
+<div class="banner"><img src="/images/laowang/sj_top1.jpg" /></div>
+<div style="height:5px; background:#000; clear:both;"></div>
+
+<div class="main">
+	 <div style="height:100px; clear:both;"></div>
+	 <div style="text-align:center;"><a style="color:#C00; font-size:22px; margin-left:10px;">欢迎您再次使用无线网络</a></div>
+	  <div style="height:80px; clear:both;"></div>
+	 <div style="text-align:center;">
+      <input type="button" class="btn_ok" value="再次登录" onClick="return spylogin();"/>
+    </div>
+    <!--div><input type="text" class="username" id="username" name="username" value="手机号码" onFocus="if(document.getElementById('nclogin').username.value=='手机号码'){this.value=''; this.style.color='#000';document.getElementById('err5').style.display='none';}"/></div>
+    <div style="height:10px; clear:both;"></div>
+    <div><input type="button" class="btn_hq" value="获取密码" id="gpss" onClick="getpasswd();"/></div>
+    <div style="height:10px; clear:both;"></div>
+    <div><input type="text" class="password" id="password" name="password" value="密码" onFocus="if(document.getElementById('nclogin').password.value=='密码'){this.value=''; this.style.color='#000'; this.type='password';document.getElementById('err5').style.display='none';}"/></div>
+    <div style="height:5px; clear:both;"></div>
+    <div class="mz_wrap"><input type="checkbox" id="check1" />我已阅读并同意免费上网协议</div>
+    <div style="height:5px; clear:both;"></div>
+    <div id="err5" style="color:#F00; text-align:center; font-size:12px;"></div>
+    <div style="height:5px; clear:both;"></div>
+    <div><input type="button" class="btn_ok" value="免费上网" onClick="return spylogin();"/></div>
+    <div style="height:20px; clear:both;"></div-->
+</div>
+ <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+  </form>
+</div>
+</body>
+</html>
+

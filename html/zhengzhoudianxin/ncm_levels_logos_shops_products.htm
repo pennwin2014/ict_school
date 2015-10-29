@@ -1,0 +1,51 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>郑州电信欢迎您</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+<style type="text/css">
+body{
+margin:0;
+padding:0;
+
+}
+
+	
+</style>
+
+<script type="text/javascript">
+function loadProducts(){
+
+document.getElementById("FunName").value = "ncmProducts";
+//document.getElementById("name").value = name;
+document.getElementById("form1").submit();
+
+}
+
+
+
+</script>
+<body >
+<div></div>
+	<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="name" name="name" value="一层">
+		<input type="hidden" id="level" name="level" value="">
+        <input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="sid" name="sid" value="">
+		<input type="hidden" id="groupid" name="groupid" value="">
+		<input type="hidden" id="limit1" name="limit1" value="0">
+		<input type="hidden" id="limit2" name="limit2" value="10">
+		<input type="hidden" name="plateName" id="plateName" value="zhengzhoudianxin"/>	
+	</form>
+	
+</body>
+</html>
+
+

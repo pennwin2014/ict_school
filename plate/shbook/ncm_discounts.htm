@@ -1,0 +1,88 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+
+</head>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	color:	#FFFFCE;
+	text-align:center;
+}
+.main {
+	font-size:0.8em;
+	width:96%;
+	margin:0 auto;
+}
+.img_wrap1 img{
+	width:100%;
+	margin-bottom:10px;
+}
+.img_wrap2 img{
+	width:32%; margin-left:1%; height:100px;  margin-bottom:7px; float:left;
+	}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+}
+</style>
+
+<script type="text/javascript">
+
+var plevels = new Array();
+var imgpaths=new Array();
+var xids=new Array();
+var i=0;
+function loadDiscounts(){
+//alert(111);
+[#SLPB#]
+plevels[[#plevel#]]="[#plevel#]";
+xids[[#plevel#]]="[#xid#]";
+//imgpaths[[#iNum#]]="[#imgpath#]";
+document.getElementById('position'+[#plevel#]).src='[#imgpath#]';
+[#SLPE#]
+//alert(document.getElementById('position10').src);
+}
+
+function discountDetail(number){
+//alert(number);
+//alert(xids[number]);
+document.getElementById('FunName').value="ncmDiscounts_Details";
+document.getElementById('xid').value=xids[number];
+document.getElementById("form1").submit();
+//alert(111);
+
+}
+</script>
+<body onLoad="loadDiscounts();">
+
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+	<input type="hidden" id="FunName" name="FunName" value="">
+	<input type="hidden" id="xid" name="xid" value="">
+	<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+	<input type="hidden" name="plateName" id="plateName" value="newshop"/>	
+	<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>	
+	<div class="wrap">
+  <div class="main">
+	[#SLPB#]
+    <div>[#aname#]</div>
+	[#SLPE#]
+  </div>
+</div>
+
+	</form>	
+</body>
+</html>
+
+

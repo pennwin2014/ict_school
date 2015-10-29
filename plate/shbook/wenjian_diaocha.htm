@@ -1,0 +1,684 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>问卷调查</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	font-family:"微软雅黑";
+}
+.main {
+	width:94%;
+	margin:0 auto;
+}
+.top {
+	background:url(/images/shanghai_SZ/01-shuzhan_r1_c2.jpg) repeat-x;
+	height:46px;
+	line-height:46px;
+	color:#ffffff;
+	text-align:center;
+	font-size:1.4em;
+	text-indent:-3%;
+}
+.img_wrap img {
+	width:100%;
+}
+.btn_1 {
+	width:21%;
+	float:left;
+	height:26px;
+	line-height:26px;
+	border:none;
+	color:#333;
+	margin-left:5%;
+	background:url(/images/shanghai_SZ/hui.jpg) repeat-x;
+}
+
+.btn_2 {
+	width:21%;
+	margin-left:10%;
+	float:left;
+	height:26px;
+	line-height:26px;
+	background:url(/images/shanghai_SZ/hui.jpg) repeat-x;
+	border:none;
+	color:#333;
+}
+.btn_3 {
+	width:30%;
+	margin-left:5%;
+	float:left;
+	height:26px;
+	line-height:26px;
+	background:url(/images/shanghai_SZ/hui.jpg) repeat-x;
+	border:none;
+	color:#333;
+}
+.btn_5 {
+	width:30%;
+	margin-left:5%;
+	float:left;
+	height:26px;
+	line-height:26px;
+	background:url(/images/shanghai_SZ/hui.jpg) repeat-x;
+	border:none;
+	color:#333;
+}
+.wenti {
+	color:#03b293;
+}
+.pj_dj {
+	float:left;
+	width:6%;
+	margin-left:7%;
+}
+.btn_ok {
+	background:#e40061;
+	border-radius:5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #e40061), color-stop(1, #e40061));/*谷歌浏览器渐变*/
+ filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#e40061", EndColorStr="#e40061");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #e40061 10%, #e40061 100%);/*火狐内核渐变*/
+	border:none;
+	width:30%;
+	color:#fef200;
+	height:28px;
+	line-height:28px;
+}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+}
+</style>
+<script type="text/javascript">
+function xuanqu1(Id){
+	var tm1=document.getElementsByName("timu1");
+	for(i=0;i<tm1.length;i++){
+	  tm1[i].style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x";
+      }
+
+	document.getElementById(Id).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+
+	if(Id=="btn1"){
+		document.getElementById("sex").value=1;
+	}
+	if(Id=="btn2"){
+		document.getElementById("sex").value=2;
+	}
+	
+}
+function xuanqu2(Id){
+	var tm2=document.getElementsByName("timu2");
+	for(i=0;i<tm2.length;i++){
+	  tm2[i].style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x";
+      }
+
+	document.getElementById(Id).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+
+	if(Id=="btn3"){
+		document.getElementById("age").value=1;
+	}
+	if(Id=="btn4"){
+		document.getElementById("age").value=2;
+	}
+	if(Id=="btn5"){
+		document.getElementById("age").value=3;
+	}
+	if(Id=="btn6"){
+		document.getElementById("age").value=4;
+	}
+	//alert(document.getElementById("age").value);
+	}
+function xuanqu3(Id){
+	var tm3=document.getElementsByName("timu3");
+	for(i=0;i<tm3.length;i++){
+	   tm3[i].style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x";
+      }
+
+	document.getElementById(Id).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+
+	
+	if(Id=="btn7"){
+		document.getElementById("edu").value=1;
+	}
+	if(Id=="btn8"){
+		document.getElementById("edu").value=2;
+	}
+	if(Id=="btn9"){
+		document.getElementById("edu").value=3;
+	}
+
+}
+function xuanqu5(Id){
+	var tm5=document.getElementsByName("timu5");
+	for(i=0;i<tm5.length;i++){
+	  tm5[i].style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x";
+      }
+
+	document.getElementById(Id).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+
+	if(Id=="btn10"){
+		document.getElementById("readtime").value=1;
+	}
+	if(Id=="btn11"){
+		document.getElementById("readtime").value=2;
+	}
+	if(Id=="btn12"){
+		document.getElementById("readtime").value=3;
+	}
+	if(Id=="btn13"){
+		document.getElementById("readtime").value=4;
+	}
+}
+function xuanqu8(Id){
+	var tm8=document.getElementsByName("timu8");
+	for(i=0;i<tm8.length;i++){
+	   tm8[i].style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x";
+      }
+
+	document.getElementById(Id).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+
+	if(Id=="btn14"){
+		document.getElementById("bookmon").value=1;
+	}
+	if(Id=="btn15"){
+		document.getElementById("bookmon").value=2;
+	}
+	if(Id=="btn16"){
+		document.getElementById("bookmon").value=3;
+	}
+	if(Id=="btn17"){
+		document.getElementById("bookmon").value=4;
+	}
+	if(Id=="btn18"){
+		document.getElementById("bookmon").value=5;
+	}
+	
+}
+function pingjia1(ind){
+	document.getElementById("readtype1").value=ind;
+	var pj1=document.getElementsByName("xingxing1");
+	for(i=0;i<ind;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing01.png";
+      }
+	for(i=ind;i<pj1.length;i++)
+	{
+		pj1[i].src="/images/shanghai_SZ/xing02.png";
+		}
+	document.getElementById("pingjia_tit1").style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+   if(document.getElementById(ind).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x"){
+	   document.getElementById(ind).style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x"
+	   for(i=0;i<3;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing02.png";
+      }
+	   }
+	}
+function pingjia2(ind){
+	document.getElementById("readtype2").value=ind;
+	var pj1=document.getElementsByName("xingxing2");
+	for(i=0;i<ind;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing01.png";
+      }
+	for(i=ind;i<pj1.length;i++)
+	{
+		pj1[i].src="/images/shanghai_SZ/xing02.png";
+		}
+	document.getElementById("pingjia_tit2").style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+ if(document.getElementById(ind).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x"){
+	   document.getElementById(ind).style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x"
+	   for(i=0;i<3;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing02.png";
+      }
+	   }
+	}
+function pingjia3(ind){
+	document.getElementById("readtype3").value=ind;
+	var pj1=document.getElementsByName("xingxing3");
+	for(i=0;i<ind;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing01.png";
+      }
+	for(i=ind;i<pj1.length;i++)
+	{
+		pj1[i].src="/images/shanghai_SZ/xing02.png";
+		}
+	document.getElementById("pingjia_tit3").style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+ if(document.getElementById(ind).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x"){
+	   document.getElementById(ind).style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x"
+	   for(i=0;i<3;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing02.png";
+      }
+	   }
+	}
+function pingjia4(ind){
+	document.getElementById("readtype4").value=ind;
+	var pj1=document.getElementsByName("xingxing4");
+	for(i=0;i<ind;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing01.png";
+      }
+	for(i=ind;i<pj1.length;i++)
+	{
+		pj1[i].src="/images/shanghai_SZ/xing02.png";
+		}
+	document.getElementById("pingjia_tit4").style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+ if(document.getElementById(ind).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x"){
+	   document.getElementById(ind).style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x"
+	   for(i=0;i<3;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing02.png";
+      }
+	   }
+	}
+function pingjia5(ind){
+	document.getElementById("readtype5").value=ind;
+	var pj1=document.getElementsByName("xingxing5");
+	for(i=0;i<ind;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing01.png";
+      }
+	for(i=ind;i<pj1.length;i++)
+	{
+		pj1[i].src="/images/shanghai_SZ/xing02.png";
+		}
+	document.getElementById("pingjia_tit5").style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+ if(document.getElementById(ind).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x"){
+	   document.getElementById(ind).style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x"
+	   for(i=0;i<3;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing02.png";
+      }
+	   }
+	}
+function pingjia6(ind){
+	document.getElementById("readtype6").value=ind;
+	var pj1=document.getElementsByName("xingxing6");
+	for(i=0;i<ind;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing01.png";
+      }
+	for(i=ind;i<pj1.length;i++)
+	{
+		pj1[i].src="/images/shanghai_SZ/xing02.png";
+		}
+	document.getElementById("pingjia_tit6").style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+ if(document.getElementById(ind).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x"){
+	   document.getElementById(ind).style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x"
+	   for(i=0;i<3;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing02.png";
+      }
+	   }
+	}
+function pingjia7(ind){
+	document.getElementById("readtype7").value=ind;
+	var pj1=document.getElementsByName("xingxing7");
+	for(i=0;i<ind;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing01.png";
+      }
+	for(i=ind;i<pj1.length;i++)
+	{
+		pj1[i].src="/images/shanghai_SZ/xing02.png";
+		}
+	document.getElementById("pingjia_tit7").style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+ if(document.getElementById(ind).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x"){
+	   document.getElementById(ind).style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x"
+	   for(i=0;i<3;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing02.png";
+      }
+	   }
+	}
+function pingjia8(ind){
+		document.getElementById("readtype8").value=ind;
+	var pj1=document.getElementsByName("xingxing8");
+	for(i=0;i<ind;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing01.png";
+      }
+	for(i=ind;i<pj1.length;i++)
+	{
+		pj1[i].src="/images/shanghai_SZ/xing02.png";
+		}
+	document.getElementById("pingjia_tit8").style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+ if(document.getElementById(ind).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x"){
+	   document.getElementById(ind).style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x"
+	   for(i=0;i<3;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing02.png";
+      }
+	   }
+	}
+function pingjia9(ind){
+	document.getElementById("booketype1").value = ind;
+	
+	var pj1=document.getElementsByName("xingxing9");
+	for(i=0;i<ind;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing01.png";
+      }
+	for(i=ind;i<pj1.length;i++)
+	{
+		pj1[i].src="/images/shanghai_SZ/xing02.png";
+		}
+	document.getElementById("pingjia_tit9").style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+ if(document.getElementById(ind).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x"){
+	   document.getElementById(ind).style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x"
+	   for(i=0;i<3;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing02.png";
+      }
+	   }
+	
+	
+	 
+	}
+function pingjia10(ind){
+	document.getElementById("booketype2").value = ind;
+	var pj1=document.getElementsByName("xingxing10");
+	for(i=0;i<ind;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing01.png";
+      }
+	for(i=ind;i<pj1.length;i++)
+	{
+		pj1[i].src="/images/shanghai_SZ/xing02.png";
+		}
+	document.getElementById("pingjia_tit10").style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+ if(document.getElementById(ind).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x"){
+	   document.getElementById(ind).style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x"
+	   for(i=0;i<3;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing02.png";
+      }
+	   }
+	}
+function pingjia11(ind){
+	 document.getElementById("getbook1").value = ind;
+	var pj1=document.getElementsByName("xingxing11");
+	for(i=0;i<ind;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing01.png";
+      }
+	for(i=ind;i<pj1.length;i++)
+	{
+		pj1[i].src="/images/shanghai_SZ/xing02.png";
+		}
+	document.getElementById("pingjia_tit11").style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+ if(document.getElementById(ind).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x"){
+	   document.getElementById(ind).style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x"
+	   for(i=0;i<3;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing02.png";
+      }
+	   }
+	 
+	}
+function pingjia12(ind){
+	 document.getElementById("getbook2").value = ind;
+	var pj1=document.getElementsByName("xingxing12");
+	for(i=0;i<ind;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing01.png";
+      }
+	for(i=ind;i<pj1.length;i++)
+	{
+		pj1[i].src="/images/shanghai_SZ/xing02.png";
+		}
+	document.getElementById("pingjia_tit12").style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+ if(document.getElementById(ind).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x"){
+	   document.getElementById(ind).style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x"
+	   for(i=0;i<3;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing02.png";
+      }
+	   }
+	  
+	}
+function pingjia13(ind){
+	document.getElementById("getbook3").value = ind;
+	var pj1=document.getElementsByName("xingxing13");
+	for(i=0;i<ind;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing01.png";
+      }
+	for(i=ind;i<pj1.length;i++)
+	{
+		pj1[i].src="/images/shanghai_SZ/xing02.png";
+		}
+	document.getElementById("pingjia_tit13").style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+ if(document.getElementById(ind).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x"){
+	   document.getElementById(ind).style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x"
+	   for(i=0;i<3;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing02.png";
+      }
+	   }
+	   
+	}
+function pingjia14(ind){
+	document.getElementById("getbook4").value = ind;
+	var pj1=document.getElementsByName("xingxing14");
+	for(i=0;i<ind;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing01.png";
+      }
+	for(i=ind;i<pj1.length;i++)
+	{
+		pj1[i].src="/images/shanghai_SZ/xing02.png";
+		}
+	document.getElementById("pingjia_tit14").style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x";
+ if(document.getElementById(ind).style.background="url(/images/shanghai_SZ/huang.jpg) repeat-x"){
+	   document.getElementById(ind).style.background="url(/images/shanghai_SZ/hui.jpg) repeat-x"
+	   for(i=0;i<3;i++){
+	  pj1[i].src="/images/shanghai_SZ/xing02.png";
+      }
+	   }
+	 
+	}
+function submitquestions(){
+window.location.href="#wrap";
+document.getElementById("form1").submit();
+}
+</script>
+</head>
+
+<body>
+<div class="wrap" id="wrap">
+
+  <div class="img_wrap"><img src="/images/shanghai_SZ/wenjuan.jpg" /></div>
+  <div class="main">
+    <div class="wenti">1、您的性别是：</div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="男" class="btn_1" id="btn1" name="timu1" onclick="xuanqu1(this.id);" />
+      <input type="button" value="女" class="btn_2" id="btn2" name="timu1" onclick="xuanqu1(this.id);" />
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div  class="wenti">2、您的年龄是：</div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="0-17岁" class="btn_1" id="btn3"  name="timu2" onclick="xuanqu2(this.id);"  />
+      <input type="button" value="18-35岁" class="btn_2" id="btn4" name="timu2" onclick="xuanqu2(this.id);"  />
+      <input type="button" value="36-60岁" class="btn_2" id="btn5" name="timu2" onclick="xuanqu2(this.id);"  />
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="61岁以上" class="btn_1" id="btn6" name="timu2" onclick="xuanqu2(this.id);" />
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div  class="wenti">3、您的教育程度是：</div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="高中及以上" class="btn_3" id="btn7"  name="timu3" onclick="xuanqu3(this.id);" />
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="大学" class="btn_1" id="btn8"  name="timu3" onclick="xuanqu3(this.id);" />
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="研究生及以上" class="btn_5" id="btn9"  name="timu3" onclick="xuanqu3(this.id);" />
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div  class="wenti">4、您主要阅读：</div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="文学" id="pingjia_tit1" class="btn_1" onclick="pingjia1(this.id);" />
+      <img class="pj_dj" onclick="pingjia1(1)" name="xingxing1" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia1(2)" name="xingxing1" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia1(3)" name="xingxing1" src="/images/shanghai_SZ/xing02.png" /> </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="科技" id="pingjia_tit2" class="btn_1" onclick="pingjia2(this.id);"/>
+      <img class="pj_dj" onclick="pingjia2(1)" name="xingxing2" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia2(2)" name="xingxing2" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia2(3)" name="xingxing2" src="/images/shanghai_SZ/xing02.png" /> </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="艺术" id="pingjia_tit3" class="btn_1" onclick="pingjia3(this.id);"/>
+      <img class="pj_dj" onclick="pingjia3(1)" name="xingxing3" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia3(2)" name="xingxing3" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia3(3)" name="xingxing3" src="/images/shanghai_SZ/xing02.png" /> </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="教育" id="pingjia_tit4" class="btn_1" onclick="pingjia4(this.id);"/>
+      <img class="pj_dj" onclick="pingjia4(1)" name="xingxing4" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia4(2)" name="xingxing4" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia4(3)" name="xingxing4" src="/images/shanghai_SZ/xing02.png" /> </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="社科" id="pingjia_tit5" class="btn_1" onclick="pingjia5(this.id);"/>
+      <img class="pj_dj" onclick="pingjia5(1)" name="xingxing5" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia5(2)" name="xingxing5" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia5(3)" name="xingxing5" src="/images/shanghai_SZ/xing02.png" /> </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="少儿" id="pingjia_tit6" class="btn_1" onclick="pingjia6(this.id);"/>
+      <img class="pj_dj" onclick="pingjia6(1)" name="xingxing6" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia6(2)" name="xingxing6" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia6(3)" name="xingxing6" src="/images/shanghai_SZ/xing02.png" /> </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="生活" id="pingjia_tit7" class="btn_1" onclick="pingjia7(this.id);"/>
+      <img class="pj_dj" onclick="pingjia7(1)" name="xingxing7" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia7(2)" name="xingxing7" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia7(3)" name="xingxing7" src="/images/shanghai_SZ/xing02.png" /> </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="其他" id="pingjia_tit8" class="btn_1" onclick="pingjia8(this.id);"/>
+      <img class="pj_dj" onclick="pingjia8(1)" name="xingxing8" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia8(2)" name="xingxing8" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia8(3)" name="xingxing8" src="/images/shanghai_SZ/xing02.png" /> </div>
+    <div style="height:10px; clear:both;"></div>
+    <div  class="wenti">5、您每天阅读：</div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="1小时以下" class="btn_3" id="btn10"  name="timu5" onclick="xuanqu5(this.id);"  />
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="1-2小时" class="btn_3" id="btn11"  name="timu5" onclick="xuanqu5(this.id);" />
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="3-4以下" class="btn_3" id="btn12"  name="timu5" onclick="xuanqu5(this.id);" />
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="4小时以上" class="btn_3" id="btn13"  name="timu5" onclick="xuanqu5(this.id);" />
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div  class="wenti">6、您一般阅读：</div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="纸质书" class="btn_3" id="pingjia_tit9" onclick="pingjia9(this.id);"/>
+      <img class="pj_dj" onclick="pingjia9(1)" name="xingxing9" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia9(2)" name="xingxing9" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia9(3)" name="xingxing9" src="/images/shanghai_SZ/xing02.png" /> </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="电子书" class="btn_3" id="pingjia_tit10" onclick="pingjia10(this.id);"/>
+      <img class="pj_dj" onclick="pingjia10(1)" name="xingxing10" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia10(2)" name="xingxing10" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia10(3)" name="xingxing10" src="/images/shanghai_SZ/xing02.png" /> </div>
+    <div style="height:10px; clear:both;"></div>
+    <div  class="wenti">7、您一般获得图书的方式是：</div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="网上购买" class="btn_3" id="pingjia_tit11" onclick="pingjia11(this.id);"/>
+      <img class="pj_dj" onclick="pingjia11(1)" name="xingxing11" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia11(2)" name="xingxing11" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia11(3)" name="xingxing11" src="/images/shanghai_SZ/xing02.png" /> </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="书店购买" class="btn_3" id="pingjia_tit12" onclick="pingjia12(this.id);"/>
+      <img class="pj_dj" onclick="pingjia12(1)" name="xingxing12" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia12(2)" name="xingxing12" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia12(3)" name="xingxing12" src="/images/shanghai_SZ/xing02.png" /> </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="借读" class="btn_3" id="pingjia_tit13" onclick="pingjia13(this.id);"/>
+      <img class="pj_dj" onclick="pingjia13(1)" name="xingxing13" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia13(2)" name="xingxing13" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia13(3)" name="xingxing13" src="/images/shanghai_SZ/xing02.png" /> </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="移动阅读" class="btn_3" id="pingjia_tit14" onclick="pingjia14(this.id);"/>
+      <img class="pj_dj" onclick="pingjia14(1)" name="xingxing14" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia14(2)" name="xingxing14" src="/images/shanghai_SZ/xing02.png" />
+      <img class="pj_dj" onclick="pingjia14(3)" name="xingxing14" src="/images/shanghai_SZ/xing02.png" /> </div>
+    <div style="height:10px; clear:both;"></div>
+    <div  class="wenti">8、您每月购书的金额是：</div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="不购买图书" class="btn_3" id="btn14"  name="timu8" onclick="xuanqu8(this.id);"/>
+      <input type="button" value="0-50元" class="btn_3" id="btn15"  name="timu8" onclick="xuanqu8(this.id);"/>
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="51-150元" class="btn_3" id="btn16"  name="timu8" onclick="xuanqu8(this.id);"/>
+      <input type="button" value="151-250元" class="btn_3" id="btn17"  name="timu8" onclick="xuanqu8(this.id);"/>
+    </div>
+    <div style="height:10px; clear:both;"></div>
+    <div>
+      <input type="button" value="250元以上" class="btn_3" id="btn18"  name="timu8" onclick="xuanqu8(this.id);"/>
+    </div>
+    <div style="height:30px; clear:both;"></div>
+  </div>
+  <form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+  <div style="text-align:center;">
+    <input type="button" onclick="submitquestions()" value="提交" class="btn_ok" />
+  </div>
+  
+  
+  <div style="height:30px; clear:both;"></div>
+</div>
+
+</body>
+
+		<input type="hidden" id="FunName" name="FunName" value="ncm_questions">
+		<input type="hidden" id="name" name="name" value="">
+		<input type="hidden" id="sex" name="sex" value="">
+		<input type="hidden" id="age" name="age" value="">
+		<input type="hidden" id="edu" name="edu" value="">
+		
+		<input type="hidden" id="readtype" name="readtype" value="">
+		<input type="hidden" id="readtype1" name="readtype1" value="">
+		<input type="hidden" id="readtype2" name="readtype2" value="">
+		<input type="hidden" id="readtype3" name="readtype3" value="">
+		<input type="hidden" id="readtype4" name="readtype4" value="">
+		<input type="hidden" id="readtype5" name="readtype5" value="">
+		<input type="hidden" id="readtype6" name="readtype6" value="">
+		<input type="hidden" id="readtype7" name="readtype7" value="">
+		<input type="hidden" id="readtype8" name="readtype8" value="">
+		
+		
+		<input type="hidden" id="readtime" name="readtime" value="">
+		
+		<input type="hidden" id="booketype" name="booketype" value="">
+		<input type="hidden" id="booketype1" name="booketype1" value="">
+		<input type="hidden" id="booketype2" name="booketype2" value="">
+		
+		<input type="hidden" id="getbook" name="getbook" value="">
+		<input type="hidden" id="getbook1" name="getbook1" value="">
+		<input type="hidden" id="getbook2" name="getbook2" value="">
+		<input type="hidden" id="getbook3" name="getbook3" value="">
+		<input type="hidden" id="getbook4" name="getbook4" value="">
+	
+		<input type="hidden" id="bookmon" name="bookmon" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="plateName" name="plateName" value="shbook">
+		<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+		<input type="hidden" name="plateName" id="plateName" value="shbook"/>	
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>	
+	</form>
+</html>

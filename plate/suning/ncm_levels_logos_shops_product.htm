@@ -1,0 +1,181 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+<style type="text/css">
+body{
+margin:0;
+padding:0;
+width:100%;
+height:100%;
+font-family: arial;
+}
+	
+	.products1{
+	width:100%;
+	height:100%;
+	background:#E6E6E6;
+	overflow:scroll;
+ 
+	}
+	.products2{
+	width:568px;
+	height:151px;
+	background:#E6E6E6;
+	overflow:scroll;
+	
+	}
+	
+	.product1{
+	float:left;
+
+	text-align:center;
+	}
+	.product1 img{
+	width:100%;
+
+	}
+	.collect{
+	background:#B40404;
+	color:white;
+	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+	width:55%;
+	border-radius:5px;
+	}
+	
+	.feeclass{
+	font-size:0.5em;
+	visibility:hidden;
+	}
+	.feeclass2{
+	font-size:0.5em;
+	text-decoration:line-through;
+	}
+	.discountclass{
+	
+	}
+	.discountclass2{
+	color:red;
+	visibility:visible;
+	}
+</style>
+
+<script type="text/javascript">
+
+window.onorientationchange = window.onresize = function(){
+	//alert(screen.width+","+screen.height);
+//	alert(window.innerWidth+","+window.innerHeight);
+	if(window.innerWidth == screen.width){
+//	alert(1);
+//	 document.getElementById("products").className="products1";  
+	// $("#products").css('width',window.innerWidth);
+	 }else{
+//	 alert(2);
+//	  document.getElementById("products").className="products2";  
+	
+	 }
+	   $("#products").css('width',window.innerWidth);
+//alert(1111111);
+
+}
+
+
+	function hengshuping(){
+	//alert(screen.width+","+screen.height);
+//	alert(window.innerWidth+","+window.innerHeight);
+	$("#products").css('width',window.innerWidth);
+	
+	 //  document.getElementById("products").className="products2"; 
+	 }
+ 
+
+
+
+function loadProducts(){
+document.getElementById("FunName").value = "ncmProducts";
+//document.getElementById("name").value = name;
+
+document.getElementById("form1").submit();
+}
+function addcollections(num){
+//alert("收藏"+num);
+//alert(sids[num]+service_codes[num]+imgpaths[num]+descripts[num]);
+if (confirm("是否想要收藏此商品？") ) 
+　　　　　 { 　　
+　　
+document.getElementById("iframe3").contentWindow.document.getElementById("FunName").value="ncm_Addcollections";
+document.getElementById("iframe3").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe3").contentWindow.document.getElementById("uid").value= "1";
+document.getElementById("iframe3").contentWindow.document.getElementById("integral").value="[#integral#]";
+document.getElementById("iframe3").contentWindow.document.getElementById("aid").value=aids[num];
+document.getElementById("iframe3").contentWindow.document.getElementById("sid").value=sids[num];
+document.getElementById("iframe3").contentWindow.document.getElementById("service_code").value=service_codes[num];
+document.getElementById("iframe3").contentWindow.document.getElementById("decript").value=descripts[num];
+document.getElementById("iframe3").contentWindow.document.getElementById("imgpath").value=imgpaths[num];
+document.getElementById("iframe3").contentWindow.document.getElementById("form1").submit();
+}
+else { 
+
+}　
+}
+
+var aids = new Array();
+var sids = new Array();
+var service_codes = new Array();
+var imgpaths = new Array();
+var descripts = new Array();
+function init(){
+
+[#SLPB#]
+aids[[#iNum#]] = "[#aid#]";
+sids[[#iNum#]] = "[#sid#]";
+service_codes[[#iNum#]] = "[#service_codes#]";
+imgpaths[[#iNum#]] = "[#imgpath#]";
+descripts[[#iNum#]] = "[#descr#]";
+[#SLPE#]
+}
+
+function exit(){
+//alert(111)
+parent.document.getElementById("iframe1").style.display = "none";
+};
+</script>
+<body onload="hengshuping();init()">
+	<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="name" name="name" value="一层">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="sid" name="sid" value="">
+		<input type="hidden" id="groupid" name="groupid" value="">
+	</form>
+	<form id="form2" name="form2" id="form2" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="ncm_products_collect">
+	</form>
+	<div id="products" class="products1">
+	
+	<div style="width:100%; overflow:auto;">
+	[#SLPB#]  
+	<div class="product1" onclick="exit()">
+	
+	<div><img src="[#imgpath#]"></div>
+	<div>[#name#]</div>
+	<div class="[#feeclass#]">￥[#fee#]</div>
+	<div class="[#discountclass#]">￥[#discount#]</div>
+	</div>	
+		[#SLPE#] 
+			</div>
+
+	</div>
+<iframe id="iframe3" frameborder="no" scrolling="No"  width="100%" height="0px" src="/suning/ncm_products_collections.htm" ></iframe>	
+</body>
+</html>
+
+

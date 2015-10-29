@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"黑体";
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+}
+.img_1 {
+	width:22%;
+	float:left;
+}
+.div_2 {
+	width:78%;
+	float:left;
+}
+.div_2 ul {
+	width:100%;
+}
+.div_2 ul li {
+	list-style:none;
+	float:left;
+	color:#666666;
+}
+.div_2 .ul1 li {
+	width:25%;
+	text-align:center;
+}
+.div_2 .ul2 li {
+	width:20%;
+	text-align:center;
+}
+ @media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+ul li{ font-size:13px;}
+}
+</style>
+</head>
+
+<body>
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="id" name="id" value="">
+		<input type="hidden" id="logoid" name="logoid" value="">
+        <input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" name="plateName" id="plateName" value="zhengzhoudianxin"/>	
+</form>	
+<div class="wrap">
+  <div><img class="img_1" src="/images/zhengzhoudianxin/zhengzhoudianxin02_r7_c1.jpg" />
+    <div class="div_2">
+      <div style="height:15px; clear:both;"></div>
+      <ul class="ul1">
+        <li>西餐</li>
+        <li>韩国料理</li>
+        <li>日本料理</li>
+        <li>东南亚</li>
+      </ul>
+      <div style="height:15px; clear:both;"></div>
+      <ul class="ul2">
+        <li>豫菜</li>
+        <li>川菜</li>
+        <li>广东菜</li>
+        <li>火锅</li>
+        <li>其他</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>

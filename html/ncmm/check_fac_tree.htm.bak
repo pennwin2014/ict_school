@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>新网程登录门户管理系统</title>
+<link href="/css/css_main.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/toolbars.css" />
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script> 
+<style type="text/css">
+.accept {
+    background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+}	
+</style>
+<script> 
+Ext.onReady(function(){
+			Ext.define('EimData1', {
+	    		extend:'Ext.data.Model',
+	    		fields:[
+	    				{name: 'text',    type: 'string'},
+		          {name: 'id',      type: 'string'},
+		          {name: 'compid',  type: 'string'},
+		          {name: 'ctext',   type: 'string'}
+	    		]	
+	    });
+	    var doorStore = Ext.create('Ext.data.TreeStore', {
+	    		model:'EimData1',
+	    		proxy:{
+	    				type:'ajax',
+	    				url:'/pronline/Msg?FunName@ncmTreeFac&plate'	
+	    		},
+	    		root:{
+           		text:'全部',
+           		id:'',
+           		checked:false,
+           		expanded:true
+          },
+          folderSort:true,
+          sorters:[{
+          		property:'id',
+          		direction:'DESC'	
+          }],
+	    		listeners:{
+	    				'load':function(thisStore, node, records, successful, e0pts){
+	    				}
+	    		}	
+	    });
+	    /*doorStore.on('beforeload', function (store, options) {
+		        var new_params = { state: Ext.getCmp('compstate').getValue() };
+		        Ext.apply(store.proxy.extraParams, new_params);
+		  });*/
+		  
+	    var tree = Ext.create('Ext.tree.TreePanel',{                      	
+            //renderTo:Ext.getBody(),
+            renderTo: 'tree-div',
+           	rootVisible:true,
+           	store:doorStore,
+           	height: 400,
+            width: 300,
+           	dockedItems:[{
+           			xtype:'toolbar',
+           			items:[{
+           					xtype:'textfield',
+										id:'factree_keyword',
+										name:'factree_keyword',
+										style:'color:#7aa7d5',
+										width:110,
+										emptyText:'Factory',
+										enableKeyEvents:true,
+										listeners:{
+												'focus':function(){
+														if(this.value=='Factory'){                
+																this.setValue('');
+														}
+												},
+												'keydown' : function(i,e){
+														var aae=e.getKey() ; 
+														if(aae==13){
+																var aa=Ext.getCmp('factree_keyword').value;
+																if(aa!='Factory'){
+																		var vkeyword=Ext.getCmp('factree_keyword').value;
+																}else{
+																		var vkeyword='';	
+																}
+																doorStore.load({params: {keyword:vkeyword}});
+														}
+												}
+										}
+           			},{
+           				  text:'查询',
+		                itemId: 'moveButton',
+		                iconCls:'accept',
+		 								id:"treeBtn",
+		                listeners: {
+			                	'click': function(){
+				                		var aa=Ext.getCmp('factree_keyword').value;
+				                		if(aa!='Factory'){
+						                    var vkeyword=Ext.getCmp('factree_keyword').value;
+								            }else{
+								            	  var vkeyword='';		
+								            }
+								            doorStore.load({params: {keyword:vkeyword}});
+			                	}
+		                }
+                }]	
+           	}],
+           	buttons:[{
+           			text:'确定',
+           			handler: function(){
+                    var records = tree.getView().getChecked();
+						        var temps=''; 
+						        var temp_name='';
+						        var iNum=0;            
+                    Ext.Array.each(records, function(rec){
+		                    if(iNum==0){
+				                    temps=rec.get('id');
+				                    temp_name=rec.get('text');
+		                    }else{
+				                    temps=temps+','+rec.get('id');
+				                    temp_name=temp_name+','+rec.get('text');
+		                    }
+		                    iNum++;
+                    });
+                    
+                    parent.form1.fac_desc.value=temp_name;
+                    parent.form1.fac.value=temps;
+                    if(temp_name!="全部"){
+                    	  parent.form1.groupcode.value=' ';
+                    	  parent.document.all.a.style.display='none';
+                    }
+                    parent.deldiv();
+                }
+           	}]         
+      });
+});
+</script>
+</head>
+<body>
+<div id="tabs1"> 
+    <div id="tree-div"></div> 
+</div>
+</body>
+</html>

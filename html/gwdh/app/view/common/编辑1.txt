@@ -1,0 +1,3 @@
+﻿"鸡公渔婆龙虾馆"
+    <Item Service_code="37028231990092" Service_name="撈蘋庈應樁藏奩" Address="青岛即墨市崂山一路102号" Producer_code="" Status="1" Ip="027.210.157.138" Net_type="08" Net_monitor_department="" Net_monitor_man="" SubStation="370282" PoliceStation="370282280000" Regionalism="370282" Zip="" Principal="张波" Principal_tel="13256899866" Infor_man="" Infor_man_tel="13256899866" Infor_man_email="" Ending_number="" Server_number="" Practitioner_number="" Net_monitor_man_tel="" Remark="" Latitude="" Longitude="" Org_code="">
+      <Out_IP From_Ip="027.210.157.138" To_Ip="027.210.157.138"/>

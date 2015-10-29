@@ -1,0 +1,134 @@
+<html>
+<head>
+<title>认证成功</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width" />
+<style type="text/css">
+	.but_exit { font-size: 9pt;  background-image:url(/images/applepc/exit.gif);
+   height: 32px; width: 292px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand} 
+	
+body{
+font-family:"SimHei";
+}
+  
+  .title{
+  text-align:center;
+  margin:5px;
+  font-weight:Bold;
+  font-size:1.5em;
+  
+  }
+   .title1{
+  text-align:center;
+  margin:5px;
+    font-weight:Bold;
+  color:#585858;
+  font-size:1.2em;
+  }
+  .webs{
+  margin-left:5%;
+  margin-right:5%;
+  
+  }
+  .web1{
+  border:1px solid #bdbdbd;
+  margin:5px;
+  width:28%;
+
+  height:60px;
+  float:left;
+   vertical-align:middle; 
+  text-align:center;
+  border-radius:5px;
+  box-shadow:2px 2px 5px 2px #bdbdbd;
+  }
+  .web1 img{
+  padding-top:5px;
+   padding-bottom:5px;
+   width:100px;
+height:50px:
+  }
+	
+</style>
+<script language="javascript" type="text/javascript">
+		function tuichu(){
+			document.getElementById("nclogin_0").submit();
+	}
+	function change(mark){
+//	alert(111);
+	if(mark ==1 ){
+	
+	parent.document.getElementById("iframe1").src="http://www.pronetway.com";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==2 ){
+	parent.document.getElementById("iframe1").src="http://www.baidu.com/";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==3 ){
+	parent.document.getElementById("iframe1").src="http://www.sina.com.cn/";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==4 ){
+	parent.document.getElementById("iframe1").src="http://www.qq.com";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==5 ){
+	parent.document.getElementById("iframe1").src="http://www.taobao.com";
+//	document.getElementById("nclogin_0").submit();
+	}
+	
+	}
+	function tuichu(){
+			document.getElementById("nclogin_0").submit();
+	}
+	var httphost;
+	function init(){
+	  parent.document.getElementById("i").src = "/c.png"; 
+	  parent.document.getElementById("logo").innerHTML = "退出上网"; 
+	  httphost= "http://[#ip#]:[#port#]";
+
+
+		parent.document.getElementById("i").onclick = function()
+	  { 
+//	  	alert(httphost);
+//	    alert("退出上网");
+//		  document.getElementById("iframe1").src = httphost+"/pronline/Msg?FunName@ncSrvLogOut&html@"+"/logout_ok.htm";
+        if (confirm("您真的要退出上网吗？") ) {
+		      parent.document.getElementById("iframe1").src = httphost+"/pronline/Msg?FunName@ncSrvLogOut&html@"+"/logout_ok.htm";
+//		    alert(parent.document.getElementById("iframe1").src);
+		      parent.document.getElementById("logo").innerHTML = "我要上网"; 
+		    }
+//	    	parent.document.getElementById("i").src = httphost+"/b.png"; 
+	    
+	  };
+	 
+	}
+</script>
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload = "init()">
+	<form name="nclogin_0" id="nclogin_0" method="post" action="http://[#ip#]:[#port#]/pronline/Msg" >
+ 	<input type="hidden" name="sid" value="[#sid#]">
+ 	<input type="hidden" name="FunName" value="ncSrvLogOut">
+	<input type="hidden" name="ModiPass" value="">
+	<input type="hidden" name="username" value="[#username#]">
+	<input type="hidden" name="userip" value="[#userip#]">
+	<input type="hidden" name="usermac" value="[#usermac#]">
+	<input type="hidden" name="serialno" value="[#serialno#]">
+
+	<div class="title">认证成功</div>
+	<div class="title1">你现在可以上网了</div>
+	<div class="webs">
+
+		<div class="web1" onclick="change(1)"><div><img src="/images/suning/pronetway.png" style="width:80px;"></div></div>
+	<div class="web1"  onclick="change(2)"><div><img src="/images/suning/baidu.png" style="width:80px;"></div></div>
+	<div class="web1"  onclick="change(3)"><div><img src="/images/suning/sina.png" style="width:80px;"></div></div>
+	<div class="web1"  onclick="change(4)"><div><img src="/images/suning/qq.png" style="width:80px;"></div></div>
+	<div class="web1"  onclick="change(5)"><div><img src="/images/suning/taobao.png" style="width:80px;"></div></div>
+<!--  <div class="web1"  onclick="tuichu()"><div><img src="/images/suning/taobao.png" style="width:80px;"></div>退出上网</div> -->
+	</div>
+	
+</form>
+</body>
+</html>

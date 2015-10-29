@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>众人科技</title>
+
+<style type="text/css">
+
+* {
+
+	margin:0;
+
+	padding:0;
+
+	font-family:"微软雅黑";
+
+}
+
+.wrap {
+
+	width:100%;
+
+	/*background:url(/7hospital_sh/zhongrenkeji/pc_bg.png) repeat;*/
+	min-width:1400px;
+	position:relative;
+}
+
+.main {
+
+	width:1400px;
+
+	margin:0 auto;
+
+	background:url(/7hospital_sh/zhongrenkeji/dntc.png) no-repeat center center;
+
+	height:800px;
+
+}
+
+.top{ width:120px; height:30px; position:relative;left:800px; float:left; margin-top:110px;}
+.btn_jr{ height:28px; line-height:28px; width:100px; background:none; border:2px solid #444; cursor:pointer; color:#efefef; text-align:center; font-weight:bold;}
+
+.main_1 {
+
+	float:left;
+
+	margin-top:330px;
+
+	width:100%;
+
+	text-align:center;
+
+}
+
+.btn_tuichu {
+
+	height:28px;
+
+	line-height:28px;
+
+	width:100px;
+
+	background:none;
+
+	border:2px solid #444;
+
+	cursor:pointer;
+
+	color:#333;
+
+	text-align:center;
+
+	font-weight:bold;
+
+}
+
+.main_2{ float:left; margin-top:70px; width:900px; margin-left:250px;}
+
+</style>
+
+</head>
+
+
+
+<body>
+
+<div class="wrap">
+
+<form name="nclogin" id="nclogin" method="post" action="http://[#ip#]:[#port#]/proauth/Msg" >
+
+    <input type="hidden" name="FunName" value="ncWebDispLogin">
+
+    <input type="hidden" name="url" value="[#url#]" >
+
+    <input type="hidden" name="sid" value="[#sid#]" >
+
+    <input type="hidden" name="eng_flag" value="0"/>
+
+    <input type="hidden" id="usertype" name="usertype" value="1">
+
+  <div class="main">
+
+   <!-- <div class="top">
+
+      <input type="button" class="btn_jr" value="加入收藏夹" />
+
+    </div>-->
+
+    <div class="main_1">
+
+      <input value="重新登录" type="submit" class="btn_tuichu" />
+
+    </div>
+
+    <div class="main_2">
+
+      <div id=demo style="overflow:hidden;width:750;" align=center>
+
+        <table border=0 align=center cellpadding=1 cellspacing=1 cellspace=0 >
+
+          <tr>
+
+            <td valign=top bgcolor=ffffff id=marquePic1><table width='100%' border='0' cellspacing='0'>
+
+                <tr>
+
+
+                </tr>
+
+              </table></td>
+
+            <td id=marquePic2 valign=top></td>
+
+          </tr>
+
+        </table>
+
+      </div>
+
+      <script type="text/javascript">
+
+var speed=50 
+
+marquePic2.innerHTML=marquePic1.innerHTML 
+
+function Marquee(){ 
+
+if(demo.scrollLeft>=marquePic1.scrollWidth){ 
+
+demo.scrollLeft=0 
+
+}else{ 
+
+demo.scrollLeft++ 
+
+} 
+
+} 
+
+var MyMar=setInterval(Marquee,speed) 
+
+demo.onmouseover=function() {clearInterval(MyMar)} 
+
+demo.onmouseout=function() {MyMar=setInterval(Marquee,speed)} 
+
+</script> 
+
+    </div>
+
+  </div>
+
+  </form>
+
+</div>
+
+</body>
+
+</html>
+

@@ -1,0 +1,45 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script>
+	function myClick(){
+		 document.getElementById("FunName").value = "ncm_mytest7799";
+		 document.getElementById("form1").submit();
+	}
+</script>	
+</head>
+
+<body >
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="name" name="name" value="">	
+		<input type="hidden" id="logoid" name="logoid" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<DIV>
+		[#MyVar#]	
+	<br />
+				<table width = '100%'>
+				<tr>
+		[#SLPB#]		
+
+					<td width = '100%'>
+ 	    			[#MyLoopVar#]
+ 	    	</td>
+ 	    	[#SLPE#]
+ 	    </tr>
+ 	  </table>
+ 	  
+ 		</DIV>
+ 		<br />
+ 		<input type ="text" id = "txtName" name = "txtName" value = "[#txtName#]" />
+ 		<input type = "button" id = "btnOK" value = "ddddddd" onclick = "myClick();" />
+	</form>	
+</body>
+</html>
+
+

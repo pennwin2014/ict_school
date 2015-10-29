@@ -1,0 +1,38 @@
+/* CSS Document */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, form, img, dl, dt, dd, table, th, td, blockquote, fieldset, div, strong, label, em, a, span {
+    margin: 0;
+    padding: 0;
+}
+body{ font-family:"ËÎÌו", Georgia, "Times New Roman", Times, serif;  font-size:12px; color:#555;}
+ul, li{ list-style:none;}
+input{border:0; }
+img{ border:0;}
+.logtop{ width:1000px; margin:30px auto 10px auto;}
+.login_mainwrap{ width:958px; border:1px solid #d3d3d3; margin:0 auto; overflow:hidden; clear:both; padding:20px;}
+.login_wrap_lef{ float:left; width:512px;}
+.log_nav a{ display:inline-block; float:left; background:url(/images/nongshang_bank/mainjh.png) no-repeat 0 0; width:122px; height:47px; text-align:center; line-height:47px; font-size:14px; font-weight:bold; color:#707070; text-decoration:none; margin:20px 3px 0 3px;}
+.log_nav a:hover{ background:url(/images/nongshang_bank/mainjh.png) no-repeat 0 -48px;}
+.login_wrap_right{ float:left; margin:0 0 0 60px; width:360px;}
+.login_wrap_right h2{ background:url(/images/nongshang_bank/mainjh.png) no-repeat 0 -98px; width:163px; height:48px; text-indent:-9999px;}
+.forlist{ width:352px; float:left; margin:15px 0;}
+.forlist p{ border:1px solid #cacaca; background:url(/images/nongshang_bank/inbk.gif) repeat-x; height:40px; margin:0 0 12px 0; width:276px; float:left;}
+.forlist p i{ display:block; float:left;}
+.lit_01{ background:url(/images/nongshang_bank/mainjh.png) no-repeat 0 -151px; width:48px; height:27px; display:block; margin:5px 0 0 18px;}
+.lit_02{ background:url(/images/nongshang_bank/mainjh.png) no-repeat 0 -188px; width:53px; height:20px; display:block; margin:10px 0 0 13px;}
+.formbt{ background:none; margin:6px 0 0 12px; font-size:16px; height:25px; line-height:25px;}
+.passwd{ float:left; width:100%;}
+.hq_btn{ background:url(/images/nongshang_bank/mainjh.png) no-repeat -143px 0; float:left; width:65px; height:42px; cursor:pointer; margin:0 0 0 5px;}
+.hq_btn_m{ background:url(/images/nongshang_bank/mainjh.png) no-repeat -143px -43px; float:left; width:65px; height:42px; cursor:pointer; margin:0 0 0 5px;}
+.select_wd{ float:left; margin:10px 0 0 15px;}
+.select_wd span{ display:block; float:left; margin:0 15px 0 0;}
+.select_wd .iradi{ float:left; margin:0 10px 0 0;}
+.select_wd i{ display:block; float:left; font-style:normal; font-size:14px; margin:2px 0 0 0;}
+.select_wd span a{ color:#004a99; text-decoration:underline; font-size:14px; display:block; margin:2px 0 0 10px;}
+.subt_btn{ background:url(/images/nongshang_bank/mainjh.png) no-repeat 0 -217px; width:276px; height:46px; float:left; margin:20px 0 0 0; cursor:pointer; text-indent:-9999px;}
+.subt_btn_m{ background:url(/images/nongshang_bank/mainjh.png) no-repeat 0 -270px; width:276px; height:46px; float:left; margin:20px 0 0 0; cursor:pointer; text-indent:-9999px;}
+.syzn_main{ float:left; border-top:1px dashed #ccc; padding:15px 0 0 0; width:100%;}
+.syzn_main h3{ color:#004a99; font-size:14px; padding:0 0 8px 0;}
+.syzn_main ul li{ font-size:12px; line-height:22px;}
+.syzn_main ul li i{ font-style:normal; color:#006e94;}
+.fot_main{ background:url(/images/nongshang_bank/footer.gif) no-repeat; width:1000px; height:46px; line-height:48px; color:#fff; margin:20px auto; clear:both; overflow:hidden;}
+.fot_main p{ float:right; margin:0 20px 0 0;}

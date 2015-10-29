@@ -1,0 +1,211 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK" />
+<title>上网验证</title>
+<style type="text/css">
+<!--
+html, body, div, p, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, object, iframe, form, blockquote, fieldset, input, textarea, code, address, caption, cite, code, em, i, ins {margin: 0px;
+	padding: 0px;font-style: normal;font-size: 14px;font-weight: normal;}
+body {background: #FFF;color: #666;font-size: 14px;font-family:"̎ͥ", Times New Romar;;
+      line-height: 180%;  }
+fieldset, img {border: 0;}
+table, td, tr, th {font-size: 14px;padding: 0px;font-style: normal;}
+table {border-collapse: collapse;border-spacing: 0px;}preview
+caption,th {text-align: left;}
+li{list-style-type: none;}
+ul,ol {list-style: none;}
+select, input, img {vertical-align: middle;}
+h1, h2, h3, h4, h5, h6 {font-size: 14px;font-weight: normal;}
+q:before, q:after {content: '';}
+abbr, acronym {border: 0;}
+a:link {text-decoration: none;color: #666666;}
+a:visited {text-decoration: none;color: #666666;}
+a:hover {color: #003399!important;}
+a:active {color: #666666;}
+
+#container {height: auto;width: auto;margin-right: auto;margin-left: auto;
+
+}
+
+.tableclass {	
+	border-right-width: 1px;border-bottom-width: 1px;border-top-width: 1px;
+	border-left-width: 0px;border-right-style: solid;border-bottom-style: solid;border-top-style: solid;
+	border-left-style: solid;border-right-color: #b9c0ca;border-bottom-color: #b9c0ca;
+	border-left-color: #b9c0ca;border-top-color: #b9c0ca;
+
+}
+
+.news_banner {
+	height: 310px;
+	width: 947px;
+	margin-bottom: 10px;
+	background-repeat: no-repeat;
+	clear: both;
+	margin-top: 15px;
+	
+}
+.news_banner_a {
+	height:270px;
+	width: 230px;
+	float: left;
+	margin-left:10px;
+	background-repeat: no-repeat;
+	
+	margin-top: 10px;	
+}
+.news_banner_b {
+	height: 270px;
+	width: 270px;
+	float: left;
+	margin-left:10px;
+	background-repeat: no-repeat;
+	
+	margin-top: 10px;
+	
+}
+.news_banner_b_1 {
+	height: 240px;
+	margin-left:0px;
+	margin-top:10px;
+	width: 260px;
+	padding:2px 10px;
+  letter-spacing:1px;line-height:20px;
+	
+}	
+.news_banner_c {
+	height: 250px;
+	width: 410px;
+	float: left;
+	margin-left:1px;
+	background-repeat: no-repeat;
+	border-right-width: 1px;border-bottom-width: 1px;border-top-width: 1px;
+	border-left-width: 1px;border-right-style: solid;border-bottom-style: solid;border-top-style: solid;
+	border-left-style: solid;border-right-color: #b9c0ca;border-bottom-color: #b9c0ca;
+	border-left-color: #b9c0ca;border-top-color: #b9c0ca;
+	background-color: #f6f9fe;
+	
+	margin-top: 10px;
+	
+}
+
+
+.input-submit {
+	Height:25px;BORDER-RIGHT: #afbdd2 1px solid;BORDER-LEFT: #afbdd2 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #afbdd2 1px solid;BORDER-BOTTOM: #afbdd2 1px solid; PADDING-LEFT: 5px; FONT-SIZE: 12px; PADDING-BOTTOM: 2px; CURSOR: pointer; PADDING-TOP: 2px; BACKGROUND-COLOR: #e9f1fd; TEXT-ALIGN: center; _padding: 3px 10px
+}
+
+.lines-1 {
+	background-image: url(/images/authimage/join_us-1.gif);
+	background-repeat: no-repeat;
+	height: 1px;
+	width: 648px;
+	line-height: 1px;
+	margin-bottom: 10px;
+	margin-left:10px;
+	
+}
+ 				.code{
+             font-family:Arial;
+             font-style:italic;
+             color:Red;
+             border:0;
+             padding:2px 3px;
+             letter-spacing:3px;
+             font-weight:bolder;
+        }
+         .unchanged{
+             border:0;
+             -moz-user-select:   none;
+        }
+.input-submit1 {	Height:25px;BORDER-RIGHT: #afbdd2 1px solid;BORDER-LEFT: #afbdd2 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #afbdd2 1px solid;BORDER-BOTTOM: #afbdd2 1px solid; PADDING-LEFT: 5px; FONT-SIZE: 12px; PADDING-BOTTOM: 2px; CURSOR: pointer; PADDING-TOP: 2px; BACKGROUND-COLOR: #e9f1fd; TEXT-ALIGN: center; _padding: 3px 10px
+}
+-->
+</style>
+
+<script language="javascript" type="text/javascript">
+    
+     var code ; //՚ȫ¾Ԡ¶¨ӥҩ֤ë
+     function createCode(){ 
+        code = "";
+       var codeLength = 4;//ҩ֤ëµĳ¤¶Ɗ       var checkCode = document.getElementById("checkCode");
+       var selectChar = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');//̹Ԑº󑢗鴉ҩ֤ëµŗַ�ȻҲ¿ʒՓĖюĵ        
+       for(var i=0;i<codeLength;i++){
+	       	var charIndex = Math.floor(Math.random()*9);
+	        code +=selectChar[charIndex];
+       }
+//        alert(code);
+       if(checkCode){
+          checkCode.className="code";
+          checkCode.value = code;
+        }
+      }
+     
+      function validate () {
+       var inputCode = document.getElementById("input1").value;
+       if(inputCode.length <=0){
+            alert("ȫˤɫҩ֤ë£¡");
+       }else if(inputCode != code ){
+           alert("ҩ֤ëˤɫ´£�?);
+           createCode();//ˢтҩ֤ë
+       }else{
+          alert("^-^ OK");
+       }
+       
+      }
+      function changlogin(flag){
+      	   
+      	self.location='http://192.168.20.34:8080/proauth/Msg?FunName@ncWebDispLogin&eng_flag@'+flag;
+      }
+      
+    function spylogin(){
+		if (document.getElementById("username").value=="" || document.getElementById("password").value=="") {
+			window.alert("请输入用户名或密�?);
+			return false;
+		}
+	
+		var temp=document.getElementById("input1").value;
+
+		if(temp!=code){
+		alert('ҩ֤ëˤɫ´�?');
+		return false;
+		}
+		document.getElementById("nclogin").FunName.value="ncSrvLogin";
+		
+    return true;
+	//	document.getElementById("nclogin").submit();
+	}
+	function ss(e){
+		var key = window.event ? e.keyCode:e.which;
+
+		if(key==13)
+		spylogin();
+	}
+	
+function goto2(t)
+{
+var temp="http://192.168.20.34:8080/proauth/Msg?FunName@ncWebNewsShowAdd&flag@1&sid@"+t;
+
+
+    var oDia=showModalDialog(temp,window,
+		 "status:no;center:yes;help:no;minimize:no;maximize:no;border:thick;statusbar:no;dialogWidth:700px;scroll:none;dialogHeight:450px;overflow:none");	
+
+}
+      
+      
+   </script>
+</head>
+
+<body onLoad="document.getElementById('nclogin').username.focus();createCode();">
+<form name="nclogin" id="nclogin" method="post" action="http://192.168.20.38:9080/pronline/Msg" >
+  <div id="container" >
+<table align="center"  class="tableclass">
+<tr>
+	<td width="395" height="30" bgcolor="ebf3fe">
+		<p>[#username#]  [#userip#] Error </p>
+		</td>
+</tr>
+</table>
+
+</div>
+</form>
+</body>
+</html>

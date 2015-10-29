@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/css/flexslider1.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>
+<title>无标题文档</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+body{ background:#f3f3f3;}
+.wrap {
+	width:1024px;
+	margin:0 auto;
+	background:#fff;
+}
+.main{ width:94%; margin:0 auto;}
+
+.main_left {
+	min-height:416px;
+	width:55%;
+	float:left;
+	
+}
+.main_center{ float:left; width:4%;}
+.main_center img{ }
+.main_right{ float:right; width:34%;}
+.main_right img{ }
+.left_top {
+	width:70%;
+	margin:0 auto;
+}
+.left_bottom {
+	width:100%;
+	margin:0 auto;
+	color:#666;
+	font-size:14px;
+	
+}
+.btn_ok1 {
+	cursor:pointer;
+	width:330px;
+	height:32px;
+	line-height:32px;
+	border:none;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #c27f4a), color-stop(1, #c27f4a));/*谷歌浏览器渐变*/
+ filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#c27f4a", EndColorStr="#c27f4a");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #c27f4a 10%, #c27f4a 100%);/*火狐内核渐变*/
+	background:#c27f4a;
+	color:#fff;
+	
+}
+.btn_hq {
+	cursor:pointer;
+	width:80px;
+	border:none;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #c27f4a), color-stop(1, #c27f4a));/*谷歌浏览器渐变*/
+ filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#c27f4a", EndColorStr="#c27f4a");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #c27f4a 10%, #c27f4a 100%);/*火狐内核渐变*/
+	background:#c27f4a;
+	color:#fff;
+	height:32px;
+	line-height:32px;
+	margin-left:10px;
+}
+.username {
+	color:#000;
+	text-indent:5px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	border:1px solid #666;
+	height:32px;
+	line-height:32px;
+	width:150px;
+}
+.password {
+	color:#000;
+	text-indent:5px;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	border:1px solid #666;
+	height:32px;
+	line-height:32px;
+	width:245px;
+}
+#check1 {
+	cursor:pointer;
+}
+
+li a img {
+	border:none;
+}
+.top{ padding:10px; border:1px solid #ccc; width:94%; margin:0 auto;}
+.top img{ width:100%;}
+.top1{ text-align:center; padding:20px;}
+</style>
+<script type="text/javascript">
+	function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp;
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";
+	}
+var p_flag = '1';
+function restore(){
+		document.getElementById("gpss").disabled = "";
+		p_flag='1';	
+	}
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+	 var i = 59;
+ 		 function fun() {
+       	 if (i == 0) {
+			 document.getElementById("gpss").value="获取密码";
+             clearInterval(intervalid);
+			 i=59;
+         }
+		 else{
+         document.getElementById("gpss").value = i;
+         i--;
+		 }
+        }
+function getpasswd(){
+		if(p_flag=='0') return false;
+		
+		
+			
+		if(document.getElementById("nclogin").username.value==''||document.getElementById("nclogin").username.value=='手机号码'){
+		    alert('请输入手机号');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&tsid@"+document.getElementById("tsid").value;
+		          
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		intervalid= setInterval("fun()", 1000);
+		p_flag='0';
+        setTimeout('restore()',50000);
+		return false;
+	}
+	var mz=0;
+	function xianshi(){
+	mz=1;
+	document.getElementById("password").style.width="240px";
+	document.getElementById("bo").style.display="block";
+	document.getElementById("ok1").style.display="none";
+	document.getElementById("ok2").style.display="block";
+	}
+	function spylogin()
+	{
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="手机号码"||document.getElementById("password").value==""||document.getElementById("password").value=="密码") 
+		{
+		    window.alert("手机号或密码不能为空!");
+			  return false;
+		}
+		if(document.getElementById('check1').checked!=1)
+		{window.alert("请确认接受免责声明条款和条件！");
+		return false;
+			}
+    document.getElementById("nclogin").submit();
+		/*var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}*/
+		
+    return true;
+	}
+	function init()
+	{
+ if('[#statusCode#]' == '2')
+		{
+			document.getElementById('err5').innerHTML = '账号与SSID不匹配！';
+		}	
+		if('[#statusCode#]' == '3')
+		{
+			document.getElementById('err5').innerHTML = '用户账号已过期！';
+		}	
+		if('[#statusCode#]' == '4')
+		{
+			document.getElementById('err5').innerHTML = '此用户在黑名单中！';
+		}	
+		if('[#statusCode#]' == '5')
+		{
+			document.getElementById('err5').innerHTML = '请输入正确的密码！';
+		}	
+		if('[#statusCode#]' == '6')
+		{
+			document.getElementById('err5').innerHTML = '用户不存在！';
+		}	
+
+}
+	function mr(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").style.color="#aaa";
+		}
+		if(document.getElementById("password").value="密码"){
+			 document.getElementById("password").style.color="#aaa";
+		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+</script>
+</head>
+
+<body onload="init();">
+<div class="wrap">
+  <form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+  <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+  [#postarg#]
+  <div class="top1"> <img src="/images/linken/linken-logo_pc.png" /> </div>
+  <div class="top"> <img src="/images/linken/MKZ_Home_banner_launch_CN.jpg" /> </div>
+ <!-- <div class="banner">
+    <section class="slider">
+      <div class="flexslider">
+        <ul class="slides">
+      
+          <li> <a href=""><img src="/images/taikang/pc_img/taikang1.jpg"/> </a> </li>
+          <li> <a href=""><img src="/images/taikang/pc_img/taikang2.jpg"/> </a> </li>
+          <li> <a href=""><img src="/images/taikang/pc_img/taikang3.jpg"/> </a> </li>
+          <li> <a href=""><img src="/images/taikang/pc_img/taikang4.jpg"/> </a> </li>
+        </ul>
+      </div>
+    </section>
+  </div>-->
+  <div style="height:30px; clear:both;"></div>
+  <div class="main">
+    <div class="main_left">
+      <div class="left_top">
+        <p style="height:60px;"></p>
+        <p>
+        <p style="width:80px; height:32px; color:#444;line-height:32px; float:left;">手机号：</p>
+        <input type="text" value="" id="username" name="username" class="username" onfocus="document.getElementById('err5').style.display='none'" />
+        <input style="cursor:pointer;" type="button" id="gpss" onClick="getpasswd();" class="btn_hq" value="获取密码" />
+        </p>
+        <p style="height:20px;"></p>
+        <p>
+        <p style="width:80px; height:32px; color:#444; line-height:32px; float:left;">密码：</p>
+        <input type="password" value="" id="password" name="password" class="password" onfocus="document.getElementById('err5').style.display='none'" />
+        </p>
+        <p style="height:20px;"></p>
+        <p style=" color:#666; font-size:14px;"><input type="checkbox" id="check1" />&nbsp;&nbsp;我已阅读并同意免责声明</p>
+        <p style="height:10px;"></p>
+        <div id="err5" style="color:#F00; text-align:center; font-size:12px;"></div>
+        <p style="height:10px;"></p>
+        <div class="left_bottom" id="bo">
+          <p style="height:20px;"></p>
+         
+         
+          <p>
+            <input type="button" class="btn_ok1" id="ok2" value="连接上网啦！" onclick="return spylogin();" />
+          </p>
+        </div>
+        <p style="height:10px;"></p>
+       <!-- <p style="font-size:12px; color:#888;">温馨提示：同一手机号每日仅登录4次，每次不超过30分钟。</p>-->
+        <p style="height:10px;"></p>
+      </div>
+    </div>
+    <div class="main_center"><img src="/images/linken/linken02_pc.png" /></div>
+    <div class="main_right"><img src="/images/linken/linken05-pc.jpg" /></div>
+    <div style="height:10px; clear:both;"></div>
+  </div>
+  <!-- <div class="foot"><img src="/images/taipingyang/pc-login_r3_c1.jpg"/></div>-->
+  <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="/css/flexslider.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>
+
+<title>郑州电信欢迎您</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	background:#f1f1f1;
+	position:relative;
+}
+.menu img {
+	width:100%;
+}
+.nr1 {
+	width:100%;
+	margin:0 auto;
+	position:relative;
+}
+.nr2 {
+	width:100%;
+	margin:0 auto;
+	position:relative;
+}
+.nr3 {
+	width:100%;
+	margin:0 auto;
+	position:relative;
+}
+.nr4 {
+	width:96%;
+	margin:0 auto;
+}
+.img_1 {
+	width:100%;
+	position:relatvie;
+	left:0;
+	top:0;
+}
+.img_3 {
+	width:100%;
+	position:relatvie;
+	left:0;
+	top:0;
+}
+.img_2 {
+	width:25%;
+	position:absolute;
+	left:0;
+	top:0;
+}
+.img_4 {
+	width:25%;
+	position:absolute;
+	right:0;
+	top:10%;
+}
+.img_5 {
+	width:25%;
+	position:absolute;
+	left:0;
+	top:40%;
+}
+.img_6 {
+	width:100%;
+	position:relatvie;
+	left:0;
+	top:0;
+}
+.img_7 {
+	width:35%;
+	position:absolute;
+	left:10%;
+	top:15%;
+}
+.img_8 {
+	width:35%;
+	position:absolute;
+	right:10%;
+	top:15%;
+}
+.img_p {
+	width:8%;
+	position:absolute;
+	left:2%;
+	top:70%;
+	 cursor:pointer;
+}
+.img_n {
+	width:8%;
+	position:absolute;
+	right:2%;
+	top:70%;
+	 cursor:pointer;
+}
+.foot img {
+	width:100%;
+}
+.daily_content{
+	width:65%;
+	position:absolute;
+	left:5%;
+	top:10%;
+	color:	#FFFFCE;
+	text-indent:2em;
+}
+.daily_content a{color:	#FFF986; font-size:0.9em;}
+.book_content{
+	width:80%;
+	position:absolute;
+	left:10%;
+	top:62%;
+	color:	#FFFFCE;
+	text-align:center;
+
+}
+.book_name1{
+	font-size:0.8em;
+	width:50%;
+	position:absolute;
+	left:0%;
+	bottom:1%;
+	color:	#FFFFCE;
+	text-align:center;
+}
+.book_name2{
+	font-size:0.8em;
+	width:50%;
+	position:absolute;
+	left:45%;
+	bottom:1%;
+	color:	#FFFFCE;
+	text-align:center;
+}
+.fenge{ width:100%;}
+img{ border:none;}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+}
+
+
+</style>
+
+<script type="text/javascript">
+
+var levels = new Array();
+var imgpaths=new Array();
+var shopids=new Array();
+var i=0;
+var user_online_flag = 0;//用户在线状态
+function loadInfos(){
+var title = ""; //导航栏标题
+title = "[#title#]";
+//title="郑州电信测试店名跑马灯";
+if(title != ""){
+//alert(title);
+//parent.document.getElementById("logo").innerHTML=title;
+parent.showTitle2(title);
+}
+[#SLPB#]
+levels[[#level#]]="[#level#]";
+shopids[[#level#]]="[#shopid#]";
+//imgpaths[[#iNum#]]="[#img#]";
+//document.getElementById('position'+[#iNum#]).src=imgpaths[[#iNum#]];
+if(levels[[#iNum#]]>4){
+document.getElementById('position'+[#level#]).src='[#img#]';
+}
+//alert(imgpaths[[#iNum#]]);
+
+[#SLPE#]
+user_online_flag = "[#user_online_flag#]";
+//alert(document.getElementById('position4').src+"  4 =");
+}
+
+function loadShops(number){
+//alert(number);
+document.getElementById("FunName").value = "ncmShops";
+document.getElementById("shopid").value = shopids[number];
+//alert(document.getElementById("shopid").value)
+//document.getElementById("form1").submit();
+window.location.href="/pronline/Msg?FunName@ncmShops&plateName@newshop&shopid@"+shopids[number]+"&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+
+parent.addURL("/pronline/Msg?FunName@ncmShops&plateName@newshop&shopid@"+shopids[number]+"&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+
+}
+
+function display(id){
+if(id == 'display1'){
+document.getElementById('display2').style.display ="none";
+document.getElementById('display1').style.display ="block";
+document.getElementById('display_img1').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c7.jpg";
+document.getElementById('display_img2').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c1.jpg";
+}
+if(id == 'display2'){
+document.getElementById('display1').style.display ="none";
+document.getElementById('display2').style.display ="block";
+document.getElementById('display_img1').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c1.jpg";
+document.getElementById('display_img2').src ="/images/zhengzhoudianxin/zhengzhoudianxin_r4_c7.jpg";
+}
+}
+</script>
+<script type="text/javascript">
+
+function switchlevels(mark){
+document.getElementById("id").value = mark;
+document.getElementById("FunName").value = "ncmCategories";
+document.getElementById("form1").submit();
+parent.addURL("/pronline/Msg?FunName@ncmCategories&plateName@newshop&id@"+mark+"&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+}
+function switchPersonals(){
+document.getElementById("FunName").value = "ncmPersonals";
+document.getElementById("uid").value = "1";
+document.getElementById("form1").submit();
+parent.addURL("/pronline/Msg?FunName@ncmPersonals&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+}
+
+function switchBus(){
+	//user_online_flag=1;
+	//alert(user_online_flag);
+	if(user_online_flag == 1)
+	{
+		self.location.href='http://wap.zhengzhoubus.com'
+		parent.addURL("http://wap.zhengzhoubus.com");
+	}
+	else{
+			alert("请先认证上网,再查看实时公交!");
+			document.getElementById("iframe1").src = "/pronline/Msg?FunName@ncSrvPlate&html@"+"/alogin_main.htm&"+rurl;
+	}
+}
+
+function myqq()
+{
+	   self.location.href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101078715&redirect_uri=http%3A%2F%2Fqq1.proeim.com%2Fpronline%2FMsg%3FFunName%3DncmWebReplace%26plate%3Dzzdx/sms/login_okqqtmp.htm%26tsid%3D[#tsid#]&state=test";
+}
+</script>
+
+
+<script type="text/javascript">
+function switchPage(mark){
+//alert("11111111");
+
+if(mark == 1){
+
+window.location.href="/pronline/Msg?FunName@ncmLevels&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+
+parent.addURL("/pronline/Msg?FunName@ncmLevels&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+}
+if(mark == 2){
+
+window.location.href="/pronline/Msg?FunName@ncmCategories&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+
+parent.addURL("/pronline/Msg?FunName@ncmCategories&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+}
+if(mark == 3){
+window.location.href="/pronline/Msg?FunName@ncmDiscounts&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+
+parent.addURL("/pronline/Msg?FunName@ncmDiscounts&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+}
+if(mark == 4){
+//alert("4");
+	if(user_online_flag == 1){
+	//	document.getElementById("FunName").value = "ncmPersonals";
+	window.location.href="/pronline/Msg?FunName@ncmPersonals&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+
+	parent.addURL("/pronline/Msg?FunName@ncmPersonals&plateName@newshop&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+	}
+	else{
+
+		window.location.href = "/pronline/Msg?FunName@ncSrvPlate&html@"+"/alogin_main.htm&"+rurl;
+	//	alert(parent.document.getElementById("iframe1").src);
+	}
+}
+}
+    
+ 
+var limit1=0;
+var limit2=2;
+
+function loadProducts(groupid){
+
+//alert("[#id#]");
+//alert(limit1+","+limit2);
+document.getElementById("groupid").value = groupid;
+
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmProducts";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateName").value= document.getElementById("plateName").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value="";
+document.getElementById("iframe1").contentWindow.document.getElementById("groupid").value=document.getElementById("groupid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit1").value=limit1;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit2").value=limit2;
+//alert(document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value);
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+}  
+function loadBooks(plateName){
+
+document.getElementById("FunName").value="ncmProducts";
+document.getElementById("plateName").value= plateName;
+document.getElementById("limit1").value=0;
+document.getElementById("limit2").value=5;
+document.getElementById("shopid").value="";
+//alert(document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value);
+document.getElementById("form1").submit();
+
+}  
+function loaddailys(plateName){
+
+document.getElementById("FunName").value="ncmDiscounts";
+document.getElementById("plateName").value= plateName;
+document.getElementById("shopid").value="";
+document.getElementById("limit1").value="0";
+document.getElementById("limit2").value="10";
+//alert(document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value);
+document.getElementById("form1").submit();
+
+}  
+function next(){
+document.getElementById("book_name1").innerHTML="";
+document.getElementById("book_name2").innerHTML="";
+limit1 +=2;
+
+//alert(limit1+","+limit2);
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmProducts";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateName").value= document.getElementById("plateName").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value="";
+document.getElementById("iframe1").contentWindow.document.getElementById("groupid").value=document.getElementById("groupid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit1").value=limit1;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit2").value=limit2;
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+window.location.href="#productsinfo";
+
+}
+function pervious(){
+document.getElementById("book_name1").innerHTML="";
+document.getElementById("book_name2").innerHTML="";
+if(limit1<=0){
+alert("第一页");
+}
+else{
+limit1 -=2;
+
+//alert(limit1+","+limit2);
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmProducts";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateName").value= document.getElementById("plateName").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value="";
+document.getElementById("iframe1").contentWindow.document.getElementById("groupid").value=document.getElementById("groupid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit1").value=limit1;
+document.getElementById("iframe1").contentWindow.document.getElementById("limit2").value=limit2;
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+window.location.href="#next";
+}
+
+} 
+function loadDiscounts(){
+
+document.getElementById("iframe2").contentWindow.document.getElementById("FunName").value="ncmDiscounts";
+document.getElementById("iframe2").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe2").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe2").contentWindow.document.getElementById("plateName").value= document.getElementById("plateName").value;
+document.getElementById("iframe2").contentWindow.document.getElementById("level").value= "1";
+document.getElementById("iframe2").contentWindow.document.getElementById("shopid").value="";
+//document.getElementById("iframe2").contentWindow.document.getElementById("groupid").value=document.getElementById("groupid").value;
+document.getElementById("iframe2").contentWindow.document.getElementById("limit1").value=0;
+document.getElementById("iframe2").contentWindow.document.getElementById("limit2").value=3;
+//alert(document.getElementById("iframe1").contentWindow.document.getElementById("shopid").value);
+document.getElementById("iframe2").contentWindow.document.getElementById("form1").submit();
+}
+function loadQuestions(){
+document.getElementById("FunName").value="ncm_questions";
+document.getElementById("flag").value= "1";
+document.getElementById("form1").submit();
+}
+function loadAddress(address){
+document.getElementById("FunName").value="ncmShops_shbook";
+document.getElementById("plateName").value= address;
+document.getElementById("form1").submit();
+}
+</script>
+</head>
+<body onload = "loadProducts('');loadDiscounts();e('[#redirecturl#]','[#posturl#]'); ">
+<div id="top"></div>
+<input type="hidden" name="rg" id="rg" value="[#getarg#]"/>
+<input type="hidden" name="rl" id="rl" value="[#posturl#]"/>
+
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="id" name="id" value="">
+		<input type="hidden" id="uid" name="uid" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+		<input type="hidden" id="keyword" name="keyword" value="">
+		<input type="hidden" name="plateName" id="plateName" value="shbook"/>	
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+		<!-- <input type="hidden" name="plateid" id="plateid" value="1007178698"/> -->
+		<input type="hidden" id="logoid" name="logoid" value="">	
+		<input type="hidden" id="detail" name="detail" value="">
+		<input type="hidden" id="limit1" name="limit1" value="[#limit1#]">	
+		<input type="hidden" id="limit2" name="limit2" value="[#limit2#]">			
+		<input type="hidden" id="groupid" name="groupid" value="">	
+		<input type="hidden" id="sid" name="sid" value="">	
+		<input type="hidden" id="flag" name="flag" value="">	
+		<input type="hidden" name="httphost" id="httphost" value="[#httphost#]"/>	
+	
+</form>		
+<div class="wrap" id="wrap">
+    <div class="nr1">
+      <img class="img_1" src="/images/shbook/01-shuzhan_r3_c1.jpg">
+	  <img class="img_2" src="/images/shbook/map.png" onclick="loadAddress('shbook/address')">
+	  <img class="img_1" src="/images/shbook/home.jpg">
+    </div>
+	<div style=" clear:both;"></div>
+	
+    <div class="nr2">
+      <img class="img_3" src="/images/shbook/01-shuzhan_r4_c1.jpg">
+	  <img class="img_4" src="/images/shbook/daily.png" onclick="loaddailys('shbook/dailys')" >
+	  <div class="daily_content">
+		<!-- <div>“那些年，让我们感动的书”主题征文活动</div>
+		 <div>《红蚂蚁动漫馆》系列产品展示</div>
+		  <div>《黄永玉全集》首发展示</div>
+		  <div>《走街串巷忆旧事》--贺友直画·说老上海专题站</div> -->
+          <div style="height:30px; clear:both;"></div>
+          <div><a href="/shbook/xinwen.htm" style=" text-decoration:none;" target="_blank">新闻出版局局长:书展经过10年,现在可以谈谈理想了</a></div>
+          <div style="height:5px; clear:both;"></div>
+          <div style="text-indent:2em; font-size:0.8em; color:#FFFFCC;">——访上海新闻出版局局长徐炯</div>
+	  </div>
+	  <img class="img_5" src="/images/shbook/book.png" onclick="loadBooks('shbook/books')" >
+	     <img class="img_p" src="/images/shbook/qian.png" onclick="pervious();">
+		 <img class="img_n" src="/images/shbook/hou.png" onclick="next();">
+	   <div class="book_content">
+	  
+		<iframe id="iframe1" frameborder="no" scrolling="No"  width="100%" src="/shbook/ncm_levels_logos_shops_products.htm" ></iframe>
+		
+	   </div>
+	    <div id="book_name1" class="book_name1"></div>
+	    <div id="book_name2" class="book_name2"></div>
+    </div> 
+	
+	<div class="nr3">
+      <img class="img_6" src="/images/shbook/01-shuzhan_r6_c1.jpg">
+	  <img class="img_7" src="/images/shbook/question.png" onclick="loadQuestions() " >
+	  <img class="img_8" src="/images/shbook/service.png" onclick="" >
+    </div> 
+	
+</div>
+
+</body>
+</html>

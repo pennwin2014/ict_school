@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<link href="/css/wuzhen/flexslider.css" rel="stylesheet" type="text/css" />
+<script src="/js/wuzhen/jquery-1.10.2.min.js"></script>
+<script src="/js/wuzhen/jquery.flexslider-min.js"></script>
+<script src="/js/wuzhen/shop_home.js"></script>
+<title>乌镇峰会欢迎您</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:100%;
+	margin:0 auto;
+	
+	
+}
+.top_tit img{ width:100%;}
+
+.contentinfo{ width:100%;}
+.bg_img{ width:100%; position:relative; text-align:center;}
+.bg_img img{ width:100%;}
+.tit_text{ position:absolute; top:50px; width:100%; font-size:1.5em;}
+.btn_sty{ position:absolute; top:120px;width:40%;margin-left:30%;}
+.btn_ok{ color:#386b9e; font-weight:bold; width:100%; height:30px;  border-radius:8px;
+    -webkit-border-radius: 8px;
+FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#b8c4cb,endColorStr=red); /*IE 6 7 8*/ 
+
+background: -ms-linear-gradient(top, #99c5f1,  #cbe7fc);        /* IE 10 */
+
+background:-moz-linear-gradient(top,#99c5f1,#cbe7fc);/*火狐*/ 
+
+background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#99c5f1), to(#cbe7fc));/*谷歌*/ 
+
+background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#99c5f1), to(#cbe7fc));      /* Safari 4-5, Chrome 1-9*/
+
+background: -webkit-linear-gradient(top, #99c5f1, #cbe7fc);   /*Safari5.1 Chrome 10+*/
+
+background: -o-linear-gradient(top, #99c5f1, #cbe7fc);  /*Opera 11.10+*/}
+</style>
+
+</script>
+</head>
+<body>
+
+<div class="wrap" id="wrap">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+	<input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+		[#postarg#]
+	<div class="top_tit">
+		<img  src="/images/wuzhen/top_eng.png"/>
+	</div>
+
+<div class="banner">
+  <section class="slider">
+    <div class="flexslider">
+      <ul class="slides">
+        
+        <li> <img src="/images/wuzhen/minion_1.jpg" /></li>
+		<li> <img src="/images/wuzhen/minion_2.jpg" /></li>
+        <li> <img src="/images/wuzhen/minion_3.jpg" /></li>
+		<li> <img src="/images/wuzhen/minion_4.jpg" /></li>
+      </ul>
+    </div>
+  </section>
+</div>
+<div class="contentinfo">
+	<div class="bg_img">
+		<img  src="/images/wuzhen/content_bg_eng.png"/>
+		<div class="tit_text">Login success</div>
+		<div class="btn_sty"><input type="submit" value="Start the Internet" class="btn_ok" onclick="window.open('http://www.baidu.com')"/></div>
+	</div>
+	
+</div> 
+  <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+ </form>  
+   </div>
+ 
+ 
+  
+</body>
+</html>

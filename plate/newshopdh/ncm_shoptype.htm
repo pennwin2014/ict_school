@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>无标题文档</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"黑体";
+}
+.wrap {
+	width:400px;
+}
+.main {
+	width:94%;
+	height:500px;
+	margin:0 auto;
+}
+.more img {
+	width:100%;
+}
+.img_3 {
+	width:35%;
+	float:left;
+}
+.div_4 {
+	width:60%;
+	margin-left:5%;
+	float:left;
+}
+.div_4_1 {
+	font-size:18px;
+	color:#343434;
+}
+.rmb1 {
+	color:#ff6600;
+}
+.rmb2 {
+	color:#ff6600;
+	font-size:20px;
+}
+.div_4_2 {
+	font-size:14px;
+	color:#999999;
+}
+.img_5 {
+	width:35%;
+	float:left;
+}
+.img_7 {
+	width:35%;
+	float:left;
+}
+.jg {
+	height:14px;
+	clear:both;
+}
+
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+.jg {
+height:6px;
+clear:both;
+}
+}
+</style>
+
+<script type="text/javascript">
+function loadShops(shopid){
+//alert(shopid);
+parent.document.getElementById("FunName").value = "ncmShops";
+parent.document.getElementById("shopid").value = shopid;
+//alert(shopid[number]);
+//parent.document.getElementById("form1").submit();
+parent.location.href="/pronline/Msg?FunName@ncmShops&plateName@zhengzhoudianxin&shopid@"+shopid+"&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+parent.parent.addURL("/pronline/Msg?FunName@ncmShops&plateName@zhengzhoudianxin&shopid@"+shopid+"&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value);
+}
+</script>
+<script src="/js/jquery-2.0.3.min.js"></script>
+  <script type="text/javascript">  
+    $(document).ready(function(){  
+        var range = 50;             //距下边界长度/单位px  
+        var elemt = 500;           //插入元素高度/单位px  
+        var maxnum = 20;            //设置加载最多次数  
+        var num = 1;  
+        var totalheight = 0;   
+        var main = $("#content");                     //主体元素  
+        $(window).scroll(function(){  
+            var srollPos = $(window).scrollTop();    //滚动条距顶部距离(页面超出窗口的高度)  
+              
+            console.log("滚动条到顶部的垂直高度: "+$(document).scrollTop());  
+            console.log("页面的文档高度 ："+$(document).height());  
+            console.log('浏览器的高度：'+$(window).height());  
+              
+            totalheight = parseFloat($(window).height()) + parseFloat(srollPos);  
+            if(($(document).height()-range) <= totalheight  && num != maxnum) {  
+                main.append("<div style='border:1px solid tomato;margin-top:20px;color:#ac"+(num%20)+(num%20)+";height:"+elemt+"' >hello world"+srollPos+"---"+num+"</div>");  
+                num++;  
+            }  
+        });  
+    });  
+    </script>  
+</head>
+
+<body>
+ <!--  <div id="content" style="height:960px">  
+        <div id="follow">this is a scroll test;<br/>    页面下拉自动加载内容</div>  
+        <div style='border:1px solid tomato;margin-top:20px;color:#ac1;height:800' >hello world test DIV</div>  
+          
+    </div>   -->
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+<input type="hidden" id="FunName" name="FunName" value="">
+<input type="hidden" id="id" name="id" value="">
+<input type="hidden" id="sgroupid" name="sgroupid" value="">
+<input type="hidden" id="shopid" name="shopid" value="">
+<input type="hidden" id="areaid" name="areaid" value="">
+<input type="hidden" id="keyword" name="keyword" value="">
+<input type="hidden" name="plateName" id="plateName" value="zhengzhoudianxin"/>
+<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+</form>
+<div class="wrap">
+  <div class="main">
+
+	[#SLPB#]
+    <div onclick="loadShops('[#shopid#]')"><img class="img_3" src="[#imgpath#]" />
+      <div class="div_4">
+        <p class="jg"></p>
+        <p class="div_4_1">[#shopname#]</p>
+        <p class="jg"></p>
+        <p><span class="rmb1">[#sname#]: </span><span class="rmb2">[#fee#]</span></p>
+      </div>
+    </div>
+    <div style="border-bottom:1px solid #CCC; height:10px; margin-bottom:10px; clear:both;"></div>
+	[#SLPE#]
+	
+
+  </div>
+</div>
+</body>
+</html>

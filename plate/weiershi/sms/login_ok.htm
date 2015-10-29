@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>无标题文档</title>
+<style type="text/css">
+*{ margin:0; padding:0;}
+.wrap{ width:400px; margin:0 auto; font-family:"微软雅黑";}
+.wrap img{ width:100%;}
+#sj{ position:absolute; top:0; }
+@media screen and (max-width:400px){
+	.wrap{ width:100%;}
+	}
+</style>
+<script type="text/javascript">
+function tiaozhuan(){
+	window.location.href="http://www.ql18.com.cn";
+	}
+var i=5;
+function djs(){
+	document.getElementById('sj').innerHTML="广告剩余"+i+"秒";
+	i--;
+	if(i==0){i=0;}
+	}
+function tz(){
+	setInterval('djs()',1000);
+	setTimeout('tiaozhuan()',6000);
+	}
+</script>
+</head>
+
+<body onload="tz()" >
+<div class="wrap">
+<div id="sj"></div>
+<img src="/images/weiershi/gg.jpg" />
+</div>
+</body>
+</html>
+

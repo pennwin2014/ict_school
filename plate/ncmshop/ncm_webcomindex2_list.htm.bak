@@ -1,0 +1,3 @@
+{"totalCount":[#TotRec#],"eimdata": [[#SLPB#][#dh#]{"flag":"[#flag#]", "iNum": '[#iNum#]', "sid": '[#sid#]', "name": "[#name#]","sgroupid": '[#sgroupid#]',"descr": "[#descr#]","imgpath": "[#imgpath#]","serno": "[#serno#]","floor": "[#floor#]","level": '[#level#]',"plevel": '[#plevel#]',"type": '[#type#]',"systime": "[#systime#]","shopid": '[#shopid#]',"plateid": '[#plateid#]',"flags": '[#flags#]',"img_long": '[#img_long#]',"img_width": '[#img_width#]',"scode":"[#scode#]"}[#SLPE#]
+
+]}

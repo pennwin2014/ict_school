@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>IndexInfo</title>
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" />
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+<script type="text/css">
+	body{font-family:"微软雅黑"}
+</script>
+
+<script type="text/javascript">
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*'
+]);
+
+Ext.onReady(function(){
+	  Ext.define('GroupData', {
+        extend: 'Ext.data.Model',
+        fields: ['groupid', 'name', 'descr', 'systime', 'imgpath', 'flags']
+        //idProperty: 'uid'
+    });
+	
+	  var store_group = Ext.create('Ext.data.Store', {
+	  	 model:'GroupData',
+	  	 autoLoad:true,
+	  	 proxy:{
+	  	 		type:'ajax',
+	  	 		url:'/pronline/Msg?FunName@ncm_webcomgroup_list',
+	  	 		reader:{
+	  	 				type:'json',
+	  	 				root:'eimdata',
+	  	 				totalProperty:'totalCount'	
+	  	 		},
+	  	 		simplleSortMode:true	
+	  	 }
+	  });
+	  var groupCombo = Ext.create('Ext.form.field.ComboBox', {
+	  	 fieldLabel:'商品大类名称',
+	  	 labelWidth:100,
+	  	 width:300,
+	  	 vaueField:'groupid',
+	  	 value:'[#groupname#]',
+	  	 displayField:'name',
+	  	 id:'grid',
+	  	 name:'grid',
+	  	 allowBlank:false,
+	  	 store:store_group,
+	  	 triggerAction:'all',
+	  	 queryMode:'local',
+	  	 typeAhead:true,
+	  	 listeners:{
+	  	 		'change':function(){
+	  	 		}	
+	  	 },
+	  	 listConfig:{
+	  	 		loadingText:'Searching...',
+	  	 		emptyText:'No matching found.'	
+	  	 }
+	  });
+	  
+		Ext.create('Ext.FormPanel', {
+				frame:true,
+				width:388,
+	      height:200,
+				bodyPadding:10,
+				renderTo:'grid-corp',
+				defaultType:'textfield', //设置表单字段的默认类型  
+				fieldDefaults:{ //统一设置表单字段默认属性
+						labelSeparator:':', //分隔符
+						labelWidth:100, //标签宽度
+						width:300, //字段宽度
+						msgTarget:'side'
+				},
+				items:[{
+						fieldLabel:'序号',
+						id:'sid',
+						name:'sid',
+						hidden:true,
+						value:'[#sid#]'		
+				},{
+						fieldLabel:'商品小类名称',
+						id:'name',
+						name:'name',
+						value:'[#name#]'		
+				},
+				groupCombo,
+				{
+						xtype:'filefield',
+						fieldLabel:'上传图片',
+						id:'fname',
+						name:'fname',
+						hidden:false,
+						buttonText: '选择图片'
+				},{
+						xtype:'textarea',
+						fieldLabel:'描述',
+						id:'descr',
+						name:'descr',
+						value:'[#descr#]'
+				}]
+		});
+});
+
+function winclose(){
+    var win = parent.Ext.getCmp('windr');
+		if (win) {
+			win.close();
+		}
+}
+
+</script>	
+</head>
+<body bgcolor="#DEE8FA">
+<!-- <form action="/pronline/Msg" name="form1" id="form1"> -->
+<form action="/pronline/upload" method="post" enctype="multipart/form-data" name="form1" id="form1">
+<input name="FunName" type="hidden" value="ncm_webComTypeImg_dr">
+<input type="hidden" name="UploadPath" value="/home/ncmysql/ncsrv/upload">
+<!-- <input name="filepath" type='hidden' id="filepath" value="[#imgpath#]"> -->
+
+<div id="grid-corp"></div>
+
+<div style=" text-align:center;height:70px; line-height:70px;">
+	<input name="ok" type="submit" class="an3" style="height:30px; width:40px;" id="ok2" value="确 认">
+  &nbsp;&nbsp;&nbsp;&nbsp; 
+  <input name="return" type="button" onClick="winclose();" class="an3" style="height:30px; width:40px;" value="关闭">	
+</div>
+</form>
+</body>
+</html>

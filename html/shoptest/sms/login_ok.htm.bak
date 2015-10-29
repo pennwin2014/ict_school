@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>认证成功</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width" />
+<style type="text/css">
+	.but_exit { 
+	
+	} 
+
+  
+  .title{
+  text-align:center;
+  margin:5px;
+  font-size:1.5em;
+  
+  }
+   .title1{
+  text-align:center;
+  margin:5px;
+  color:#585858;
+  font-size:1.2em;
+  }
+  .webs{
+  margin-left:5%;
+  margin-right:5%;
+  
+  }
+  .web1{
+  border:1px solid #bdbdbd;
+  margin:5px;
+  width:28%;
+  height:60px;
+  float:left;
+   vertical-align:middle; 
+  text-align:center;
+  border-radius:5px;
+  box-shadow:2px 2px 5px 2px #bdbdbd;
+  }
+	
+</style>
+<script language="javascript" type="text/javascript">
+		function tuichu(){
+			document.getElementById("nclogin_0").submit();
+	}
+	function change(mark){
+//	alert(111);
+	if(mark ==1 ){
+	
+	parent.document.getElementById("iframe1").src="http://www.pronetway.com";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==2 ){
+	parent.document.getElementById("iframe1").src="http://www.baidu.com/";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==3 ){
+	parent.document.getElementById("iframe1").src="http://www.sina.com.cn/";alert(parent.document.getElementById("iframe1").src);
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==4 ){
+	parent.document.getElementById("iframe1").src="http://www.qq.com";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==5 ){
+	parent.document.getElementById("iframe1").src="http://www.taobao.com";
+//	document.getElementById("nclogin_0").submit();
+	}
+	
+	}
+	function tuichu(){
+			document.getElementById("nclogin_0").submit();
+	}
+</script>
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+	<form name="nclogin_0" id="nclogin_0" method="post" action="https://[#ip#]:[#port#]/pronline/Msg" >
+ 	<input type="hidden" name="sid" value="[#sid#]">
+ 	<input type="hidden" name="FunName" value="ncSrvLogOut">
+	<input type="hidden" name="ModiPass" value="">
+	<input type="hidden" name="username" value="[#username#]">
+	<input type="hidden" name="userip" value="[#userip#]">
+	<input type="hidden" name="usermac" value="[#usermac#]">
+	<input type="hidden" name="serialno" value="[#serialno#]">
+
+	<div class="title">认证成功</div>
+	<div class="title1">你现在可以上网了</div>
+	<div class="webs">
+
+	<div class="web1" onclick="change(1)">新网程</div>
+	<div class="web1"  onclick="change(2)">百度</div>
+	<div class="web1"  onclick="change(3)">新浪</div>
+	<div class="web1"  onclick="change(4)">腾讯</div>
+	<div class="web1"  onclick="change(5)">淘宝</div>
+
+	</div>
+	
+</form>
+</body>
+</html>

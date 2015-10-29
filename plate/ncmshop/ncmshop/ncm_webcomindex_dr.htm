@@ -1,0 +1,446 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>IndexInfo</title>
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" />
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+<script type="text/css">
+	body{font-family:"微软雅黑"}
+</script>
+
+<script type="text/javascript">
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*'
+]);
+
+function gotoedit2(pos){
+		var htmlvar='<iframe src="/pronline/Msg?FunName@ncmWebReplace&plate@ncmshop/ncm_webcomindex_dr_img.htm&pos@'+pos+' " scrolling="no" name="drIframe" frameborder="no" style="width:100%;height:100%;"></iframe>';      
+    var windr2 = new Ext.Window ({
+                           id:"windr2",
+                           title:"上传图片",
+                           x:0,
+                           y:0,
+                           width:400,
+                           height:100,
+                           bodyPadding: 0,
+                           modal:true,
+													 //headerPosition: 'bottom',
+                           resizable:true,
+                           closable :true,
+                           draggable:true,
+                           html:htmlvar
+    })
+	  windr2.show();
+}
+
+Ext.onReady(function(){
+	  Ext.define('FloorData', {
+        extend: 'Ext.data.Model',
+        fields: ['fid', 'groupid', 'name', 'imgpath', 'flags']
+    });
+	  var store_floor = Ext.create('Ext.data.Store', {
+	  	 model:'FloorData',
+	  	 autoLoad:true,
+	  	 proxy:{
+	  	 		type:'ajax',
+	  	 		url:'/pronline/Msg?FunName@ncm_webreadfloor_list&flags@1',
+	  	 		reader:{
+	  	 				type:'json',
+	  	 				root:'eimdata'	
+	  	 		},
+	  	 		simplleSortMode:true	
+	  	 }
+	  });
+		var floorCombo = Ext.create('Ext.form.field.ComboBox', {
+				fieldLabel: '楼层',
+        labelWidth: 100,
+        width: 300,
+        valueField: 'groupid',
+        displayField: 'name',
+        value: '[#floor#]',
+        id: 'floor',
+        name: 'floor',      
+        allowBlank: true,
+        store: store_floor,
+        triggerAction: 'all',
+        queryMode: 'local',
+        typeAhead: true,
+        listeners: {
+          'change':function(){
+          }
+        },
+				listConfig:{
+      			loadingText: 'Searching...',
+      			emptyText: 'No matching found.'
+        }
+		});
+		
+	  Ext.define('TypeData', {
+        extend: 'Ext.data.Model',
+        fields: ['sid', 'name', 'groupname', 'descr', 'systime', 'imgpath', 'flags']
+        //idProperty: 'uid'
+    });
+	
+	  var store_type = Ext.create('Ext.data.Store', {
+	  	 model:'TypeData',
+	  	 autoLoad:true,
+	  	 proxy:{
+	  	 		type:'ajax',
+	  	 		url:'/pronline/Msg?FunName@ncm_webcomtype_list',
+	  	 		reader:{
+	  	 				type:'json',
+	  	 				root:'eimdata',
+	  	 				totalProperty:'totalCount'	
+	  	 		},
+	  	 		simplleSortMode:true	
+	  	 }
+	  });
+	
+	  var typeCombo = Ext.create('Ext.form.field.ComboBox', {
+	  	 fieldLabel:'商品小类名称',
+	  	 labelWidth:100,
+	  	 width:300,
+	  	 vaueField:'sid',
+	  	 value:'[#sgroupname#]',
+	  	 displayField:'name',
+	  	 id:'tyid',
+	  	 name:'tyid',
+	  	 allowBlank:false,
+	  	 store:store_type,
+	  	 triggerAction:'all',
+	  	 queryMode:'local',
+	  	 typeAhead:true,
+	  	 listeners:{
+	  	 		'change':function(){
+	  	 		}	
+	  	 },
+	  	 listConfig:{
+	  	 		loadingText:'Searching...',
+	  	 		emptyText:'No matching found.'	
+	  	 }
+	  });
+	  
+	  Ext.define('ShopData', {
+        extend: 'Ext.data.Model',
+        fields: ['id', 'name', 'service_code', 'sgroupid', 'imgpath', 'floor', 'url', 'code', 'tel', 'address', 'level', 'plevel', 'type', 'stype', 'descr', 'detail', 'systime', 'flags']
+        //idProperty: 'uid'
+    });
+	
+	  var store_shop = Ext.create('Ext.data.Store', {
+	  	 model:'ShopData',
+	  	 autoLoad:true,
+	  	 proxy:{
+	  	 		type:'ajax',
+	  	 		url:'/pronline/Msg?FunName@ncm_webcomshop_list',
+	  	 		reader:{
+	  	 				type:'json',
+	  	 				root:'eimdata',
+	  	 				totalProperty:'totalCount'	
+	  	 		},
+	  	 		simplleSortMode:true	
+	  	 }
+	  });
+	  var shopCombo = Ext.create('Ext.form.field.ComboBox', {
+	  	 fieldLabel:'商店名称',
+	  	 labelWidth:100,
+	  	 width:300,
+	  	 vaueField:'id',
+	  	 value:'[#shopname#]',
+	  	 displayField:'name',
+	  	 id:'shid',
+	  	 name:'shid',
+	  	 allowBlank:false,
+	  	 store:store_shop,
+	  	 triggerAction:'all',
+	  	 queryMode:'local',
+	  	 typeAhead:true,
+	  	 listeners:{
+	  	 		'change':function(){
+	  	 		}	
+	  	 },
+	  	 listConfig:{
+	  	 		loadingText:'Searching...',
+	  	 		emptyText:'No matching found.'	
+	  	 }
+	  });
+	  
+	  var store_type1 = Ext.create('Ext.data.Store', {
+	  	 fields:['groupid', 'groupname'],
+	  	 data:[
+	  	 		{groupid:"1", groupname:"广告"},
+	        {groupid:"2", groupname:"品牌"},
+	        {groupid:"3", groupname:"促销"},
+	        {groupid:"4", groupname:"视频"}
+	  	 ]
+	  });
+	  
+		var fp = Ext.create('Ext.FormPanel', {
+			  id:'form2',
+				frame:true,
+				width:378,
+	      height:573,
+				bodyPadding:10,
+				defaultType:'textfield', //设置表单字段的默认类型  
+				fieldDefaults:{ //统一设置表单字段默认属性
+						labelSeparator:':', //分隔符
+						labelWidth:100, //标签宽度
+						width:300, //字段宽度
+						msgTarget:'side'
+				},
+				items:[{
+						fieldLabel:'序号',
+						id:'sid',
+						name:'sid',
+						hidden:true,
+						value:'[#sid#]'		
+				},{
+						fieldLabel:'商标名称',
+						id:'name',
+						name:'name',
+						value:'[#name#]'		
+				},{
+						fieldLabel:'商标序列号',
+						id:'serno',
+						name:'serno',
+						value:'[#serno#]'		
+				},
+				typeCombo,
+				shopCombo,
+				floorCombo,
+				{
+						xtype:'numberfield',
+						fieldLabel:'广告优先级',
+						id:'level',
+						name:'level',
+						value:'[#level#]',
+						hidden:true,
+						hideTrigger:false, //隐藏微调按钮
+        		allowDecimals:false, //不允许输入小数
+        		maxValue:100, //最大值
+        		minvalue:0, //最小值
+        		nanText:'请输入有效范围内的整数' //无效数字提示	
+				},{
+						xtype:'numberfield',
+						fieldLabel:'促销优先级',
+						id:'plevel',
+						name:'plevel',
+						value:'[#plevel#]',
+						hidden:true,
+						hideTrigger:false, //隐藏微调按钮
+        		allowDecimals:false, //不允许输入小数
+        		maxValue:100, //最大值
+        		minvalue:0, //最小值
+        		nanText:'请输入有效范围内的整数' //无效数字提示	
+				},{
+						xtype:'combobox',
+						fieldLabel:'活动类型',
+      		  id:'type',
+      		  name:'type',
+      		  value:'[#type#]',
+      		  hidden:false,
+      		  triggerAction:'all',
+      		  store:store_type1,
+      		  displayField:'groupname',
+      		  valueField:'groupid',
+      		  queryMode:'local',
+      		  forceSelection:true,
+      		  typeAhead:true,
+      		  allowBlank:true	
+				},{
+						xtype:'textarea',
+						fieldLabel:'描述',
+						id:'descr',
+						name:'descr',
+						value:'[#descr#]'
+				}]
+		});
+		
+		var panel = Ext.create('Ext.panel.Panel', {
+        margins: '0 0 0 0',
+        renderTo: 'grid-corp',
+        frame: true,
+        layout: 'hbox',
+        items:[{
+        	  layout: 'vbox',
+	       		width:400,
+	       		height:573,
+	       		items:[{
+	       			layout: 'hbox',
+	       			width:400,
+	       			height:60,
+	       			items:[{
+	       				xtype: 'image',
+	       				width:100,
+	       				height:60,
+	       				src: "/images/indeximages/Buberry01.jpg"
+	       			},{
+	       				xtype: 'image',
+	       				width:100,
+	       				height:60,
+	       				src: "/images/indeximages/Buberry01.jpg"
+	       			},{
+	       				xtype: 'image',
+	       				width:100,
+	       				height:60,
+	       				src: "/images/indeximages/Buberry01.jpg"
+	       			},{
+	       				xtype: 'image',
+	       				width:100,
+	       				height:60,
+	       				src: "/images/indeximages/Buberry01.jpg"
+	       			}]
+	       		},{
+	       			layout: 'hbox',
+	       			width:400,
+	       			height:150,
+	       			items:[{
+	       				xtype: 'button',
+	       				width:250,
+	       				height:150,
+	       				id: "ads5",
+	       				handler:function(){
+	       						gotoedit2(5);	
+	       				}
+	       			},{
+	       				layout: 'vbox',
+	       				width:150,
+	       				height:150,
+	       				items:[{
+	       					xtype: 'button',
+	       					width:150,
+	       					height:75,
+	       					id: "ads6",
+	       					handler:function(){
+	       							gotoedit2(6);	
+	       				  }
+	       				},{
+	       					xtype: 'button',
+	       					width:150,
+	       					height:75,
+	       					id: "ads7",
+	       					handler:function(){
+	       							gotoedit2(7);	
+	       				  }
+	       				}]
+	       			}]
+	       		},{
+	       			layout:"hbox",
+	       			width:400,
+	       			height:240,
+	       			autoScroll: true,
+	       			items:[{
+	     					xtype: 'button',
+	     					width:400,
+	       				height:220,
+	     					id: "ads1",
+	       				handler:function(){
+	       					gotoedit2(1);	
+	       				}
+	       			},{
+	     					xtype: 'button',
+	     					width:400,
+	       				height:220,
+	     					id: "ads2",
+	       				handler:function(){
+	       					gotoedit2(2);	
+	       				}
+	       			},{
+	     					xtype: 'button',
+	     					width:400,
+	       				height:220,
+	     					id: "ads3",
+	       				handler:function(){
+	       					gotoedit2(3);	
+	       				}
+	       			},{
+	     					xtype: 'button',
+	     					width:400,
+	       				height:220,
+	     					id: "ads4",
+	       				handler:function(){
+	       					gotoedit2(4);	
+	       				}
+	       			}]
+	       		},{
+	       			layout:"hbox",
+	       			width:400,
+	       			height:120,
+	       			items:[{
+	     					xtype: 'button',
+	     					width:100,
+	     					height:120,
+	     					id: "ads8",
+	       				handler:function(){
+	       					gotoedit2(8);	
+	       				}
+	       			},{
+	     					xtype: 'button',
+	     					width:100,
+	     					height:120,
+	     					id: "ads9",
+	       				handler:function(){
+	       					gotoedit2(9);	
+	       				}
+	       			},{
+	     					xtype: 'button',
+	     					width:100,
+	     					height:120,
+	     					id: "ads10",
+	       				handler:function(){
+	       					gotoedit2(10);	
+	       				}
+	       			},{
+	     					xtype: 'button',
+	     					width:100,
+	     					height:120,
+	     					id: "ads11",
+	       				handler:function(){
+	       					gotoedit2(11);	
+	       				}
+	       			}]
+	       		}]
+        },fp]
+		});
+});
+
+function winclose(){
+    var win = parent.Ext.getCmp('windr');
+		if (win) {
+			win.close();
+		}
+}
+
+function init(){
+	if([#flag#]){
+		Ext.getCmp('ads[#level#]').setText('<div><img width="100%" height="100%" src = "[#imgpath#]"></div>');
+  }
+}
+
+</script>	
+</head>
+<body bgcolor="#DEE8FA" onload="init();">
+<form action="/pronline/Msg" name="form1" id="form1">
+<input name="FunName" type="hidden" value="ncm_webcomindex_update_list">
+<input name="filepath" type='hidden' id="filepath" value="[#imgpath#]">
+
+<div id="grid-corp"></div>
+
+<div style=" text-align:center;height:70px; line-height:70px;">
+	<input name="ok" type="submit" class="an3" style="height:30px; width:40px;" id="ok2" value="确 认">
+  &nbsp;&nbsp;&nbsp;&nbsp; 
+  <input name="return" type="button" onClick="winclose();" class="an3" style="height:30px; width:40px;" value="关闭">	
+</div>
+</form>
+</body>
+</html>

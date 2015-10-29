@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>File Uploads</title>
+
+    <!-- ExtJS -->
+    <script type="text/javascript" src="/newver/chart2/include-ext.js"></script>
+    <!-- Ñ¡Ôñupload style
+    <script type="text/javascript" src="/js/wlan_upload/options-toolbar.js"></script>
+-->
+    <!-- Shared -->
+    <link rel="stylesheet" type="text/css" href="/js/wlan_upload/example.css" />
+
+    <!-- GC -->
+
+
+    <!-- Example -->
+    <script type="text/javascript" >
+    	Ext.require([
+			    'Ext.form.field.File',
+			    'Ext.form.field.Number',
+			    'Ext.form.Panel',
+			    'Ext.window.MessageBox'
+			]);
+			
+			Ext.onReady(function() {
+			
+			//  Class which shows invisible file input field.
+			    if (window.location.href.indexOf('debug') !== -1) {
+			        Ext.getBody().addCls('x-debug');
+			    }
+			
+			    var msg = function(title, msg) {
+			        Ext.Msg.show({
+			            title: title,
+			            msg: msg,
+			            minWidth: 200,
+			            modal: true,
+			            icon: Ext.Msg.INFO,
+			            buttons: Ext.Msg.OK
+			        });
+			    };
+			
+			    var fibasic = Ext.create('Ext.form.field.File', {
+			        renderTo: 'fi-basic',
+			        width: 450,
+			        align:'center',
+			        hideLabel: true
+			    });
+			
+			    Ext.create('Ext.button.Button', {
+			        text: 'È·¶¨',
+			        renderTo: 'fi-basic-btn',
+			        handler: function(){
+			            var v = fibasic.getValue();
+//			            msg('Selected File', v && v !== '' ? v : 'None');
+			            
+//         					document.getElementById("form1").action = "/pronline/upload?FunName@ncwlanApDrNext&fname@"+v+"&UploadPath@"+document.getElementById("form1").UploadPath.value;
+//  								document.getElementById("form1").method = "POST";
+//			            document.getElementById("form1").fname.value=document.getElementById("form1").fname.filefield;
+			            document.getElementById("form1").submit();
+			            
+    			
+//    							var htmlvar='<iframe src="/pronline/upload?FunName@ncwlanApDrNext&fname@"'+v+' scrolling="no" name="moduleIframe" frameborder="no" style="width:100%;height:100%;"></iframe>';   
+//				          var win2 = new Ext.Window ({
+//				                             id:"addwindow",
+//				                             title:"APÐÅÏ¢µ¼Èë",
+//				                             x:200,
+//				                             y:50,
+//				                             width:530,
+//				                             height:800,
+//				                             bodyPadding: 10,
+//				                             modal:true,
+//				                             resizable:true,
+//				           //                  draggable:false,
+//				           									 html:htmlvar
+				                                               
+//				          })
+//				          win2.show();
+			            
+			        }
+			    });
+			
+			   
+			
+			});
+			
+			
+    	</script>
+    <style type="text/css">
+        .upload-icon {
+            background: url('/js/wlan_upload/mage_add.png') no-repeat 0 0 !important;
+        }
+        #fi-button-msg {
+            border: 2px solid #ccc;
+            padding: 5px 10px;
+            background: #eee;
+            margin: 5px;
+            float: left;
+        }
+        .x-debug .x-form-file-wrap .x-form-file-input {
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0.6);
+            opacity: 0.6;
+            background-color: gray;
+        }
+    </style>
+
+</head>
+<body >
+<form action="/pronline/upload" method="post" enctype="multipart/form-data" name="form1" id="form1">
+	<input name="FunName" type="hidden" value="ncwlanApDrNext">
+	<input name="groupid" type="hidden" value="[#groupid#]">
+	 <input type="hidden" name="UploadPath" value="/home/ncmysql/ncm/upload">
+    <div id="fi-basic"></div>
+    <table height="20px;" ></table>
+    <div id="fi-basic-btn"></div>
+
+</form>
+</body>
+</html>

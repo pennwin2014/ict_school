@@ -1,0 +1,167 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>新商超</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable" /> 
+<meta content="black" name="apple-mobile-web-app-status-bar-style" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link rel="stylesheet" type="text/css" href="/c.css" /> 
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/c.js"></script>
+
+<script type="text/javascript">
+
+function e2 (ip,port,getarg,tsid,statusCode)
+{ 
+
+//alert(221);alert(document.getElementById("rg").value);alert(223);
+    // alert(parent.document.getElementById("iframe1").src);
+    // alert("ppp"+parent.document.getElementById("sn").height+"tttt"+document.getElementById("sn").height);
+//    alert("   getarg = "+getarg);
+//	alert('statusCode = '+statusCode);
+	if(parent.window != window)
+	{  
+//	   	document.getElementById("sn").style.display = "none";
+	   	if(port != '')
+	      	self.location.href = "http://"+ip+":"+port+"/pronline/Msg?FunName@ncSrvPlate&lang@"+""+"&code@"+""+"&usernametmp@"+""+"&html@"+"/alogin_main.htm&"+getarg+"&statusCode@"+statusCode;
+			
+	    	else
+	      	self.location.href = "http://"+ip+"/pronline/Msg?FunName@ncSrvPlate&lang@"+""+"&code@"+""+"&usernametmp@"+""+"&html@"+"/alogin_main.htm&"+getarg+"&statusCode@"+statusCode;
+//      parent.document.getElementById("iframe1").src = rurl;
+//alert(self.location.href);
+
+	}
+	else 
+	{
+	    if(statusCode=='5'||statusCode=='6'){
+	    	 alert('请输入正确的密码。');
+	    	 
+        d2('[#getarg#]','[#ip#]','[#port#]','[#posturl#]',1,'[#statusCode#]');
+	    }
+	    else{
+
+      document.getElementById("iframe1").src = "/pronline/Msg?FunName@ncmWebReplace&plate@zhengzhoudianxin/shop_menus2.htm&tsid@"+tsid;
+      }
+  }
+
+}
+
+
+function d2(rurl,ip,port,args,astatus,scode)
+{  
+	
+
+	  if (scode == "")
+	   scode = 99;
+    if (scode == 0)
+    {//alert(2);
+    	if(port != '')
+	      	document.getElementById("iframe1").src = "http://"+ip+":"+port+"/pronline/Msg?FunName@ncSrvPlate&lang@"+""+"&code@"+""+"&usernametmp@"+""+"&html@"+"/logout_ok.htm&"+rurl;
+	    else
+	      	document.getElementById("iframe1").src = "http://"+ip+"/pronline/Msg?FunName@ncSrvPlate&lang@"+""+"&code@"+""+"&usernametmp@"+""+"&html@"+"/logout_ok.htm&"+rurl;
+    	document.getElementById("logo").innerHTML = "开始上网"; 
+    	document.getElementById("i").src = "/e.png"; 
+    }
+    else
+    {
+	    if (astatus == 1)
+	    {
+	    	var aaaa="http://"+ip+":"+port+"/pronline/Msg?FunName@ncSrvPlate&lang@"+""+"&code@"+""+"&usernametmp@"+""+"&html@"+"alogin_main.htm&"+rurl;
+
+	    	if(port != ''){
+	      	self.location.href = "http://"+ip+":"+port+"/pronline/Msg?FunName@ncSrvPlate&lang@"+""+"&code@"+""+"&usernametmp@"+""+"&html@"+"alogin_main.htm&"+rurl;
+	      }
+	    	else{
+	    			self.location = "http://"+ip+"/pronline/Msg?FunName@ncSrvPlate&lang@"+""+"&code@"+""+"&usernametmp@"+""+"&html@"+"alogin_main.htm&"+rurl;
+//	      	document.getElementById("iframe1").src = "http://"+ip+"/pronline/Msg?FunName@ncSrvPlate&lang@"+""+"&code@"+""+"&usernametmp@"+""+"&html@"+"alogin_main.htm&"+rurl;
+	      }
+	    }
+	    else if (astatus == 2)
+	    {
+		    if(port != '')
+		      document.getElementById("iframe1").src = "http://"+ip+":"+port+"/pronline/Msg?FunName@ncSrvPlate&lang@"+""+"&code@"+""+"&usernametmp@"+""+"&html@"+"/alogin_main_auto.htm&"+rurl;
+		    else
+		      document.getElementById("iframe1").src = "http://"+ip+"/pronline/Msg?FunName@ncSrvPlate&lang@"+""+"&code@"+""+"&usernametmp@"+""+"&html@"+"/alogin_main_auto.htm&"+rurl;
+      }else{}
+      
+      
+     document.getElementById("logo").innerHTML = "我要上网"; 
+    }
+  
+}
+function iFrameHeight() {  
+
+var ifm= document.getElementById("iframe1");  
+var subWeb = document.frames ? document.frames["iframe1"].document : ifm.contentDocument;  
+if(ifm != null && subWeb != null) {
+  ifm.height = subWeb.body.scrollHeight;
+
+  //ifm.width = subWeb.body.scrollWidth;
+}  
+//var bHeight = ifm.contentWindow.document.body.scrollHeight;
+//var dHeight = ifm.contentWindow.document.documentElement.scrollHeight;
+//var winWidth = parseInt(document.documentElement.clientWidth);// 客户端浏览器宽度
+//var winHeight = parseInt(document.documentElement.clientHeight);// 客户端浏览器高度
+
+
+} 
+
+function dyniframesize(down) { 
+var pTar = null; 
+if (document.getElementById){ 
+pTar = document.getElementById(down); 
+} 
+else{ 
+eval('pTar = ' + down + ';'); 
+} 
+if (pTar && !window.opera){ 
+//begin resizing iframe 
+pTar.style.display="block" 
+if (pTar.contentDocument && pTar.contentDocument.body.offsetHeight){ 
+//ns6 syntax 
+pTar.height = pTar.contentDocument.body.offsetHeight +20; 
+//pTar.width = pTar.contentDocument.body.scrollWidth+20; 
+} 
+else if (pTar.Document && pTar.Document.body.scrollHeight){ 
+//ie5+ syntax 
+pTar.height = pTar.Document.body.scrollHeight; 
+//pTar.width = pTar.Document.body.scrollWidth; 
+} 
+} 
+}
+
+//$("#iframe1").load(function(){var mainheight = $(this).contents().find("body").height()+30;$(this).height(mainheight);});    
+</script>
+
+</head>
+<body  onload="e2('[#ip#]','[#port#]','[#getarg#]','[#tsid#]','[#statusCode#]');">
+	<input type="hidden" name="rg" id="rg" value="[#getarg#]"/>
+  <input type="hidden" name="rl" id="rl" value="[#posturl#]"/> 
+	<div class="cover" id="cover" style="display: block;">
+		<img src="/images/click.png" />
+	</div>	
+	<div class="logo">
+		<img class="a" src="/d.png" onClick="f('[#tsid#]')">
+		<img class="b" id = "i" onClick="d2('[#getarg#]','[#ip#]','[#port#]','[#posturl#]',1,'[#statusCode#]')" src="/e.png" >
+		<span id="logo">丹尼斯欢迎你</span>
+	</div>
+	<!--
+    </div>
+	-->
+<!--	<iframe id="iframe1" frameborder="no" scrolling="No"  width="100%" src="https://[#ip#]:[#port#]/suning/shop_menus.htm" ></iframe>
+	-->
+	<!--div class="back" onclick="back('[#tsid#]')">
+	<img src="/images/back.png" />
+	</div-->
+	
+	
+	<iframe id="iframe1" width="100%" name="iframe1"  scrolling="auto" frameborder="0" marginheight="0" marginwidth="0" frameborder="0" onload="javascript:iFrameHeight();"  src="" ></iframe>
+	
+</body>
+
+
+</html>
+
+

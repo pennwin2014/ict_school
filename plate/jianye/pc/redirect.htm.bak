@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK" />
+<script charset="GBK">
+//alert('Hello');
+//history.go(-2);
+//window.location.href='http://192.168.20.188:9080/pronline/genal/sms/login_main.htm?';
+/*
+window.location.href = 'http://192.168.20.188:9080/pronline/Msg?FunName@ncSrvDispLogin&userip@[#userip#]&ssid@[#ssid#]&usermac@[#usermac#]';
+*/
+// 跳到注册页
+function GoToRegister()
+{
+	window.location.href = 'http://[#ip#]:9080/pronline/Msg?FunName@ncm_sms_send_register_list';
+}
+
+// 跳到登录页
+function GoToLogin()
+{
+	window.location.href = 'http://[#ip#]:9080/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#getarg#]';
+}
+
+// 开始上网
+function SurfTheNet()
+{
+	// 在后台生成密码
+
+	
+	// 模拟用户点击登录按钮
+	var address = 'http://[#posturl#]&tsid@[#tsid#]&postarg@[#postarg#]';
+	//alert(address);
+	window.location.href = 'http://[#posturl#]&tsid@[#tsid#]&postarg@[#postarg#]';
+}
+
+// 根据后台返回的状态确定跳转页面
+function Redirect()
+{
+	var res = '[#status#]';
+	//alert(res);
+	if (res == 'successful')
+	{
+		// 跳到登录页
+		//setTimeout("GoToLogin()",2000);
+		alert('注册成功！');	
+		//alert('success！');
+		// 直接上网
+		SurfTheNet();
+	}
+	else if (res == 'failed')
+	{
+		// 继续留在注册页
+		//setTimeout("GoToRegister()",2000);
+		//alert('信息填写不完整或格式错误！');
+		alert('信息填写不完整或格式错误！');
+		GoToRegister();
+	}
+	else if (res == 'forbidden')
+	{
+		// 跳到注册页
+		//setTimeout("GoToRegister()",2000);
+		alert('用户未注册！');	
+		//alert('Not member！');	
+		GoToRegister();
+	}
+	else if ((res == 'user_black') || (res == 'mac_black'))
+	{
+		alert('用户在黑名单中！');
+		GoToRegister();
+	}
+	/*
+	window.location.href = 'http://[#ip#]:9080/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#getarg#]';
+	*/
+}
+
+var getarg = 'http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#getarg#]';
+//alert(getarg);
+
+Redirect();
+//setTimeout("redirect()",1000);
+//alert('注册成功！');
+/*
+window.location.href = 'http://[#ip#]:9080/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#getarg#]';
+*/
+//getarg;//'http://192.168.20.188:9080/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#getarg#]';
+</script>
+</head>
+</html>

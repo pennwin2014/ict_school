@@ -1,0 +1,1573 @@
+
+
+function DateUtil(){}  
+/**  
+*功能:格式化时间  
+*示例:DateUtil.Format("yyyy/MM/dd","Thu Nov 9 20:30:37 UTC+0800 2006 ");  
+*返回:2006/11/09  
+*/  
+DateUtil.Format=function(fmtCode,date){  
+var result,d,arr_d;  
+
+var patrn_now_1=/^y{4}-M{2}-d{2}\sh{2}:m{2}:s{2}$/;  
+var patrn_now_11=/^y{4}-M{1,2}-d{1,2}\sh{1,2}:m{1,2}:s{1,2}$/;  
+
+var patrn_now_2=/^y{4}\/M{2}\/d{2}\sh{2}:m{2}:s{2}$/;  
+var patrn_now_22=/^y{4}\/M{1,2}\/d{1,2}\sh{1,2}:m{1,2}:s{1,2}$/;  
+
+var patrn_now_3=/^y{4}年M{2}月d{2}日\sh{2}时m{2}分s{2}秒$/;  
+var patrn_now_33=/^y{4}年M{1,2}月d{1,2}日\sh{1,2}时m{1,2}分s{1,2}秒$/;  
+
+var patrn_date_1=/^y{4}-M{2}-d{2}$/;  
+var patrn_date_11=/^y{4}-M{1,2}-d{1,2}$/;  
+
+var patrn_date_2=/^y{4}\/M{2}\/d{2}$/;  
+var patrn_date_22=/^y{4}\/M{1,2}\/d{1,2}$/;  
+
+var patrn_date_3=/^y{4}年M{2}月d{2}日$/;  
+var patrn_date_33=/^y{4}年M{1,2}月d{1,2}日$/;  
+
+var patrn_time_1=/^h{2}:m{2}:s{2}$/;  
+var patrn_time_11=/^h{1,2}:m{1,2}:s{1,2}$/;  
+var patrn_time_2=/^h{2}时m{2}分s{2}秒$/;  
+var patrn_time_22=/^h{1,2}时m{1,2}分s{1,2}秒$/;  
+
+if(!fmtCode){fmtCode="yyyy/MM/dd hh:mm:ss";}  
+if(date){  
+d=new Date(date);  
+if(isNaN(d)){  
+msgBox("时间参数非法\n正确的时间示例:\nThu Nov 9 20:30:37 UTC+0800 2006\n或\n2006/      10/17");  
+return;}  
+}else{  
+d=new Date();  
+} 
+if(patrn_now_1.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_now_11.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_now_2.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_now_22.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd+" "+arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_now_3.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日"+" "+arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+}  
+else if(patrn_now_33.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日"+" "+arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+}  
+
+else if(patrn_date_1.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd;  
+}  
+else if(patrn_date_11.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"-"+arr_d.MM+"-"+arr_d.dd;  
+}  
+else if(patrn_date_2.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd;  
+}  
+else if(patrn_date_22.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"/"+arr_d.MM+"/"+arr_d.dd;  
+}  
+else if(patrn_date_3.test(fmtCode))  
+{  
+arr_d=splitDate(d,true);  
+result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日";  
+}  
+else if(patrn_date_33.test(fmtCode))  
+{  
+arr_d=splitDate(d);  
+result=arr_d.yyyy+"年"+arr_d.MM+"月"+arr_d.dd+"日";  
+}  
+else if(patrn_time_1.test(fmtCode)){  
+arr_d=splitDate(d,true);  
+result=arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_time_11.test(fmtCode)){  
+arr_d=splitDate(d);  
+result=arr_d.hh+":"+arr_d.mm+":"+arr_d.ss;  
+}  
+else if(patrn_time_2.test(fmtCode)){  
+arr_d=splitDate(d,true);  
+result=arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+}  
+else if(patrn_time_22.test(fmtCode)){  
+arr_d=splitDate(d);  
+result=arr_d.hh+"时"+arr_d.mm+"分"+arr_d.ss+"秒";  
+}  
+else{  
+msgBox("没有匹配的时间格式!");  
+return;  
+}  
+
+return result;  
+};  
+function splitDate(d,isZero){  
+var yyyy,MM,dd,hh,mm,ss;  
+if(isZero){  
+yyyy=d.getFullYear();  
+MM=(d.getMonth()+1)<10?"0"+(d.getMonth()+1):d.getMonth()+1;  
+dd=d.getDate()<10?"0"+d.getDate():d.getDate();  
+hh=d.getHours()<10?"0"+d.getHours():d.getHours();  
+mm=d.getMinutes()<10?"0"+d.getMinutes():d.getMinutes();  
+ss=d.getSeconds()<10?"0"+d.getSeconds():d.getSeconds();  
+}else{  
+yyyy=d.getFullYear();    //firefox 特别
+MM=d.getMonth()+1;  
+dd=d.getDate();  
+hh=d.getHours();  
+mm=d.getMinutes();  
+ss=d.getSeconds();    
+}  
+return {"yyyy":yyyy,"MM":MM,"dd":dd,"hh":hh,"mm":mm,"ss":ss};    
+}  
+function msgBox(msg){  
+window.alert(msg);  
+}
+
+function splitDate(d,isZero){  
+		var yyyy,MM,dd,hh,mm,ss;  
+		if(isZero){  
+				yyyy=d.getFullYear();  
+				MM=(d.getMonth()+1)<10?"0"+(d.getMonth()+1):d.getMonth()+1;  
+				dd=d.getDate()<10?"0"+d.getDate():d.getDate();  
+				hh=d.getHours()<10?"0"+d.getHours():d.getHours();  
+				mm=d.getMinutes()<10?"0"+d.getMinutes():d.getMinutes();  
+				ss=d.getSeconds()<10?"0"+d.getSeconds():d.getSeconds();  
+		}else{  
+				yyyy=d.getFullYear();    //firefox 特别
+				MM=d.getMonth()+1;  
+				dd=d.getDate();  
+				hh=d.getHours();  
+				mm=d.getMinutes();  
+				ss=d.getSeconds();    
+		}  
+		return {"yyyy":yyyy,"MM":MM,"dd":dd,"hh":hh,"mm":mm,"ss":ss};    
+}  
+//格式化时间
+Date.prototype.format = function(format){
+    var o = {
+    "M+" : this.getMonth()+1, //month
+    "d+" : this.getDate(),    //day
+    "h+" : this.getHours(),   //hour
+    "m+" : this.getMinutes(), //minute
+    "s+" : this.getSeconds(), //second
+    "q+" : Math.floor((this.getMonth()+3)/3),  //quarter
+    "S" : this.getMilliseconds() //millisecond
+    }
+    if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
+    (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+    for(var k in o)if(new RegExp("("+ k +")").test(format))
+    format = format.replace(RegExp.$1,
+    RegExp.$1.length==1 ? o[k] :
+    ("00"+ o[k]).substr((""+ o[k]).length));
+    return format;
+}
+var now   = new Date();
+var month = now.getMonth();
+var year  = now.getFullYear();
+var day   = now.getDate();
+var wday  = now.getDay;
+  //最近7天
+now.endTime   = now.format( "yyyy/MM/dd", now.setDate( day ) );
+now.beginTime = now.format( "yyyy/MM/dd", now.setDate( day-7 ) );
+
+var	startday=now.beginTime;
+var	today=now.endTime;
+
+
+
+var grid_height; //显示区表单高度
+/*
+function doreflashTab(plateid){
+	var tabs_obj=Ext.getCmp('layout_center');
+	var index=tabs_obj.getActiveTab();
+	var tabframe=index.id;
+//	alert(index);
+//	alert(tabframe);
+  //eval(tabframe).document.getElementById("form1").submit();
+  //eval(tabframe).document.getElementById("form1").document.getElementById("de_right").src="/pronline/Msg?FunName@ncwireWebShow_userService";
+//	eval(tabframe).reflash(plateid);
+	reflash(plateid);
+}
+*/
+//传递模板ID
+function doreflashTab(plateid){
+	var tabs_obj=Ext.getCmp('layout_center');
+	var index=tabs_obj.getActiveTab();
+	var tabframe=index.id;
+	tabstore = 'store_'+tabframe;
+	if(plateid == ''){
+		eval(tabstore).load();
+	}else{
+		eval(tabstore).plateid = plateid;
+		eval(tabstore).load({params:{plateid:plateid}});
+	}
+
+}
+
+//图表查看详细信息
+function openWin(value,tabframe,tabstore){
+alert(eval(tabstore).sdate);
+eval(tabframe).openWin(value);
+}
+Ext.Loader.setConfig({enabled: true,paths:{'ncViewer':'/v8/js'}});
+Ext.Loader.setConfig({enabled: true,paths:{'users':'/v8/js/users'}});
+Ext.Loader.setConfig({enabled: true,paths:{'online':'/v8/js/online'}});
+Ext.Loader.setConfig({enabled: true,paths:{'shops':'/v8/js/shops'}});
+Ext.Loader.setConfig({enabled: true,paths:{'rules':'/v8/js/rules'}});
+
+Ext.Loader.setConfig({enabled: true,paths:{'network':'/v8/js/network'}});
+Ext.Loader.setConfig({enabled: true,paths:{'systemmanage':'/v8/js/systemmanage'}});
+Ext.Loader.setConfig({enabled: true,paths:{'logs':'/v8/js/logs'}});
+Ext.Loader.setConfig({enabled: true,paths:{'charts':'/v8/js/charts'}});
+Ext.Loader.setConfig({enabled: true,paths:{'reports':'/v8/js/reports'}});
+Ext.Loader.setConfig({enabled: true,paths:{'usermanger':'/v8/js/usermanger'}});
+var new_params="";
+Ext.define('ncViewer.App', {
+	extend: 'Ext.container.Viewport',    
+	uses:['online.onlineInfo'
+   ],
+    initComponent: function(){
+
+        Ext.define('State', {
+            extend: 'Ext.data.Model',
+            fields: ['groupid', 'groupname']
+        });       
+    Ext.apply(this, {
+            layout: {
+                type: 'border'  
+            },
+				
+	items: [this.createNcTb(),this.createNcLeft(),this.createNcCenter()]
+   //         items: [this.createNcTb(),this.createNcLeft(),this.createNcCenter(),this.createNcStatus()]
+        });
+		
+        this.callParent(arguments);
+       //store_display_firstpage.load();      
+		//	tabs_center.add({autoScroll:true,id:tab_id+'_onlineinfo',iconCls: 'onlineinfo',border:false,frame:false,title: "在线信息", items:[Ext.create('online.onlineInfo')]});
+
+    },
+	
+    /**
+    创建工具条
+     */
+     createNcTb: function(){
+
+ //创建策略菜单
+   var menu_procy = Ext.create('Ext.menu.Menu', {
+        id: 'sfkglMenu',
+        style: {
+            overflow: 'visible'     
+        }
+        ,
+        items: [
+          {
+                text: '控制策略',
+                itemid:'kzcl',
+                srcurl:'ncViewer.lanProcy',  
+                handler:this.onItemClick
+       
+           },
+           {
+           	    text: '策略下发',
+                itemid:'clxf',
+                srcurl:'ncViewer.lanProcyXf',
+               handler:this.onItemClick
+           }
+        ]
+        
+    });
+
+
+    	 var tb = Ext.create('Ext.toolbar.Toolbar',{ border:false,frame:false,style: 'background-image:url();'});
+    	    tb.add(
+		{
+      			xtype:'label',
+     			html:'&nbsp;<img src="/images/large/background.jpg" width="1920" height="60" style="vertical-align:top;margin-top:-15px">',
+     			//html:'&nbsp;<div width="1980" height="60" style="vertical-align:top;margin-top:-15px" class="gallery"></div>',
+				width:1
+        },
+
+        // {
+            // text: '首页',
+            // itemid:'firstpage',
+            // scale:'large',
+            // iconAlign: 'top',
+            // srcurl:'ncViewer.ncFirstPage',
+            // iconCls: 'dvd',
+            // handler:this.onItemClick
+        
+		// },'-',
+		/*
+		{
+			xtype:'button',
+            itemid:'onlineinfo',
+            hidden:false,
+            text:'在线信息',
+            scale:'large',
+            iconCls: 'zxxx',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmOnlineInfo',
+            handler:this.onItemClick
+        }
+        ,
+		{
+            itemid:'users',
+            hidden:false,
+            text:'用户管理',
+			scale:'large',
+            iconCls: 'users',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmUsers',
+            handler:this.onItemClick
+        }
+        ,
+		{
+            itemid:'reports',
+            hidden:false,
+            text:'统计报表',
+            scale:'large',
+            iconCls: 'reports',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmReports',
+            handler:this.onItemClick
+        }
+        ,
+		{
+            itemid:'shops',
+            hidden:false,
+            text:'商城管理',
+			scale:'large',
+            iconCls: 'shops',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmShops',
+            handler:this.onItemClick
+        }
+        ,
+		{
+            itemid:'charts',
+            hidden:false,
+            text:'业务感知',
+			scale:'large',
+            iconCls: 'adcharts',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmCharts',
+            handler:this.onItemClick
+        }
+        ,
+        // {
+            // itemid:'adcharts',
+            // hidden:false,
+            // text:'广告图表',
+			// scale:'large',
+            // iconCls: 'adcharts',
+            // iconAlign: 'top',
+            // srcurl:'ncViewer.ncmAdCharts',
+            // handler:this.onItemClick
+        // } ,
+		{
+            itemid:'logs',
+            hidden:false,
+            text:'日志查询',
+			scale:'large',
+            iconCls: 'logs',
+            iconAlign: 'top',
+            //srcurl:'ncViewer.ncmLog',
+            handler:this.onItemClick
+        }
+        ,
+		{
+            itemid:'rules',
+            hidden:false,
+            text:'规则设置',
+			scale:'large',
+            iconCls: 'charts',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmSettings',
+            handler:this.onItemClick
+        }
+        ,
+		{
+            itemid:'settings',
+            hidden:false,
+            text:'系统配置',
+			scale:'large',
+            iconCls: 'settings',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmSettings',
+            handler:this.onItemClick
+        }
+        ,
+		{
+            itemid:'systems',
+            hidden:false,
+            text:'系统管理',
+			scale:'large',
+            iconCls: 'systems',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmSystems',
+            handler:this.onItemClick
+        }
+        ,
+		{
+            itemid:'myaccount',
+            hidden:false,
+            text:'我的账号',
+			scale:'large',
+            iconCls: 'accounts',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmAccounts',
+            handler:this.onItemClick
+        } ,
+			*/
+        '->','->','-',
+			{
+                text: '全屏显示',
+                itemid:'xtsx',
+                scale:'large',
+                iconAlign: 'top',
+                iconCls: 'search',
+                handler: this.onItemMax
+            },
+			{
+                text: '系统刷新',
+                itemid:'xtsx',
+                scale:'large',
+                iconAlign: 'top',
+                iconCls: 'refresh',
+                handler: this.onItemReflash
+            },
+			{
+                text: '重新登录',
+                scale:'large',
+                itemid:'cxdl',
+                iconAlign: 'top',
+                iconCls: 'unlock',
+				handler: this.onItemClose
+            } ,{
+    	    	  itemid:'logo',
+           		  xtype:'label'
+				//html:'<center><div class="ain_3d"><span class="gallery">新网程</span><br><span class="gallery2">登录门户管理系统</span></div></center>'
+             	}
+			
+        ); 
+
+        var right_fun_s=right_fun;
+        var isep=0;
+
+/*
+         tb.items.each(function(item){
+        
+      	if((right_fun_s.indexOf(item.text)!=-1)||(item.text=='系统刷新')||(item.text=='重新登录')||item.itemid=='logo'){
+      	
+      	    item.hidden=false;
+      	    isep=1;
+      	 
+      	}
+      	else{
+      		if(item.text){
+      			item.hidden=true;
+      			isep=0;
+      		
+      		}
+      		else{
+      			
+      			if(isep==0){
+      			 item.hidden=true;
+      			 isep=1;
+      			}
+      			else{
+      				item.hidden=false;
+      				isep=0;
+      			}
+      		}
+      	
+      	}
+
+      	 
+      	}
+      	
+      
+      
+     );  
+
+*/
+           	
+
+      this.toolPanel = Ext.create(Ext.panel.Panel, {
+            id: 'header',
+			
+			//collapsed: true,
+			//collapsible: true,
+			
+			 // tools: [
+                  // {
+                // xtype:'button',
+                // text:'界面',
+                // glyph: 61,
+                // menu:[{
+                    // text:'Classic',
+					// handler:function(){ Ext.MessageBox.alert('Classic');
+					// self.location='/enter.html';
+					
+					// }
+                // },{
+                    // text:'Neptune',
+					// handler:function(){ Ext.MessageBox.alert('Neptune');
+					// self.location='/enter.html';
+					
+					// }
+                // }]
+				// }
+                // ],
+			//title:'<center>新网程登录门户管理系统</center>',
+            border: false,
+			frame:false,
+            region: 'north',
+			//bodyStyle: 'background:#e1e1e1;padding:1px 1px 1px 1px;',
+			
+            items:[
+			tb
+			/*
+			{
+			xtype:'button',
+            itemid:'onlineinfo',
+            hidden:false,
+            text:'在线信息',
+            scale:'large',
+            iconCls: 'zxxx',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmOnlineInfo',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'users',
+            hidden:false,
+            text:'用户管理',
+			scale:'large',
+            iconCls: 'users',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmUsers',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'reports',
+            hidden:false,
+            text:'统计报表',
+            scale:'large',
+            iconCls: 'reports',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmReports',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'shops',
+            hidden:false,
+            text:'商城管理',
+			scale:'large',
+            iconCls: 'shops',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmShops',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'charts',
+            hidden:false,
+            text:'业务感知',
+			scale:'large',
+            iconCls: 'adcharts',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmCharts',
+            handler:this.onItemClick
+        }
+        ,
+		// {
+			// xtype:'button',
+            // itemid:'adcharts',
+            // hidden:false,
+            // text:'广告图表',
+			// scale:'large',
+            // iconCls: 'adcharts',
+            // iconAlign: 'top',
+            // srcurl:'ncViewer.ncmAdCharts',
+            // handler:this.onItemClick
+        // } ,
+		{
+			xtype:'button',
+            itemid:'logs',
+            hidden:false,
+            text:'日志查询',
+			scale:'large',
+            iconCls: 'logs',
+            iconAlign: 'top',
+            //srcurl:'ncViewer.ncmLog',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'rules',
+            hidden:false,
+            text:'规则设置',
+			scale:'large',
+            iconCls: 'charts',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmSettings',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'settings',
+            hidden:false,
+            text:'系统配置',
+			scale:'large',
+            iconCls: 'settings',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmSettings',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'systems',
+            hidden:false,
+            text:'系统管理',
+			scale:'large',
+            iconCls: 'systems',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmSystems',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'myaccount',
+            hidden:false,
+            text:'我的账号',
+			scale:'large',
+            iconCls: 'accounts',
+            iconAlign: 'top',
+            srcurl:'ncViewer.ncmAccounts',
+            handler:this.onItemClick
+        } ,
+			{
+				xtype:'button',
+                text: '系统刷新',
+                itemid:'xtsx',
+                scale:'large',
+                iconAlign: 'top',
+                iconCls: 'refresh',
+                handler: this.onItemReflash
+            },
+			{
+				xtype:'button',
+                text: '重新登录',
+                scale:'large',
+                itemid:'cxdl',
+                iconAlign: 'top',
+                iconCls: 'unlock',
+				handler: this.onItemClose
+            } 
+			*/
+			]
+          
+        });
+        return this.toolPanel;
+       
+    },
+	onItemMax:function(){
+		//Ext.getCmp('header').setTitle('<center>新网程登录门户管理系统</center>');
+    	Ext.getCmp('header').collapse();
+    	//Ext.getCmp('header').preventHeader=false;
+    },
+    onItemClose:function(){
+    	self.location='/enter.html';
+    },
+    onItemReflash:function(){
+          var fp=Ext.create('Ext.FormPanel');
+               fp.form.doAction('submit',{
+               url:'/pronline/Msg',
+                method:'POST',
+               params:{FunName:'ncsSysReflesh_v4'},
+                 
+                success:function(form,action){ 
+           					Ext.getCmp('winstatus').close();
+                 },
+             		 failure:function(form,action){        		 
+                    Ext.Msg.alert('操作',"系统正忙,稍候重试!");
+                    Ext.getCmp('winstatus').close();
+            		 }
+                }
+             )
+					    var wint = Ext.create('Ext.Window', {
+					 //       title: '系统刷新',
+					        id:'winstatus',
+					        header:false,
+					        width: 150,
+					        x:600,
+					        y:210,
+					        height: 40,
+					        closable: false,
+					        modal: true,
+					  //      closeAction: 'hide',
+					        bodyPadding: 10,
+					        bbar: Ext.create('Ext.ux.StatusBar', {
+					            id: 'win-statusbar',
+					            defaultText: '系统就绪'
+					        })
+					    });					   
+					    wint.show();
+					    loadFn('win-button', 'win-statusbar');
+    
+    },
+	
+    createNcLeft:function(){   	
+	
+    	var left_tabs=Ext.createWidget('tabpanel', {
+        width: 290,
+        border:false,
+        margins: '0 0 0 0',
+//      height:970,
+        id:'treetab',    
+        activeTab: 0,
+        defaults :{
+            bodyPadding: 0
+        },
+		enableTabScroll:true
+     });
+     	// left_tabs.add({
+						          // closable: false,
+					             // border:false,
+                        // items:[Ext.create(ncViewer.lanGroupTree)],
+						            // title: '部门用户'
+		 // });
+      
+     this.leftPanel=Ext.create(Ext.panel.Panel, {
+             id: 'left',
+             margins: '0 2 0 2',
+            // layout: 'border',
+             title:'<center>'+"在线信息"+'</center>',
+             region: 'west',
+            // collapsible: true,
+             autoScroll: true,
+             //bodyStyle: 'background:#fff;',
+             //split:true,
+             width: 120,
+	         minSize: 100,
+	         maxSize: 500,
+             items:[
+			{
+			xtype:'button',
+            itemid:'onlineinfo',
+            hidden:false,
+            text:'在线信息',
+            scale:'large',
+            iconCls: 'zxxx',
+            iconAlign: 'left',
+            srcurl:'ncViewer.ncmOnlineInfo',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'users',
+            hidden:false,
+            text:'用户管理',
+			scale:'large',
+            iconCls: 'users',
+            iconAlign: 'left',
+            srcurl:'ncViewer.ncmUsers',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'reports',
+            hidden:false,
+            text:'统计报表',
+            scale:'large',
+            iconCls: 'reports',
+            iconAlign: 'left',
+            srcurl:'ncViewer.ncmReports',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'shops',
+            hidden:false,
+            text:'商城管理',
+			scale:'large',
+            iconCls: 'shops',
+            iconAlign: 'left',
+            srcurl:'ncViewer.ncmShops',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'charts',
+            hidden:false,
+            text:'业务感知',
+			scale:'large',
+            iconCls: 'adcharts',
+            iconAlign: 'left',
+            srcurl:'ncViewer.ncmCharts',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'logs',
+            hidden:false,
+            text:'日志查询',
+			scale:'large',
+            iconCls: 'logs',
+            iconAlign: 'left',
+            //srcurl:'ncViewer.ncmLog',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'rules',
+            hidden:false,
+            text:'规则设置',
+			scale:'large',
+            iconCls: 'charts',
+            iconAlign: 'left',
+            srcurl:'ncViewer.ncmSettings',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'settings',
+            hidden:false,
+            text:'系统配置',
+			scale:'large',
+            iconCls: 'settings',
+            iconAlign: 'left',
+            srcurl:'ncViewer.ncmSettings',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'systems',
+            hidden:false,
+            text:'系统管理',
+			scale:'large',
+            iconCls: 'systems',
+            iconAlign: 'left',
+            srcurl:'ncViewer.ncmSystems',
+            handler:this.onItemClick
+        }
+        ,
+		{
+			xtype:'button',
+            itemid:'myaccount',
+            hidden:false,
+            text:'我的账号',
+			scale:'large',
+            iconCls: 'accounts',
+            iconAlign: 'left',
+            srcurl:'ncViewer.ncmAccounts',
+            handler:this.onItemClick
+        }
+        ]
+         
+        });
+       return this.leftPanel;
+	  
+    }
+    ,
+	
+    createNcCenter:function(){
+      var swidth=screen.width;
+      groupid='';
+      compid='';
+      dxtitle='';
+    	this.centerPanel=Ext.createWidget('tabpanel', {
+        resizeTabs: true,
+        enableTabScroll: true,
+        autoScroll:false,
+        region:'center',
+        id:'layout_center',
+		border:false,
+		frame:false,
+		lbar:[ 
+			{xtype:'button', id:'plate1', hidden:true, text:'模板1',handler:function(){doreflashTab(store_portplate.getAt(0).get('sid'));Ext.getCmp('plate1').addCls('p1');Ext.getCmp('plate2').removeCls('p1');Ext.getCmp('plate3').removeCls('p1');}},
+			{xtype:'button', id:'plate2', hidden:true, text:'模板2',handler:function(){doreflashTab(store_portplate.getAt(1).get('sid'));Ext.getCmp('plate2').addCls('p1');Ext.getCmp('plate1').removeCls('p1');Ext.getCmp('plate3').removeCls('p1');}},
+			{xtype:'button', id:'plate3', hidden:true, text:'模板2',handler:function(){doreflashTab(store_portplate.getAt(2).get('sid'));Ext.getCmp('plate3').addCls('p1');Ext.getCmp('plate1').removeCls('p1');Ext.getCmp('plate2').removeCls('p1');}},
+			],
+		bbar:[
+			{
+           	xtype:'pagingtoolbar',
+			border:false,
+			frame:false,
+           	id:'page_main',
+           	hidden:true,
+            store:Ext.StoreManager.lookup('store_adminuser'),
+             displayInfo: true,
+             displayMsg: '显示<font color=red>{0}</font> - <font color=red>{1}</font>条，  共<font color=red>{2}</font>条',
+             emptyMsg: "共0条"
+             ,
+             doRefresh:function(){  
+             
+              this.store.load();
+				
+             },
+            moveLast:function(){
+				    	var b=this,a=b.getPageData().pageCount;
+				    	if(b.fireEvent("beforechange",b,a)!==false){
+				    		this.store.currentPage=a;
+				    		this.store.load();
+				      }
+				    },
+				    moveFirst:function(){
+					    if(this.fireEvent("beforechange",this,1)!==false){
+				    		this.store.currentPage=1;
+				    		this.store.load();
+					    }
+					  }, 
+				   	movePrevious:function(){
+				   		var b=this,a=b.store.currentPage-1;
+				   		if(a>0){
+				   			if(b.fireEvent("beforechange",b,a)!==false){
+				    		this.store.currentPage=a;
+				    		this.store.load();
+				   			}
+				   		}
+				   	},
+				   	moveNext:function(){
+				   		var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;
+				   		if(a<=b){
+				   			if(c.fireEvent("beforechange",c,a)!==false){
+				    		this.store.currentPage=a;
+				    		this.store.load();
+				   			}
+				   		}
+				   	},
+				   	 onPagingKeyDown:function(i,h){
+				    	var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+				    	if(b==h.RETURN){
+				    		h.stopEvent();
+				    		g=d.readPageFromInput(c);
+				        if(g!==false){
+				        	g=Math.min(Math.max(1,g),c.pageCount);
+				         	if(d.fireEvent("beforechange",d,g)!==false){
+				    		this.store.currentPage=g;
+				    		this.store.load();
+					        }        
+					      }
+					    }else{
+				      	if(b==h.HOME||b==h.END){
+				    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+				       	}else{
+				        	if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+					          h.stopEvent();g=d.readPageFromInput(c);
+					          if(g){
+					            if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+					            g+=a;
+					            if(g>=1&&g<=c.pages){
+					            	i.setValue(g)
+					            }
+					          }
+				         	}
+				        }
+				      }  
+				    } 
+          
+             
+           },
+		   
+		   '->',
+         {xtype:'label', html:'<span >上海新网程信息技术股份有限公司&nbsp;&nbsp;&nbsp;</span>'}
+           
+           ],
+        
+             listeners: {
+             	                  
+                      tabchange:function(tp,p){ 
+						    grid_height=Ext.getCmp('layout_center').getHeight()-58;
+                      	var tabs_center=Ext.getCmp("layout_center");
+						var active = tabs_center.getActiveTab();
+						//隐藏所有模板
+						for(i=1; i<=store_portplate.getCount();i++){
+						Ext.getCmp('plate'+i).setVisible(false); 
+						}
+                      	//taskManager.stop(firsttask);
+                      	if(p.title=='权限角色'){
+                      		Ext.getCmp('page_main').bind(Ext.StoreManager.lookup("store_system_role"));
+  	                        Ext.getCmp('page_main').setVisible(true);
+  	                        Ext.getCmp('page_main').doRefresh();
+                      	}
+                      	else if(p.title=='系统用户'){
+                      		Ext.getCmp('page_main').bind(store_adminuser);
+  	                        Ext.getCmp('page_main').setVisible(true);
+  	                        Ext.getCmp('page_main').doRefresh();
+                      	}
+                      	else if(p.title=='系统操作日志'){
+                      		 Ext.getCmp('page_main').bind(store_system_log);
+  	                        Ext.getCmp('page_main').setVisible(true);
+  	                        Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='广告日志'){
+                      		Ext.getCmp('page_main').bind(store_logs_adlog);
+  	                        Ext.getCmp('page_main').setVisible(true);
+  	                        Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='用户日志'){
+                      		Ext.getCmp('page_main').bind(store_logs_userlog);
+  	                        Ext.getCmp('page_main').setVisible(true);
+  	                        Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='短信日志'){
+                      		Ext.getCmp('page_main').bind(store_logs_smslog);
+  	                        Ext.getCmp('page_main').setVisible(true);
+  	                        Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='短信发送报表'){
+                      		 Ext.getCmp('page_main').bind(store_reports_smsreport);
+  	                        Ext.getCmp('page_main').setVisible(true);
+  	                        Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='短信发送详情'){
+                      		Ext.getCmp('page_main').bind(store_reports_smsdetailreport);
+  	                        Ext.getCmp('page_main').setVisible(true);
+  	                        Ext.getCmp('page_main').doRefresh();
+                      	}
+						            else if(p.title=='上网人数流量报表'){
+                      		  Ext.getCmp('page_main').bind(store_reports_webreport);
+  	                        Ext.getCmp('page_main').setVisible(true);
+  	                        Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='上网详情'){
+                      		Ext.getCmp('page_main').bind(store_reports_webdetailreport);
+  	                        Ext.getCmp('page_main').setVisible(true);
+  	                        Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='设备类型统计'){
+                      		Ext.getCmp('page_main').bind(store_reports_devicereport);
+  	                        Ext.getCmp('page_main').setVisible(true);
+  	                        Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='终端品牌'){
+                      		Ext.getCmp('page_main').bind(store_charts_devicebrand);
+  	                        Ext.getCmp('page_main').setVisible(true);
+  	                        Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='终端类型'){
+                      		Ext.getCmp('page_main').bind(store_charts_devicetype);
+  	                        Ext.getCmp('page_main').setVisible(true);
+  	                        Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='设备操作系统'){
+                      		Ext.getCmp('page_main').bind(store_charts_deviceos);
+  	                        Ext.getCmp('page_main').setVisible(true);
+  	                        Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='广告点击'){
+                      		Ext.getCmp('page_main').bind(store_charts_advisit);
+  	                        Ext.getCmp('page_main').setVisible(true);
+  	                        Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='短信数量'){
+                      		//Ext.getCmp('page_main').bind(store_rules_smsnumber);
+							Ext.getCmp('page_main').setVisible(false);
+							//Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='广告管理'){
+							//读取修改模板名字
+							for(i=1; i<=store_portplate.getCount();i++){
+									Ext.getCmp('plate'+i).setText(store_portplate.getAt(i-1).get('platename'));
+							}
+							//默认选中模板1
+							Ext.getCmp('plate1').addCls('p1');
+							//显示模板
+							for(i=1; i<=store_portplate.getCount();i++){
+									Ext.getCmp('plate'+i).setVisible(true); 
+							}
+                      		Ext.getCmp('page_main').bind(store_shops_admanager);
+							Ext.getCmp('page_main').setVisible(true);
+							Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='商店管理'){
+                      		Ext.getCmp('page_main').bind(store_shops_shopmanager);
+							Ext.getCmp('page_main').setVisible(true);
+							Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='品牌管理'){
+                      		Ext.getCmp('page_main').bind(store_shops_brandmanager);
+							Ext.getCmp('page_main').setVisible(true);
+							Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='商品管理'){
+                      		Ext.getCmp('page_main').bind(store_shops_oditymanager);
+							Ext.getCmp('page_main').setVisible(true);
+							Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='商标类别管理'){
+                      		Ext.getCmp('page_main').bind(store_shops_groupmanager);
+							Ext.getCmp('page_main').setVisible(true);
+							Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='会员管理'){
+                      		Ext.getCmp('page_main').bind(store_shops_shopusermanager);
+							Ext.getCmp('page_main').setVisible(true);
+							Ext.getCmp('page_main').doRefresh();
+                      	}
+            else if(p.title=='活动管理'){
+                      		Ext.getCmp('page_main').bind(store_shops_activemanager);
+							Ext.getCmp('page_main').setVisible(true);
+							Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='国内外短信数量'){
+                      		Ext.getCmp('page_main').bind(store_rules_smsnumber);
+							Ext.getCmp('page_main').setVisible(true);
+							Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='短信注册数量'){
+                      		Ext.getCmp('page_main').bind(store_rules_smsregister);
+							Ext.getCmp('page_main').setVisible(true);
+							Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='上网时长'){
+                      		Ext.getCmp('page_main').bind(store_rules_timelimit);
+							Ext.getCmp('page_main').setVisible(true);
+							Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='短信格式'){
+                      		Ext.getCmp('page_main').bind(store_rules_smsformat);
+							Ext.getCmp('page_main').setVisible(true);
+							Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='黑名单'){
+                      		Ext.getCmp('page_main').bind(store_rules_blackuser);
+							Ext.getCmp('page_main').setVisible(true);
+							Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='用户管理'){
+                      		Ext.getCmp('page_main').bind(store_users_usermanager);
+							Ext.getCmp('page_main').setVisible(true);
+							Ext.getCmp('page_main').doRefresh();
+                      	}
+						else if(p.title=='标签管理'){
+                      		Ext.getCmp('page_main').bind(store_users_tagmanager);
+							Ext.getCmp('page_main').setVisible(true);
+							Ext.getCmp('page_main').doRefresh();
+                      	}
+                      	var t_id=p.getId(); 
+                      	 /*
+                      	 if(t_id!='ssjk'){
+                      	 	 bStartim=0;              
+                           bStartcomp=0;
+                           //如果左边的树不是check树，改变树
+                                   //改变左边的树
+													     var tabs_tree=Ext.getCmp('treetab');
+													     var tab_len=tabs_tree.items.length;
+													     var tree_panel;
+													     var tree_flag=0;
+													     tabs_tree.items.each(function(item) { 
+																if(item.id=='tree_comp'){
+																			   		tree_flag=1;;
+																			   	
+																			   	}
+													      });	
+                                 if(tree_flag!=1){      
+																	  tabs_tree.remove(0);																	 				
+																		   tabs_tree.add({ closable: false,id:'tree_comp',border:false,items:[Ext.create(ncViewer.lanGroupTree)],title: '部门用户'}).show();																       
+																 }                          
+                      	}
+                      	else{
+											var tabs_center=Ext.getCmp("layout_center");
+							        	    var active = tabs_center.getActiveTab();
+							
+									        	var active_id='lay_'+active.id;
+									        	var tabs_if=Ext.getCmp(active_id).getActiveTab();
+									           if(tabs_if.id=='immon'){
+									           	bStartcomp=0;
+									           	bStartim=1;
+									          }
+									          else if(tabs_if.id=='sjcomputer'){
+									          	bStartcomp=1;
+									          	bStartim=0;
+									          }                      	
+                      		 else if(tabs_if.id=='sspm'){
+                      		 	  bStartcomp=0;
+									          	bStartim=0;
+									          	            	  			 //改变左边的树
+													     var tabs_tree=Ext.getCmp('treetab');
+													     var tab_len=tabs_tree.items.length;
+													     var tree_panel;
+													     var tree_flag=0;
+														   tabs_tree.items.each(function(item) { 
+														     
+														      });	
+														  tabs_tree.remove(0);
+														 				
+															tabs_tree.add({
+																			          closable: false,
+																		            id:'tree_comp_c',
+																		             border:false,
+													                        items:[Ext.create(ncViewer.lanGroupCheckTree)],
+																			            title: '部门上网人员'
+															 }).show();
+									          	
+									          	
+                      		 }
+                      		
+                      		
+                      	}
+                      	 */
+                      	 	
+                    	}
+             }
+             
+                
+       });
+    
+      
+      
+       
+       return this.centerPanel;
+   
+    },
+    createNcStatus:function(){   	
+    	this.ncstatus=Ext.create('Ext.ux.StatusBar', {
+            id: 'statusbar',
+            region: 'south',
+            margins: '',
+			frame:false,
+			border:false,
+            defaultText: 'Default status text',
+            text: 'Ready',
+            iconCls: 'x-status-valid',
+			
+            items: [
+                {
+                    xtype: 'button',
+                    text: '上海新网程信息技术股份有限公司版权所有&nbsp;&nbsp;',
+                   
+                    handler: function (){
+                        var sb = Ext.getCmp('statusbar');
+                        sb.setStatus({
+                           text: 'Oops!',
+                            iconCls: 'x-status-error',
+                           clear: true // auto-clear after a set interval
+                        });
+                    }
+                }
+                
+            ]
+        });
+        return this.ncstatus;
+    	
+    	
+    },
+    onItemClick:function(item){
+	bbbb=Ext.getCmp('header');
+	//bbbb.setTitle('<center>新网程登录门户管理系统 - '+item.text+'</center>');
+	Ext.getCmp('left').setTitle('<center>'+item.text+'</center>');
+	/*
+    	 bbbb=document.all('ltitle');
+       bbbb.innerHTML='当前位置：'+item.text;
+       
+       
+       
+        //改变左边的树
+     var tabs_tree=Ext.getCmp('treetab');
+     var tab_len=tabs_tree.items.length;
+     var tree_panel;
+     var tree_flag=0;
+     tabs_tree.items.each(function(item) { 
+			if(item.id=='tree_comp'){
+						   		tree_flag=1;;
+						   	
+						   	}
+      });	
+      if(tree_flag!=1){      
+	       tabs_tree.remove(0);	 				
+		   tabs_tree.add({closable: false,id:'tree_comp',border:false,items:[Ext.create(ncViewer.lanGroupTree)], title: '部门上网用户'}).show();
+       
+     }
+   */    
+ //改变中间的视图      
+       
+       var i=0;
+       var m=0;
+       var tab_title=item.text;
+       var tab_src=item.srcurl;
+       var tab_id=item.itemid;
+       var tabs_center=Ext.getCmp("layout_center");
+       var tab_len=tabs_center.items.length;
+       tabs_center.items.each(function(item) { 
+	     	 if(item.id==tab_id)
+	     	 { i++;}
+	       if(i==0){m++;}
+       });   
+      if(i>0){
+     	  tabs_center.setActiveTab(m);
+     	  return; 
+     	} 
+      if(tab_len>=1){
+      	for(i=0;i<tab_len;i++)
+      	{     		
+      	 tabs_center.remove(tab_len-i-1); 
+        }      	
+      }  
+     
+	Ext.getCmp('page_main').setVisible(false);
+	//隐藏所有模板
+	for(i=1; i<=store_portplate.getCount();i++){
+	Ext.getCmp('plate'+i).setVisible(false); 
+	}
+	if(tab_id=='ssjk'){
+		tabs_center.add({autoScroll:false,id:tab_id,iconCls: 'add16',title: tab_title,items:[Ext.create(tab_src)]});   
+        Ext.getCmp('page_main').store=store_adminuser;
+  	    Ext.getCmp('page_main').setVisible(true);
+  	    Ext.getCmp('page_main').doRefresh();
+   	        
+	}   
+	else if(tab_id=='onlineinfo'){  
+		Ext.getCmp('page_main').bind(Ext.StoreManager.lookup("store_online_onlineinfo"));  
+		Ext.getCmp('page_main').setVisible(true); 
+		tabs_center.add({autoScroll:true,id:tab_id+'_onlineinfo',iconCls: 'onlineinfo',border:false,frame:false,title: "在线信息", items:[Ext.create('online.onlineInfo')]});
+	}	
+	else if(tab_id=='users'){  
+		Ext.getCmp('page_main').bind(Ext.StoreManager.lookup("store_users_usermanager"));  
+		Ext.getCmp('page_main').setVisible(true); 
+		tabs_center.add({autoScroll:true,id:tab_id+'_usermanager',iconCls: 'user',border:false,frame:false,title: "用户管理", items:[Ext.create('users.userManager')]});
+		// tabs_center.add({autoScroll:true,id:tab_id+'_tagmanager',iconCls: 'tag',border:false,frame:false,title: "标签管理", items:[Ext.create('users.tagManager')]});
+	
+	}
+	else if(tab_id=='reports'){  
+		Ext.getCmp('page_main').bind(Ext.StoreManager.lookup("store_reports_smsreport"));
+  	    Ext.getCmp('page_main').setVisible(true);
+   	    tabs_center.add({autoScroll:true,id:tab_id+'_smsReport',iconCls: 'report',border:false,frame:false,title: "短信发送报表", items:[Ext.create('reports.smsReport')]});
+        tabs_center.add({autoScroll:true,id:tab_id+'_smsDetailReport',iconCls: 'report',border:false,frame:false,title: "短信发送详情",items:[Ext.create('reports.smsDetailReport')]});
+		tabs_center.add({autoScroll:true,id:tab_id+'_webReport',iconCls: 'report',border:false,frame:false,title: "上网人数流量报表", items:[Ext.create('reports.webReport')]});
+        tabs_center.add({autoScroll:true,id:tab_id+'_webDetailReport',iconCls: 'report',border:false,frame:false,title: "上网详情",items:[Ext.create('reports.webDetailReport')]});
+        tabs_center.add({autoScroll:true,id:tab_id+'_deviceReport',iconCls: 'report',border:false,frame:false,title: "设备类型统计",items:[Ext.create('reports.deviceReport')]});   
+        
+	}
+	else if(tab_id=='shops'){
+		Ext.getCmp('page_main').bind(Ext.StoreManager.lookup("store_shops_admanager"));
+		Ext.getCmp('page_main').setVisible(true);
+
+		
+		tabs_center.add({autoScroll:true,id:tab_id+'_admanager',iconCls: 'shops_ad',border:false,frame:false,title: "广告管理", items:[Ext.create('shops.adManager')]});
+		tabs_center.add({autoScroll:true,id:tab_id+'_shopmanager',iconCls: 'shops_shop',border:false,frame:false,title: "商店管理", items:[Ext.create('shops.shopManager')]});
+		tabs_center.add({autoScroll:true,id:tab_id+'_brandmanager',iconCls: 'star',border:false,frame:false,title: "品牌管理", items:[Ext.create('shops.brandManager')]});
+		tabs_center.add({autoScroll:true,id:tab_id+'_oditymanager',iconCls: 'shops_product',border:false,frame:false,title: "商品管理", items:[Ext.create('shops.odityManager')]});
+		tabs_center.add({autoScroll:true,id:tab_id+'_categorymanager',iconCls: 'shops_type',border:false,frame:false,title: "商标类别管理", items:[Ext.create('shops.categoryManager')]});
+		tabs_center.add({autoScroll:true,id:tab_id+'_usermanager',iconCls: 'shops_vip',border:false,frame:false,title: "会员管理", items:[Ext.create('shops.userManager')]});
+		tabs_center.add({autoScroll:true,id:tab_id+'_actmanager',iconCls: 'shops_active',border:false,frame:false,title: "活动管理", items:[Ext.create('shops.actManager')]});
+		tabs_center.add(/*{
+            title: '活动管理',
+			iconCls: 'shops_active',
+            id:'activemanager',            
+            html: '<iframe  id="viewIframe_activemanager" name="viewIframe_activemanager" src="/ncmshop/ncm_webshopactive_lab.htm" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        }*/
+		);
+		
+	} 
+	else if(tab_id=='charts'){
+		Ext.getCmp('page_main').bind(Ext.StoreManager.lookup("store_charts_devicebrand"));
+  	    Ext.getCmp('page_main').setVisible(true);
+   	    tabs_center.add({autoScroll:true,id:'charts_devicebrand',iconCls:'chart_pie',border:false,frame:false,title: "终端品牌", items:[Ext.create('charts.deviceBrand')]});
+		tabs_center.add({autoScroll:true,id:'charts_devicetype',iconCls:'chart_pie',border:false,frame:false,title: "终端类型", items:[Ext.create('charts.deviceType')]});	
+		tabs_center.add({autoScroll:true,id:'charts_deviceos',iconCls:'chart_pie',border:false,frame:false,title: "设备操作系统", items:[Ext.create('charts.deviceOS')]});	
+		tabs_center.add({autoScroll:true,id:'charts_advisit',iconCls:'chart_pie',border:false,frame:false,title: "广告点击", items:[Ext.create('charts.adVisit')]});	
+	
+		// tabs_center.add({autoScroll:true,iconCls:'chart_pie',border:false,frame:false,title: "短信数量", items:[Ext.create('charts.smsRecount')]});			
+		tabs_center.add(
+		{
+            title: '短信数量',
+			iconCls: 'chart_curve',
+            id:tab_id+'_smsrecount',            
+            html: '<iframe  id="charts_smsrecount" name="charts_smsrecount" src="/ncm_chart/ncm_smsRecountChart_ch.html" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        },{
+            title: '时间段访问',
+			iconCls: 'chart_curve',
+            id:'timegroupvisit',            
+            html: '<iframe  id="lay_rzck_proclog" name="lay_rzck_proclog" src="/ncm_adchart/ncm_ad_smsRecountChart_ch.html" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        },{
+            title: '实时浏览次数趋势图',
+			iconCls: 'chart_curve',
+            id:'realtimevisit',            
+            html: '<iframe  id="lay_rzck_proclog" name="lay_rzck_proclog" src="/ncm_adchart/ncm_ad_onlineUserRealtimeTrend.html" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        }
+		);
+	}
+	else if(tab_id=='adcharts'){  
+		tabs_center.add(
+		{
+            title: '实时浏览次数趋势图',
+			iconCls: 'chart_curve',
+            id:'realtimevisit',            
+            html: '<iframe  id="lay_rzck_proclog" name="lay_rzck_proclog" src="/ncm_adchart/ncm_ad_onlineUserRealtimeTrend.html" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        },{
+            title: '广告点击',
+			iconCls: 'chart_pie',
+            id:'advisit',            
+            html: '<iframe  id="lay_rzck_proclog" name="lay_rzck_proclog" src="/ncm_adchart/ncm_ad_adVisit.html" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        },{
+            title: '时间段访问',
+			iconCls: 'chart_curve',
+            id:'timegroupvisit',            
+            html: '<iframe  id="lay_rzck_proclog" name="lay_rzck_proclog" src="/ncm_adchart/ncm_ad_smsRecountChart_ch.html" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        },{
+            title: '终端品牌',
+			iconCls: 'chart_pie',			
+            id:'shopinfomenu',           
+            html: '<iframe  id="lay_rzck_imcontent" name="lay_rzck_imcontent" src="/ncm_adchart/ncm_ad_deviceBrandChart_ch.html" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        },
+        {
+            title: '终端类型',
+			iconCls: 'chart_pie',
+            id:'shopbrandmenu',            
+            html: '<iframe  id="lay_rzck_screenlog" name="lay_rzck_screenlog" src="/ncm_adchart/ncm_ad_deviceTypeChart_ch.html" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        }
+		);
+  
+	}
+	else if(tab_id=='logs'){  
+			Ext.getCmp('page_main').bind(Ext.StoreManager.lookup("store_logs_smslog"));
+  	        Ext.getCmp('page_main').setVisible(true);
+   	        tabs_center.add({autoScroll:true,id:tab_id+'_smslog',iconCls: 'log',border:false,frame:false,title: "短信日志", items:[Ext.create('logs.smslog')]});
+            tabs_center.add({autoScroll:true,id:tab_id+'_userlog',iconCls: 'log',border:false,frame:false,title: "用户日志",items:[Ext.create('logs.userlog')]});
+            tabs_center.add({autoScroll:true,id:tab_id+'_adlog',iconCls: 'log',border:false,frame:false,title: "广告日志",items:[Ext.create('logs.adlog')]}); 
+			
+	} 
+	else if(tab_id=='rules'){ 
+		Ext.getCmp('page_main').bind(Ext.StoreManager.lookup("store_rules_smsnumber"));
+  	    Ext.getCmp('page_main').setVisible(true);
+		tabs_center.add({autoScroll:true,id:tab_id+'_smsnumber',iconCls: 'rule',border:false,frame:false,title: "国内外短信数量", items:[Ext.create('rules.smsNumber')]});
+   	    tabs_center.add({autoScroll:true,id:tab_id+'_smsregister',iconCls: 'rule',border:false,frame:false,title: "短信注册数量", items:[Ext.create('rules.smsRegister')]});
+		tabs_center.add({autoScroll:true,id:tab_id+'_smslimit',iconCls: 'rule',border:false,frame:false,title: "上网时长", items:[Ext.create('rules.timeLimit')]});
+		tabs_center.add({autoScroll:true,id:tab_id+'_smsformat',iconCls: 'rule',border:false,frame:false,title: "短信格式", items:[Ext.create('rules.smsFormat')]});
+		tabs_center.add({autoScroll:true,id:tab_id+'_blackuser',iconCls: 'rule',border:false,frame:false,title: "黑名单", items:[Ext.create('rules.blackUser')]});
+		
+	}
+	else if(tab_id=='settings'){  
+		tabs_center.add(
+		{          
+            title: 'Portal参数',
+			iconCls: 'set',
+            html: '<iframe  id="dhIframe" name="gdrzIframe" src="/pronline/Msg?FunName@ncmPortal_ParaSet" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>'           
+        }
+        
+        ,{          
+            title: '短信服务器',
+			iconCls: 'set',
+            html: '<iframe  id="dhIframe" name="gdrzIframe" src="/pronline/Msg?FunName@ncmSms_Server_ParaSet" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>'    
+         }
+         ,{          
+            title: 'HTTP服务器',
+			iconCls: 'set',
+            html: '<iframe  id="dhIframe" name="gdrzIframe" src="/pronline/Msg?FunName@ncmHttp_Server_ParaSet" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>'
+        }
+       
+        ,{          
+            title: 'AC设置',
+			iconCls: 'set',
+            html: '<iframe  id="dhIframe" name="gdrzIframe" src="/pronline/Msg?FunName@ncmAC_Server_ParaSet" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        }
+        ,{          
+            title: 'Radius设置',
+			iconCls: 'set',
+            html: '<iframe  id="dhIframe" name="gdrzIframe" src="/pronline/Msg?FunName@ncmRadius_Server_ParaSet" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        }
+        // ,{          
+            // title: '运行情况设置',
+			// iconCls: 'set',
+            // html: '<iframe  id="dhIframe" name="gdrzIframe" src="/pronline/Msg?FunName@ncmSysStatus_Alarmset" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        // }
+        ,
+        {          
+            title: '网络设置',
+			iconCls: 'set',
+            html: '<iframe  id="dhIframe" name="gdrzIframe" src="/ncmsysman/ncm_net_interface.html" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>'           
+        }
+		);
+	}
+   
+	else if(tab_id=='systems'){  
+		tabs_center.add(
+		{
+            title: '系统权限管理',
+			iconCls: 'system',
+            id:'rolemenu',           
+            html: '<iframe  id="lay_rzck_imcontent" name="lay_rzck_imcontent" src="/ncmsysman/ncm_role_list.htm" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+			},
+        {
+            title: '系统用户管理',
+			iconCls: 'system',
+            id:'xtyhmenu',            
+            html: '<iframe  id="lay_rzck_screenlog" name="lay_rzck_screenlog" src="/ncmsysman/ncm_adminuser_list.htm" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        },{
+            title: '用户访问日志',
+			iconCls: 'system',
+            id:'usvisitmenu',            
+            html: '<iframe  id="lay_rzck_urllog" name="lay_rzck_urllog" src="/ncmsysman/ncm_uservisitlog.htm" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        }
+		);
+	}
+	else if(tab_id=='myaccount'){  
+		tabs_center.add(
+		{
+            title: '修改密码', 
+			iconCls: 'key',
+            id:'shopinfomenu',           
+            html: '<iframe  id="lay_rzck_imcontent" name="lay_rzck_imcontent" src="/pronline/Msg?FunName@ncmWebDispModiPass" scrolling="no" width=100% height=950  FrameBorder=0 ></iframe>' 
+        }
+		);
+		}
+	else{
+        tabs_center.add({autoScroll:false,border:false,frame:false,id:tab_id,iconCls: 'add16',title: tab_title,items:[Ext.create(tab_src)]}); 
+		
+	}
+			tabs_center.setActiveTab(0);
+		  //tabs_tree.setActiveTab(0); 
+			
+    }
+
+ 
+});
+
+ 

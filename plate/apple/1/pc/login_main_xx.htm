@@ -1,0 +1,470 @@
+<html>
+<head>
+<title>用户验证</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+/*	.but3-1 { font-size: 9pt;  background-image:url(../../../images/applepc/but02.gif);
+   height: 32px; width: 180px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand} 
+  	.but3-2 { font-size: 9pt;  background-image:url(../../../images/applepc/contract.gif);
+   height: 32px; width: 221px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand} 
+  
+    	.but_login { font-size: 9pt;  background-image:url(../../../images/appceti/login.png);
+   height: 22px; width: 180px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand}
+  
+    .but_nosee { font-size: 9pt;  background-image:url(../../../images/appceti/nosee.png);
+   height: 30px; width: 80px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand}*/
+   *{
+	  margin:0;
+	  padding:0;
+  }
+  #main{
+	  width:1360px;
+	  height:720px;
+	  margin:50 auto 0;
+	  } 
+	  .header_ul li{
+			 list-style:none;
+			 float:left;
+			 display:block;
+			 height:31px;
+			 line-height:31px;
+			 font-family:'黑体' '宋体';
+			 font-size:16px;	
+   }
+   .china{
+	   width:53px;
+	   position:absolute;
+	   top:95px;
+	   left:1010px;
+   }
+   .eng{
+	   width:80px;
+	   position:absolute;
+	   top:95px;
+	   left:1065px;
+	   color:#06F;
+   }
+#gjdm_span{
+	   height:32px;
+	   line-height:32px;
+	   font-size:18px;
+	   font-family:Arial, Helvetica, sans-serif;
+	   position:absolute;
+	   top:225px;
+	   left:270px;
+	   vertical-align:middle;
+   }
+   #gjdm_span input{
+	   position:absolute;
+	   top:0px;
+	   left:130px;
+	   
+   }
+   
+   #gjdm{
+	   position:relative;
+	   top:5px;
+	   left:0px;
+   }
+   input{
+	   border:0;
+   }
+   #explain{
+	   position:absolute;
+	   top:300px;
+	   left:270px;
+	   text-decoration:none;
+	   color:red;
+   }
+   #username{
+	   position:absolute;
+	   top:265px;
+	   left:270px;
+	   
+   }
+   #username_err{
+	   position:absolute;
+	   top:245px;
+	   left:270px;
+   }
+   .input_div{
+	    height:32px;
+		width:160px; 
+		border: 1px solid #B4B4B4;
+		line-height:32px;
+		background-color:#FFF;
+		border:0;
+   }
+  
+   .getpasswd{ 
+         height: 32px; 
+		 line-height:32px;
+		 width: 180px;
+		 background-image:url(../../../images/applepc/but02.gif);
+		 border:0;
+		 cursor:pointer;
+		 position:absolute;
+	     top:265px;
+	     left:450px;
+	 }
+	 .disclaime{
+		 background-image:url(../../../images/applepc/contract.gif); 
+        height: 32px; 
+		width: 230px;
+		position:absolute;
+		top:475px;
+		left:440px;
+		cursor:pointer;
+	 }
+	 #disclaime1{
+		 height:22px;
+		 width:300px;
+		 position:absolute;
+		 top:487px;
+		 left:270px;
+		 cursor:pointer; 
+	 }
+	 
+	 .chaccept{
+		background-image:url(../../../images/applepc/373x32.gif);
+	    width:373px;
+		height:32px;
+		border:0;
+		position:absolute;
+		top:510px;
+		left:270px;
+		cursor:pointer;
+	}
+	.chaccept2{
+		background-image:url(../../../images/applepc/accept2.gif);
+	    width:373px;
+		height:32px;
+		border:0;
+		position:absolute;
+		top:510px;
+		left:270px;
+	}
+	#chaccept_err{
+		position:absolute;
+		top:545px;
+		left:190px;
+		
+	}
+	#password{
+	   position:absolute;
+	   top:550px;
+	   left:270px;	
+	}
+	#password_err{
+		 position:absolute;
+	     top:585px;
+	     left:190px;
+		
+	}
+	#Code{
+	   position:absolute;
+	   top:600px;
+	   left:270px;
+	}
+	#Code_err{
+	   position:absolute;
+	   top:640px;
+	   left:270px;
+	}
+	.but_login{
+	  background-image:url(../../../images/appceti/login.png);
+      height: 22px;
+	  width: 180px; 
+	  position:absolute;
+	  top:550px;
+	  left:450px;
+	  cursor:pointer;
+	  border:0;
+	}
+	#CheckHere{
+	   height:32px;
+	   width:180px;
+	   vertical-align:middle;
+	   line-height:32px;
+	   position:absolute;
+	   top:600px;
+	   left:440px; 
+	}
+	#change{
+	   height:32px;
+	   width:60px;
+	   vertical-align:middle;
+	   line-height:32px;
+	   position:absolute;
+	   top:600px;
+	   left:580px;
+	   text-decoration:none;
+	   font-size:18px;
+	   
+   }
+	
+</style>
+
+<script language="javascript" src="/js/cetisfy/JSCode_IMG.js"></script>
+<script language="javascript" type="text/javascript">
+	 var agree;
+	function agree(){
+		agree = 1;
+		document.getElementById('chaccept').className = 'chaccept2';	
+	}
+
+	function spylogin(){
+		document.getElementById('Code_err').innerHTML = '';
+		document.getElementById('username_err').innerHTML = '';
+		document.getElementById('password_err').innerHTML = '';
+		document.getElementById('chaccept_err').innerHTML = '';
+		if(document.getElementById("username").value!=""&&document.getElementById("password").value!=""&&agree==1&&document.getElementById("Code").value.toLowerCase() == CheckCode)
+		{
+			document.getElementById("nclogin").submit();
+		}
+		else if(document.getElementById("Code").value.toLowerCase() != CheckCode)
+		 { document.getElementById('Code_err').innerHTML = '验证码错误';
+		  return ;
+		}
+		else if (document.getElementById("username").value=="" || document.getElementById("password").value=="") 
+		{
+	        document.getElementById('username_err').innerHTML = '手机号或密码不能为空';
+			document.getElementById('password_err').innerHTML = '手机号或密码不能为空';
+			return ;
+		}
+		else if(agree!=1){
+			document.getElementById('chaccept_err').innerHTML = '请选择同意免责声明';
+		}
+	}
+	function ss(e){
+		var key = window.event ? e.keyCode:e.which;
+		if(key==13)
+		spylogin();
+	}
+
+    var p_flag='1';
+	function restore(){
+	    document.getElementById("gpss").disabled="";
+	    document.getElementById("imgm").style.display="none";
+        p_flag='1';
+        document.getElementById("imgm").src='../../../images/sjimage/smspad.gif';
+	}
+
+    function chk(tel)
+    {
+        if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel)))
+        {
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+
+	function getpasswd(){	
+		document.getElementById('Code_err').innerHTML = '';
+		document.getElementById('username_err').innerHTML = '';
+		document.getElementById('password_err').innerHTML = '';
+		document.getElementById('chaccept_err').innerHTML = '';	
+	   if(p_flag=='0') return false;
+		  document.getElementById("msgs").innerHTML="";
+		  if(document.getElementById("nclogin").username.value==''){
+		   
+			document.getElementById('username_err').innerHTML = '请输入手机号';
+		    return false;
+		  }
+		  
+ 	        var telno=document.getElementById("nclogin").username.value;
+		    if(telno.length!=11){
+		       ;
+				document.getElementById('username_err').innerHTML = '手机号格式不对';
+		        return false;
+		    } 
+		  if(chk(telno)!='0'){
+		  
+			document.getElementById('username_err').innerHTML = '请输入正确的手机号!';
+		  	return false;
+		  }
+		  temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@zh&username@"+document.getElementById("nclogin").username.value;
+		  document.getElementById("ifhide").src=temp_html;
+
+	document.getElementById("imgm").src='../../../images/authimage/donghua.gif';
+  document.getElementById("gpss").disabled="true";
+  document.getElementById("imgm").style.display="";
+ p_flag='0';
+
+setTimeout('restore()',50000);
+		  return false;
+		
+		
+	}
+	
+    function changlogin(flag){  
+		self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+</script>
+
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<center>
+<div id="main"> 
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+            [#postarg#]
+<table width="1360" height="720" cellpadding="0" cellspacing="0" style=" position:relative; float:left;">
+	<tr>
+    	<td colspan="4" background="../../../images/applepc/pc_01_01.jpg" width="1360" height="61"></td>
+    </tr>
+    <tr>
+    	<td rowspan="3" background="../../../images/applepc/pc_01_02.jpg"width="185" height="659"></td>
+    	<td colspan="2"  background="../../../images/applepc/pc_4_03.jpg" width="1000" height="60">
+       		<ul class="header_ul">
+             	<li class="china" id="chinese" onClick="changlogin('zh')" >中文</li>
+                <li class="eng" id="english" onClick="changlogin('eng')">English</li>
+            </ul>
+        </td>
+    	<td rowspan="3" background="../../../images/applepc/pc_01_04.jpg" width="175" height="659"></td>
+    </tr>
+    <tr>
+    	<td  background="../../../images/applepc/pc_4_06.jpg" width="500" height="541"></td>
+                <img border="0" src="../images/sjimage/smspad.jpg" width="102" height="25" id="imgm" style="display:none; z-index:1; position:absolute; top:120px; left:360px" >
+                
+                 <input type="text"  id="username" name="username" class="input_div" />
+               
+                <input type="button" value="" id=gpss class="getpasswd"  onClick="getpasswd()" />
+                <span id="username_err"></span>
+                <a href="#xxm" id="explain" onClick="changlogin('eng')">非中国大陆手机用户请点击此处》</a>
+                <div id="msgs" style="display:none; position:absolute;top:245; left:270; z-index:1">
+                <font>[#message#]</font>
+                </div>
+                <input type="button"  class="disclaime" >
+                <input name="chaccept" type="button" value="" id="chaccept" class="chaccept" onClick="agree();">
+                <span id="chaccept_err"></span>
+                
+                <input  type="password" id="password" name="password" class="input_div" onKeyPress="ss(event)" />
+                <span id="password_err"></span>
+              
+                <input type="button" value=""  class="but_login" onClick="return spylogin();"/>
+                <div id="msgs" style="display:none; position:absolute;top:585; left:190; z-index:1">
+                <font>[#message#]</font>
+                </div>
+                
+                    <input type="text"   id="Code" class="input_div"  onKeyPress="ss(event)"/>
+    
+               
+                <div  id="CheckHere"></div>
+                 <script language="javascript">makeCode("CheckHere",4);</script>
+                <a href="javascript:makeCode('CheckHere',4)" id="change"><font style="font-size:14px;color:red;">换一张</font></a>
+                <span id="Code_err"></span>
+   	
+        <td background="../../../images/applepceng/iphone1000x600english-01_r3_c3.gif" width="500" height="541"></td>
+    </tr>
+    <tr>
+    	<td colspan="2" background="../../../images/applepc/pc_03_06.jpg" width="1000" height="58"></td>
+    </tr>
+</table>
+
+ 
+<!-- <table id="__01" width="1360" height="720" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td colspan="4"><img src="../../../images/applepc/pc_01_01.jpg" width="1360" height="62" alt="" hspace="0" vspace="0"></td>
+	</tr>
+	<tr>
+		<td rowspan="3"><img src="../../../images/applepc/pc_01_02.jpg" width="186" height="658" alt=""  hspace="0" vspace="0"></td>
+		<td colspan="2" background="../../../images/applepc/pc_4_03.jpg" width="1000" height="60">
+			<table width="1000" height="60">
+				<tr >
+					<td width="850"></td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td ></td>
+					<td><span><input type="button" style="cursor:hand;background-image: url('../../../images/applepc/china02.png'); width: 53px; height: 31px; border: 0px;" id=chinese  onclick="changlogin('zh')" ></span><span style="position:relative;top:0px"><input type="button" style="cursor:hand;background-image: url('../../../images/applepc/english01.png'); width: 80px; height: 31px; border: 0px;" id=chinese  onclick="changlogin('eng')" ></span>
+                    </td>
+				</tr>
+					
+			</table>
+	    </td>
+	    <td rowspan="3"><img src="../../../images/applepc/pc_01_04.jpg" width="174" height="658" alt="" vspace="0" hspace="0"/></td>
+	</tr>
+	<tr>
+    	<td background="../../../images/applepc/pc_4_06.jpg" width="500" height="540" style=" position:relative; float:left;">
+         <div id="msgs" style="display:none; position:absolute;top:0; left:0; z-index:1">
+        	<font>[#message#]</font>
+           </div>
+        	 <input type="text"  id="username" name="username" class="input_div" />
+           
+            <input type="button" value="" id=gpss class="getpasswd"  onClick="getpasswd()" />
+            <img border="0" src="../../../images/sjimage/smspad.jpg" width="80" height="25" id="imgm" style="display:none">
+            <a href="#xxm" id="explain" onclick="changlogin('eng')">非中国大陆手机用户请点击此处》</a>
+          
+            <input type="button"  class="disclaime" >
+            <input name="chaccept" type="button" value="" id="chaccept" class="chaccept" onclick="agree();">
+            
+            <input  type="password" id="password" name="password" class="input_div" onKeyPress="ss(event)" />
+          
+            <input type="button" value=""  class="but_login" onClick="return spylogin();"/>
+            
+            	<input type="text"   id="Code" class="input_div"  onKeyPress="ss(event)"/>
+
+           
+            <div  id="CheckHere"></div>
+             <script language="javascript">makeCode("CheckHere",4);</script>
+            <a href="javascript:makeCode('CheckHere',4)" id="change"><font style="font-size:14px;color:red;">看不清</font></a>
+			<!--<table width="500" height="540" cellpadding="0" cellspacing="0">
+				<tr>
+                	<td colspan="2" height="136">&nbsp;</td>
+                </tr>
+				<tr>
+                	<td width="90" height="32">&nbsp; </td>
+                    <td class="location"><input type="text" id="username" class="input_div" name="username" value=""><input type="button" id='gpss' class="but3-1" class="input_div" onClick="getpasswd()">	<img border="0" src="../../../images/sjimage/smspad.jpg" width="80" height="25" id="imgm" style="display:none" >
+                    </td>
+                </tr>
+                <tr>
+                	<td width="90" height="30">&nbsp; </td>
+                	<td height="30"><a href="#xxm" id="explain" onclick="changlogin('eng')">非中国大陆手机用户请点击此处》</a>
+                    </td>
+                </tr>
+               
+		        <tr>
+                	<td colspan="2" height="160">&nbsp;</td>
+                </tr>
+		        <tr>
+                	<td  height="32">&nbsp; </td>
+                    <td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button"  class="but3-2" ></td>
+                </tr>
+			    <tr>
+                	<td  height="32">&nbsp; </td>
+                    <td><img src="../../../images/applepc/accept.gif" width="373" height="32" alt=""></td>
+                </tr>
+			    <tr>
+                	<td  height="32">&nbsp; </td>
+                    <td ><input type="password" id="password" name="password" class="input_div" onKeyPress="ss(event)">&nbsp;<input type="button" class="but_login" onClick="return spylogin();"> 
+                    </td>
+                </tr>
+			    <tr>
+                	<td  height="32">&nbsp; </td>
+                    <td><input type="text" class="input_div"  id="Code" onKeyPress="ss(event)">&nbsp;<tt id="CheckHere" style="vertical-align:bottom;height:32px; "></tt>&nbsp;&nbsp;&nbsp;<a href="javascript:makeCode('CheckHere',4)"><font style="font-size:14px;color:red;">看不清</font></a> 
+                    </td>
+			    </tr>
+			   <script language="javascript">makeCode("CheckHere",4);</script>
+			
+			   <tr><td colspan="2" height="0" align="center" id="msgs">&nbsp;<font color="red">[#message#]</font></td>
+               </tr>
+		    </table> 
+			
+        </td>
+        <td background="../../../images/applepc/pc_4_06-06.jpg" width="500" height="540"></td></tr>
+	<tr><td colspan="2"><img src="../../../images/applepc/pc_01_07.jpg" width="1000" height="54" alt="" hspace="0" vspace="0"></td></tr>
+ </table>-->
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+
+</form>
+</div>
+</center>
+</body>
+</html>

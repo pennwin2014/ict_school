@@ -1,0 +1,22 @@
+.loading{ display:none;}
+.background {
+width: 100%;
+height: 100%;
+opacity: 0.5;
+filter: alpha(opacity=50);
+background:#000;
+position: absolute;
+top: 0;
+left: 0;
+z-index: 2000;
+}
+
+.loader {
+width: 124px;
+height:124px;
+position:absolute;
+top: 38%;
+left: 45%;
+z-index:2001;
+background:url(../js/loading.gif) no-repeat;
+} 

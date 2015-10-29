@@ -1,0 +1,210 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+
+<style type="text/css">
+
+body{
+margin:0px;
+padding:0px;
+height:100%;
+width:100%;
+font-family: arial;
+}
+
+		.level_logos img{
+		
+		width:100%;
+		}
+		.level_logos{
+		border:1px solid #E6E6E6;
+		float:left;
+		width:32%;
+		position:relative;
+		}
+		
+		.del{
+		position: absolute;
+		left:0%; top:0%;
+		width:100%;
+		height:100%;
+		opacity:0.7;
+		z-index:100;
+		display:none;
+		}
+	
+		.del img{
+		width:50%;
+		position: absolute;
+		left:25%; top:10%;
+		}
+		
+		.discount{
+		position: absolute;
+		left:0%; top:0%;
+		width:100%;
+		height:100%;
+		opacity:0.9;
+		z-index:60;
+		display:none;
+		}
+		.discount img{
+		width:40%;
+		position: absolute;
+		
+		}
+	
+		.del img{
+		width:50%;
+		position: absolute;
+		left:25%; top:10%;
+		}
+		
+	.collect{
+	background:#FFBF00;
+	color:#000000;
+	text-align:center;
+	margin-right:2px ;
+	width:35%;
+	border-radius:5px;
+	float:right;
+	box-shadow: 0px 2px 1px 1px #000000;
+	}
+	.title1{
+	position:relative;
+	text-align:center;
+	background:#0088cc;
+	color:#ffffff;
+	font-size:1.2em;
+	font-weight:Bold;
+	border-color:#000000;
+	border-radius:5px;
+	padding-top:5px;
+	padding-bottom:5px;
+	margin-bottom:1px;
+	}
+</style>
+
+<script type="text/javascript">
+function loadShops(number){
+
+parent.document.getElementById("FunName").value = "ncmShops";
+parent.document.getElementById("shopid").value = shopid[number];
+parent.document.getElementById("logoid").value = sid[number];
+//alert(shopid[number]);
+//alert(sid[number]);
+parent.document.getElementById("form1").submit();
+
+
+}
+var num = 0;
+var delimgs;
+var shopid= new Array();
+var sid= new Array();
+function loadShopid(){
+[#SLPB#]
+shopid[[#iNum#]] = "[#shopid#]";
+sid[[#iNum#]] = "[#sid#]";
+[#SLPE#]
+
+delimgs = "[#delimgs#]"
+//alert(delimgs = "[#delimgs#]");
+if( delimgs == "del2"){
+//alert("display:block");
+$(".del").css('display','block');
+$(".collect").css('box-shadow','0px 0px 0px 0px #000000');
+num=1;
+}
+
+}
+
+function displayDel(){
+
+//alert("displayDel"+num);
+if(num == 0){
+
+$(".del").css('display','block');
+$(".collect").css('box-shadow','0px 0px 0px 0px #000000');
+//document.getElementById("btn_del").innerHTML="";
+num=1;
+}
+else{
+$(".del").css('display','none');
+$(".collect").css('box-shadow','0px 1px 1px 1px #000000');
+num=0;
+}
+
+}
+
+function delShops(number){
+//alert(number);
+if (confirm("是否要删除此关注？") ) 
+{ 　　
+document.getElementById("FunName").value = "ncm_Addattentions";
+document.getElementById("shopid").value = shopid[number];
+document.getElementById("logoid").value = sid[number];
+document.getElementById("uid").value = "1";
+document.getElementById("mark").value = "del";
+document.getElementById("form1").submit();
+
+//alert("[#msg#]");
+}
+else{
+
+}
+
+}
+</script>
+<body onload="loadShopid()">
+
+	<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="name" name="name" value="一层">
+		<input type="hidden" id="mark" name="mark" value="">
+		<input type="hidden" id="logoid" name="logoid" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="sid" name="sid" value="">
+		<input type="hidden" id="aid" name="aid" value="">
+		<input type="hidden" id="imgpath" name="imgpath" value="">
+		<input type="hidden" id="uid" name="uid" value="">
+		<input type="hidden" id="username" name="username" value="">
+		<input type="hidden" id="nickname" name="nickname" value="">
+		<input type="hidden" id="membernum" name="membernum" value="">
+		<input type="hidden" id="integral" name="integral" value="">
+		<input type="hidden" id="service_code" name="service_code" value="">
+		<input type="hidden" id="decript" name="decript" value="">
+		<input type="hidden" id="level" name="level" value="">
+		</form>
+	<div id="detail">
+
+	<div class="title1">关注信息
+	<div class="collect" id="btn_del" onclick="displayDel()">取消关注</div>
+	</div>
+		<div id="level_introduce">
+	[#SLPB#]
+	<div class="level_logos" >
+	<div onclick="loadShops([#iNum#])">
+	<img src="[#img#] "  >
+	<div class="discount" ><img src="/images/suning/sale.png"  ></div>
+	</div>
+	<div class="del" onclick="delShops([#iNum#])"><img src="/images/suning/delete1.png" ></div>
+	
+	</div>
+	
+	[#SLPE#]
+	
+	</div>
+		
+	
+	</div>
+</body>
+
+
+</html>
+

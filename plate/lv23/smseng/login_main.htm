@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>登录认证</title>
+<style type="text/css">
+*{ margin:0; padding:0;}
+.wrap{ width:400px; margin:0 auto; font-family:"微软雅黑"; background:#a3856b;}
+.content{ width:90%; margin:0 auto; color:#fff;}
+.main{ background:#fff;}
+.main_con{ width:70%; margin:0 auto; color:#333;}
+.username1{ width:100%; border:1px solid #555;border-radius: 5px; /* css 3标准 */
+-moz-border-radius: 5px;  /* mozilla */
+-webkit-border-radius: 5px;/*webkit*/
+height:28px;
+line-height:28px;
+text-indent:5px;
+font-size:1em;
+color:#999;}
+.username{width:100%; border:1px solid #555;border-radius: 5px; /* css 3标准 */
+-moz-border-radius: 5px;  /* mozilla */
+-webkit-border-radius: 5px;/*webkit*/
+height:28px;
+line-height:28px;
+text-indent:5px;
+font-size:1em;
+color:#999;}
+.password{width:100%; border:1px solid #555;border-radius: 5px; /* css 3标准 */
+-moz-border-radius: 5px;  /* mozilla */
+-webkit-border-radius: 5px;/*webkit*/
+height:28px;
+line-height:28px;
+text-indent:5px;
+font-size:1em;
+color:#999;}
+.btn_hq{
+	height:28px;
+	line-height:28px;
+border-radius: 15px; /* css 3标准 */
+-moz-border-radius: 15px;  /* mozilla */
+-webkit-border-radius: 15px;/*webkit*/
+background:-webkit-gradient(linear,left top,left bottom, color-stop(0,#e2c9cf),color-stop(1,#e2c9cf));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr="#e2c9cf",EndColorStr="#e2c9cf");/*IE浏览器渐变*/
+background:-moz-linear-gradient(center top,#e2c9cf 10%,#e2c9cf 100%);/*火狐内核渐变*/
+background:#e2c9cf;
+border:1px solid #a3856b;
+width:44%;
+margin-left:4%;}
+.btn_ok{height:28px;
+	line-height:28px;
+border-radius: 15px; /* css 3标准 */
+-moz-border-radius: 15px;  /* mozilla */
+-webkit-border-radius: 15px;/*webkit*/
+background:-webkit-gradient(linear,left top,left bottom, color-stop(0,#e2c9cf),color-stop(1,#e2c9cf));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr="#e2c9cf",EndColorStr="#e2c9cf");/*IE浏览器渐变*/
+background:-moz-linear-gradient(center top,#e2c9cf 10%,#e2c9cf 100%);/*火狐内核渐变*/
+background:#e2c9cf;
+border:1px solid #a3856b;
+width:44%;
+margin-left:4%;}
+.radio1{}
+.radio2{ margin-left:20%;}
+@media screen and (max-width:400px){
+	.wrap{ width:100%;}
+	}
+
+</style>
+<script type="text/javascript">
+	function change1(){
+			document.getElementById("img1").src= "/images/sc/20.png";	
+			var temp;
+//	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    var flag = 'zh';
+	    temp="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+	    self.location = temp;
+	}
+	function change2(){
+			document.getElementById("img2").src= "/images/sc/21.png";
+	}
+var p_flag = '1';
+	
+	function restore(){
+		document.getElementById("gpss").disabled = "";
+		p_flag='1';	
+	}
+function chk(tel){
+			if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel))){
+			    return 0;
+			} else {
+			    return 1;
+			}
+	}
+var i = 59;
+function fun() {
+       	 if (i == 0) {
+			 document.getElementById("gpss").value="Get Password";
+             clearInterval(intervalid);
+			 i=59;
+         }
+		 else{
+         document.getElementById("gpss").value = i;
+		
+         i--;
+		 }
+}
+function getpasswd(){
+		if(p_flag=='0') return false;	
+		if(document.getElementById("nclogin").username.value==''||document.getElementById("nclogin").username.value=='Mobile'){
+		    alert('Please enter your mobile phone number');
+		    return false;
+		}
+		  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('Mobile phone number is not in the correct format');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('Please enter the correct mobile phone No.！');
+		  	return false;
+		}
+		//document.getElementById("input1").value='';
+		
+		temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&tsid@[#tsid#]&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&tsid@"+document.getElementById("tsid").value;
+
+		document.getElementById("ifhide").src=temp_html;
+		document.getElementById("gpss").disabled="true";
+		 document.getElementById("gpss").value= "Has been sent";
+	   intervalid= setInterval("fun()", 1000);//写在document.getElementById("gpss").disabled="true";的后面
+
+		p_flag='0';
+        setTimeout('restore()',60000);
+		return false;
+	}
+	
+	var mz;
+	function xianshi(){
+	mz=1;
+	document.getElementById("password").style.width="100%";
+	document.getElementById("bo").style.display="block";
+	document.getElementById("ok1").style.display="none";
+	document.getElementById("ok2").style.display="block";
+	
+	}
+	
+	function spylogin()
+	{
+	  if(document.getElementById("username").value==""||document.getElementById("username").value=="Mobile"||document.getElementById("password").value==""||document.getElementById("password").value=="Password") 
+		{
+		    window.alert("Mobile phone number or password can not be empty!");
+			  return false;
+		}
+		if(document.getElementById("radio1").checked!=1)
+		{
+			window.alert("Please confirm acceptance of Disclaimer！");			
+			return false;
+		}
+    document.getElementById("nclogin").submit();
+		/*var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}*/
+		
+    return true;
+	}
+	function mr(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").style.color="#aaa";
+		}
+		if(document.getElementById("password").value="密码"){
+			 document.getElementById("password").style.color="#aaa";
+		}
+	}
+	function qk(){
+		if( document.getElementById("username").value=="手机号码"){
+			 document.getElementById("username").value=="";
+		}
+    if( document.getElementById("password").value=="密码"){
+			 document.getElementById("password").value=="";
+		}
+	}
+		
+	function openpage(flag)
+  {
+			var temp;
+			temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+86+"&usernametmp@"+document.getElementById("username").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+			self.location = temp;
+  }	
+  	function init()
+	{
+		//alert('[#statusCode#]');
+		if('[#statusCode#]' == '2')
+		{
+			document.getElementById('err5').innerHTML = '账号与SSID不匹配。';
+		}	
+		if('[#statusCode#]' == '3')
+		{
+			document.getElementById('err5').innerHTML = '用户账号已过期。';
+		}	
+		if('[#statusCode#]' == '4')
+		{
+			document.getElementById('err5').innerHTML = '您登录的账号在黑名单中。';
+		}	
+		if('[#statusCode#]' == '5')
+		{
+			document.getElementById('err5').innerHTML = '请输入正确的密码。';
+		}	
+		if('[#statusCode#]' == '6')
+		{
+			document.getElementById('err5').innerHTML = '该用户不存在。';
+		}	
+    if('[#statusCode#]' == '7')
+		{
+			document.getElementById('err5').innerHTML = '超出Mac最大绑定数量。';
+		}	
+}
+
+function changlogin(flag){
+        self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+
+</script>
+</head>
+
+<body onload="init();">
+<div class="wrap">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+  <input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+  [#postarg#]
+	<div class="content">
+    	<div style="height:10px; clear:both;"></div>
+        <div style="font-size:0.8em; text-align:right; margin-right:5%;"><a onclick="changlogin('zh')">中文</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a>English</a></div>
+        <div style="height:10px; clear:both;"></div>
+    	<div style="font-size:0.8em; text-align:center;">欢迎使用由路易威登提供的免费无线网络</div>
+        <div style="font-size:0.8em; text-align:center;">Free wireless internet provided by Louis Vuitton</div>
+        <div style="height:10px; clear:both;"></div>
+    	<div class="main">	
+        	<div style="height:30px; clear:both;"></div>
+        	<div class="main_con">
+            	<div><input type="text" class="username1" value="UserName" onfocus="this.value='';this.style.color='#000';document.getElementById('err5').innerHTML='';" onblur="if(this.value==''){this.value='UserName',this.style.color='#999'}" /></div>
+                <div style="height:10px; clear:both;"></div>
+                <div><input type="text" class="username" value="Mobile" name="username" id="username" onfocus="this.value='';this.style.color='#000';document.getElementById('err5').innerHTML=''" onblur="if(this.value==''){this.value='Mobile',this.style.color='#999'}" /></div>
+                <div style="height:10px; clear:both;"></div>
+                <div><input type="text" class="password" value="Password" name="password" id="password" onfocus="this.value='';this.style.color='#000';this.type='password';document.getElementById('err5').innerHTML=''" onblur="if(this.value==''){this.type='text',this.value='Password',this.style.color='#999'}" /></div>
+                <div style="height:10px; clear:both;"></div>
+                <div style=""><input type="radio" id="radio1" name="radio1" checked="checked" class="radio1" />Agree<input id="radio2" type="radio" name="radio1" class="radio2" />Disagree&nbsp;&nbsp;</div>
+                <div style="height:10px; clear:both;"></div>
+                <div><a target="_blank" href="/images/lv/mz_sms.htm">《Review trems》</a></div>
+                <div style="height:10px; clear:both;"></div>
+                <div id="err5" style="color:#F00; text-align:center; font-size:12px;"></div>
+                <div style="height:10px; clear:both;"></div>
+                <div><input type="button" value="Get Password" class="btn_hq" id="gpss" onClick="getpasswd();"/><input type="button" value="Sign in" class="btn_ok" onClick="return spylogin();"/></div>
+            </div>
+            <div style="height:30px; clear:both;"></div>
+        </div>
+        <div style="height:20px; clear:both;"></div>
+        <div style="font-size:0.8em;">Guide to the use:</div>
+        <div style="height:5px; clear:both;"></div>
+        <div style="font-size:0.8em;">1.In the "Mobile" column, enter your mobile phone number</div>
+        <div style="height:3px; clear:both;"></div>
+        <div style="font-size:0.8em;">2.Click on the "Get Password" button, then wait for a moment, a random password will be sent to your mobile phone</div>
+        <div style="height:3px; clear:both;"></div>
+        <div style="font-size:0.8em;">3.Input a random password you just get in the "Password" column</div>
+        <div style="height:3px; clear:both;"></div>
+        <div style="font-size:0.8em;">4.Click the "Sign in" button, log</div>
+        <div style="height:10px; clear:both;"></div>
+    </div>
+      <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+  </form>
+</div>
+</body>
+</html>

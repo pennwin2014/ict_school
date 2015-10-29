@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>无标题文档</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<style type="text/css">
+*{
+	margin:0;
+	padding:0;
+}
+#main{
+	width:630px;
+	margin:0 auto;
+	text-align:center;
+}
+h1 {
+	line-height:74pt
+	font-family:MyriadSet-Thin;
+	font-size:64pt
+	color:#000000;
+	padding-bottom:15px;
+	margin:0 130px;
+	/*border-bottom:2px solid #ced0d5;*/
+}
+hr{
+	height:2px;
+	color:#d2d4d9;
+	margin:50px 0;
+}
+.header_ul{
+	display:table;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+ .header_ul li{
+			 list-style:none;
+			 float:left;
+			 display:block;
+			 height:113px
+			 line-height:113px;
+			 margin-top:34px;
+			 margin-bottom:40px;
+			 font-family:Arial, Helvetica, sans-serif;
+			 font-size:30pt;
+			 *float:none;
+			 *display:inline;
+			 *zoom:1;
+
+   }
+   
+   #split {
+		width:30px;
+		text-align:center;
+		color:#ced0d5;
+		  
+   }
+  .china{
+	   color:#000;
+	   font-family:KozGoPr6N-Regular;
+   }
+   .eng{
+	   color:#0088CC;
+	   font-family:LucidaGrande;
+   }
+   .eng2{
+	   color:#0088CC;
+	   font-family:LucidaGrande;
+	   text-decoration:underline;
+   }
+   #login_area{
+	   width:592px;
+	   margin:0 auto;
+	   font-family:HelveticaNeue;
+	   font-size:30pt;
+	   color:#000;
+   }
+   .font_style_h4{
+	   font-family:MyriadSet-Thin;
+	   font-size:64pt;
+	   color:#000;
+	   margin-bottom:38px;
+   }
+   
+  .font_style{
+	   font-family:HelveticaNeue;
+	   font-size:30pt;
+	   color:#000000;
+	   margin-left:92px;
+	   margin-right:92px;
+	   line-height:38pt;
+   }
+   .Case{
+	   width:544px;
+	   height:78px;
+	   background-color:#f0f0f0;
+	   margin-bottom:32px;
+	   margin-top:32px;
+   }
+   .password{
+	   width:516px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#999999;
+   }
+   .password2{
+	   width:516px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#000;
+   }
+   .username{
+	   width:516px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#999999;
+   }
+   .username2{
+	   width:516px;
+	   height:50px;
+	   border:2px solid #d0d0d0;
+	   margin:12px;
+	   line-height:50px;
+	   font-family:HelveticaNeue;
+	   font-size:32pt;
+	   color:#000;
+   }
+   
+   .error{
+	   height:78px;
+	   padding-bottom:10px;
+	   font-size:18pt;
+	   color:#ff0000;
+   }
+   .chaccept{
+	   width:32px;
+	   height:32px;
+   }
+   .getpasscode{
+	   background-image:url(/images/ap/get_passcodesms.png);
+	   width:242px;
+	   height:66px;
+	   border:0;
+	   margin-bottom:20px;
+   }
+   .no_sign{
+	   background-image:url(/images/ap/register_huisms.png);
+	   width:242px;
+	   height:66px;
+	   border:0;
+   }
+    .sign{
+	   background-image:url(/images/ap/registersms.png);
+	   width:242px;
+	   height:66px;
+	   border:0;
+   }
+    .font_style a{
+	  color:#0088cc;
+	  text-decoration:none;
+  }
+  a:hover{
+	  text-decoration:underline;
+  }
+   
+</style>
+<script language="javascript" type="text/javascript">
+	
+	 	//鍒涘缓XMLHttpRequest瀵硅薄       
+function createXMLHttpRequest() {
+	var C=null;
+		if(window.XMLHttpRequest) { //Mozilla 娴忚鍣?
+			C = new XMLHttpRequest();
+		}
+		else if (window.ActiveXObject) { // IE娴忚鍣?
+			try {
+				C = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					C = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {}
+			}
+		}
+		return C;
+	}
+	//瑙ｆ瀽瀛楃涓? ins-杈撳叆瀛楃涓诧紝   names-寮€濮嬪瓧绗︿覆 namee -缁撴潫瀛楃涓?杩斿洖鍊?锛坣ames 鍜宯amee 涔嬮棿鐨勫瓧绗︿覆 鍙敤浜庤В鏋愮畝鍗曠殑XML
+	function getxmlbyname(ins,names,namee){
+	var start;
+	var end;
+	var ret='';
+
+	start=ins.indexOf(names);
+	end=ins.indexOf(namee);
+	
+	if(start!=-1&&end!=-1){
+		ret=ins.substr(start+names.length,end-start-names.length);
+	}
+	return ret;	
+}
+var statcode= null;
+var errmessage= null;  	
+
+var xmlHttp = false;
+
+ function callServer(){ 
+   if( xmlHttp && xmlHttp .readyState != 0 ){
+    	xmlHttp.abort();
+   }
+   xmlHttp = createXMLHttpRequest();
+   if(xmlHttp){
+     var web_url="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value+"&xx@"+Math.random()*999;
+   
+    xmlHttp.open("GET",web_url, true);
+    xmlHttp.onreadystatechange = updatePage;
+    xmlHttp.send(null);
+  }
+ }
+
+
+ function updatePage(){
+   if (xmlHttp.readyState == 4){
+   	
+var response = xmlHttp.responseText;
+   
+		  var temp_num = getxmlbyname(response,"<statusId>","</statusCode>");
+    	statcode=parseInt(temp_num);
+
+      var temp_mesg = getxmlbyname(response,"<message>","</message>");
+    	errmessage = temp_mesg;
+    	
+ //   	alert(response);
+    	alert(errmessage);
+  //    '[#message#]' = errmessage;
+      var htmltest = errmessage;
+      if(statcode == 1){
+      	document.getElementById("username_err").innerHTML =htmltest;
+      }
+      if(statcode == 2){
+      	document.getElementById("chaccept_err").innerHTML =htmltest;
+      }
+      if(statcode == 3){
+      	document.getElementById("err").innerHTML =htmltest;
+      }
+//
+   }
+ }	
+	
+	
+function passcode(){
+	    document.getElementById('password').className='password2';
+		document.getElementById('sign').className = 'sign';
+//		spylogin();
+	
+}
+   
+function spylogin(){
+	document.getElementById('username_err').innerHTML = "";
+	document.getElementById('chaccept_err').innerHTML = "";
+	if(document.getElementById("username").value!=""&&document.getElementById("username").value!='手机号码'&&document.getElementById('acceptme').checked)
+	{
+		document.getElementById("nclogin").submit();
+			
+	}
+	
+	else if (document.getElementById("username").value==""||document.getElementById("username").value=='手机号码'){
+		//window.alert("Please fill in your phone number and password!");
+		document.getElementById('username_err').innerHTML = '请输入手机号码';
+		return ;
+	}
+	else if(document.getElementById('acceptme').selected=='false'){
+		document.getElementById('chaccept_err').innerHTML = '请选择同意免责声明'
+	}
+	
+}
+function ss(e){
+	var key = window.event ? e.keyCode:e.which;
+
+	if(key==13)
+	spylogin();
+}
+	var p_flag='1';
+	function restore(){
+  document.getElementById("gpss").disabled="";
+  document.getElementById("imgm").style.display="none";
+   p_flag='1';
+document.getElementById("imgm").src='/images/sjimage/smspad.gif';
+}
+
+function chk(tel)
+{
+
+if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel)))
+        {
+           return 0;
+         }
+else
+        {
+          return 1;
+         }
+}
+function getpasswd(){	
+	document.getElementById('username_err').innerHTML = "";
+	document.getElementById('chaccept_err').innerHTML = "";	
+   if(p_flag=='0') return false;
+ 
+
+	  if(document.getElementById("nclogin").username.value==''||document.getElementById("username").value=='手机号码'){
+		document.getElementById('username_err').innerHTML = '请输入手机号码';
+		return false;
+	  }
+	  
+		var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+		document.getElementById('username_err').innerHTML = '手机号格式错误';
+		return false;
+		} 
+		 if(chk(telno)!='0'){
+		    alert('请输入正确的手机号!');
+		  	return false;
+		  }
+	 
+	  temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@[#lang#]&username@"+document.getElementById("nclogin").username.value;
+		  
+      document.getElementById("ifhide").src=temp_html;
+
+	  //document.getElementById("imgm").src='/images/authimage/donghua.gif';
+      document.getElementById("gpss").disabled="true";
+     // document.getElementById("imgm").style.display="";
+      p_flag='0';
+	 
+
+      setTimeout('restore()',50000);
+		  return false;
+		
+		
+	}
+	
+	 function changlogin(flag){
+            self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+	function eng2(){
+	document.getElementById('english').className = 'eng2';
+	}
+	function eng(){
+		document.getElementById('english').className = 'eng';
+	}
+	function clearuValue(){
+		if(document.getElementById('username').className=='username'){
+			document.getElementById('username').value='';
+		}
+		
+	}
+	function clearpValue(){
+		if(document.getElementById('password').className=='password'){
+			document.getElementById('password').value='';
+		}
+	}
+</script>
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+         [#postarg#]
+<center> 
+ <div id="main">
+    <ul class="header_ul">
+        <li class="china" id="chinese" onClick="changlogin('zh')">中文</li>
+        <li id="split">|</li>
+        <li class="eng" id="english" onClick="changlogin('eng')" onmouseover="eng2();" onmouseout="eng();">English</li>
+    </ul>
+    <h1>欢迎光临 Apple Store 零售店。</h1>
+    <div id="login_area">
+        <p >
+           要使用 Apple Store 零售店的免费无线网络，请通过你的手机将设备注册登记。
+        </p>
+        <hr />
+        <h4 class="font_style_h4">1. 获取密码。</h4>
+        <p class="font_style">
+           输入你的手机号码，点击"获取密码"。我们将把密码发送至你的手机。 
+        </p>
+        <div class="Case">        
+        	<input type="text" id="username" name="username" value="手机号码" class="username" onfocus="clearuValue();" onkeyup="this.className='username2'"  />
+        </div>
+         <input type="button" id=gpss class="getpasscode" onClick="getpasswd()">
+         <div id="username_err" class="error"></div>
+        <h4 class="font_style_h4">2. 注册你的设备。</h4>
+        <p class="font_style">
+            请输入收到的密码，注册你的设备。
+        </p>
+         <div class="Case">
+        	<input type="text" id="password" name="password" value="密码" onKeyPress="ss(event)" class="password" onfocus="clearpValue();"  onkeyup="passcode();" >
+        </div>
+        <p class="font_style">
+       		<span><input type="checkbox" id="acceptme" class="chaccept">我已阅读并同意<a href=""> Apple 无线网络的条款及细则</a>。
+            </span>
+        </p>
+        <div id="chaccept_err" class="error"></div>
+        <input type="button" class="no_sign" id="sign"  onClick="spylogin();">
+        <div id="err"></div>
+    </div>
+    <div style=" width:964px; float:right;">
+    </div>
+</div>
+</center>
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</body>
+</html>

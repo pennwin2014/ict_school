@@ -1,0 +1,14 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312" />
+</head>
+<body>
+<TotRec>[#TotRec#]</TotRec>
+[#SLPB#]
+<imgslider[#iNum#]>[#imgslider#]</imgslider[#iNum#]>
+<iNumslider[#iNum#]>[#iNumslider#]</iNumslider[#iNum#]>
+[#SLPE#]
+
+</body>
+
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+
+<script type="text/javascript" charset="gbk">
+//alert('Hello');
+//history.go(-2);
+//window.location.href='http://192.168.20.188:9080/pronline/genal/sms/login_main.htm?';
+/*
+window.location.href = 'http://192.168.20.188:9080/pronline/Msg?FunName@ncSrvDispLogin&userip@[#userip#]&ssid@[#ssid#]&usermac@[#usermac#]';
+*/
+// 跳到注册页
+function GoToRegister()
+{
+	window.location.href = 'http://[#ip#]:9080/pronline/Msg?FunName@ncm_sms_send_register_list';
+}
+
+// 跳到登录页
+function GoToLogin()
+{
+	window.location.href = 'http://[#ip#]:9080/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#getarg#]';
+}
+
+// 开始上网
+function SurfTheNet()
+{
+	// 在后台生成密码
+
+	//alert('开始'); 
+	//alert('FunName is :' + document.getElementById("FunName").value);
+	document.getElementById("login_form").submit();
+	return;
+	// 模拟用户点击登录按钮
+	var posturl = '[#posturl#]';
+	var tsid = '[#tsid#]';
+	var postarg = '[#postarg#]';
+	var username = '[#username#]';
+	var password = '[#password#]';
+	/*
+	alert('posturl = ' + posturl);
+	alert('tsid = ' + tsid);
+	alert('postarg = ' + postarg);
+	alert('username = ' + username);
+	alert('password = ' + password);
+	var address = '[#posturl#]?tsid@[#tsid#]&postarg@[#postarg#]&username@' + username + '&password@' + password;
+	alert(address);
+	*/
+	/*
+	window.location.href = '[#posturl#]?tsid@[#tsid#]&postarg@[#postarg#]&username@' + username + '&password@' + password;
+	*/
+	//alert(postarg);
+	/*
+	var arg = postarg.split("><");
+	int i;
+	for (i = 0; i < arg.length; i++)
+	{
+		alert(arg[i]);
+	}
+	alert('Done!');
+	return;
+	*/
+	// 开始从postarg中提取参数值
+	/* 提取方法：
+	   先从postarg中找到第一个“value=”的位置start，将start加7，使start指向“value=”后面的第一个引号后的第一个字符位置，修改postarg的值为postarg.substr(start)，从新的postarg中找到第一个“>”的位置end，将end减1：如果end为0，则当前参数的值为""，否则当前参数的值为postarg.substring(0, end)。将end加2，如果end大于或等于postarg.length，postarg中参数值全部提取完毕；否则，修改postarg的值为postarg.substr(end)，继续从postarg中找到第一个“value=”的位置start，重复前面的提取操作。
+	*/
+	var start, end, val;
+	start = postarg.indexOf("value=");
+	//alert(postarg.substr(start));
+	start += 7;
+	//alert(postarg.substr(start));
+	postarg = postarg.substr(start);
+	end = postarg.indexOf(">");
+	end -= 1;  
+	//alert(postarg.substring(0, end));
+	val = postarg.substring(0, end);
+	//alert('FunName=' + val);
+	//alert('val=' + val);
+	
+	//alert('FunName is :' + document.getElementById("FunName").value);
+	//alert(document.login_form.FunName.value);
+    document.getElementById("FunName").value = val;
+	
+	//document.login_form.FunName.value = val;
+	//alert('FunName=' + document.getElementById("FunName").value);
+	
+	
+	//alert('below');
+	//alert(postarg);
+	//alert(postarg.substr(end + 2));
+	//alert('end=' + end);
+	end += 2;
+	//alert('end=' + end);
+	postarg = postarg.substr(end);	
+	//alert('postarg=' + postarg);
+
+	//上面测试通过
+	start = postarg.indexOf("value=");
+	start += 7;
+	postarg = postarg.substr(start);
+	end = postarg.indexOf(">");
+	end -= 1;
+	//alert('end=' + end);
+	
+	if (end == 0)
+	{
+		val = "";
+	}
+	else
+	{
+		val = postarg.substring(0, end);
+	}
+	
+	document.getElementById("lang").value = val;
+	//document.login_form.lang.value = val;
+	//alert('lang=' + document.getElementById("lang").value);
+	// 上面测试通过
+	//alert('postarg=' + postarg);
+	//alert("");
+	//alert("Hello");
+	end += 2;
+	//alert(end);
+	postarg = postarg.substr(end);
+	//alert('postarg=' + postarg);
+	start = postarg.indexOf("value=");
+	start += 7;	
+	//alert('start=' + start);
+	postarg = postarg.substr(start);
+	// 上面测试通过
+	//alert('postarg=' + postarg);
+	end = postarg.indexOf(">");
+	end -= 1;	
+	//alert('end=' + end);
+	val = postarg.substring(0, end);
+	document.getElementById("userip").value = val;
+	//document.login_form.userip.value = val;
+	//alert('userip=' + document.getElementById("userip").value);
+	
+	// 上面测试通过
+	end += 2;
+	postarg = postarg.substr(end);
+	start = postarg.indexOf("value=");
+	start += 7;	
+	postarg = postarg.substr(start);
+	end = postarg.indexOf(">");
+	end -= 1;	
+	val = postarg.substring(0, end);
+	document.getElementById("tsid").value = val;
+	//document.login_form.tsid.value = val;
+	//alert('tsid=' + document.getElementById("tsid").value);
+	
+	end += 2;
+	postarg = postarg.substr(end);
+	start = postarg.indexOf("value=");
+	start += 7;	
+	postarg = postarg.substr(start);
+	end = postarg.indexOf(">");
+	end -= 1;	
+	val = postarg.substring(0, end);
+	document.getElementById("wlanacname").value = val;
+	//document.login_form.wlanacname.value = val;
+	//alert('wlanacname=' + document.getElementById("wlanacname").value);	
+	
+	end += 2;
+	postarg = postarg.substr(end);
+	start = postarg.indexOf("value=");
+	start += 7;	
+	postarg = postarg.substr(start);
+	end = postarg.indexOf(">");
+	end -= 1;	
+	val = postarg.substring(0, end);
+	document.getElementById("ssid").value = val;
+	//document.login_form.ssid.value = val;
+	//alert('ssid=' + document.getElementById("ssid").value);
+	
+	end += 2;
+	postarg = postarg.substr(end);
+	start = postarg.indexOf("value=");
+	start += 7;	
+	postarg = postarg.substr(start);
+	end = postarg.indexOf(">");
+	end -= 1;	
+	val = postarg.substring(0, end);
+	document.getElementById("usermac").value = val;
+	//document.login_form.usermac.value = val;
+	//alert('usermac=' + document.getElementById("usermac").value);
+	
+	end += 2;
+	postarg = postarg.substr(end);
+	start = postarg.indexOf("value=");
+	start += 7;	
+	postarg = postarg.substr(start);
+	end = postarg.indexOf(">");
+	end -= 1;	
+	val = postarg.substring(0, end);
+	document.getElementById("nasid").value = val;
+	//document.login_form.nasid.value = val;
+	//alert('nasid=' + document.getElementById("nasid").value);
+	
+    // 对该form执行提交  
+    //myform.submit();  
+    // 删除该form  
+    //document.body.removeChild(myform);  
+	document.getElementById("login_form").submit();
+}
+
+// 根据后台返回的状态确定跳转页面
+function Redirect()
+{
+	var res = '[#status#]';
+	//alert(res);
+	if (res == 'successful')
+	{
+		// 跳到登录页
+		//setTimeout("GoToLogin()",2000);
+		//alert('注册成功！');	
+		//alert('success！');
+		// 直接上网
+		SurfTheNet();
+	}
+	else if (res == 'failed')
+	{
+		// 继续留在注册页
+		//setTimeout("GoToRegister()",2000);
+		//alert('信息填写不完整或格式错误！');
+		alert('当前注册人数较多，请稍后重试！');
+		GoToRegister();
+	}
+	else if (res == 'forbidden')
+	{
+		// 跳到注册页
+		//setTimeout("GoToRegister()",2000);
+		alert('用户未注册！');	
+		//alert('Not member！');	
+		GoToRegister();
+	}
+	else if ((res == 'user_black') || (res == 'mac_black'))
+	{
+		alert('用户在黑名单中！');
+		GoToRegister();
+	}
+	/*
+	window.location.href = 'http://[#ip#]:9080/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#getarg#]';
+	*/
+}
+
+var getarg = 'http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#getarg#]';
+//alert(getarg);
+
+//Redirect();
+//setTimeout("redirect()",1000);
+//alert('注册成功！');
+/*
+window.location.href = 'http://[#ip#]:9080/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#getarg#]';
+*/
+//getarg;//'http://192.168.20.188:9080/pronline/Msg?FunName@ncSrvDispLogin&ip@[#ip#]&port@[#port#]&[#getarg#]';
+</script>
+</head>
+<body>
+<div>
+<form name="login_form" id="login_form" method="post" action="[#posturl#]">
+			<!--
+			<input type="hidden" id="FunName" name="FunName" value="">
+			<input type="hidden" id="lang" name="lang" value="">
+			<input type="hidden" id="userip" name="userip" value="">
+			<input type="hidden" id="tsid" name="tsid" value="142957645837960601">
+			<input type="hidden" id="wlanacname" name="wlanacname" value="">
+			<input type="hidden" id="ssid" name="ssid" value="">
+			<input type="hidden" id="usermac" name="usermac" value="">
+			<input type="hidden" id="nasid" name="nasid" value="">	
+			<input type="hidden" id="username" name="username" value="[#username#]">
+			<input type="hidden" id="password" name="password" value="[#password#]">
+			-->
+			<!--
+			<input type="hidden" id="FunName" name="FunName" value="ncSrvLogin">
+			<input type="hidden" id="lang" name="lang" value="">
+			<input type="hidden" id="userip" name="userip" value="10.1.0.197">
+			<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+			<input type="hidden" id="wlanacname" name="wlanacname" value="XXXX">
+			<input type="hidden" id="ssid" name="ssid" value="test">
+			<input type="hidden" id="usermac" name="usermac" value="e8:bb:a8:bf:6b:94">
+			<input type="hidden" id="nasid" name="nasid" value="XXXX">	
+			-->
+			[#postarg#]
+			<input type="hidden" name="username" value="[#username#]">
+			<input type="hidden" name="password" value="[#password#]">
+			<!--
+			<input type="hidden" id="postarg" name="postarg" value='[#postarg#]'>
+			-->
+</form>
+</div>
+<script>
+Redirect();
+</script>
+</body>
+</html>

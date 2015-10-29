@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>无标题文档</title>
+<link href="/css/flexslider3.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>
+<script src="/js/ajax.js"></script>
+<style  type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+.wrap {
+	width:400px;
+	margin:0 auto;
+	position:relative;
+}
+.bg {
+	width:100%;
+}
+.main {
+	width:94%;
+	margin:0 auto;
+	background:#F4F4F4;
+	border:1px solid #ccc;
+}
+.main_top {
+	width:86%;
+	margin:0 auto;
+	font-size:14px;
+}
+.username {
+	width:30%;
+}
+.password {
+	width:30%;
+}
+.main_bottom {
+	width:94%;
+	margin:0 auto;
+	color:#666;
+	font-size:12px;
+	border-top:1px dashed #CCC;
+}
+.btn_exit {
+	width:26%;
+	border:none;
+	border-radius: 5px; /* css 3标准 */
+	-moz-border-radius: 5px;  /* mozilla */
+	-webkit-border-radius: 5px;/*webkit*/
+	background:#06c;
+	cursor:pointer;
+	height:25px;
+	line-height:25px;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #0066cc), color-stop(1, #0066cc));/*谷歌浏览器渐变*/
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#0066cc", EndColorStr="#0066cc");/*IE浏览器渐变*/
+	background:-moz-linear-gradient(center top, #0066cc 10%, #0066cc 100%);/*火狐内核渐变*/
+	color:#fff;
+}
+.top img {
+	width:100%;
+}
+@media screen and (max-width:400px) {
+ .wrap {
+width:100%;
+}
+ .main_top {
+font-size:12px;
+}
+}
+</style>
+<script type="text/javascript">
+function init(){
+	  parent.document.getElementById("i").src = "/e.png"; 
+	  parent.document.getElementById("logo").innerHTML = "退出上网"; 
+	}
+	function change(mark){
+//	alert(111);
+	if(mark ==1 ){
+	
+	parent.document.getElementById("iframe1").src="http://kh.htsec.com/";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==2 ){
+	parent.document.getElementById("iframe1").src="http://www.htsec.com/static/jifen/f/chggl/index.html";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==3 ){
+	parent.document.getElementById("iframe1").src="http://www.htsec.com/htsec/Info/3910135";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==4 ){
+	parent.document.getElementById("iframe1").src="http://www.eshanghai.cn/";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==5 ){
+	parent.document.getElementById("iframe1").src="http://3g.sina.com.cn/?vt=4";
+//	document.getElementById("nclogin_0").submit();
+	}
+	
+	if(mark ==6 ){
+	parent.document.getElementById("iframe1").src="http://t.3g.qq.com";
+//	document.getElementById("nclogin_0").submit();
+	}
+if(mark ==7 ){
+	parent.document.getElementById("iframe1").src="http://wap.htsec.com/htwap/Stock_gt_Pro-hait.apk";
+//	document.getElementById("nclogin_0").submit();
+	}
+	if(mark ==8 ){
+	parent.document.getElementById("iframe1").src="https://itunes.apple.com/us/app/id554910048";
+//	document.getElementById("nclogin_0").submit();
+	}
+	
+	if(mark ==9 ){
+	parent.document.getElementById("iframe1").src="https://itunes.apple.com/cn/app/hai-tong-zheng-quan-cai-hong/id554913695?mt=8";
+//	document.getElementById("nclogin_0").submit();
+	}
+}
+	function tuichu(){
+			document.getElementById("nclogin_0").submit();
+	}
+</script>
+</head>
+
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload = "init()">
+<div class="wrap">
+  <form name="nclogin_0" id="nclogin_0" method="post" action="http://[#ip#]:[#port#]/pronline/Msg" >
+    <input type="hidden" name="sid" value="[#sid#]">
+    <input type="hidden" name="FunName" value="ncSrvLogOut">
+    <input type="hidden" name="ModiPass" value="">
+    <input type="hidden" name="username" value="[#username#]">
+    <input type="hidden" name="userip" value="[#userip#]">
+    <input type="hidden" name="usermac" value="[#usermac#]">
+    <input type="hidden" name="serialno" value="[#serialno#]">
+    <div class="top"><img src="/images/taikang/taipingyang_r1_c1.jpg" /></div>
+    <div style="height:10px; clear:both;"></div>
+    <div class="banner">
+      <section class="slider">
+        <div class="flexslider">
+          <ul  class="slides">
+            <script type="text/javascript">
+	  var statcode= null;
+var errmessage= null;   
+var xmlHttp = false;
+ 
+ function callServer()
+ { 
+   if( xmlHttp && xmlHttp .readyState != 0 )
+   {
+     xmlHttp.abort();
+   }
+   xmlHttp = createXMLHttpRequest();
+   if(xmlHttp)
+   {
+     var web_url = "/pronline/Msg?FunName@ncm_yuyuan_home_ajax"+"&xx@"+Math.random()*999;
+   
+     xmlHttp.open("GET",web_url, true);
+     xmlHttp.onreadystatechange = updatePage;
+     xmlHttp.send(null);
+   }
+ }
+ callServer();
+ var event_n=new Array(); 
+ var img_n=new Array();   
+ //处理函数
+ function updatePage()
+ {  
+   if (xmlHttp.readyState == 4)
+   {
+      var response = xmlHttp.responseText;
+	  //alert(response);
+      var temp_num = getxmlbyname(response,"<statusCode>","</statusCode>");
+      statcode=parseInt(temp_num);   
+      
+      var temp_num=getxmlbyname(response,"<TotRec>","</TotRec>");
+	    MAX=parseInt(temp_num);
+	    var tmptext = "";
+	    
+	    //图片 
+		  for(i=1;i<=parseInt(temp_num);i++){
+		  	  var st_name="<iNumslider"+i+">";
+		  	  var en_name="</iNumslider"+i+">";
+		      var pro_na=getxmlbyname(response,st_name,en_name);
+		      img_n[i-1]=pro_na;
+		      
+		  }
+		  //事件 
+		  for(i=1;i<=parseInt(temp_num);i++){
+		  	  var st_name="<imgslider"+i+">";
+		  	  var en_name="</imgslider"+i+">";
+		      var pro_na=getxmlbyname(response,st_name,en_name);
+		      event_n[i-1]=pro_na;
+		      
+		  }
+		/* i=0;
+		     	  tmptext = "<li  onclick=\"loadShops("+img_n[i]+")\"> <img src=\""+event_n[i]+"\" /></li>";
+				  tmptext1 = "<li  onclick=\"loadShops("+img_n[i+1]+")\"> <img src=\""+event_n[i+1]+"\" /></li>";
+				  tmptext2 = "<li  onclick=\"loadShops("+img_n[i+2]+")\"> <img src=\""+event_n[i+2]+"\" /></li>";
+				  tmptext3 = "<li  onclick=\"loadShops("+img_n[i+3]+")\"> <img src=\""+event_n[i+3]+"\" /></li>";*/
+				  i=0;
+		     	  tmptext = event_n[i];
+				  tmptext1 = event_n[i+1];
+				  tmptext2 = event_n[i+2];
+				  tmptext3 = event_n[i+3];
+		  
+		 // alert(tmptext);
+		//  document.getElementById("myportal").src = tmptext;
+//		  document.getElementById("myportal1").src = tmptext1;
+//		  document.getElementById("myportal2").src = tmptext2;
+//		 document.getElementById("myportal3").src = tmptext3;
+		  
+   }
+ }
+
+	  </script> 
+            <!-- 循环解析广告图片 --> 
+            <!--  <li id="myportal"></li>
+       <li id="myportal1"></li>
+       <li id="myportal2"></li>
+       <li id="myportal3"></li>-->
+            <li><a><img src="/images/taikang/sj_img/taikang1.jpg" /></a></li>
+            <li><a><img src="/images/taikang/sj_img/taikang2.jpg" /></a></li>
+            <li><a><img src="/images/taikang/sj_img/taikang3.jpg" /></a></li>
+            <li><a><img src="/images/taikang/sj_img/taikang4.jpg"  /></a></li>
+            <!--       <li><a><img id="myportal1" /></a></li>
+       <li><a><img id="myportal2" /></a></li>
+       <li><a><img id="myportal3"  /></a></li> -->
+          </ul>
+        </div>
+      </section>
+    </div>
+    <div style="height:15px; clear:both;"></div>
+    <div class="main">
+      <div class="main_top">
+        <p style="height:80px;"></p>
+        <p style="text-align:center;font-size:18px;; color:#06c;">连接成功！</p>
+        <p style="height:20px;"></p>
+        <p style="text-align:center;">访问互联网请点击“开始上网”！</p>
+        <p style="height:50px;"></p>
+        <p style="text-align:center;">
+          <input type="button"  class="btn_exit" onClick="window.open('http://www.cpic.com.cn')" value="开始上网" />
+        </p>
+        <p style="height:30px;"></p>
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+</html>

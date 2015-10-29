@@ -1,0 +1,206 @@
+	
+*{
+	margin:0;
+	padding:0;
+}
+#main{
+	width:100%;
+	margin:0 auto;
+	text-align:center;
+}
+.header_ul{
+	float:right;
+}
+h1 {
+	height:25px;
+	line-height:25px;
+	font-family:myriadset-thin;
+	font-size:26px;
+	color:#313131;
+	padding-bottom:15px;
+	/*border-bottom:2px solid #ced0d5;*/
+}
+hr{
+	height:2px;
+	color:ced0d5;
+}
+ .header_ul li{
+			 list-style:none;
+			 float:left;
+			 display:block;
+			 height:30px;
+			 line-height:30px;
+			 font-size:14px;	
+   }
+   
+   #split {
+		width:30px;
+		text-align:center;
+		color:#ced0d5;
+		  
+   }
+  .china{
+	   color:#000;
+	   width:30px;
+	   font-family:KozGoPr6N-Regular;
+   }
+   .eng{
+	   color:#0088CC;
+	   width:104px;
+	   font-family: Heiti SC;
+   }
+   .eng2{
+	   color:#0088CC;
+	   width:104px;
+	   font-family: Heiti SC;
+	   text-decoration:underline;
+   }
+   #login_area{
+	   width:85%;
+	   margin-top:40px;
+	   margin-right:auto;
+	   margin-left:auto;
+	   padding-left:40px;
+	   font-family: Heiti SC;
+	   font-size:1.5em;
+	   color:#000;
+	   text-align:center;
+   }
+   
+
+   .Case{
+	   width:400px;
+	   height:39px;
+	   background-color:#f0f0f0;
+	   margin-bottom:14px;
+	   margin-top:14px;
+   }
+   .username{
+	   width:386px;
+	   height:25px;
+	   border:2px solid #d0d0d0;
+	   margin:6px;
+	   line-height:25px;
+	   font-family: Heiti SC;
+	   font-size:16pt;
+	   color:#999999;
+   }
+   .username2{
+	   width:386px;
+	   height:25px;
+	   border:2px solid #d0d0d0;
+	   margin:6px;
+	   line-height:25px;
+	   font-family: Heiti SC;
+	   font-size:16pt;
+	   color:#000;
+   }
+   .password{
+	    width:386px;
+	   height:25px;
+	   border:2px solid #d0d0d0;
+	   margin:6px;
+	   line-height:25px;
+	   font-family: Heiti SC;
+	   font-size:16pt;
+	   color:#999999;
+   }
+   .password2{
+	   width:386px;
+	   height:25px;
+	   border:2px solid #d0d0d0;
+	   margin:6px;
+	   line-height:25px;
+	   font-family: Heiti SC;
+	   font-size:16pt;
+	   color:#000;
+   }
+   .error{
+	   height:0px;
+	   padding-bottom:10px;
+	   font-size:12pt;
+	   color:#ff0000;
+   }
+   
+   .error1{
+	   height:18px;
+	   padding-bottom:10px;
+	   font-size:12pt;
+	   color:#ff0000;
+	   clear:both;
+   }
+   .error2{
+	   height:80px;
+	   padding-bottom:10px;
+	   font-size:12pt;
+	   color:#ff0000;
+	   clear:both;
+   }
+   .error_monum{
+	   height:48px;
+	   padding-bottom:10px;
+	   font-size:12pt;
+	   color:#ff0000;
+	   clear:both;            /*zms*/
+   }
+   
+   
+   .chaccept{
+	   width:14px;
+	   height:14px;
+   }
+   .getpasscode{
+	   background-image:url(/images/ap/getpasswdpczh.png);
+	   width:122px;
+	   height:34px;
+	   border:0;
+	   margin-bottom:70px;
+   }
+   .getpasscode_no{
+	   background-image:url(/images/ap/passwdpczhalready.png);
+	   width:122px;
+	   height:34px;
+	   border:0;
+	   margin-bottom:70px;
+   }
+   .no_sign{
+	   background-image:url(/images/ap/registergreypczh.png);
+	   width:122px;
+	   height:34px;
+	   border:0;
+   }
+    .sign{
+	   background-image:url(/images/ap/registerpczh.png);
+	   width:122px;
+	   height:34px;
+	   border:0;
+   }
+    .font_style a{
+	  color:#0088cc;
+	  text-decoration:none;
+  }
+  a:hover{
+	  text-decoration:underline;
+  }
+   
+       .font_style{
+	   font-family:Arial,Helvetica,sans-serif;
+	   font-weight:700;
+	   font-size:1.5em;
+	   color:#000000;
+   }
+     .font_style1{
+	   font-family: Heiti SC;
+	   font-size:1.1em;
+		
+	   color:#000000;
+	   text-align:left;
+	  
+   }
+    .font_style3{
+	   font-family:Arial,Helvetica,sans-serif;
+	   font-weight:700;
+	   font-size:1.2em;
+   }
+   
+   img { width: 50%; }

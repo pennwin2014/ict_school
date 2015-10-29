@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1" />
+
+<title>众人科技</title>
+
+<style type="text/css">
+
+* {
+
+	margin:0;
+
+	padding:0;
+
+}
+
+.wrap {
+
+	width:400px;
+
+	margin:0 auto;
+
+	font-family:"微软雅黑";
+
+	/*background:#aaa;*/
+
+	position:relative;
+
+}
+
+.main {
+
+	width:100%;
+
+}
+
+.main img {
+
+	width:100%;
+
+}
+
+.ding {
+
+	position:absolute;
+
+	width:80%;
+
+	top:200px;
+
+	color:#efefef;
+
+	padding-left:21%;
+
+	font-size:0.7em;
+
+	font-weight:bold;
+
+}
+
+
+
+.btn_ok {
+
+	background:none;
+
+	width:25%;
+
+	color:#efefef;
+
+	margin-left:20%;
+
+	border:1px solid #777;
+
+	height:20px;
+
+	line-height:20px;
+
+}
+
+
+
+.btn_tuichu {
+
+	width:25%;
+
+	text-align:center;
+
+	background:none;
+
+	color:#333;
+
+	border:1px solid #666;
+
+	margin-left:25%;
+
+	border-radius: 5px; /* css 3标准 */
+
+	-moz-border-radius: 5px;  /* mozilla */
+
+	-webkit-border-radius: 5px;/*webkit*/
+
+	height:20px;
+
+	line-height:20px;
+
+}
+
+@media screen and (max-width:400px) {
+
+ .wrap {
+
+width:100%;
+
+}
+
+}
+
+</style>
+
+</head>
+
+
+
+<body>
+
+<div class="wrap">
+
+<form name="nclogin" id="nclogin" method="post" action="http://[#ip#]:[#port#]/proauth/Msg" >
+
+    <input type="hidden" name="FunName" value="ncWebInternetLogout">
+
+    <input type="hidden" name="url" value="[#url#]" >
+
+    <input type="hidden" name="sid" value="[#sid#]" >
+
+    <input type="hidden" name="eng_flag" value="0"/>
+
+    <input type="hidden" id="usertype" name="usertype" value="1">
+
+  <div class="main"><img class="img_bg" src="/images/zhongrenkeji/sj_ok.jpg" /></div>
+
+  <div class="ding">
+
+ <input value="退出上网" type="submit" class="btn_tuichu" />
+
+  </div>
+  <div><img style="width:100%;" src="/images/zhongrenkeji/small_earth.jpg" /></div>
+  <div><img style="width:100%;" src="/images/zhongrenkeji/sj_foot.jpg" /></div>
+  </form>
+
+</div>
+
+</body>
+
+</html>
+

@@ -1,0 +1,937 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>用户登录名称表</title>
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+
+<style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+     .x-tab-default-top button, .x-tab-default-top.x-tab-inner {
+		  height: 16px !important;
+		  line-height: 16px;
+	    }
+
+</style>
+
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+    
+<script>  
+
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*',
+//    'Ext.ModelManager',
+//    'Ext.tip.QuickTipManager'
+]);
+var store;
+var temp_id='';
+var preid='';
+
+function reflash(){
+   
+   var sid1 = document.getElementById('form1').sid.value;
+   var portalname1 = document.getElementById('form1').portalname.value;
+   var userid1 = document.getElementById('form1').userid.value;
+   var username1 = document.getElementById('form1').username.value;
+   var dispname1 = document.getElementById('form1').dispname.value;
+   var ssid1 = document.getElementById('form1').ssid.value;
+   var apname1 = document.getElementById('form1').apname.value;
+   var mac1 = document.getElementById('form1').mac.value;
+   var ip1 = document.getElementById('form1').ip.value;
+   var dev1 = document.getElementById('form1').dev.value;
+   var os1 = document.getElementById('form1').os.value;
+   var devtype1 = document.getElementById('form1').devtype.value;
+   var ubytes1 = document.getElementById('form1').ubytes.value;
+   var dbytes1 = document.getElementById('form1').dbytes.value;
+   var starttime1 = document.getElementById('form1').starttime.value;
+   var endtime1 = document.getElementById('form1').endtime.value;
+   var conntime1 = document.getElementById('form1').conntime.value;
+   var cause1 = document.getElementById('form1').cause.value;
+   var keyword1 = document.getElementById('form1').keyword.value;
+   var caExport1 = document.getElementById('form1').caExport.value; //导出
+   
+   store.load({params: {sid:sid1,portalname:portalname1,userid:userid1,username:username1,dispname:dispname1,ssid:ssid1,apname:apname1,mac:mac1,ip:ip1,dev:dev1,os:os1,devtype:devtype1,ubytes:ubytes1,dbytes:dbytes1,starttime:starttime1,endtime:endtime1,conntime:conntime1,cause:cause1,keyword:keyword1,caExport:caExport1}});
+   
+}
+
+Ext.define('Ext.ux.grid.plugin.RowEditing', {   
+   extend: 'Ext.grid.plugin.RowEditing',   
+   alias: 'plugin.ux.rowediting',    
+      
+   /**  
+    * 是否添加记录在当前位置<br/>  
+    * whether add record at current rowIndex.<br/>  
+    * see {@link #cfg-addPosition}  
+    * @cfg {Boolean}  
+    */  
+   addInPlace: false,   
+      
+   addPosition: 0,   
+      
+   /**  
+    * 是否点击触发事件,0代表不触发,1代表单击,2代表双击,默认为双击.<br/>  
+    * The number of clicks on a grid required to display the editor (disable:0,click:1,dblclick:2)  
+    * @cfg {Number}  
+    */  
+   clicksToEdit:2,   
+      
+   /**  
+    * 是否在取消编辑的时候自动删除添加的记录  
+    * if true, auto remove phantom record on cancel,default is true.  
+    * @cfg {Boolean}  
+    */  
+   autoRecoverOnCancel: true,   
+      
+   /**  
+    * adding flag  
+    * @private  
+    * @type Boolean  
+    */  
+   adding: false,   
+      
+   autoCancel:true,   
+      
+   /**  
+    * when add record, hide error tooltip for the first time  
+    * @private  
+    * @type Boolean  
+    */  
+   hideTooltipOnAdd: true,   
+      
+   /**  
+    * register canceledit event && relay canceledit event to grid  
+    * @param {Ext.grid.Panel} grid  
+    * @override  
+    * @private  
+    */  
+   init:function(grid){   
+       var me = this;   
+       /**  
+        * 取消编辑事件.<br/>  
+        * Fires canceledit event.And will be relayEvents to Grid.<br/>  
+        * @see {@link Ext.ux.grid.RowActions#event-beforeaction} <br/>  
+        * @event canceledit  
+        * @param {Object} context  
+        */  
+       me.addEvents('canceledit');   
+       me.callParent(arguments);   
+       grid.addEvents('canceledit');   
+       grid.relayEvents(me, ['canceledit']);   
+   },   
+      
+   /**  
+    * 提供默认的Editor配置  
+    * @example  
+    * {header:'手机',dataIndex:'phone',fieldType:'numberfield',field:{allowBlank:true}}  
+    * provide default field config  
+    * @param {String} fieldType 可选值:numberfield,checkboxfield,passwordField  
+    * @return {Object}   
+    * @protected  
+    */  
+   getFieldCfg: function(fieldType){   
+        switch(fieldType){   
+            case 'passwordField':   
+                return {   
+                    xtype: 'textfield',   
+                    inputType: 'password',   
+                    allowBlank:false  
+                }   
+            case 'numberfield':   
+                return {   
+                    xtype: 'numberfield',   
+                    hideTrigger: true,   
+                    keyNavEnabled: false,   
+                    mouseWheelEnabled: false,   
+                    allowBlank:false  
+                }   
+                   
+            case 'checkboxfield':   
+                return {   
+                    xtype: 'checkboxfield',   
+                    inputValue: 'true',   
+                    uncheckedValue: 'false'  
+                }   
+            }   
+    },   
+       
+    /**  
+     * Help to config field,just giving a fieldType and field as additional cfg.  
+     * see {@link #getFieldCfg}  
+     * @private  
+     * @override  
+     */  
+    getEditor: function() {   
+        var me = this;   
+  
+        if (!me.editor) {   
+            Ext.each(me.grid.headerCt.getGridColumns(),function(item,index,allItems){   
+                if(item.fieldType){   
+                    item.field = Ext.applyIf(item.field||{},this.getFieldCfg(item.fieldType))   
+                }   
+            },this)   
+            // keep a reference for custom editor..   
+            me.editor = me.initEditor();   
+        }   
+        me.editor.editingPlugin = me   
+        return me.editor;   
+    },   
+       
+    /**  
+     * if clicksToEdit===0 then mun the click/dblclick event  
+     * @private  
+     * @override  
+     */  
+    initEditTriggers: function(){   
+        var me = this    
+        var clickEvent = me.clicksToEdit === 1 ? 'click' : 'dblclick'  
+        me.callParent(arguments);    
+        if(me.clicksToEdit === 0){   
+            me.mun(me.view, 'cell' + clickEvent, me.startEditByClick, me);    
+        }   
+    },   
+       
+    /**  
+     * 添加记录  
+     * add a record and start edit it (will not sync store)  
+     * @param {Model/Object} data Data to initialize the Model's fields with <br/>  
+     * @param {Object} config see {@link #cfg-addPosition}.   
+     */  
+    startAdd: function(data,config){   
+        var me = this;   
+        var cfg = Ext.apply({   
+            addInPlace: this.addInPlace,   
+            addPosition: this.addPosition,   
+            colIndex: 0   
+        },config)   
+           
+        //find the position   
+        var position;   
+        if(cfg.addInPlace){   
+            var selected = me.grid.getSelectionModel().getSelection()   
+            if(selected && selected.length>0){   
+                position = me.grid.store.indexOf(selected[0])    
+                console.log('a',position)   
+                position += (cfg.addPosition<=0) ? 0: 1   
+            }else{   
+                position = 0   
+            }   
+        }else{   
+            position = (cfg.addPosition==-1 ? me.grid.store.getCount() : cfg.addPosition) || 0   
+        }   
+           
+        var record = data.isModel ? data : me.grid.store.model.create(data);   
+        var autoSync = me.grid.store.autoSync;   
+        me.grid.store.autoSync = false;   
+        me.grid.store.insert(position, record);   
+        me.grid.store.autoSync = autoSync;   
+          
+        me.adding = true;  
+        me.startEdit(position,cfg.colIndex);   
+           
+        //since autoCancel:true dont work for me   
+        if(me.hideTooltipOnAdd && me.getEditor().hideToolTip){   
+            me.getEditor().hideToolTip()   
+        }   
+    },   
+       
+    /**  
+     * 编辑之前,自动取消编辑  
+     * Modify: if is editing, cancel first.  
+     * @private  
+     * @override  
+     */  
+    startEdit: function(record, columnHeader) {   
+        var me = this;   
+        if(me.editing){   
+            me.cancelEdit();    
+        }  
+ 
+        me.callParent(arguments);   
+        //Ext.getCmp('gpid').setValue(record.get('groupname'));
+        //temp_id=record.get('groupid');
+    },   
+       
+    /**  
+     * 修改adding的状态值  
+     * Modify: set adding=false  
+     * @private  
+     * @override  
+     */  
+    completeEdit: function() {   
+        var me = this;   
+        if (me.editing && me.validateEdit()) {   
+            me.editing = false;   
+            me.fireEvent('edit', me.context);   
+        }   
+        me.adding = false 
+
+        var sid1 = me.context.record.data.sid;
+        var portalname1 = me.context.record.data.portalname;
+        var userid1 = me.context.record.data.userid;
+        var username1 = me.context.record.data.username;
+        var dispname1 = me.context.record.data.dispname;
+        var ssid1 = me.context.record.data.ssid;
+        var apname1 = me.context.record.data.apname;
+        var mac1 = me.context.record.data.mac;
+        var ip1 = me.context.record.data.ip;
+        var dev1 = me.context.record.data.dev;
+        var os1 = me.context.record.data.os;
+        var devtype1 = me.context.record.data.devtype;
+        var ubytes1 = me.context.record.data.ubytes;
+        var dbytes1 = me.context.record.data.dbytes;
+        var starttime1 = me.context.record.data.starttime;
+        var endtime1 = me.context.record.data.endtime;
+        var conntime1 = me.context.record.data.conntime;
+        var cause1 = me.context.record.data.cause;
+        
+        if(username1==''||username1=='请输入用户名'||portalname1==''||portalname1=='请输入portal'){
+	        	alert('portal和用户名不能为空');
+						reflash();
+	        	return ;
+        }
+        
+				store.load({params: {update:"update",sid:sid1,portalname:portalname1,userid:userid1,username:username1,dispname:dispname1,ssid:ssid1,apname:apname1,mac:mac1,ip:ip1,dev:dev1,os:os1,devtype:devtype1,ubytes:ubytes1,dbytes:dbytes1,starttime:starttime1,endtime:endtime1,conntime:conntime1,cause:cause1}});
+  			reflash();
+    },   
+       
+    /**  
+     * 取消编辑  
+     * 1.fireEvent 'canceledit'  
+     * 2.when autoRecoverOnCancel is true, if record is phantom then remove it  
+     * @private  
+     * @override  
+     */  
+    cancelEdit: function(){
+    
+        var me = this; 
+
+        if (me.editing) {   
+            me.getEditor().cancelEdit();   
+            me.editing = false;   
+            me.fireEvent('canceledit', me.context);    
+            if (me.autoRecoverOnCancel){ 
+                var temp=me.context.record.data.username;  
+                if((me.adding)||(temp=='请输入用户名')||(temp=='')){   
+                    me.context.record.store.remove(me.context.record);   
+                    me.adding = false  
+                }else{   
+                    //不需要reject,因为Editor没有更改record.   
+                    //me.context.record.reject()   
+                }   
+            }   
+        }  
+    }   
+}) ; 
+
+var rowEditing = Ext.create('Ext.ux.grid.plugin.RowEditing', {
+    	      pluginId:'rowEditing', 
+            saveBtnText: "保存", 
+            cancelBtnText: "取消", 
+            autoRecoverOnCancel:true,
+            autoCancel: true
+ 						//clicksToMoveEditor: 1,
+ 						//autoCancel: false
+});
+
+Ext.onReady(function(){
+    Ext.tip.QuickTipManager.init();
+
+    Ext.define('EimData', {
+        extend: 'Ext.data.Model',
+        fields: ['sid', 'portalname', 'userid', 'username', 'dispname', 'ssid', 'apname', 'mac', 'ip', 'dev', 'os', 'devtype', 'ubytes', 'dbytes', 'starttime', 'endtime', 'conntime', 'cause']
+        //idProperty: 'uid'
+    });
+
+    // create the Data Store
+    //重写排序函数，解决远程条件查询问题
+    Ext.data.Store.prototype.doSort = function() {
+    	reflash();
+    }
+    store = Ext.create('Ext.data.Store', {
+        pageSize: 39,
+        model: 'EimData',
+        remoteSort: true,
+        proxy: {
+            type: 'ajax',
+            url: '/pronline/Msg?FunName@ncm_userlog',
+            reader: {
+                type:'json',
+                root: 'eimdata',
+                totalProperty: 'totalCount'
+            },         
+            simpleSortMode: true
+        },
+        sorters: [{
+            property: 'sid',
+            direction: 'DESC'
+        }]
+    });
+    
+    var sm = Ext.create('Ext.selection.CheckboxModel',{
+        listeners: {
+            selectionchange: function(sm, selections) {
+                grid.down('#removeButton').setDisabled(selections.length == 0);
+                //grid.down('#moveButton').setDisabled(selections.length == 0); 
+            }
+        }
+    });
+    
+    var myDate = new Date();
+  	var yy = ( myDate.getYear() < 1900 ) ? ( 1900 + myDate.getYear() ) : myDate.getYear();
+  	var mm=myDate.getMonth()+1;
+  	if(mm<10)
+  	{
+  			mm='0'+mm;
+  	}
+  	var dd=myDate.getDate();
+  	if(dd<10)
+  	{
+  			dd='0'+dd;
+  	}
+  	var today=yy+'/'+mm+'/'+dd;
+  	var startday=yy+'/'+mm+'/'+'01';
+    
+    //高级查询窗口
+		var win3 = null;
+	  function showCxForm() {
+	    if (!win3) //判断如果不存在就创建新的
+	    {
+	        win3 = new Ext.Window({
+					    title:'高级查询窗口',
+					    closeAction: 'hide',
+					    x:310,
+	            y:32,
+				      //plain:false,  
+					    layout:'form',  
+					    width:300,
+					    height:300,
+					    draggable:true, //可拖动的
+				      //maximizable:true, //可最大化的
+				      //resizable: true, //可改变大小
+	            modal: false,//后面的内容可以操作
+				      //plain：true,//则主体背景透明
+				      //items: fp2
+					    constrain:true, //限制窗口只能在其容器内移动
+				      //minimizable:true, //可最小化
+				      
+	            items:[new Ext.FormPanel({
+	            	 id:'form2', 
+	               layout:"form",
+						     baseCls:"x-plain",
+	               bodyPadding: 5,
+	               items:[{
+	                        	fieldLabel:'用户名',
+	                        	xtype: 'textfield',
+	                        	name:'username'
+	                    	},{   						
+	                        	fieldLabel:'日志日期',
+	                        	xtype: 'datefield',
+	                        	format: "Y/m/d",
+	                        	value:today,
+	                        	name:'slogdate'
+	                    	},{
+	                    			fieldLabel:'日志时间',
+	                    			xtype:'textfield',
+	                    			value:"00:00:00",
+	                    			regex:/^(([0-1]?[0-9]{1})|(2[0-3]{1})):([0-5]?[0-9]{1}):([0-5]?[0-9]{1})$/,
+	                    			regexText:"请输入正确的时间格式：如17:30:00",
+	                    			name:'slogtime'	
+	                    	},{
+	                        	fieldLabel:'运营商类别',
+	                        	xtype: 'textfield',
+	                        	name:'sptype'
+	                    	},{
+	                        	fieldLabel:'区号',
+	                        	xtype: 'textfield',
+	                        	name:'areacode'
+	                    	}]  
+	                })],  
+					        buttons:[{
+										  text:"OK",
+										  handler:function(){
+						        			var objectTmp = Ext.getCmp("form2").getForm().getValues();
+						        			document.getElementById("form1").logtime.value = objectTmp.slogdate+" "+objectTmp.slogtime;
+						        			document.getElementById("form1").username.value = objectTmp.username;
+						        			document.getElementById("form1").sptype.value = objectTmp.sptype;
+						        			document.getElementById("form1").areacode.value = objectTmp.areacode;
+										  		
+										  		store.currentPage=1;
+	                        reflash();
+	                        win3.close();
+										  }
+									},{
+											text:"Cancel",
+											handler: function(){
+													win3.close();
+											}
+									}]
+					});
+			}
+	    win3.show();
+	  } 
+  
+    //对翻页工具条重新构建，替换翻页函数    
+    Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
+		    doRefresh:function(){  
+		       reflash();
+		    },
+		    moveLast:function(){
+		    	var b=this,a=b.getPageData().pageCount;
+		    	if(b.fireEvent("beforechange",b,a)!==false){
+				    	store.currentPage=a;
+				    	reflash();
+		      }},
+		    moveFirst:function(){
+		      if(this.fireEvent("beforechange",this,1)!==false){
+				      store.currentPage=1;
+				      reflash();
+		      }}, 
+		    movePrevious:function(){var b=this,a=b.store.currentPage-1;if(a>0){if(b.fireEvent("beforechange",b,a)!==false){store.currentPage=a;reflash();}}},
+		    moveNext:function(){var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;if(a<=b){if(c.fireEvent("beforechange",c,a)!==false){store.currentPage=a;reflash();}}},
+		      
+		      
+		    onPagingKeyDown:function(i,h){
+		     var d=this,b=h.getKey(),c=d.getPageData(),a=h.shiftKey?10:1,g;
+			     if(b==h.RETURN){h.stopEvent();g=d.readPageFromInput(c);
+			        if(g!==false){
+				         g=Math.min(Math.max(1,g),c.pageCount);
+				         if(d.fireEvent("beforechange",d,g)!==false){
+					         //d.store.loadPage(g)
+					         d.store.currentPage=g;
+					         reflash();
+				        }        
+			        }
+			     } else {
+				       if(b==h.HOME||b==h.END){
+				    			h.stopEvent();g=b==h.HOME?1:c.pageCount;i.setValue(g)
+				       } else {
+					         if(b==h.UP||b==h.PAGEUP||b==h.DOWN||b==h.PAGEDOWN){
+						           h.stopEvent();g=d.readPageFromInput(c);
+						           if(g){
+						             if(b==h.DOWN||b==h.PAGEDOWN){a*=-1}
+						             g+=a;
+						             if(g>=1&&g<=c.pages){i.setValue(g)}
+						           }
+					         }
+				       }
+			     }  
+		    } 
+    });
+
+    var aaa=screen.width;
+    if(aaa>1440) aaa=1440;
+    if(aaa<1024) aaa=1024;
+    aaa=aaa-241;
+
+    var grid = Ext.create('Ext.grid.Panel', {
+        //width: aaa,
+        //forceFit: true,
+        scrollOffset: 0,
+        height: 930,
+        id: 'gridId',
+        margins: '0 0 0 0',
+        store: store,
+        selModel: sm,
+        frame:true,
+        columns:[{
+            text: "序号",
+            dataIndex: 'sid',
+            width: 100,
+            //align: 'center',
+            hidden: true,
+            sortable: true
+        },{
+            text: "portal",
+            dataIndex: 'portalname',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            editor: {
+	            listeners: {
+				          'focus':function(){
+				          	 if(this.value=='请输入portal'){
+				                this.setValue('');
+				             }
+				          }
+				      },			    
+	           	allowBlank:true
+            }
+        },{
+            text: "用户ID",
+            dataIndex: 'userid',
+            width: 100,
+            //align: 'center',
+            hidden: true,
+            sortable: false,
+            editor: {
+            }
+        },{
+            text: "用户登录名",
+            dataIndex: 'username',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            editor: {
+	            listeners: {
+				          'focus':function(){
+				          	 if(this.value=='请输入用户名'){
+				                this.setValue('');
+				             }
+				          }
+				      },			    
+	           	allowBlank:true
+            }
+        },{
+            text: "显示用户名",
+            dataIndex: 'dispname',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            editor: {
+            }
+        },{
+            text: "ssid",
+            dataIndex: 'ssid',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            editor: {
+            }
+        },{
+            text: "apname",
+            dataIndex: 'apname',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            editor: {
+            }
+        },{
+            text: "mac",
+            dataIndex: 'mac',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            editor: {
+	            listeners: {
+				          'focus':function(){
+				          	 if(this.value=='请输入mac地址'){
+				                this.setValue('');
+				             }
+				          }
+				      },			    
+	           	allowBlank:true
+            }
+        },{
+            text: "ip",
+            dataIndex: 'ip',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            editor: {
+	            listeners: {
+				          'focus':function(){
+				          	 if(this.value=='请输入ip'){
+				                this.setValue('');
+				             }
+				          }
+				      },			    
+	           	allowBlank:true
+            }
+        },{
+            text: "终端",
+            dataIndex: 'dev',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            editor: {
+            }
+        },{
+            text: "操作系统",
+            dataIndex: 'os',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            editor: {
+            }
+        },{
+            text: "终端类型",
+            dataIndex: 'devtype',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            editor: {
+            }
+        },{
+            text: "上行流量",
+            dataIndex: 'ubytes',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            editor: {
+            }
+        },{
+            text: "下行流量",
+            dataIndex: 'dbytes',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            editor: {
+            }
+        },{
+            text: "开始时间",
+            dataIndex: 'starttime',
+            width: 150,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            editor: {
+           	}
+        },{
+            text: "终止时间",
+            dataIndex: 'endtime',
+            width: 150,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            editor: {
+           	}
+        },{
+            text: "链接时间",
+            dataIndex: 'conntime',
+            width: 150,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            //editor: {
+           	//}
+        },{
+            text: "终止原因",
+            dataIndex: 'cause',
+            width: 100,
+            //align: 'center',
+            hidden: false,
+            sortable: false,
+            editor: {
+           	}
+        },{
+        	 flex: 1	
+        }],
+        
+        columnLines: true,
+              
+        // paging bar on the bottom
+        tbar: Ext.create('Ext.PagingToolbar1', {
+            store: store,
+            displayInfo: true,
+            displayMsg: '显示{0} - {1}条记录 共{2}条记录',
+            emptyMsg: "没有记录可显示",
+                                       
+            items: [
+            '-', {
+            	  labelWidth: 60,
+                fieldLabel:'关键字',
+                xtype: 'textfield',
+                id:'keyword5',
+                name:'keyword5',
+                value:'输入portal/用户名',
+                enableKeyEvents:true,
+                listeners:{
+	                 'focus':function(){
+			                 if(this.value=='输入portal/用户名'){                
+			                    this.setValue('');
+			                 }
+                   },
+         
+	                'keydown' : function(i,e){
+	                    var aae=e.getKey(); 
+	                    if(aae==13){
+	                    		var aa=Ext.getCmp('keyword5').value;
+			                    if(aa!='输入portal/用户名'){
+					       	            document.getElementById("form1").keyword.value=aa;
+							                store.currentPage=1;
+							                reflash();
+					                }
+	                    }
+	                }
+                }
+            }, {
+                text:'查询',
+                //itemId: 'moveButton',
+            		iconCls:'accept',
+                //disabled: true,
+                handler:function(){
+	                 var bb=Ext.getCmp('keyword5').value;
+		               if(bb!='输入portal/用户名'){         
+		                  document.getElementById("form1").keyword.value=bb;
+		               }
+		               else{
+		                  document.getElementById("form1").keyword.value='';
+		               }
+		               store.currentPage=1;         
+		               reflash();  
+                }
+            },'-',{
+                 text:'增加',
+                 iconCls:'add',
+	               handler : function() {
+	                 rowEditing.cancelEdit();
+	
+	                 var r = Ext.create('EimData', {
+	                 			portalname:'请输入portal',
+		                    username: '请输入用户名'
+	                 });
+	                 store.insert(0, r);
+	                 rowEditing.startEdit(0, 0);
+	               }
+            }, '-', {
+                text:'删除',
+                itemId: 'removeButton',
+                iconCls:'remove',
+                //disabled: true,
+                handler:function(){
+								   if(confirm('您真的要执行删除操作吗？')){                  
+			                var selsid;  
+			                var rows=sm.getSelection();
+			                selsid='';
+			                for(var i=0;i<rows.length;i++){
+			                  	if(i==0){
+			                  	   selsid="'" + rows[i].get('sid') + "'";
+			                  	}
+			                  	else{
+			                       selsid=selsid + "," + "'" + rows[i].get('sid') + "'";
+			                    }
+			                }
+			                var portalname1 = document.getElementById('form1').portalname.value;
+									    var userid1 = document.getElementById('form1').userid.value;
+									    var username1 = document.getElementById('form1').username.value;
+									    var dispname1 = document.getElementById('form1').dispname.value;
+									    var ssid1 = document.getElementById('form1').ssid.value;
+									    var apname1 = document.getElementById('form1').apname.value;
+									    var mac1 = document.getElementById('form1').mac.value;
+									    var ip1 = document.getElementById('form1').ip.value;
+									    var dev1 = document.getElementById('form1').dev.value;
+									    var os1 = document.getElementById('form1').os.value;
+									    var devtype1 = document.getElementById('form1').devtype.value;
+									    var ubytes1 = document.getElementById('form1').ubytes.value;
+									    var dbytes1 = document.getElementById('form1').dbytes.value;
+									    var starttime1 = document.getElementById('form1').starttime.value;
+									    var endtime1 = document.getElementById('form1').endtime.value;
+									    var conntime1 = document.getElementById('form1').conntime.value;
+									    var cause1 = document.getElementById('form1').cause.value;
+                      
+                      store.load({params: {del: "del",selsid:selsid,portalname:portalname1,userid:userid1,username:username1,dispname:dispname1,ssid:ssid1,apname:apname1,mac:mac1,ip:ip1,dev:dev1,os:os1,devtype:devtype1,ubytes:ubytes1,dbytes:dbytes1,starttime:starttime1,endtime:endtime1,conntime:conntime1,cause:cause1}});
+                      
+                   }
+                }
+            },'-',{
+                text:'高级',
+                anchor: 'right',
+                handler: showCxForm, //高级查询函数
+                iconCls:'option'
+            },'-',{
+                text:'信息统计',
+                iconCls:'exp',
+                handler:function(){
+                		document.getElementById('form1').caExport.value='exp';
+                		document.getElementById("form1").submit();
+               			document.getElementById("form1").caExport.value="";
+	              	 	reflash();
+                }
+            }
+            ]
+        }),
+        plugins: [rowEditing]
+    });
+
+    reflash();
+
+    var panel = Ext.create('Ext.panel.Panel', {
+        title: '',
+        margins: '0 0 0 0',
+        renderTo: 'grid-corp',
+       //border:false,
+        frame: false,
+        layout: 'fit',
+        items: grid
+    });
+
+});
+
+</script>
+    
+</head>
+<body>
+	<form name="form1" id="form1" action="/pronline/Msg">
+		<input type="hidden" name="FunName" value="ncm_userlog">
+		<input type="hidden" name="sid" value="">
+		<input type="hidden" name="portalname" value="">
+		<input type="hidden" name="userid" value="">
+		<input type="hidden" name="username" value="">
+		<input type="hidden" name="dispname" value="">
+		<input type="hidden" name="ssid" value="">
+		<input type="hidden" name="apname" value="">
+		<input type="hidden" name="mac" value="">
+		<input type="hidden" name="ip" value="">
+		<input type="hidden" name="dev" value="">
+		<input type="hidden" name="os" value="">
+		<input type="hidden" name="devtype" value="">
+		<input type="hidden" name="ubytes" value="">
+		<input type="hidden" name="dbytes" value="">
+		<input type="hidden" name="starttime" value="">
+		<input type="hidden" name="endtime" value="">
+		<input type="hidden" name="conntime" value="">
+		<input type="hidden" name="cause" value="">
+		<input type="hidden" name="keyword" value="">
+		<input type="hidden" name="caExport" value="">
+		
+  </form>
+    <div id="grid-corp"></div>
+
+</body>
+</html>

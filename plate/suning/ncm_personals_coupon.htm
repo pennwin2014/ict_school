@@ -1,0 +1,177 @@
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+<title>苏宁电器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<script src="/js/jquery-2.0.3.min.js"></script>
+</head>
+
+<style type="text/css">
+
+body{
+margin:0px;
+padding:0px;
+height:100%;
+width:100%;
+font-family: arial;
+}
+
+	
+		
+		
+		#level_introduce{
+		background:#E0E6F8;
+		height:100%;
+		width:100%;
+		
+		}
+	
+		.level_logos{
+		float:left;
+		width:100%;
+		margin-bottom:2px;
+		position:relative;
+		}
+		
+		.level_logos img{
+		
+		width:100%;
+		}
+	
+	
+	.title1{
+	position:relative;
+	text-align:center;
+	background:#0088cc;
+	color:#ffffff;
+	font-size:1.2em;
+	font-weight:Bold;
+	border-color:#000000;
+	border-radius:5px;
+	padding-top:5px;
+	padding-bottom:5px;
+	margin-bottom:1px;
+	}
+	.collect{
+	background:#FFBF00;
+	color:#000000;
+	text-align:center;
+	margin-right:2px ;
+	width:35%;
+	border-radius:5px;
+	float:right;
+	box-shadow: 0px 2px 1px 1px #000000;
+	}
+	.del{
+		position: absolute;
+		left:0%; top:0%;
+		width:100%;
+		height:100%;
+		opacity:0.8;
+		z-index:100;
+		display:none;
+		}
+		.del img{
+		width:18%;
+		position: absolute;
+		left:75%; top:5%;
+		}
+		
+		
+</style>
+
+<script type="text/javascript">
+var num = 0;
+function displayDel(){
+
+//alert("displayDel"+num);
+if(num == 0){
+
+$(".del").css('display','block');
+$(".collect").css('box-shadow','0px 0px 0px 0px #000000');
+//document.getElementById("btn_del").innerHTML="";
+num=1;
+}
+else{
+$(".del").css('display','none');
+$(".collect").css('box-shadow','0px 1px 1px 1px #000000');
+num=0;
+}
+
+}
+
+function delProducts(number){
+//alert(number);
+if (confirm("是否要删除此优惠劵？") ) 
+{ 　　
+
+document.getElementById("FunName").value = "ncm_Addcoupons";
+document.getElementById("id").value = ids[number];
+document.getElementById("uid").value = "1";
+document.getElementById("mark").value = "del";
+document.getElementById("form1").submit();
+
+//alert("[#msg#]");
+}
+else{
+
+}
+
+}
+
+var ids = new Array();
+var delimgs;
+function init(){
+
+[#SLPB#]
+ids[[#iNum#]] = "[#id#]";
+[#SLPE#]
+
+delimgs = "[#delimgs#]"
+//alert(delimgs = "[#delimgs#]");
+if( delimgs == "del2"){
+//alert("display:block");
+$(".del").css('display','block');
+$(".collect").css('box-shadow','0px 0px 0px 0px #000000');
+num=1;
+}
+
+}
+</script>
+<body onload="init()">
+
+	<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="uid" name="uid" value="">
+		<input type="hidden" id="mark" name="mark" value="">
+		<input type="hidden" id="id" name="id" value="">
+		
+		</form>
+	<div id="detail">
+
+	<div class="title1">优惠劵信息
+	<div class="collect" id="btn_del" onclick="displayDel()">删除</div>
+	
+	</div>
+		<div id="level_introduce">
+	[#SLPB#]
+	<!-- <div id="info">
+	<div>有效期至： [#effetime#]</div>
+	</div> -->
+	<div id="level_logos" class="level_logos" >
+	<div id="info"><img src="[#imgpath#]"></div>
+	<div class="del" onclick="delProducts([#iNum#])"><img src="/images/suning/delete1.png" ></div>
+	</div>
+	[#SLPE#]
+	
+	</div>
+		
+	
+	</div>
+</body>
+
+
+</html>
+

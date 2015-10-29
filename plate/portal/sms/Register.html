@@ -1,0 +1,145 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>丹尼斯-手机注册页面</title>
+    <link rel="stylesheet" type="text/css" href="/css/static/css/public.css">
+    <script type="text/javascript" src="/css/static/js/jquery-1.8.3.min.js"></script>
+    <script>
+    	function sendUsernameData()
+    	{
+    		var username = document.getElementById("user_name").value;
+    		var sex = getSex();
+    		var card = document.getElementById("card").value;
+    			
+    	}
+    	
+      function getSex(){
+        var value="";
+  		  radio=document.getElementsByName("sex");
+  			for(var i=0;i<radio.length;i++){
+					if(radio[i].checked==true){
+	 					 value=radio[i].value;
+	 					 break;
+					}
+  			}
+  				return value;
+			}
+			
+			function checklogin(){
+				
+//		if (document.getElementById("username").value=="" || document.getElementById("password").value=="") {
+//			window.alert("用户名或密码不能为空！");
+//			return ;
+//		}
+	}
+    </script>
+</head>
+
+<body onload="setup(); promptinfo();">
+	<div class="top_login">
+        
+    </div>
+    <div class="mobile_register">
+        <div class="reg_top"><img src="/css/static/images/reg_top_bg_01.jpg" width="100%" height="auto"></div>
+        <span class="clear"></span>
+
+        <div class="reg_mian">
+            <form class="form_reg" method="post" action="?">
+
+                <table class="tb_reg">
+                    <tr>
+                        <td><label class="l_label"><i>*</i>姓名：</label></td>
+                        <td colspan="2" align="center">
+                            <input class="txt" id="user_name" name="user_name" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="l_label"><i>*</i>性别：</label></td>
+                        <td align="center">
+                            <input id="man" name="sex" type="radio" value="男" checked>
+                            <label class="r_label" for="man">男</label>
+                        </td>
+                        <td align="center">
+                            <input id="woman" name="sex" type="radio" value="女">
+                            <label class="r_label" for="woman">女</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="l_label"><i>*</i>身份证号：</label></td>
+                        <td colspan="2" align="center">
+                            <input class="txt" id="card" name="card" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="l_label"><i>*</i>手机：</label></td>
+                        <td colspan="2" align="center">
+                            <input class="txt" id="card" name="card" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="l_label"><i>*</i>邮箱：</label></td>
+                        <td colspan="2" align="center">
+                            <input class="txt" id="card" name="card" type="text"></td>
+                    </tr>
+                    <tr height="15"></tr>
+                    <tr>
+                        <td align="center">
+                            <input class="form_btn" id="sub_btn" type="button" />
+                        </td>
+                        <td colspan="2" align="center">
+                            <input class="form_btn" id="reg" type="submit" value="" onclick="return checklogin()" />
+                        </td>
+                    </tr>
+                </table>
+
+            </form>
+		
+        </div>
+        <span class="clear"></span>
+        <div class="reg_footer"><img src="/css/static/images/reg_footer_02.jpg" width="100%" height="auto"></div>
+    </div>
+
+</body>
+</html>
+<script type="text/javascript" src="/css/static/js/jquery-1.8.3.min.js"></script>
+<!--<script type="text/javascript" src="static/js/geo.js"></script>
+
+<script type="text/javascript">
+    //这个函数是必须的，因为在geo.js里每次更改地址时会调用此函数
+    function promptinfo() {
+        var address = document.getElementById('address');
+        var s1 = document.getElementById('s1');
+        var s2 = document.getElementById('s2');
+        var s3 = document.getElementById('s3');
+    }
+</script>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

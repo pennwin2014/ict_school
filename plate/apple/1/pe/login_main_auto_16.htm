@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>auth</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- <style type="text/css">td img {display: block;}</style>  -->
+<style type="text/css">
+	.but3-1 { font-size: 9pt;  background-image:url(../../../images/applepceng/180x32-03.png);
+   height: 32px; width: 180px; border-top-width: 0px; border-right-width: 
+  0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand} 
+ /*
+  	.but_login { font-size: 9pt;  background-image:url(../../../images/applepceng/180x32-01.png);
+  		position:relative;top:8px;
+  		
+  	*/	
+  	
+  	.but_login { font-size: 9pt;  background-image:url(../../../images/appceti/logine.png);
+  		
+	    height: 22px; width: 180px; border-top-width: 0px; border-right-width: 
+	    0px; border-bottom-width: 0px; border-left-width: 0px; cursor: hand} 
+  *{
+	  margin:0;
+	  padding:0;
+  }
+  #main{
+	  width:1360px;
+	  height:720px;
+	  margin:50 auto 0;
+	  } 
+   input{
+	   border:0;
+   }
+   #explain{
+	   position:absolute;
+	   top:150px;
+	   left:85px;
+	   text-decoration:none;
+	   color:red;
+   }
+   #username{
+	   position:absolute;
+	   top:130px;
+	   left:90px;
+	   
+   }
+   .input_div{
+	    height:32px;
+		width:160px; 
+		border: 1px solid #B4B4B4;
+		line-height:32px;
+		background-color:#FFF;
+		border:0;
+   }
+  
+   .getpasswd{ 
+         height: 32px; 
+		 line-height:32px;
+		 width: 180px;
+		 background-image:url(../../../images/applepc/but02.gif);
+		 border:0;
+		 cursor:pointer;
+		 position:absolute;
+	     top:130px;
+	     left:270px;
+	 }
+	 #disclaime{  
+        height: 22px; 
+		width: 130px;
+		position:absolute;
+		top:350px;
+		left:320px;
+		cursor:pointer;
+		text-align:left;
+	 }
+	 #disclaime1{
+		 height:22px;
+		 width:300px;
+		 position:absolute;
+		 top:370px;
+		 left:90px;
+		 cursor:pointer;
+		 text-align:left; 
+	 }
+	 
+	 .chaccept{
+		background-image:url(../../../images/applepc/373x32-01.png);
+	    width:373px;
+		height:32px;
+		border:0;
+		position:absolute;
+		top:400px;
+		left:90px;
+		cursor:pointer;
+	}
+	.chaccept2{
+		background-image:url(../../../images/applepc/373x32.png);
+	    width:373px;
+		height:32px;
+		border:0;
+		position:absolute;
+		top:400px;
+		left:90px;
+	}
+	#password{
+	   position:absolute;
+	   top:455px;
+	   left:90px;	
+	}
+	
+	.but_login{
+	  background-image:url(../../../images/appceti/login.png);
+      height: 22px;
+	  width: 180px; 
+	  position:absolute;
+	  top:455px;
+	  left:270px;
+	  cursor:pointer;
+	  border:0;
+	}
+</style>
+
+<script language="javascript" src="/js/cetisfy/JSCode_IMG.js"></script>
+
+<script language="javascript" type="text/javascript">
+	function spylogin(){
+		if (document.getElementById("username").value=="" || document.getElementById("password").value=="") {
+			window.alert("Please fill in your phone number and password!");
+			return ;
+		}
+		document.getElementById("nclogin").submit();
+	}
+	function ss(e){
+		var key = window.event ? e.keyCode:e.which;
+
+		if(key==13)
+		spylogin();
+	}
+		var p_flag='1';
+		function restore(){
+	  document.getElementById("gpss").disabled="";
+	  document.getElementById("imgm").style.display="none";
+    p_flag='1';
+    document.getElementById("imgm").src='../../../images/sjimage/smspad.gif';
+	}
+
+function chk(tel)
+{
+
+if(/^1\d{10}$/g.test(tel)||(/^1\d{11}$/g.test(tel)))
+        {
+           return 0;
+         }
+else
+        {
+          return 1;
+         }
+}
+
+	function getpasswd(){		
+	   if(p_flag=='0') return false;
+	   
+		  document.getElementById("msgs").innerHTML="";
+
+		  if(document.getElementById("nclogin").username.value==''){
+		    alert('Please inupt your phone number!');
+		    return false;
+		  }
+		  
+		    var telno=document.getElementById("nclogin").username.value;
+		    if(telno.length<6){
+		    alert('Phone number is wrong!');
+		    return false;
+		    } 
+		 
+		
+		  
+		  temp_html="http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&lang@eng&username@"+document.getElementById("nclogin").username.value;
+		  
+		  document.getElementById("ifhide").src=temp_html;
+
+	document.getElementById("imgm").src='../../../images/authimage/donghua.gif';
+  document.getElementById("gpss").disabled="true";
+  document.getElementById("imgm").style.display="";
+ p_flag='0';
+
+setTimeout('restore()',50000);
+		  return false;
+		
+		
+	}
+	
+function changlogin(flag){
+       self.location='http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@'+flag+'&[#getarg#]';
+    }
+</script>
+<!--Fireworks CS5 Dreamweaver CS5 target.  Created Wed Sep 25 17:27:43 GMT+0800 2013-->
+</head>
+<body bgcolor="#ffffff">
+<center>
+<div id="main">
+ <form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+    [#postarg#]
+    <table style="display: inline-table;" border="0" cellpadding="0" cellspacing="0" width="1360">
+  <tr>
+   <td><img src="../../../images/applepceng/spacer.gif" width="185" height="1" border="0" alt="" vspace="0" height="0" /></td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="500" height="1" border="0" alt="" vspace="0" height="0" /></td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="500" height="1" border="0" alt="" vspace="0" height="0" /></td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="175" height="1" border="0" alt=""  vspace="0" height="0"/></td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="1" height="1" border="0" alt=""  vspace="0" height="0"/></td>
+  </tr>
+
+  <tr>
+   <td colspan="4" background="../../../images/applepceng/iphone1000x600english-01_r1_c1.gif" width="1360" height="61"></td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="1" height="61" border="0" alt="" vspace="0" height="0" /></td>
+  </tr>
+  <tr>
+   <td rowspan="3"><img name="iphone1000x600english01_r2_c1" src="../../../images/applepceng/iphone1000x600english-01_r2_c1.gif" width="185" height="659" border="0" id="iphone1000x600english01_r2_c1" alt="" vspace="0" height="0" /></td>
+   <td colspan="2" background="../../../images/applepceng/iphone1000x600english-01_r2_c2.gif">
+   	<table width="1000" height="60">
+				<tr >
+					<td width="850"></td>
+					<td>&nbsp;</td>
+					</tr>
+					<tr>
+					<td ></td>
+					<td><span><input type="button" style="cursor:hand;background-image: url('../../../images/applepc/china01.png'); width: 53px; height: 30px; border: 0px;" id=chinese  onclick="changlogin('zh')" ></span><span style="position:relative;top:0px"><input type="button" style="cursor:hand;background-image: url('../../../images/applepc/english02.png'); width: 80px; height: 30px; border: 0px;" id=chinese  onclick="changlogin('eng')" ></span></td>
+					</tr>
+					
+			</table>
+   	
+   	</td>
+   <td rowspan="3"><img name="iphone1000x600english01_r2_c4" src="../../../images/applepceng/iphone1000x600english-01_r2_c4.gif" width="175" height="659" border="0" id="iphone1000x600english01_r2_c4" alt=""  vspace="0" height="0"/>
+   	
+   	
+   	
+   	
+   	</td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="1" height="60" border="0" alt="" vspace="0" height="0" /></td>
+  </tr>
+  <tr>
+   <td background="../../../images/applepceng/iphone1000x600english-01_r3_c2.gif"width="500" height="539"  style="position:relative;">
+   	<img border="0" src="../images/sjimage/smspad.jpg" width="102" height="25" id="imgm" style="display:none; z-index:1; position:absolute; top:120px; left:360px" vspace="0" height="0" >
+    		 <input type="text"  id="username" name="username" class="input_div"  value="[#username#]"/>
+           
+            <input type="button" value="" id=gpss class="getpasswd"  onClick="getpasswd()"   />
+            <div id="msgs" style="display:none; position:absolute;top:0; left:0; z-index:1">
+        	<font>[#message#]</font>
+            </div>
+            <a href=#xxm id="disclaime">the terma and </a>
+            <a href=#xxm id="disclaime1">conditions of wireless internet access.</a>
+            <input name="chaccept" type="button" value="" id="chaccept" class="chaccept" onclick="agree();">
+            
+            <input  type="password" id="password" name="password" class="input_div" onKeyPress="ss(event)" value="[#password#]" />
+          
+            <input type="button" value=""  class="but_login" onClick="return spylogin();"/>
+   	</td>
+   <td><img name="iphone1000x600english01_r3_c3" src="../../../images/applepceng/iphone1000x600english-01_r3_c3.gif" width="500" height="539" border="0" id="iphone1000x600english01_r3_c3" alt="" vspace="0" height="0" /></td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="1" height="539" border="0" alt=""  vspace="0" height="0"/></td>
+  </tr>
+  <tr>
+   <td colspan="2"><img name="iphone1000x600english01_r4_c2" src="../../../images/applepceng/iphone1000x600english-01_r4_c2.gif" width="1000" height="58" border="0" id="iphone1000x600english01_r4_c2" alt=""  vspace="0" height="0"/></td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="1" height="58" border="0" alt=""  vspace="0" height="0"/></td>
+  </tr>
+  </table>
+<!--</table>
+<table style="display: inline-table;" border="0" cellpadding="0" cellspacing="0" width="1360">
+  <tr>
+   <td><img src="../../../images/applepceng/spacer.gif" width="185" height="1" border="0" alt="" /></td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="500" height="1" border="0" alt="" /></td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="500" height="1" border="0" alt="" /></td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="175" height="1" border="0" alt="" /></td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="1" height="1" border="0" alt="" /></td>
+  </tr>
+
+  <tr>
+   <td colspan="4" background="../../../images/applepceng/iphone1000x600english-01_r1_c1.gif" width="1360" height="61" >
+   	
+   			
+   	
+   	</td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="1" height="61" border="0" alt="" /></td>
+  </tr>
+  <tr>
+   <td rowspan="3"><img name="iphone1000x600english01_r2_c1" src="../../../images/applepceng/iphone1000x600english-01_r2_c1.gif" width="185" height="659" border="0" id="iphone1000x600english01_r2_c1" alt="" /></td>
+   <td colspan="2" background="../../../images/applepceng/iphone1000x600english-01_r2_c2.gif">
+   	<table width="1000" height="60">
+				<tr >
+					<td width="850"></td>
+					<td>&nbsp;</td>
+					</tr>
+					<tr>
+					<td ></td>
+					<td><span><input type="button" style="cursor:hand;background-image: url('../../../images/applepc/china01.png'); width: 53px; height: 30px; border: 0px;" id=chinese  onclick="changlogin('zh')" ></span><span style="position:relative;top:0px"><input type="button" style="cursor:hand;background-image: url('../../../images/applepc/english02.png'); width: 80px; height: 30px; border: 0px;" id=chinese  onclick="changlogin('eng')" ></span></td>
+					</tr>
+					
+			</table>
+   	
+   	</td>
+   <td rowspan="3"><img name="iphone1000x600english01_r2_c4" src="../../../images/applepceng/iphone1000x600english-01_r2_c4.gif" width="175" height="659" border="0" id="iphone1000x600english01_r2_c4" alt="" />
+   	
+   	
+   	
+   	
+   	</td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="1" height="60" border="0" alt="" /></td>
+  </tr>
+  <tr>
+   <td background="../../../images/applepceng/iphone1000x600english-01_r3_c2.gif"width="500" height="539" >
+   	
+   	<table width="500" height="539">
+			<tr><td colspan="2" height="100">&nbsp;</td></tr>
+			<tr><td width="90" height="30">&nbsp; </td><td><input type="text" id="username" name="username" value="[#username#]" style="width:160px;height:30px;position:relative;top:-15px;" >&nbsp;&nbsp;<input type="button" id=gpss class="but3-1" onclick="getpasswd()">	</td></tr>
+		  <tr><td  height="30"></td><td valign="top">&nbsp;<img border="0" src="../../../images/sjimage/smspad.jpg" width="80" height="25" id="imgm" style="display:none;position:relative;top:-25px;" ></td></tr>
+		  <tr><td  height="142"></td><td valign="top">&nbsp;</td></tr>
+		  <tr><td  height="58">&nbsp; </td><td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=#xxm>the terma and conditions of wireless internet access.</a></td></tr>
+		  <tr><td  height="32">&nbsp; </td><td ><!--<input name="chaccept" type="checkbox" value="1" style="width:25px;height:30px"><img src="../../../images/applepceng/373x32.png" width="373" height="32" alt=""></td></tr>
+			<tr><td  height="22">&nbsp; </td><td ><input type="password" id="password" name="password" value="[#password#] style="width:160px;height:22px;position:relative;top:2px;" onKeyPress="ss(event)">&nbsp;<input type="button" class="but_login" onClick="return spylogin();"> </td></tr>
+		  
+			<tr><td colspan="2"  align="center" id="msgs">&nbsp;<font color="red">[#message#]</font></td></tr>
+		</table>
+   	
+   	
+   	</td>
+   <td><img name="iphone1000x600english01_r3_c3" src="../../../images/applepceng/iphone1000x600english-01_r3_c3.gif" width="500" height="539" border="0" id="iphone1000x600english01_r3_c3" alt="" /></td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="1" height="539" border="0" alt="" /></td>
+  </tr>
+  <tr>
+   <td colspan="2"><img name="iphone1000x600english01_r4_c2" src="../../../images/applepceng/iphone1000x600english-01_r4_c2.gif" width="1000" height="58" border="0" id="iphone1000x600english01_r4_c2" alt="" /></td>
+   <td><img src="../../../images/applepceng/spacer.gif" width="1" height="58" border="0" alt="" /></td>
+  </tr>
+</table>-->
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+
+</form>
+</div>
+</center>
+</body>
+</html>

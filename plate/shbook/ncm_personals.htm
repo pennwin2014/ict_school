@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>个人中心</title>
+<!--<script src="/js/jquery.easing"></script>
+<link href="/css/flexslider_person.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>-->
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	font-family:"黑体";
+}
+body{background:#efefef;}
+.wrap {
+	width:480px;
+	margin:0 auto;
+}
+.top {
+	width:100%;
+	text-align:center;
+	position:relative;
+}
+.user_xx {
+	position:absolute;
+	top:30%;
+	left:40%;
+}
+.img_1 {
+	width:100%;
+}
+.menu_1 img{ width:25%; float:left;}
+.top_name {
+	color:#fff;
+	font-weight:bold;
+	font-size:32px;
+}
+.top_jf {
+	color:#fff;
+	font-size:22px;
+}
+.iframe1{
+width:100%;
+margin:0 auto;
+}
+@media screen and (max-width:450px) {
+.wrap {
+ width:100%;
+ margin:0 auto;
+}
+.iframe1{
+width:100%;
+margin:0 auto;
+}
+}
+@media screen and (max-width:350px) {
+.top_name {
+	color:#fff;
+	font-weight:bold;
+	font-size:22px;
+}
+.top_jf {
+	color:#fff;
+	font-size:16px;
+}
+.wrap {
+ width:100%;
+ margin:0 auto;
+}
+.iframe1{
+width:100%;
+margin:0 auto;
+}
+}
+</style>
+
+<script type="text/javascript">
+
+function switchlevels(mark){
+document.getElementById("menu1").src="/images/zhengzhoudianxin/gerenxinxi1.jpg";
+document.getElementById("menu4").src="/images/zhengzhoudianxin/youhuiquan1.jpg";
+document.getElementById("menu5").src="/images/zhengzhoudianxin/guanzhu1.jpg";
+document.getElementById("menu6").src="/images/zhengzhoudianxin/shoucang1.jpg";
+if(mark == 1){
+//document.getElementById("iframe1").src = "/suning/ncm_personals_info.htm";
+document.getElementById("menu1").src="/images/zhengzhoudianxin/gerenxinxi2.jpg";
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmPersonals_Info";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("uid").value="1";
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+}
+
+if(mark == 2){
+//document.getElementById("iframe1").src = "/suning/ncm_personals_consump.htm";
+
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmPersonals_Consump";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("uid").value="18201880623";
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+//alert(2);
+}
+
+if(mark == 3){
+//document.getElementById("iframe1").src = "/suning/ncm_personals_mark.htm";
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmPersonals_Mark";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("uid").value="1";
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+//alert(3);
+}
+
+if(mark == 4){
+//document.getElementById("iframe1").src = "/suning/ncm_personals_coupon.htm";
+document.getElementById("menu4").src="/images/zhengzhoudianxin/youhuiquan2.jpg";
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmPersonals_Coupon";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("uid").value="1";
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+//alert(4);
+}
+
+if(mark == 5){
+//document.getElementById("iframe1").src = "/suning/ncm_personals_attention.htm";
+document.getElementById("menu5").src="/images/zhengzhoudianxin/guanzhu2.jpg";
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmPersonals_Attention";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("uid").value="1";
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+//alert(5);
+}
+
+if(mark == 6){
+//document.getElementById("iframe1").src = "/suning/ncm_personals_collection.htm";
+document.getElementById("menu6").src="/images/zhengzhoudianxin/shoucang2.jpg";
+document.getElementById("iframe1").contentWindow.document.getElementById("FunName").value="ncmPersonals_Collection";
+document.getElementById("iframe1").contentWindow.document.getElementById("tsid").value= document.getElementById("tsid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("plateid").value= document.getElementById("plateid").value;
+document.getElementById("iframe1").contentWindow.document.getElementById("uid").value="1";
+document.getElementById("iframe1").contentWindow.document.getElementById("form1").submit();
+//alert(5);
+}
+}
+
+</script>
+</head>
+
+<body onload="switchlevels(1)">
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+		<input type="hidden" id="FunName" name="FunName" value="">
+		<input type="hidden" id="name" name="name" value="一层">
+		<input type="hidden" id="mark" name="mark" value="">
+		<input type="hidden" id="logoid" name="logoid" value="">
+		<input type="hidden" id="shopid" name="shopid" value="">
+		<input type="hidden" id="sid" name="sid" value="">
+		<input type="hidden" id="aid" name="aid" value="">
+		<input type="hidden" id="imgpath" name="imgpath" value="">
+		<input type="hidden" id="uid" name="uid" value="">
+		<input type="hidden" id="username" name="username" value="">
+		<input type="hidden" id="nickname" name="nickname" value="">
+		<input type="hidden" id="membernum" name="membernum" value="">
+		<input type="hidden" id="integral" name="integral" value="">
+		<input type="hidden" id="service_code" name="service_code" value="">
+		<input type="hidden" id="decript" name="decript" value="">
+		<input type="hidden" id="level" name="level" value="">
+		<input type="hidden" id="plateName" name="plateName" value="zhengzhoudianxin">
+		<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+		<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+	</form>
+<div class="wrap">
+
+  <div class="top"> <img class="img_1" src="/images/zhengzhoudianxin/2.jpg" />
+    <div class="user_xx">
+      <p class="top_name">[#nickname#]</p>
+      <p style="height:10px;"></p>
+      <p class="top_jf">积分：[#integral#]</p>
+      <p style="height:80px;"></p>
+    </div>
+  </div>
+  <!--<div class="banner">
+    <section class="slider">
+      <div class="flexslider">
+        <ul class="slides">
+          <li> <a >
+		  <img onclick="switchlevels(1)" src="/images/zhengzhoudianxin/gerenxinxi1.jpg" />
+		  <img onclick="switchlevels(4)" src="/images/zhengzhoudianxin/youhuiquan1.jpg" />
+		  <img onclick="switchlevels(5)" src="/images/zhengzhoudianxin/guanzhu1.jpg" />
+		  <img onclick="switchlevels(6)" src="/images/zhengzhoudianxin/shoucang1.jpg" /> </a> </li>
+          <li> <a >
+		  <img src="/images/zhengzhoudianxin/gerenxinxi2.jpg" />
+		  <img src="/images/zhengzhoudianxin/youhuiquan2.jpg" />
+		  <img src="/images/zhengzhoudianxin/guanzhu2.jpg" />
+		  <img src="/images/zhengzhoudianxin/shoucang2.jpg" /> </a> </li>
+        </ul>
+      </div>
+    </section>
+  </div>-->
+  <div class="menu_1">
+   <img id="menu1" onclick="switchlevels(1)" src="/images/zhengzhoudianxin/gerenxinxi2.jpg" />
+		  <img id="menu4" data-transition="fade" onclick="switchlevels(4)" src="/images/zhengzhoudianxin/youhuiquan1.jpg" />
+		  <img id="menu5"  data-transition="flip"onclick="switchlevels(5)" src="/images/zhengzhoudianxin/guanzhu1.jpg" />
+		  <img id="menu6"  data-transition="turn"onclick="switchlevels(6)" src="/images/zhengzhoudianxin/shoucang1.jpg" />
+  </div>
+  <iframe id="iframe1" class="iframe1" frameborder="no" scrolling="No"  width="100%" height="1000px" src="/zhengzhoudianxin/ncm_personals_info.htm" ></iframe>
+</div>
+</body>
+</html>

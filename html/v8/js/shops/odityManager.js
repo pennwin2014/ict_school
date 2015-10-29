@@ -1,0 +1,429 @@
+/*商品管理*/
+Ext.define('shops.odityManager', {
+		extend:'Ext.grid.Panel',
+		autoScroll:false,
+		frame:false,
+		initComponent:function(){
+				if(store_shops_oditymanager.alreadyload != 1){
+						store_shops_oditymanager.sid = '';
+						store_shops_oditymanager.name = '';
+						store_shops_oditymanager.indexname = '';
+						store_shops_oditymanager.tyname = '';
+						store_shops_oditymanager.shgroupid = '';
+						store_shops_oditymanager.imgpath = '';
+						store_shops_oditymanager.factory = '';
+						store_shops_oditymanager.type = '';
+						store_shops_oditymanager.fee = '';
+						store_shops_oditymanager.discount = '';
+						store_shops_oditymanager.reserve = '';
+						store_shops_oditymanager.active = '';
+						store_shops_oditymanager.descr = '';
+						store_shops_oditymanager.detail = '';
+						store_shops_oditymanager.intergral = '';
+						store_shops_oditymanager.coupon = '';
+						store_shops_oditymanager.atype = '';
+						store_shops_oditymanager.flags = '';
+	//					store_shops_oditymanager.plateid = plateid;
+						store_shops_oditymanager.plateid = '';
+						store_shops_oditymanager.keyword = '';
+						store_shops_oditymanager.new_params = {sid:store_shops_oditymanager.sid,name:store_shops_oditymanager.name,indexname:store_shops_oditymanager.indexname,tyname:store_shops_oditymanager.tyname,shgroupid:store_shops_oditymanager.shgroupid,imgpath:store_shops_oditymanager.imgpath,factory:store_shops_oditymanager.factory,type:store_shops_oditymanager.type,fee:store_shops_oditymanager.fee,discount:store_shops_oditymanager.discount,reserve:store_shops_oditymanager.reserve,active:store_shops_oditymanager.active,descr:store_shops_oditymanager.descr,detail:store_shops_oditymanager.detail,integral:store_shops_oditymanager.integral,coupon:store_shops_oditymanager.coupon,atype:store_shops_oditymanager.atype,systime:store_shops_oditymanager.systime,flags:store_shops_oditymanager.flags,keyword:store_shops_oditymanager.keyword};
+				}
+				
+				function reflash(){
+						store_shops_oditymanager.new_params = {sid:store_shops_oditymanager.sid,name:store_shops_oditymanager.name,indexname:store_shops_oditymanager.indexname,tyname:store_shops_oditymanager.tyname,shgroupid:store_shops_oditymanager.shgroupid,imgpath:store_shops_oditymanager.imgpath,factory:store_shops_oditymanager.factory,type:store_shops_oditymanager.type,fee:store_shops_oditymanager.fee,discount:store_shops_oditymanager.discount,reserve:store_shops_oditymanager.reserve,active:store_shops_oditymanager.active,descr:store_shops_oditymanager.descr,detail:store_shops_oditymanager.detail,integral:store_shops_oditymanager.integral,coupon:store_shops_oditymanager.coupon,atype:store_shops_oditymanager.atype,systime:store_shops_oditymanager.systime,flags:store_shops_oditymanager.flags,keyword:store_shops_oditymanager.keyword};
+						//store_shops_oditymanager.currentPage=1;
+						store_shops_oditymanager.load();	
+				}
+				
+				function gotoedit1(value,id,plateid){
+						var windr;
+						var htmlvar='<iframe src="/pronline/Msg?FunName@ncm_webcomodity_info&key@'+value+'&sid@'+id+'&plateid@'+plateid+' " scrolling="no" name="drIframe" frameborder="no" style="width:100%;height:484px;"></iframe>';
+				    var windr = new Ext.Window ({
+				                           id:"windr",
+				                           title:"商品信息",
+				                          // x:0,
+				                          // y:0,
+				                           width:770,
+				                           bodyPadding: 0,
+				                           modal:true,
+																	 //headerPosition: 'bottom',
+				                           resizable:true,
+				                           closable : true,
+				                           draggable:true,
+				                           html:htmlvar                      
+				    })       
+				
+					  windr.on("beforeclose", function() {
+					  	reflash();
+					  })
+					  windr.show();
+				}
+				
+				var sm = Ext.create('Ext.selection.CheckboxModel',{
+		        listeners: {
+		            selectionchange: function(sm, selections) {
+		                Ext.getCmp('oditymanager_removeButton').setDisabled(selections.length == 0); 
+		            }
+		        }
+		    });
+		    
+		    Ext.apply(this, {
+		    		border:false,
+		    		frame:false,
+		    		autoScroll:true,
+		    		selModel:sm,
+		    		store:store_shops_oditymanager,
+		    		viewConfig:{
+		    				loadMask:false	
+		    		},
+		    		columns:[{
+		            text: "商品ID",
+		            dataIndex: 'sid',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: true
+		        },{
+		            header: '编辑',
+		            xtype: 'actioncolumn',
+		            dataIndex: 'sid',
+		            iconCls: 'edit',
+		            tooltip: '点击进入修改界面',
+		            width: 50,
+		            align: 'center',
+		            sortable: false,
+		            handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
+		                gotoedit1('update', record.get('sid'), plateid);
+		            }
+		        },{
+		            text: "商品名称",
+		            dataIndex: 'name',
+		            width: 100,
+		            //align: 'center',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "商品显示名称",
+		            dataIndex: 'dispname',
+		            width: 100,
+		            //align: 'center',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "商品型号",
+		            dataIndex: 'type',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "图片路径",
+		            dataIndex: 'imgpath',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "商城名称",
+		            dataIndex: 'indexname',
+		            width: 100,
+		            //align: 'center',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "商品小类名称",
+		            dataIndex: 'tyname',
+		            width: 100,
+		            //align: 'center',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "商店ID",
+		            dataIndex: 'shgroupid',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "商店名称",
+		            dataIndex: 'shopname',
+		            width: 100,
+		            //align: 'center',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "场所代码",
+		            dataIndex: 'servicecode',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "商店图片",
+		            dataIndex: 'shimgpath',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "厂家",
+		            dataIndex: 'factory',
+		            width: 150,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "网址",
+		            dataIndex: 'url',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "楼层",
+		            dataIndex: 'floor',
+		            width: 80,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "楼层介绍",
+		            dataIndex: 'fldetail',
+		            width: 150,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "售价",
+		            dataIndex: 'fee',
+		            width: 80,
+		            align: 'right',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "折扣",
+		            dataIndex: 'discount',
+		            width: 80,
+		            align: 'right',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "国家代码",
+		            dataIndex: 'code',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "电话",
+		            dataIndex: 'tel',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "地址",
+		            dataIndex: 'address',
+		            width: 150,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "库存",
+		            dataIndex: 'reserve',
+		            width: 80,
+		            align: 'right',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "活动名称",
+		            dataIndex: 'active',
+		            width: 80,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "活动优先级",
+		            dataIndex: 'plevel',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "广告优先级",
+		            dataIndex: 'level',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "积分",
+		            dataIndex: 'integral',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "优惠劵",
+		            dataIndex: 'coupon',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "关注",
+		            dataIndex: 'atype',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "加入时间",
+		            dataIndex: 'systime',
+		            width: 150,
+		            //align: 'center',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "简述",
+		            dataIndex: 'descr',
+		            width: 150,
+		            //align: 'center',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "描述",
+		            dataIndex: 'detail',
+		            width: 150,
+		            //align: 'center',
+		            hidden: false,
+		            //fixed:true,  // 固定列的宽度
+		            //menuDisabled:true, //禁用列菜单
+		            sortable: false,
+					      renderer: function(value, meta, record) {
+                    meta.style = 'white-space:nowrap;';
+										while(value.indexOf("<br>")>0){
+												value=value.replace("<br>","");
+										}
+                    return value;   
+                }
+		        },{
+		            text: "标记",
+		            dataIndex: 'flags',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		        	 flex: 1	
+		        }],
+		        
+		        columnLines: true,
+		        
+		        // paging bar on the bottom
+		        tbar:{items:[
+		            '-', {
+		            	  labelWidth: 40,
+		            	  width:200,
+		                fieldLabel:'关键字',
+		                xtype: 'textfield',
+		                id:'oditymanager_keyword',
+		                name:'oditymanager_keyword',
+		                value:store_shops_oditymanager.keyword,
+		                emptyText:'请输入商品名称',
+		                enableKeyEvents:true,
+		                listeners:{
+			                 'focus':function(){
+					                 if(this.value=='输入商品名称'){                
+					                    this.setValue('');
+					                 }
+		                   },
+		         
+			                'keydown' : function(i,e){
+			                    var aae=e.getKey(); 
+			                    if(aae==13){
+			                    		var aa=Ext.getCmp('oditymanager_keyword').value;
+					                    if(aa!='输入商品名称'){
+							       	            store_shops_oditymanager.keyword=aa;
+									                store_shops_oditymanager.currentPage=1;
+									                reflash();
+							                }
+			                    }
+			                }
+		                }
+		            }, {
+		                text:'查询',
+		                //itemId: 'moveButton',
+		            		iconCls:'accept',
+		                //disabled: true,
+		                handler:function(){
+			                 var bb=Ext.getCmp('oditymanager_keyword').value;
+				               if(bb!='输入商品名称'){         
+				                  store_shops_oditymanager.keyword=bb;
+				               }
+				               else{
+				                  store_shops_oditymanager.keyword='';
+				               }
+				               store_shops_oditymanager.currentPage=1;         
+				               reflash();  
+		                }
+		            },'-',{
+		                 text:'增加',
+		                 iconCls:'add',
+			               handler : function() {
+			                 gotoedit1('add', '', plateid);
+			               }
+		            },'-',{
+		                text:'删除',
+		                id: 'oditymanager_removeButton',
+		                iconCls:'remove',
+		                disabled: true,
+		                handler:function(){
+										   if(confirm('您真的要执行删除操作吗？')){                  
+					                var selsid;  
+					                var rows=sm.getSelection();
+					                selsid='';
+					                for(var i=0;i<rows.length;i++){
+					                  	if(i==0){
+					                  	   selsid="'" + rows[i].get('sid') + "'";
+					                  	}
+					                  	else{
+					                       selsid=selsid + "," + "'" + rows[i].get('sid') + "'";
+					                    }
+					                }
+					                store_shops_oditymanager.load({params: {del: "del",selsid:selsid}});
+		                   }
+		                }
+		            },'-',{
+		            		text:'导入',
+				           	id:'imp',
+				           	iconCls:'exp',
+				           	handler: function(){
+							            var htmlvar='<iframe src="/pronline/Msg?FunName@ncmWebReplace&plate@nc/odity_dr_first.htm&plateid@'+plateid+' " scrolling="no" name="drIframe" frameborder="no" style="width:100%;height:100%;"></iframe>';      
+							            var windr = new Ext.Window ({
+		                             id:"windr",
+		                             title:"导入商品",
+		                             x:200,
+		                             y:100,
+		                             width:500,
+		                             height:460,
+		                             bodyPadding: 0,
+		                             modal:true,
+		                             resizable:true,
+		                             closable : true,
+		                             draggable:true,
+		                             html:htmlvar               
+							            })       
+							
+							           windr.on("beforeclose", function() {
+							        			reflash();
+							           })
+							           windr.show();
+				           	}	
+		            }]
+		        }
+		    });
+		    store_shops_oditymanager.alreadyload = 1;
+		    this.callParent(arguments);
+		}	
+});

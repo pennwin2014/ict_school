@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Jon Eyrick" CONTENT="no-cache">
+<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1.0, minimum-scale=0.3">
+</head>
+<script type="text/javascript">    
+/*
+* 智能机浏览器版本信息:
+*
+*/
+var btn1='';
+var btn2='';
+  var browser={
+    versions:function(){
+           var u = navigator.userAgent, app = navigator.appVersion;
+           return {//移动终端浏览器版本信息
+                trident: u.indexOf('Trident') > -1, //IE内核
+                presto: u.indexOf('Presto') > -1, //opera内核
+                webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                mobile: !!u.match(/AppleWebKit.*Mobile.*/)||!!u.match(/AppleWebKit/), //是否为移动终端
+                ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+                iPad: u.indexOf('iPad') > -1, //是否iPad
+                mobilesafari: u.indexOf('Mobile Safari') > -1, //是否
+				 uc: u.indexOf('UC') > -1, //是否UC
+				 xt928:u.indexOf('XT928') > -1,//摩托罗拉XT928
+				 eben:u.indexOf('EBEN T6') > -1,
+				 defaultbrowser:u.indexOf('534.30') > -1,
+            };
+         }(),
+         language:(navigator.browserLanguage || navigator.language).toLowerCase()
+}
+
+if(browser.versions.iPhone || browser.versions.iPad){
+	setActiveStyleSheet("apple_explain_zh.css");
+}
+else{
+	setActiveStyleSheet("android_explain_zh.css");
+	btn1 = "获取密码";
+	btn2 = "注册";
+}
+
+
+function setActiveStyleSheet(filename){ 
+	document.write("<link href=\"\/css\/"+filename+"\" type=\"text\/css\" rel=\"stylesheet\">");
+}
+
+
+
+</script>
+<style type="text/css"></style>
+<script language="javascript" type="text/javascript">
+	function changlogin(flag){
+            self.location = "https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&html@"+"login_smsexplaineng.htm&[#getarg#]";	
+  }
+	function engstyle(){
+		document.getElementById('english').className = 'eng2';
+	}
+
+function goback(flag)
+{
+   	self.location = "https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@"+flag+"&html@"+"/login_main.htm&[#getarg#]";	
+}
+</script>
+</head><body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  style = "overflow-x:hidden;overflow-y:scroll">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+<input type = "hidden" name = "username" id = "username" value= "" />
+<center>
+  <div id="main"> 
+    <!--
+    <ul class="header_ul" >
+        <li class="china" id="chinese" >中文</li>
+        <li id="split">|</li>
+        <li class="eng" id="english" onClick="changlogin('eng')" onmouseover="engstyle();">English</li>
+    </ul>
+    --> 
+    <!--     <h1>欢迎光临 Apple Store 零售店。</h1>   apple_store_china02-->
+    
+      <div   height = "30px;" width ="150px;" style="margin-top:30px;" > &nbsp;<a href = "#xx" onclick = "goback();"  class = "eng2" >返回 </a></div>
+      <div height = "30px;">&nbsp; </div>
+      <div height= "19px" style = "text-align:center;"> <img src="/images/ap/termssmszhclaim.png"  style="margin-bottom:10px;" /> </div>
+      <div height = "50px;">&nbsp;</div>
+      <img src="../images/ap/horizontal_rule_2x.png" style="  margin-top:25px; margin-left:auto; margin-right:auto;  margin-bottom:30px;" />
+      <div height = "25px;">&nbsp;</div>
+      <div id="login_area">
+      <div class="font_style1">
+        <div class="font_style">定义</div>
+        “<span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店”是指任何在中国境内提供 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络的 <span style=" font-family:HelveticaNeue;">Apple</span> 直营零售店。
+        <div class="jj"></div>
+        “中国电信”是指为 <span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店提供使用 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络的注册系统的中国电信公司或其指定的子公司及关联公司。
+        <div class="jj"></div>
+        “<span style=" font-family:HelveticaNeue;">WLAN</span> 网络”是指由<span style=" font-family:HelveticaNeue;"> Apple </span>和中国电信提供的、帮助用户通过 <span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店及其邻近区域内的无线网络接入点通过注册系统进行无线上网的服务。
+        <div class="jj"></div>
+        “你” 或 “用户”是指使用或尝试使用<span style=" font-family:HelveticaNeue;"> WLAN </span>网络的人。
+		<div class="jj"></div>
+        <div class="font_style">用户认可</div>
+        你特此认可： <span style=" font-family:HelveticaNeue;">(1)</span> 你在 <span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店享受到的 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络系一项无偿提供的免费服务； <span style=" font-family:HelveticaNeue;">(2)</span> 上网服务注册系统由中国电信而非 <span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店提供、运营； <span style=" font-family:HelveticaNeue;">(3)</span> 使用 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络可能需要你接受由中国电信制定的一些条款和条件。但是，在你和 <span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店之间，你对 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络的使用仅受本条款和条件，以及<span style=" font-family:HelveticaNeue;"> Apple </span>的隐私政策  <span style="font-family:HelveticaNeue;">(https://www.apple.com/cn/privacy/)</span> 的约束。
+        <div class="jj"></div>
+        <div class="font_style"><span style=" font-family:HelveticaNeue;">WLAN</span> 网络的功能</div>
+        <span style=" font-family:HelveticaNeue;">WLAN</span> 网络的提供受制于<span style=" font-family:HelveticaNeue;"> Apple </span>和中国电信控制和运营的必要设备和相关设施的可用性和功能局限性。你已理解并同意，在提供 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络的过程中可能会发生正常的暂时性服务中断。<span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店不保证任何 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络功能不会中断或发生错误，也不保证与提供 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络有关的网站或服务器不存在病毒或其他有害内容。
+        <div class="jj"></div>
+        <div class="font_style">安全和隐私</div>
+        使用 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络登录互联网就其本质而言是不安全的。因此，当登录互联网时，你需要自行负责采取或实施你认为合适的安全措施以保护本人的隐私或个人信息及财产。<span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店对你因为使用 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络而遭受的隐私或个人信息及财产的损失、破坏或被非法侵入或使用均不负有任何责任。
+        <div class="jj"></div>
+        你已理解，用户在使用 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络时必须注册他/她的个人信息。同时，使用 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络可能会披露你的当前位置。你还理解，<span style=" font-family:HelveticaNeue;"> Apple </span>和中国电信可能可以获取你在使用 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络过程中提交的信息或其他数据。你承认，你(而非 <span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店)应当对自己所提交的所有信息或数据的合法性、可靠性或正当性负有全部责任。你负有完全责任确保你对 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络的使用符合相关适用的法律和法规的规定。<span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店及其分支机构、关联机构、所有权人或其代表并不承担任何监控、追踪、记录、保存或披露你对 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络的使用(包括但不限于，你访问页面的 <span style=" font-family:HelveticaNeue;">URL</span>、你所输入、传送或接收的数据)的义务。然而，为执法目的或应司法或政府部门的命令或要求，中国电信或 <span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店可能会被要求访问前述信息，并协助披露该等用户信息。
+        <div class="jj"></div>
+        <div class="font_style">使用政策</div>
+        使用 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络应当遵守以下政策。用户不得从事以下行为： <span style=" font-family:HelveticaNeue;">(1)</span> 出于任何欺诈、非法、骚扰或滥用的目的，或为了对 <span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店或任何其他个人或实体的业务、声誉、员工或顾客造成损害或风险而使用或试图使用 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络； <span style=" font-family:HelveticaNeue;">(2)</span> 试图或协助他人对与 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络有关的任何安全组件进行规避、反向工程、反编译、反汇编或以其他方式妨碍该等安全组件的正常运作； <span style=" font-family:HelveticaNeue;">(3)</span> 使用 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络发布、传播、发表、传送、链接或陈列任何可能侵犯任一第三方的权利或违反任何可适用的法律法规的内容、信息或材料。
+        <div class="jj"></div>
+        如果发生<span style=" font-family:HelveticaNeue;">(</span>或 <span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店有合理理由怀疑可能发生<span style=" font-family:HelveticaNeue;">)</span>任何违反前述“使用政策”而使用或试图使用 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络的情形，<span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店，除其可能采取的任何其他救济手段外，无论其是否已事先通知相关用户，有权自行决定以任何方式移除、拦截、过滤或限制其认为违反或可能违反前述使用政策的任何材料或信息<span style=" font-family:HelveticaNeue;">(</span>包括但不限于电子邮件<span style=" font-family:HelveticaNeue;">)</span>，和/或停止向违反或潜在违反前述使用政策的用户提供 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络。
+        <div class="jj"></div>
+        <div class="font_style">无保证和责任限制</div>
+        你明确承认并且同意完全自行承担使用 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络的风险。在适用法律允许的最大限度内，你所享受的 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络是根据“现状”及“现有”基础提供，并附带所有瑕疵且不加任何保证。据此，<span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店特此否认对 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络做出任何明示、默示或法定的保证和条件。
+        <div class="jj"></div>
+        在不被适用法律禁止的范围内，在任何情况下，对于你因使用或无法使用 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络所引起或与此有关的任何人身伤害，以及附带的、特别的、间接的或后果性的损害，包括但不限于利润损失、数据损失、业务中断的损失或任何其它商业损害或损失，无论其成因基于何种责任理论<span style=" font-family:HelveticaNeue;">(</span>合同、侵权或其它<span style=" font-family:HelveticaNeue;">)</span>，即使 <span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店已被告知发生上述损失或损害的可能性，<span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店一律概不负责。如果此处责任限制条款在任何适用法律下被认定无效，<span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店的损害赔偿责任应限于法律所允许的最低金额内。
+        <div class="jj"></div>
+        <div class="font_style">一般性条款</div>
+        本条款和条件系 <span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店和使用 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络的用户之间的最终及全部约定。如果本条款和条件的任何部分被认定为无效或不可执行，应按照相关适用法对这些部分依据最大程度地反映该条款和条件本意的方式进行解释，在此情形下，本条款和条件的其余部分仍应被视为完全有效。<span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店未行使本条款和条件下的任何权利并不构成放弃该等权利或本条款和条件下的任何其他权利。
+        <div class="jj"></div>
+        在法律允许的范围内，<span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店保留如下权利：不论其是否已事先通知相关用户，<span style=" font-family:HelveticaNeue;">Apple Store</span> 零售店可随时或不时对关于使用 <span style=" font-family:HelveticaNeue;">WLAN</span> 网络的条款和条件进行更新、修订、补充或其他修改，并且可以施加新的或额外的规定、政策、条款或条件。
+        <div class="jj"></div>
+      </div>
+      <div   height = "30px;" width ="150px;" > &nbsp;<a href = "#xx" onclick = "goback();"  class = "eng2" >返回 </a></div>
+      <br />
+      <br />
+    </div>
+    <div style=" width:964px; float:right;"></div>
+  </div>
+</center>
+<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>
+</form>
+</body>
+</html>

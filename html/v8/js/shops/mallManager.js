@@ -1,0 +1,209 @@
+﻿/*商品大类管理*/
+Ext.define('shops.mallManager', {
+		extend:'Ext.grid.Panel',
+		autoScroll:false,
+		frame:false,
+		initComponent:function(){
+				if(store_shops_mallmanager.alreadyload != 1){
+						store_shops_mallmanager.fid = '';
+						store_shops_mallmanager.groupid = '';
+						store_shops_mallmanager.name = '';
+						store_shops_mallmanager.detail = '';
+						store_shops_mallmanager.imgpath = '';
+						store_shops_mallmanager.flags = 1;
+						store_shops_mallmanager.plateid = plateid;
+						store_shops_mallmanager.keyword = '';
+						store_shops_mallmanager.caExport = '';
+						store_shops_mallmanager.new_params = {fid:store_shops_mallmanager.fid,groupid:store_shops_mallmanager.groupid,name:store_shops_mallmanager.name,detail:store_shops_mallmanager.detail,imgpath:store_shops_mallmanager.imgpath,flags:store_shops_mallmanager.flags,keyword:store_shops_mallmanager.keyword,caExport:store_shops_mallmanager.caExport};
+				}
+				
+				function reflash(){
+						store_shops_mallmanager.new_params = {fid:store_shops_mallmanager.fid,groupid:store_shops_mallmanager.groupid,name:store_shops_mallmanager.name,detail:store_shops_mallmanager.detail,imgpath:store_shops_mallmanager.imgpath,flags:store_shops_mallmanager.flags,keyword:store_shops_mallmanager.keyword,caExport:store_shops_mallmanager.caExport};
+						//store_shops_mallmanager.currentPage=1;
+						store_shops_mallmanager.load();		
+				}
+				
+				function gotoedit1(value,id,plateid){
+						var windr;
+						var htmlvar='<iframe src="/pronline/Msg?FunName@ncm_webcommall_info&key@'+value+'&fid@'+id+'&plateid@'+plateid+' " scrolling="no" name="drIframe" frameborder="no" style="width:100%;height:550px;"></iframe>';      
+				    var windr = new Ext.Window ({
+				                           id:"windr",
+				                           title:"楼层信息",
+				                           //x:0,
+				                           //y:0,
+				                           width:400,
+				                           height:550,
+				                           bodyPadding: 0,
+				                           modal:true,
+																	 //headerPosition: 'bottom',
+				                           resizable:true,
+				                           closable:true,
+				                           draggable:true,
+				                           html:htmlvar
+				                                          
+				    })       
+				
+					  windr.on("beforeclose", function() {
+					  	reflash();
+					  })
+					  windr.show();
+				}
+				
+				var sm = Ext.create('Ext.selection.CheckboxModel',{
+		        listeners: {
+		            selectionchange: function(sm, selections) {
+		                Ext.getCmp('mallmanager_removeButton').setDisabled(selections.length == 0); 
+		            }
+		        }
+		    });
+		    
+		    Ext.apply(this, {
+		    		border:false,
+		    		frame:false,
+		    		autoScroll:true,
+		    		selModel:sm,
+		    		store:store_shops_mallmanager,
+		    		viewConfig:{
+		    				loadMask:false	
+		    		},
+		    		columns:[{
+		            text: "序号",
+		            dataIndex: 'fid',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: true
+		        },{
+		            header: '编辑',
+		            xtype: 'actioncolumn',
+		            dataIndex: 'fid',
+		            iconCls: 'edit',
+		            tooltip: '点击进入修改界面',
+		            width: 50,
+		            align: 'center',
+		            sortable: false,
+		            handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
+		                gotoedit1("update",record.get('fid'),plateid);
+		            }
+		        },{
+		            text: "楼层名称",
+		            dataIndex: 'name',
+		            width: 120,
+		            //align: 'center',
+		            hidden: false,
+		            sortable: true
+		        },{
+		            text: "图片路径",
+		            dataIndex: 'imgpath',
+		            width: 300,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "商品大类名称",
+		            dataIndex: 'groupid',
+		            width: 120,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		            text: "描述",
+		            dataIndex: 'detail',
+		            width: 700,
+		            //align: 'center',
+		            hidden: false,
+		            sortable: false
+		        },{
+		            text: "标记",
+		            dataIndex: 'flags',
+		            width: 100,
+		            //align: 'center',
+		            hidden: true,
+		            sortable: false
+		        },{
+		        	 flex: 1	
+		        }],
+		        
+		        columnLines: true,
+		        
+		        // paging bar on the bottom
+		        tbar:{items:[
+				        	  '-', {
+		            	labelWidth: 40,
+		            	width:200,
+		                fieldLabel:'关键字',
+		                xtype: 'textfield',
+		                id:'mallmanager_keyword',
+		                name:'mallmanager_keyword',
+		                value:store_shops_mallmanager.keyword,
+		                emptyText:'请输入楼层名称',
+		                enableKeyEvents:true,
+		                listeners:{
+			                 'focus':function(){
+					                 if(this.value=='输入商品大类名称'){                
+					                    this.setValue('');
+					                 }
+		                   },
+		         
+			                'keydown' : function(i,e){
+			                    var aae=e.getKey(); 
+			                    if(aae==13){
+			                    		var aa=Ext.getCmp('mallmanager_keyword').value;
+					                    if(aa!='输入商品大类名称'){
+							       	            store_shops_mallmanager.keyword=aa;
+									                store_shops_mallmanager.currentPage=1;
+									                reflash();
+							                }
+			                    }
+			                }
+		                }
+		            }, {
+		                text:'查询',
+		                //itemId: 'moveButton',
+		            		iconCls:'accept',
+		                //disabled: true,
+		                handler:function(){
+			                 var bb=Ext.getCmp('mallmanager_keyword').value;
+				               if(bb!='输入商品大类名称'){         
+				                  store_shops_mallmanager.keyword=bb;
+				               }
+				               else{
+				                  store_shops_mallmanager.keyword='';
+				               }
+				               store_shops_mallmanager.currentPage=1;         
+				               reflash();  
+		                }
+		            },'-',{
+		                 text:'增加',
+		                 iconCls:'add',
+			               handler : function() {
+			               		gotoedit1("add", '', plateid);
+			               }
+		            },'-',{
+		                text:'删除',
+		                id: 'mallmanager_removeButton',
+		                iconCls:'remove',
+		                //disabled: true,
+		                handler:function(){
+										   if(confirm('您真的要执行删除操作吗？')){                  
+					                var selsid;  
+					                var rows=sm.getSelection();
+					                selsid='';
+					                for(var i=0;i<rows.length;i++){
+					                  	if(i==0){
+					                  	   selsid="'" + rows[i].get('fid') + "'";
+					                  	}
+					                  	else{
+					                       selsid=selsid + "," + "'" + rows[i].get('fid') + "'";
+					                    }
+					                }
+		                      store_shops_mallmanager.load({params: {del: "del",selsid:selsid}});
+		                   }
+		                }
+		            }]
+            }
+		    });
+		    store_shops_mallmanager.alreadyload = 1;
+		    this.callParent(arguments);
+		}	
+});

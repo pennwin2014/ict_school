@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="/css/flexslider.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.flexslider-min.js"></script>
+<script src="/js/shop_home.js"></script>
+
+<title>丹尼斯欢迎您</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+
+.wrap {
+	width:400px;
+	margin:0 auto;
+	
+	
+}
+.shop_body{ border:1px solid #CCC; width:400px; height:auto; margin:0 auto;}
+.wrap div img{ float:left; width:24%}
+
+.r_img img{ border-bottom:1px solid #CCC;}
+.br_img img{ border-bottom:1px solid #CCC;border-right:1px solid #CCC;}
+.b_img img{border-right:1px solid #CCC;}
+.top_tit{ width:400px; height:50px; margin:0 auto;
+FILTER:progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#21a9dd,endColorStr=#1163b5); /*IE*/ 
+background:-moz-linear-gradient(top,# 21a9dd,#1163b5);/*火狐*/ 
+background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#21a9dd), to(#1163b5));/*谷歌*/ }
+.top_tit{ font-size:1.5em; color:#FFF; text-align:center; line-height:50px;}
+.top_tit img{ height:25px; width:auto;}
+.right_p{ position:relative; padding-left:100px;}
+.left_p{ position:relative; padding-right:100px;}
+
+.f1{width:380px; height:30px; margin:0 auto; font-size:1em; color:#fff; text-align:center; line-height:30px;
+FILTER:progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#21a9dd,endColorStr=#1163b5); /*IE*/ 
+background:-moz-linear-gradient(top,# 21a9dd,#1163b5);/*火狐*/ 
+background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#21a9dd), to(#1163b5));}
+.gengduo img{ width:380px; height:auto; margin-left:10px;}
+
+</style>
+<script type="text/javascript">
+	function init(){
+   parent.showTitle2("购物引导");
+  }
+  function showgoods(sid){
+  	   window.location.href="/pronline/Msg?FunName@ncmShowsCxyhGoods&sid@"+sid+"&tsid@"+document.getElementById("tsid").value+"&plateid@"+document.getElementById("plateid").value;
+  }
+</script>
+</head>
+<body onload="init()">
+<div id="top"></div>
+<input type="hidden" name="rg" id="rg" value="[#getarg#]"/>
+<input type="hidden" name="rl" id="rl" value="[#posturl#]"/>
+<form id="form1" name="form1" id="form1" method="post" action="/pronline/Msg">
+<input type="hidden" id="FunName" name="FunName" value="">
+<input type="hidden" id="id" name="id" value="">
+<input type="hidden" id="uid" name="uid" value="">
+<input type="hidden" id="shopid" name="shopid" value="">
+<input type="hidden" id="tsid" name="tsid" value="[#tsid#]">
+<!-- <input type="hidden" id="position11" name="position11" value=""> -->
+<input type="hidden" id="keyword" name="keyword" value="">
+<input type="hidden" name="plateName" id="plateName" value="newshop"/>
+<input type="hidden" name="plateid" id="plateid" value="[#plateid#]"/>
+</form>
+
+    <div style="height:10px; clear:both;"></div>
+ <div class="shop_body">
+ 	
+ 	[#SLPB#]
+    <div class="f1">
+    	[#fname#] 品牌推荐
+    </div>
+     [#SLPB#]
+<div class="wrap" id="wrap">
+  
+	<div class="content_main">
+		 [#SLPB#]
+    	<div class="br_img"><img  src="[#imgpath#]"  onclick="showgoods('[#bid#]')" /></div>
+    	[#SLPE#]
+    </div>
+
+</div>
+<div style="clear:both;"></div>
+   [#SLPE#]
+   
+<div class="gengduo"><img  src="/images/newshop/shop_03_01.jpg"/></div>
+
+[#SLPE#]
+
+
+
+<div style="clear:both;"></div>
+</div>
+</body>
+</html>
