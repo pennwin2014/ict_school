@@ -5,9 +5,85 @@
 <title>个人中心</title>
 <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
 <style type="text/css">   
-	.csName{
+	.csMain{
+		position:absolute;
+		width:100%;
+		height:100%;
 		color:#FFFFFF;
 	}
+	.csInfo{
+		font-size:16px;
+		position:absolute;
+		background:#44444c;
+		margin:3%;
+		width:94%;
+		height:300px;
+		top:0;
+		left:0;
+	}
+	.csHint{
+		position:absolute;
+		background:#44444c;
+		margin:3%;
+		width:94%;
+		top:350px;
+		height:300px;
+		left:0;
+	}
+	.csInfoLine{
+		position:relative;
+		margin:10px 0 0 15px;		
+	}
+	.csHeader{
+		position:absolute;
+		width:95px;
+		height:95px;
+	}
+	.csUser{
+		position:absolute;
+		top:10%;
+		left:50%;
+	}
+	#idState{
+		position:absolute;
+	}
+	#idCut{
+		position:absolute;
+		left:60%;
+		color:#44444c;
+		width:60px;
+		height:23px;
+		cursor:pointer;
+	}
+	#idQuit{
+		position:absolute;
+		left:60px;
+		top:50px;
+		width:110px;
+		height:30px;
+		cursor:pointer;
+		color:#FFFFFF;
+		background: url(/school/images/btnQuit.png) 0 0 no-repeat !important;
+		border-radius:3px;
+		text-align:'center';
+	}
+	#idCharge{		
+		position:absolute;
+		font-size:10px;
+		color:#f39700;
+		left:100px;
+		top:0;
+		cursor:pointer;
+	}
+	#idTransfer{		
+		position:absolute;
+		font-size:10px;
+		color:#f39700;
+		left:170px;
+		top:0;
+		cursor:pointer;
+	}
+
 </style>
 <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
    
@@ -37,6 +113,38 @@ Ext.onReady(function(){
     
 </head>
 <body>
-	<p class="csName">小明</p>
+	<div class="csMain">
+		<div class="csInfo">
+			<div class="csInfoLine">
+				<img src="/school/images/header.png" style="margin:0 0px 0 0px;" width="61" height="60">
+				<div class="csUser">
+					<p>小明</p>
+					<p>1586*****</p>
+				</div>
+			</div>
+			<div class="csInfoLine">
+				<p id="idProducts">套餐: 50元基础套餐</p>
+			</div>
+			<div class="csInfoLine">
+				<p id="idBalance">余额: 20元</p>
+				<p id="idCharge">立即充值</p>
+				<p id="idTransfer">余额转让</p>
+			</div>
+			</br>
+			<div class="csInfoLine">
+				<p id="idState">状态: 上网中</p>
+				<input id="idCut" type="button" value="断线"/>
+			</div>
+			</br>
+			<div class="csInfoLine">
+				<div id="idQuit" value=""/>
+					<>
+				</div>
+			</div>		
+		</div>
+		<div class="csHint">
+			温馨提示
+		</div>
+	</div>
 </body>
 </html>

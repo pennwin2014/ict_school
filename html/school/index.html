@@ -3,33 +3,38 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=GBK">
 <title>校园管理</title>
-<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+<!--link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /--> 
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all-gray.css" /> 
+
 <style type="text/css">   
    .x-selectable, .x-selectable * {   
 		-moz-user-select: text!important;   
 		-khtml-user-select: text!important;   
 	}  
-	.csHeader{
-		font-size:25px;		
+	.csTitle{
+		font-size:25px;	
+		color:#FFFFFF;
+		font-weight:bold;
+	}
+	.over_topbtn{
+		background:#007e7e !important;
 	}	
-	.bkmenuf_id_infoquery, .bkmenuf_id_infoquery button{
-		width:147px !important;
-		height: 30px !important;
-		background: url(/school/images/bkmenuf_infoquery.png) !important;	
-		filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')" !important;  
-		-moz-background-size:100% 100% !important;  
-		background-size:100% 100% !important;  
-		margin:0px 0 0px 0px !important;	
-		border-bottom:0px solid #00B1F1 !important;
-		border-radius:0 !important;
+	.icon_frontPage_main{
+		background: url(/school/images/topIcons/frontPage_main.png) 40px 0 no-repeat !important;
+		width:120px !important;
 	}
-	.cls_menu_second_normal{
-		width:147px !important;
-		height: 30px !important;
-		background:#FFFFFF !important;
-		border-radius:0px !important;
-		border:5px solid black;
+
+	.icon_ictShop_main{
+		background: url(/school/images/topIcons/ictShop_main.png) 40px 0 no-repeat !important;
+		width:120px !important;
 	}
+
+	.icon_support_help{
+		background: url(/school/images/topIcons/support_help.png) 40px 0 no-repeat !important;
+		width:120px !important;
+	}
+
+	
 
 </style>
 <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
@@ -58,94 +63,72 @@ Ext.onReady(function(){
 		layout: 'border',
 		items: [{
 			region: 'north',
-			xtype:'panel',
-			//html: '<p class="csHeader">大学智慧校园网</p>',
-			border: false,			
-			height:100,
+			xtype:'toolbar',
+			style: 'background:#00a5a5 !important;',	
+			height:70,
 			margins: '0 0 0 0',
 			items:[
 					{
-						//title:'大学智慧校园网',
-						html: '<p class="csHeader">大学智慧校园网</p>',
-						xtype:'panel',
-						height:50
-						//html:'&nbsp;<img src="/school/images/bkmenuf_infoquery.png" style="margin:0 0px 0 0px;" width="100%" height="30">'
-					},{
-						xtype:'toolbar',
-						//xtype:'panel',						
-						//layout:'column',
-						height:50,		
-						items:[
-							{
-								xtype: 'button',
-								cls:"cls_menu_second_normal", 
-								text : '<font style="font-size:18px !important; font-weight:bold; color:#000000;">首页</font>',
-								handler: function() {
-									ictGlobalCtx.jumpToPage('id_frontPage_main');
-								}
-							},{ xtype: 'tbspacer', width: 50 },{
-								xtype: 'button',
-								cls:"cls_menu_second_normal", 
-								text : '<font style="font-size:18px !important; font-weight:bold; color:#000000;">ICT商城</font>',
-								handler: function() {
-									ictGlobalCtx.jumpToPage('id_ictShop_main');
-								}
-							},{ xtype: 'tbspacer', width: 50 },{
-								xtype: 'button',
-								cls:"cls_menu_second_normal", 
-								text : '<font style="font-size:18px !important; font-weight:bold; color:#000000;">客服与帮助</font>',
-								handler: function() {
-									ictGlobalCtx.jumpToPage('id_support_help');
-								}
-							}
-						]
-					}
-					
+						itemid:'logo',
+						xtype:'label',
+						html:'&nbsp;<img src="/school/images/ict_logo.png" style="margin:0 0px 0 0px;" width="61" height="60">'
+					},{ 
+						xtype: 'tbspacer', 
+						width: 30 
+					},{ 
+						xtype: 'label',
+						html:'<p class="csTitle">XXXX大学智慧校园管理系统</p>'
+					},{ 
+						xtype: 'tbspacer', 
+						width: 250 
+					},'-',{
+						xtype:'button',
+						text: '<font style="font-size : 12px !important; color:#FFF;">首页</font>',
+						scale:'large',
+						width:120,
+						iconAlign: 'top',
+						iconCls:'icon_frontPage_main',
+						overCls:'over_topbtn',
+						handler: function() {
+							ictGlobalCtx.jumpToPage('id_frontPage_main');
+						}
+					},'-',{
+						text: '<font style="font-size : 12px !important; color:#FFF;">ICT商城</font>',
+						scale:'large',
+						width:120,
+						iconAlign: 'top',
+						iconCls:'icon_ictShop_main',
+						overCls:'over_topbtn',
+						handler: function() {
+							ictGlobalCtx.jumpToPage('id_ictShop_main');
+						}
+					},'-',{
+						text: '<font style="font-size : 12px !important; color:#FFF;">客服与帮助</font>',
+						scale:'large',
+						width:120,
+						iconAlign: 'top',
+						iconCls:'icon_support_help',
+						overCls:'over_topbtn',
+						handler: function() {
+							ictGlobalCtx.jumpToPage('id_support_help');
+						}
+					},'-'
 			]
 		}, {
 			region: 'west',
 			collapsible: false,
 			xtype:'panel',
 			//title: '个人中心',
-			width: 300,
-			bodyStyle: 'background:#111111 !important;',
-			html:'<iframe src="/school/self.html" frameborder="no" style="width:100%;height:100%;"></iframe>'
-			/*
-			items:[
-				{
-					xtype:'label',
-					html:'&nbsp;<img src="/school/images/banner_logo.png" style="margin:0 0px 0 0px;" width="100" height="100">'
-				},{
-					xtype:'label',
-					title:'小明'
-				}
-			]*/
+			width: 265,
+			bodyStyle: 'background:#32323a !important;',
+			html:'<iframe src="/school/self.html" frameborder="no" style="width:100%;height:1000px;"></iframe>'
 		},{
 			region:'center',
 			xtype:'panel',
 			id:'center_panel',
 			title: '您当前的位置: 首页', 
 			html:'<iframe src="/school/frontPage/ict_frontPage_main.html" frameborder="no" style="width:100%;height:1000px;"></iframe>'
-		}/*{
-			region: 'center',
-			xtype: 'tabpanel', 
-			activeTab: 0,  
-			frame: true,        
-			layout: 'form',
-			activeTab: 0,
-			items: [
-				{
-					title: '首页',
-					html: '<iframe src="/school/frontPage/ict_frontPage_main.html" frameborder="no" style="width:100%;height:1000px;"></iframe>'
-				},{
-					title: 'ICT商城',
-					html: '<iframe src="/school/ictShop/ict_ictShop_main.html" frameborder="no" style="width:100%;height:1000px;"></iframe>'
-				},{
-					title: '客服与帮助',
-					html: '<iframe src="/school/support/ict_support_help.html" frameborder="no" style="width:100%;height:1000px;"></iframe>'
-				}
-			]
-		}*/]
+		}]
 	});
 });
 </script>

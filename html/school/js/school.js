@@ -16,6 +16,25 @@ function f_IctGlobalContext(){
 	}
 
 //工具方法
+/**
+* 作用：判断远程文件是否存在
+* 参数：文件的地址
+* 返回值： true--存在，false--不存在
+*/
+	this.isRemoteFileExist = function(fileUrl){
+		Ext.Ajax.request({
+			url:""+fileUrl,
+			async: false,
+			type:'HEAD',
+			error: function() {
+			   return false;
+			},
+			success: function() {
+			  return true;
+			}
+		});
+	}
+//校验的方法
 	this.isNull = function(value){
 		if (!value || typeof(value)=="undefined" || value==0){
 			return true;
@@ -23,25 +42,6 @@ function f_IctGlobalContext(){
 			return false;
 		}
 	}
-	/**
-	* 作用：判断远程文件是否存在
-	* 参数：文件的地址
-	* 返回值： true--存在，false--不存在
-	*/
-	this.isRemoteFileExist = function(fileUrl){
-		Ext.Ajax.request({
-		   url:""+fileUrl,
-		   async: false,
-		   type:'HEAD',
-		   error: function() {
-			   return false;
-		   },
-		   success: function() {
-			  return true;
-		   }
-		});
-	}
-//校验的方法
 	this.CheckMail = function (mail){
 		var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 		if (filter.test(mail)) 

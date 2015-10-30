@@ -48,6 +48,7 @@ int ncmShoppingGuiding(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead);
 int ncmInitWebFun_Cxyh(utShmHead *psShmHead);
 int ictInitWebFun_hjj(utShmHead *psShmHead);
 int ictInitWebFun_gpx(utShmHead *psShmHead);
+int ictInitWebFun_wp(utShmHead *psShmHead);
 
 
 int ncmBrandManageList(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead);
@@ -345,6 +346,7 @@ int ncmInitWebFun(utShmHead *psShmHead)
     ncmInitWebFun_Cxyh(psShmHead);
     ictInitWebFun_hjj(psShmHead);
     ictInitWebFun_gpx(psShmHead);
+	ictInitWebFun_wp(psShmHead);
     //有关香港广场的功能函数
     iReturn = pasSetTcpFunName("ncm_limitband", ncm_limitband, 0);           //带宽选择
 
