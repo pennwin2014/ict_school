@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>登录</title>
+    <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
+        <style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .x-form-clear-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/clear-trigger.gif);
+        }
+        
+        .x-form-search-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/search-trigger.gif);
+        }
+.x-grid3-cell-inner{
+white-space:normal !important;
+overflow:visible!important;
+}
+
+
+    </style>
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+    -moz-user-select: text!important;   
+    -khtml-user-select: text!important;   
+}   
+</style>
+      
+    <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+
+  <script>  
+
+Ext.onReady(function() {
+		  Ext.QuickTips.init();  
+    var changePasswordFrom = new Ext.form.FormPanel({  
+        title:'登录',  
+        renderTo:'docbody',  
+        frame:true,  
+        width:400,  
+        buttonAlign:'center',  
+        labelAlign:'right',  
+        labeWidth:150,  
+        defaultType:'textfield',  
+        defaults:{width:200,allowBlank:false,msgTarget:'side'}, 
+        items:[   
+			{  
+             fieldLabel:'手机/学号',  
+             name:'vname',  
+             blankText:'手机/学号不能为空',  
+             id:'vname'  
+            },
+            {  
+             fieldLabel:'密码',  
+             name:'passwd',  
+             inputType:'password',  
+             blankText:'密码不能为空',  
+             id:'passwd'  
+            }
+        ],  
+        buttons:[{  
+            text:'确定',  
+            handler:function(){  
+				//如果验证未通过，不提交
+                if(!changePasswordFrom.getForm().isValid()){  
+                  return;  
+                }  
+                changePasswordFrom.getForm().submit({					
+                    url:'/pronline/Msg',  
+					params:{FunName:'ict_login'},
+                    success:function(f,action){  
+						alert(action.result.result);
+						
+                        if(action.result.result){  
+                            alert('登录成功');  
+                        }  
+                    },  
+                    failure:function(f,action){   
+                        changePasswordFrom.getForm().reset();  
+                        alert('登录失败');  
+						alert("f="+f);
+						var info = {
+		'userName':'小白',
+		'vName':'124',
+		'bType':'1',
+		'bName':'100元基础套餐',
+		'money':'23'
+	};
+						parent.ic.set(info);
+                    }   
+                });  
+            }
+        },{
+            text: '取消',
+            handler: function(){
+            //Ext.getCmp('addwindow').close();
+			alert("返回之前的页面！");
+            }
+		}]  
+    });  
+});
+
+//参考例子：
+        /*buttons: [
+            {
+                text   : '保存',
+                handler: function() {
+             
+                 this.up('form').getForm().doAction('submit',{
+                 url:'/pronline/Msg',
+                 method:'post',
+                 params:{FunName:'lanBackParmSet_Save'},   
+                  success:function(form,action){
+           
+                 alert(action.result.success);
+                 }   
+                 })
+
+                }
+            },
+            {
+                text   : '手动立即执行',
+                handler: function() {
+             
+                 this.up('form').getForm().doAction('submit',{
+                 url:'/pronline/Msg',
+                 method:'post',
+                 params:{FunName:'lanBackParmSet_Save',app:'app'},   
+                  success:function(form,action){
+    
+                 alert('正在执行备份操作，请稍候!');
+                 }   
+                 })
+
+                }
+            }
+        ]*/
+</script>
+    
+</head>
+<body style="background-color:#DEE8FA">
+
+    <div id="docbody" ></div>
+
+</body>
+</html>

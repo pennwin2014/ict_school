@@ -19,10 +19,10 @@
 
 int ict_register(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
-	//sqlÓï¾ä´¦ÀíÓÐÈýÖÖ£¬²éÑ¯µÄ»°ÓÃpasDbOneRecord
-	//pasDbOneRecord(sqlbuf, 0, UT_TYPE_LONG, 4, &lCount);Ò»°ãÊÇÖ»·µ»ØÒ»¸öÊý¾Ý£¬½«Êý¾Ý´æÔÚlCountÖÐ
-	//insert,delete,updateµÈÓÃpasDbExecSqlF£
-	//²éÑ¯Óï¾äÓÃ psCur = pasDbOpenSql(sql, 0);
+    //sqlÓï¾ä´¦ÀíÓÐÈýÖÖ£¬²éÑ¯µÄ»°ÓÃpasDbOneRecord
+    //pasDbOneRecord(sqlbuf, 0, UT_TYPE_LONG, 4, &lCount);Ò»°ãÊÇÖ»·µ»ØÒ»¸öÊý¾Ý£¬½«Êý¾Ý´æÔÚlCountÖÐ
+    //insert,delete,updateµÈÓÃpasDbExecSqlF£
+    //²éÑ¯Óï¾äÓÃ psCur = pasDbOpenSql(sql, 0);
     int iReturn = 0;
     utMsgPrintMsg(psMsgHead);
     char caVname[32 + 1] = "";
@@ -43,7 +43,7 @@ int ict_register(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     utStrDelSpaces(caAddress);
     utStrDelSpaces(caVname);
     //utPltDbHead* psDbHead = utPltInitDbHead();
-	utPltDbHead* psDbHead = utPltInitDb();  
+    utPltDbHead* psDbHead = utPltInitDb();
     if(strlen(caVname) > 0)
     {
         memset(sqlbuf, 0, sizeof(sqlbuf));
@@ -61,34 +61,34 @@ int ict_register(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         }
         //²åÈëÊý¾Ý¿â
         memset(sqlbuf, 0, sizeof(sqlbuf));
-        snprintf(sqlbuf, sizeof(sqlbuf) - 1, "insert into userlib (vname,dname,address,passwd,mname) values('%s','%s','%s','%s','%s');",
+        snprintf(sqlbuf, sizeof(sqlbuf) - 1, "insert into userlib (vname,dname,address,passwd,mname) values('%s','%s','%s','%s','%s')",
                  caVname, caDname, caAddress, caPasswd, caMname);
-         /*snprintf(sqlbuf, sizeof(sqlbuf) - 1, "insert into userlib (vname,dname,address,passwd,mname) values('%s','%s','%s','%s','%s')",
-                 utf8convert(psShmHead,caVname), utf8convert(psShmHead,caDname), utf8convert(psShmHead,caPasswd), utf8convert(psShmHead,caAddress), utf8convert(psShmHead,caMname));   */     
-		//snprintf(sql,sizeof(sql),"insert into help (messageTitle,messageContent)values('%s','%s')",utf8convert(psShmHead,messageTitle),utf8convert(psShmHead,messageContent));
+        /*snprintf(sqlbuf, sizeof(sqlbuf) - 1, "insert into userlib (vname,dname,address,passwd,mname) values('%s','%s','%s','%s','%s')",
+                utf8convert(psShmHead,caVname), utf8convert(psShmHead,caDname), utf8convert(psShmHead,caPasswd), utf8convert(psShmHead,caAddress), utf8convert(psShmHead,caMname));   */
+        //snprintf(sql,sizeof(sql),"insert into help (messageTitle,messageContent)values('%s','%s')",utf8convert(psShmHead,messageTitle),utf8convert(psShmHead,messageContent));
         printf("insert sql=%s\n", sqlbuf);
         iReturn = pasDbExecSqlF(sqlbuf);
         //pasDbExecSql(sqlbuf, 0);
-		printf("iReturn=%d\n", iReturn);
+        printf("iReturn=%d\n", iReturn);
         if(iReturn != 0)
         {
             snprintf(caMsg, sizeof(caMsg) - 1, "²Ù×÷Êý¾Ý¿âÊ§°Ü,´íÎóÂë=[%d]", iReturn);
-			utPltPutVar(psDbHead, "mesg", caMsg);
-			//sqlÓï¾ä²Ù×÷»Ø¹ö
+            utPltPutVar(psDbHead, "mesg", caMsg);
+            //sqlÓï¾ä²Ù×÷»Ø¹ö
             //pasDbRollback(NULL);
         }
         else
         {
-            pasDbCommit(NULL);
+           // pasDbCommit(NULL);
         }
-		utPltPutVarF(psDbHead, "result", "%d", iReturn);
+        utPltPutVarF(psDbHead, "result", "%d", iReturn);
     }
     else
     {
         snprintf(caMsg, sizeof(caMsg) - 1, "vname²»¿ÉÒÔÎª¿Õ");
         utPltPutVar(psDbHead, "mesg", caMsg);
         utPltPutVarF(psDbHead, "result", "%d", 2);
-    }    
+    }
     utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/register/register.htm");
     return 0;
 }

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>æ›´æ¢å¥—é¤</title>
+<title>¸ü»»Ì×²Í</title>
     <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
         <style type="text/css">
         .icon-grid {
@@ -61,7 +61,7 @@ var temp_id='';
 var preid='';
 
  function gbck(){
-   //å…³é—­å¼¹å‡ºçš„çª—å£
+   //¹Ø±Õµ¯³öµÄ´°¿Ú
    Ext.getCmp('addwindow').close();
    reflash();
  }
@@ -83,7 +83,7 @@ var store;
 var store_right;
 var store_adminuser;
 
-		/*å‘ä¸Šéå†çˆ¶ç»“ç‚¹*/
+		/*ÏòÉÏ±éÀú¸¸½áµã*/
 		var nodep=function(node){
 			var bnode=false;
 			
@@ -107,7 +107,7 @@ var store_adminuser;
 			}
 		};
 		
-		/*éå†å­ç»“ç‚¹é€‰ä¸­ä¸å–æ¶ˆé€‰ä¸­æ“ä½œ*/
+		/*±éÀú×Ó½áµãÑ¡ÖĞÓëÈ¡ÏûÑ¡ÖĞ²Ù×÷*/
 		var chd=function (node,check){
 			node.set('checked',check);
 			if(node.isNode){
@@ -118,33 +118,33 @@ var store_adminuser;
 			}
 		};
 
-		/*éå†å­ç»“ç‚¹é€‰ä¸­ä¸å–æ¶ˆé€‰ä¸­æ“ä½œ*/
+		/*±éÀú×Ó½áµãÑ¡ÖĞÓëÈ¡ÏûÑ¡ÖĞ²Ù×÷*/
 		/*var chd1=function (node,fun){
 			
 			//console.info(node.getId(),",",fun);
 			if(node){
-				if(node.getId()=='client,å®¢æˆ·ç«¯ä¿¡æ¯'){
+				if(node.getId()=='client,¿Í»§¶ËĞÅÏ¢'){
 					//alert(node.getId()+(fun.indexOf("client")));
 					if(fun!="" && fun.indexOf("client")!=-1){
 						node.set('checked',true);
 					}else{
 						node.set('checked',false);
 					}
-				}else if(node.getId()=='dept,éƒ¨é—¨ç®¡ç†'){
-					if(fun!="" && fun.indexOf("dept,")!=-1 && fun.indexOf("éƒ¨é—¨ç®¡ç†")!=-1){
+				}else if(node.getId()=='dept,²¿ÃÅ¹ÜÀí'){
+					if(fun!="" && fun.indexOf("dept,")!=-1 && fun.indexOf("²¿ÃÅ¹ÜÀí")!=-1){
 						//console.info(node.getId(),",",fun,fun.indexOf("tree_procy,"));
 						node.set('checked',true);
 					}else{
 						node.set('checked',false);
 					}
-				}else if(node.getId()=='lay_base,é¢„å®šä¹‰å¯¹è±¡'){
+				}else if(node.getId()=='lay_base,Ô¤¶¨Òå¶ÔÏó'){
 					if(fun!="" && fun.indexOf("lay_base")!=-1){
 						//console.info(node.getId(),",",fun,fun.indexOf("tree_procy,"));
 						node.set('checked',true);
 					}else{
 						node.set('checked',false);
 					}
-				}else if(node.getId()=='blacklist,é»‘ç™½åå•'){
+				}else if(node.getId()=='blacklist,ºÚ°×Ãûµ¥'){
 					if(fun!="" && fun.indexOf("blacklist")!=-1){
 						//console.info(node.getId(),",",fun,fun.indexOf("tree_procy,"));
 						node.set('checked',true);
@@ -186,136 +186,136 @@ var store_adminuser;
   // 	autoLoad: true, 
    	model: 'treeData',
    	root: {
-			text: "å…¨éƒ¨æƒé™",
+			text: "È«²¿È¨ÏŞ",
 			checked: false,
 			expanded: true,
 			children: [
-				{ id: "å®æ—¶ç›‘æ§",text: "å®æ—¶ç›‘æ§", checked: false, leaf: false, expanded: true, children: [
-					{ id: 'sjcomputer',text: "åœ¨çº¿è®¡ç®—æœº", checked: false, leaf: false, expanded: true, children: [
-						{ id: 1110,text: "å›¾æ ‡æ–¹å¼", checked: false, leaf: true},
-						{ id: 1120,text: "åˆ—è¡¨æ–¹å¼", checked: false, leaf: true}
+				{ id: "ÊµÊ±¼à¿Ø",text: "ÊµÊ±¼à¿Ø", checked: false, leaf: false, expanded: true, children: [
+					{ id: 'sjcomputer',text: "ÔÚÏß¼ÆËã»ú", checked: false, leaf: false, expanded: true, children: [
+						{ id: 1110,text: "Í¼±ê·½Ê½", checked: false, leaf: true},
+						{ id: 1120,text: "ÁĞ±í·½Ê½", checked: false, leaf: true}
 					]},
-					{ id: 'sspm',text: "å®æ—¶å±å¹•", checked: false, leaf: true},
-					{ id: 'immon',text: "å®æ—¶èŠå¤©", checked: false, leaf: true},
-					{ id: 'ssjc',text: "å®æ—¶è¿›ç¨‹", checked: false, leaf: true}
+					{ id: 'sspm',text: "ÊµÊ±ÆÁÄ»", checked: false, leaf: true},
+					{ id: 'immon',text: "ÊµÊ±ÁÄÌì", checked: false, leaf: true},
+					{ id: 'ssjc',text: "ÊµÊ±½ø³Ì", checked: false, leaf: true}
 				]},
-				{ id: "æ§åˆ¶ç­–ç•¥",text: "æ§åˆ¶ç­–ç•¥", checked: false, leaf: false, expanded: true, children: [
-					{ id: "control",text: "ç­–ç•¥æ§åˆ¶", checked: false, leaf: false, expanded: true, children: []},
-					{ id: "blacklist,é»‘ç™½åå•",text: "é»‘ç™½åå•", checked: false, leaf: false, expanded: true, children: []}
+				{ id: "¿ØÖÆ²ßÂÔ",text: "¿ØÖÆ²ßÂÔ", checked: false, leaf: false, expanded: true, children: [
+					{ id: "control",text: "²ßÂÔ¿ØÖÆ", checked: false, leaf: false, expanded: true, children: []},
+					{ id: "blacklist,ºÚ°×Ãûµ¥",text: "ºÚ°×Ãûµ¥", checked: false, leaf: false, expanded: true, children: []}
 				]},
-				{ id: 'æ—¥å¿—æŸ¥çœ‹',text: "æ—¥å¿—æŸ¥çœ‹", checked: false, leaf: false, expanded: true, children: [
-					{ id: 'imcontent',text: "èŠå¤©å†…å®¹", checked: false, leaf: false, expanded: true, children: [
-						{ id: 3110,text: "å¯¼å‡º", checked: false, leaf: true}
+				{ id: 'ÈÕÖ¾²é¿´',text: "ÈÕÖ¾²é¿´", checked: false, leaf: false, expanded: true, children: [
+					{ id: 'imcontent',text: "ÁÄÌìÄÚÈİ", checked: false, leaf: false, expanded: true, children: [
+						{ id: 3110,text: "µ¼³ö", checked: false, leaf: true}
 					]},
-					{ id: 'screenlog',text: "å±å¹•æ—¥å¿—", checked: false, leaf: true},
-					{ id: 'urllog',text: "ç½‘ç«™è®¿é—®æ—¥å¿—", checked: false, leaf: false, expanded: true, children: [
-						{ id: 3310,text: "å¯¼å‡º", checked: false, leaf: true}
+					{ id: 'screenlog',text: "ÆÁÄ»ÈÕÖ¾", checked: false, leaf: true},
+					{ id: 'urllog',text: "ÍøÕ¾·ÃÎÊÈÕÖ¾", checked: false, leaf: false, expanded: true, children: [
+						{ id: 3310,text: "µ¼³ö", checked: false, leaf: true}
 					]},
-					{ id: 'proclog',text: "è¿›ç¨‹ä½¿ç”¨æ—¥å¿—", checked: false, leaf: false, expanded: true, children: [
-						{ id: 3410,text: "å¯¼å‡º", checked: false, leaf: true}
+					{ id: 'proclog',text: "½ø³ÌÊ¹ÓÃÈÕÖ¾", checked: false, leaf: false, expanded: true, children: [
+						{ id: 3410,text: "µ¼³ö", checked: false, leaf: true}
 					]},
-					{ id: 'waishelog',text: "å¤–è®¾ä½¿ç”¨æ—¥å¿—", checked: false, leaf: false, expanded: true, children: [
-						{ id: 3510,text: "å¯¼å‡º", checked: false, leaf: true}
+					{ id: 'waishelog',text: "ÍâÉèÊ¹ÓÃÈÕÖ¾", checked: false, leaf: false, expanded: true, children: [
+						{ id: 3510,text: "µ¼³ö", checked: false, leaf: true}
 					]},
-					{ id: 'filelog',text: "æ–‡ä»¶æ“ä½œæ—¥å¿—", checked: false, leaf: false, expanded: true, children: [
-						{ id: 3610,text: "å¯¼å‡º", checked: false, leaf: true}
+					{ id: 'filelog',text: "ÎÄ¼ş²Ù×÷ÈÕÖ¾", checked: false, leaf: false, expanded: true, children: [
+						{ id: 3610,text: "µ¼³ö", checked: false, leaf: true}
 					]},
-					{ id: 'warnlog',text: "å‘Šè­¦æ—¥å¿—", checked: false, leaf: false, expanded: true, children: [
-						{ id: 3710,text: "å¯¼å‡º", checked: false, leaf: true}
+					{ id: 'warnlog',text: "¸æ¾¯ÈÕÖ¾", checked: false, leaf: false, expanded: true, children: [
+						{ id: 3710,text: "µ¼³ö", checked: false, leaf: true}
 					]}
 				]},
-				{ id: 'è®¡ç®—æœºä¿¡æ¯',text: "è®¡ç®—æœºä¿¡æ¯", checked: false, leaf: false, expanded: true, children: [
-					{ id: 'compbaseinfo',text: "åŸºæœ¬ä¿¡æ¯", checked: false, leaf: true},
-					{ id: 'comphardinfo',text: "ç¡¬ä»¶ä¿¡æ¯", checked: false, leaf: true},
-					{ id: 'compsoftinfo',text: "è½¯ä»¶ä¿¡æ¯", checked: false, leaf: true},
-					{ id: 'compservice',text: "æœåŠ¡ä¿¡æ¯", checked: false, leaf: false, expanded: true, children: [
-						{ id: 4410,text: "æ“ä½œ", checked: false, leaf: true}
+				{ id: '¼ÆËã»úĞÅÏ¢',text: "¼ÆËã»úĞÅÏ¢", checked: false, leaf: false, expanded: true, children: [
+					{ id: 'compbaseinfo',text: "»ù±¾ĞÅÏ¢", checked: false, leaf: true},
+					{ id: 'comphardinfo',text: "Ó²¼şĞÅÏ¢", checked: false, leaf: true},
+					{ id: 'compsoftinfo',text: "Èí¼şĞÅÏ¢", checked: false, leaf: true},
+					{ id: 'compservice',text: "·şÎñĞÅÏ¢", checked: false, leaf: false, expanded: true, children: [
+						{ id: 4410,text: "²Ù×÷", checked: false, leaf: true}
 					]},
-					{ id: 'compssjc',text: "å®æ—¶è¿›ç¨‹", checked: false, leaf: false, expanded: true, children: [
-						{ id: 4510,text: "æ“ä½œ", checked: false, leaf: true}
+					{ id: 'compssjc',text: "ÊµÊ±½ø³Ì", checked: false, leaf: false, expanded: true, children: [
+						{ id: 4510,text: "²Ù×÷", checked: false, leaf: true}
 					]},
-					{ id: 'compdiskinfo',text: "ç£ç›˜ä¿¡æ¯", checked: false, leaf: true},
-					{ id: 'compnetlinkinfo',text: "ç½‘ç»œè¿æ¥ä¿¡æ¯", checked: false, leaf: true}
+					{ id: 'compdiskinfo',text: "´ÅÅÌĞÅÏ¢", checked: false, leaf: true},
+					{ id: 'compnetlinkinfo',text: "ÍøÂçÁ¬½ÓĞÅÏ¢", checked: false, leaf: true}
 				]},
-				{ id: 'åŸºç¡€ä¿¡æ¯',text: "åŸºç¡€ä¿¡æ¯", checked: false, leaf: false, expanded: true, children: [
-					{ id: 'client,å®¢æˆ·ç«¯ä¿¡æ¯',text: "å®¢æˆ·ç«¯ä¿¡æ¯", checked: false, leaf: false, expanded: true, children: [
-						{ id: 5110,text: "å¯¼å‡ºç¡¬ä»¶åˆ—è¡¨", checked: false, leaf: true},
-						{ id: 5120,text: "åˆ é™¤", checked: false, leaf: true},
-						{ id: 5130,text: "å…³æœº", checked: false, leaf: true},
-						{ id: 5140,text: "é‡å¯", checked: false, leaf: true},
-						{ id: 5150,text: "å¸è½½å®¢æˆ·ç«¯", checked: false,  leaf: true},
-						{ id: 5160,text: "ç§»åŠ¨éƒ¨é—¨", checked: false,  leaf: true}
+				{ id: '»ù´¡ĞÅÏ¢',text: "»ù´¡ĞÅÏ¢", checked: false, leaf: false, expanded: true, children: [
+					{ id: 'client,¿Í»§¶ËĞÅÏ¢',text: "¿Í»§¶ËĞÅÏ¢", checked: false, leaf: false, expanded: true, children: [
+						{ id: 5110,text: "µ¼³öÓ²¼şÁĞ±í", checked: false, leaf: true},
+						{ id: 5120,text: "É¾³ı", checked: false, leaf: true},
+						{ id: 5130,text: "¹Ø»ú", checked: false, leaf: true},
+						{ id: 5140,text: "ÖØÆô", checked: false, leaf: true},
+						{ id: 5150,text: "Ğ¶ÔØ¿Í»§¶Ë", checked: false,  leaf: true},
+						{ id: 5160,text: "ÒÆ¶¯²¿ÃÅ", checked: false,  leaf: true}
 					]},
-					{ id: 'dept,éƒ¨é—¨ç®¡ç†',text: "éƒ¨é—¨ç®¡ç†", checked: false,  leaf: false, expanded: true, children: [
-						{ id: 5210,text: "æ·»åŠ éƒ¨é—¨", checked: false,  leaf: true},
-						{ id: 5220,text: "åˆ é™¤éƒ¨é—¨", checked: false,  leaf: true}
+					{ id: 'dept,²¿ÃÅ¹ÜÀí',text: "²¿ÃÅ¹ÜÀí", checked: false,  leaf: false, expanded: true, children: [
+						{ id: 5210,text: "Ìí¼Ó²¿ÃÅ", checked: false,  leaf: true},
+						{ id: 5220,text: "É¾³ı²¿ÃÅ", checked: false,  leaf: true}
 					]},
-					{ id: 'lay_base,é¢„å®šä¹‰å¯¹è±¡',text: "é¢„å®šä¹‰å¯¹è±¡", checked: false,  leaf: false, expanded: true, children: [
-						{ id: 'soft',text: "è½¯ä»¶ç±»å‹å®šä¹‰", checked: false,  leaf: false, expanded: true, children: [
-							{ id: 5311,text: "æ·»åŠ è½¯ä»¶ç±»å‹", checked: false,  leaf: true},
-							{ id: 5312,text: "åˆ é™¤è½¯ä»¶ç±»å‹", checked: false,  leaf: true},
-							{ id: 5313,text: "æ·»åŠ è½¯ä»¶", checked: false,  leaf: true},
-							{ id: 5314,text: "åˆ é™¤è½¯ä»¶", checked: false,  leaf: true}
+					{ id: 'lay_base,Ô¤¶¨Òå¶ÔÏó',text: "Ô¤¶¨Òå¶ÔÏó", checked: false,  leaf: false, expanded: true, children: [
+						{ id: 'soft',text: "Èí¼şÀàĞÍ¶¨Òå", checked: false,  leaf: false, expanded: true, children: [
+							{ id: 5311,text: "Ìí¼ÓÈí¼şÀàĞÍ", checked: false,  leaf: true},
+							{ id: 5312,text: "É¾³ıÈí¼şÀàĞÍ", checked: false,  leaf: true},
+							{ id: 5313,text: "Ìí¼ÓÈí¼ş", checked: false,  leaf: true},
+							{ id: 5314,text: "É¾³ıÈí¼ş", checked: false,  leaf: true}
 						]},
-						{ id: 'timeobj',text: "æ—¶é—´å¯¹è±¡å®šä¹‰", checked: false,  leaf: false, expanded: true, children: [
-							{ id: 5321,text: "æ·»åŠ æ—¶é—´ç±»å‹", checked: false,  leaf: true},
-							{ id: 5322,text: "åˆ é™¤æ—¶é—´ç±»å‹", checked: false, leaf: true},
-							{ id: 5323,text: "æ·»åŠ æ—¶é—´", checked: false,  leaf: true},
-							{ id: 5324,text: "åˆ é™¤æ—¶é—´", checked: false,  leaf: true}
+						{ id: 'timeobj',text: "Ê±¼ä¶ÔÏó¶¨Òå", checked: false,  leaf: false, expanded: true, children: [
+							{ id: 5321,text: "Ìí¼ÓÊ±¼äÀàĞÍ", checked: false,  leaf: true},
+							{ id: 5322,text: "É¾³ıÊ±¼äÀàĞÍ", checked: false, leaf: true},
+							{ id: 5323,text: "Ìí¼ÓÊ±¼ä", checked: false,  leaf: true},
+							{ id: 5324,text: "É¾³ıÊ±¼ä", checked: false,  leaf: true}
 						]},
-						{ id: 'worktime',text: "å·¥ä½œæ—¶é—´å®šä¹‰", checked: false,  leaf: false, expanded: true, children: [
-							{ id: 5331,text: "æ·»åŠ ", checked: false,  leaf: true},
-							{ id: 5332,text: "åˆ é™¤", checked: false,  leaf: true}
+						{ id: 'worktime',text: "¹¤×÷Ê±¼ä¶¨Òå", checked: false,  leaf: false, expanded: true, children: [
+							{ id: 5331,text: "Ìí¼Ó", checked: false,  leaf: true},
+							{ id: 5332,text: "É¾³ı", checked: false,  leaf: true}
 						]},
-						{ id: 'usb',text: "USBç±»å‹å®šä¹‰", checked: false,  leaf: false, expanded: true, children: [
-							{ id: 5341,text: "æ·»åŠ USBç±»å‹", checked: false,  leaf: true},
-							{ id: 5342,text: "åˆ é™¤USBç±»å‹", checked: false,  leaf: true},
-							{ id: 5343,text: "æ·»åŠ USB", checked: false,  leaf: true},
-							{ id: 5344,text: "åˆ é™¤USB", checked: false,  leaf: true}
+						{ id: 'usb',text: "USBÀàĞÍ¶¨Òå", checked: false,  leaf: false, expanded: true, children: [
+							{ id: 5341,text: "Ìí¼ÓUSBÀàĞÍ", checked: false,  leaf: true},
+							{ id: 5342,text: "É¾³ıUSBÀàĞÍ", checked: false,  leaf: true},
+							{ id: 5343,text: "Ìí¼ÓUSB", checked: false,  leaf: true},
+							{ id: 5344,text: "É¾³ıUSB", checked: false,  leaf: true}
 						]}
 					]}
 				]},
-				{ id: 'ç³»ç»Ÿç®¡ç†',text: "ç³»ç»Ÿç®¡ç†", checked: false,  leaf: false, expanded: true, children: [
-					{ id: 'rightrole',text: "æƒé™è§’è‰²", checked: false,  leaf: false, expanded: true, children: [
-						{ id: 6110,text: "å¢åŠ ", checked: false,  leaf: true},
-						{ id: 6120,text: "ä¿®æ”¹", checked: false,  leaf: true},
-						{ id: 6130,text: "åˆ é™¤", checked: false,  leaf: true},
-						{ id: 6140,text: "è¯¦ç»†ç»™å¯¹è±¡", checked: false,  leaf: true}
+				{ id: 'ÏµÍ³¹ÜÀí',text: "ÏµÍ³¹ÜÀí", checked: false,  leaf: false, expanded: true, children: [
+					{ id: 'rightrole',text: "È¨ÏŞ½ÇÉ«", checked: false,  leaf: false, expanded: true, children: [
+						{ id: 6110,text: "Ôö¼Ó", checked: false,  leaf: true},
+						{ id: 6120,text: "ĞŞ¸Ä", checked: false,  leaf: true},
+						{ id: 6130,text: "É¾³ı", checked: false,  leaf: true},
+						{ id: 6140,text: "ÏêÏ¸¸ø¶ÔÏó", checked: false,  leaf: true}
 					]},
-					{ id: 'adminuser',text: "ç³»ç»Ÿç”¨æˆ·", checked: false,  leaf: false, expanded: true, children: [
-						{ id: 6210,text: "å¢åŠ ", checked: false,  leaf: true},
-						{ id: 6220,text: "ä¿®æ”¹", checked: false,  leaf: true},
-						{ id: 6230,text: "åˆ é™¤", checked: false,  leaf: true}
+					{ id: 'adminuser',text: "ÏµÍ³ÓÃ»§", checked: false,  leaf: false, expanded: true, children: [
+						{ id: 6210,text: "Ôö¼Ó", checked: false,  leaf: true},
+						{ id: 6220,text: "ĞŞ¸Ä", checked: false,  leaf: true},
+						{ id: 6230,text: "É¾³ı", checked: false,  leaf: true}
 					]},
-					{ id: 'operlog',text: "ç³»ç»Ÿæ“ä½œæ—¥å¿—", checked: false,  leaf: true}
+					{ id: 'operlog',text: "ÏµÍ³²Ù×÷ÈÕÖ¾", checked: false,  leaf: true}
 				]},
-				{ id: 'å®¢æˆ·ç«¯å‡çº§',text: "å®¢æˆ·ç«¯å‡çº§", checked: false,  leaf: false, expanded: true, children: [
-					{ id: 'updatesoft',text: "è½¯ä»¶ä¸Šä¼ ", checked: false,  leaf: false, expanded: true, children: [
-						{ id: 7110,text: "è½¯ä»¶ä¸Šä¼ ", checked: false,  leaf: true},
-						{ id: 7120,text: "åˆ é™¤", checked: false,  leaf: true}
+				{ id: '¿Í»§¶ËÉı¼¶',text: "¿Í»§¶ËÉı¼¶", checked: false,  leaf: false, expanded: true, children: [
+					{ id: 'updatesoft',text: "Èí¼şÉÏ´«", checked: false,  leaf: false, expanded: true, children: [
+						{ id: 7110,text: "Èí¼şÉÏ´«", checked: false,  leaf: true},
+						{ id: 7120,text: "É¾³ı", checked: false,  leaf: true}
 					]},
-					{ id: 'softdown',text: "è½¯ä»¶ä¸‹å‘", checked: false,  leaf: false, expanded: true, children: [
-						{ id: 7210,text: "å¢åŠ ", checked: false,  leaf: true},
-						{ id: 7220,text: "åˆ é™¤", checked: false,  leaf: true},
-						{ id: 7230,text: "åº”ç”¨", checked: false,  leaf: true}
+					{ id: 'softdown',text: "Èí¼şÏÂ·¢", checked: false,  leaf: false, expanded: true, children: [
+						{ id: 7210,text: "Ôö¼Ó", checked: false,  leaf: true},
+						{ id: 7220,text: "É¾³ı", checked: false,  leaf: true},
+						{ id: 7230,text: "Ó¦ÓÃ", checked: false,  leaf: true}
 					]},
-					{ id: 'downlog',text: "æ—¥å¿—å‡çº§", checked: false,  leaf: true}
+					{ id: 'downlog',text: "ÈÕÖ¾Éı¼¶", checked: false,  leaf: true}
 				]},
-				{ id: 'ç³»ç»Ÿè®¾ç½®',text: "ç³»ç»Ÿè®¾ç½®", checked: false,  leaf: false, expanded: true, children: [
-					{ id: 'ipset',text: "IPåœ°å€è®¾ç½®", checked: false,  leaf: true},
-					{ id: 'dataclean',text: "æ•°æ®å­˜å‚¨è®¾ç½®", checked: false,  leaf: true},
-					{ id: 'databack',text: "å¤‡ä»½è®¾ç½®", checked: false,  leaf: true},
-					{ id: 'dispfield',text: "ç”µè„‘æ ‘æ˜¾ç¤ºå­—æ®µ", checked: false,  leaf: true},
-					{ id: 'shutdown',text: "å…³æœºå’Œé‡å¯", checked: false,  leaf: true}
+				{ id: 'ÏµÍ³ÉèÖÃ',text: "ÏµÍ³ÉèÖÃ", checked: false,  leaf: false, expanded: true, children: [
+					{ id: 'ipset',text: "IPµØÖ·ÉèÖÃ", checked: false,  leaf: true},
+					{ id: 'dataclean',text: "Êı¾İ´æ´¢ÉèÖÃ", checked: false,  leaf: true},
+					{ id: 'databack',text: "±¸·İÉèÖÃ", checked: false,  leaf: true},
+					{ id: 'dispfield',text: "µçÄÔÊ÷ÏÔÊ¾×Ö¶Î", checked: false,  leaf: true},
+					{ id: 'shutdown',text: "¹Ø»úºÍÖØÆô", checked: false,  leaf: true}
 				]}, 
-				{ id: 'å®‰è£…åŒ…ä¸‹è½½',text: "å®‰è£…åŒ…ä¸‹è½½", checked: false,  leaf: true}
+				{ id: '°²×°°üÏÂÔØ',text: "°²×°°üÏÂÔØ", checked: false,  leaf: true}
 			]
 		}
    });
   
 	var rightCheckTree = Ext.create('Ext.tree.Panel',{
 		height: 480,
-		title: "é€‰æ‹©æƒé™",
+		title: "Ñ¡ÔñÈ¨ÏŞ",
 		autoScroll : true,
 		store: rightStore,
     rootVisible: true,
@@ -330,7 +330,7 @@ var store_adminuser;
     				chd(child,false);
     			});
     		}
-    		parentnode(node);  //è¿›è¡Œçˆ¶çº§é€‰ä¸­æ“ä½œ
+    		parentnode(node);  //½øĞĞ¸¸¼¶Ñ¡ÖĞ²Ù×÷
     	}
     }
 	});
@@ -358,7 +358,7 @@ var store_adminuser;
 					{
             xtype: 'textfield',
             name: 'rolname',
-            fieldLabel: 'è§’è‰²å',
+            fieldLabel: '½ÇÉ«Ãû',
             value:getRolname(record),
             listeners:{
             	blur: function(thisTF,eOpts ){
@@ -375,7 +375,7 @@ var store_adminuser;
 								    	
 								    	//alert(text.value);
 								    	if(text.value=='failure'){
-								    	 	alert("è§’è‰²åå·²è¢«æ³¨å†Œï¼");
+								    	 	alert("½ÇÉ«ÃûÒÑ±»×¢²á£¡");
 								    	 	thisTF.setValue("");
 								    		tmp = 0;
 								    	}else{
@@ -384,7 +384,7 @@ var store_adminuser;
 								    }
 									});
 								}else{
-									alert(name+"æ˜¯ç³»ç»Ÿä¿ç•™å­—æ®µï¼Œè¯·æ¢å…¶ä»–");
+									alert(name+"ÊÇÏµÍ³±£Áô×Ö¶Î£¬Çë»»ÆäËû");
 								}
             	}
             }
@@ -392,7 +392,7 @@ var store_adminuser;
         	{
         		xtype: 'treepanel',
         		height: 480,
-						title: "é€‰æ‹©æƒé™",
+						title: "Ñ¡ÔñÈ¨ÏŞ",
 						autoScroll : true,
 						store: rightStore,
 				    rootVisible: true,
@@ -407,13 +407,13 @@ var store_adminuser;
 				    				chd(child,false);
 				    			});
 				    		}
-				    		parentnode(node);  //è¿›è¡Œçˆ¶çº§é€‰ä¸­æ“ä½œ
+				    		parentnode(node);  //½øĞĞ¸¸¼¶Ñ¡ÖĞ²Ù×÷
 				    	}
 				    }
         	}
         ],
         buttons: [{
-            text: 'åˆ é™¤',
+            text: 'É¾³ı',
             handler: function(){
             	var checkedValues = rightCheckTree.getChecked();
             	var checkvalue= "";
@@ -423,12 +423,12 @@ var store_adminuser;
   						
             var rolvalue=fp2.getForm().getValues().rolname;
 						if(rolvalue == "" && tmp != 1){
-							alert("è¯·è¾“å…¥è§’è‰²åç§°");
+							alert("ÇëÊäÈë½ÇÉ«Ãû³Æ");
 							return ;
 						}
 						
 						if(checkvalue == ""){
-							alert("è¯·é€‰æ‹©æƒé™");
+							alert("ÇëÑ¡ÔñÈ¨ÏŞ");
 							return ;
 						}
    					//console.info(checkvalue);
@@ -437,7 +437,7 @@ var store_adminuser;
            
             }
         },{
-            text: 'å…³é—­',
+            text: '¹Ø±Õ',
             handler: function(){
             Ext.getCmp('addwindow').close();
 //                fp.getForm().reset();
@@ -445,10 +445,10 @@ var store_adminuser;
          }]
       });
     
-		//å¼¹å‡ºçš„æ–°çš„çª—å£
+		//µ¯³öµÄĞÂµÄ´°¿Ú
          var win2 = new Ext.Window ({
                              id:"addwindow",
-                             title:"å¢åŠ æˆ–ä¿®æ”¹è§’è‰²",
+                             title:"Ôö¼Ó»òĞŞ¸Ä½ÇÉ«",
                              x:0,
                              y:0,
                              width:630,
@@ -467,12 +467,12 @@ var store_adminuser;
 	
 
 	
-//æ‰“å¼€è¯¦ç»†çª—å£
+//´ò¿ªÏêÏ¸´°¿Ú
 function openGrant(record)
 {
      var rightcheckGroup={
            xtype:'fieldset',
-           title:'æ›´æ¢å¥—é¤è¯¦ç»†',
+           title:'¸ü»»Ì×²ÍÏêÏ¸',
            layout: 'form',
 			defaults: {
             labelStyle: 'padding-left:4px;'
@@ -491,30 +491,30 @@ function openGrant(record)
         bodyPadding : 10,
         items : [{
 		xtype:'tbtext',
-			text:'å¥—é¤åç§°:100å…ƒåŒ…æœˆå¥—é¤<br>å¥—é¤å†…å®¹:100å…ƒä¸é™æ—¶ä¸Šç½‘<br>å¥—é¤è´¹ç”¨:100å…ƒ/æœˆ<br>ç”Ÿæ•ˆæ—¶é—´:æ¬¡æœˆç”Ÿæ•ˆ'
+			text:'Ì×²ÍÃû³Æ:100Ôª°üÔÂÌ×²Í<br>Ì×²ÍÄÚÈİ:100Ôª²»ÏŞÊ±ÉÏÍø<br>Ì×²Í·ÑÓÃ:100Ôª/ÔÂ<br>ÉúĞ§Ê±¼ä:´ÎÔÂÉúĞ§'
         }],
         	//rightcheckGroup
 			
 	
         buttons : [{
-        		text : 'ç¡®è®¤æ›´æ¢',
+        		text : 'È·ÈÏ¸ü»»',
 				 defaults: {
 					},
 					handler : function () {
 						/*var groupcheck = fp2.getForm().findField('rightgroup');
-						//è·å–é€‰ä¸­çš„é€‰é¡¹
+						//»ñÈ¡Ñ¡ÖĞµÄÑ¡Ïî
 						var checkvalue = groupcheck.getValue();
 						alert(checkvalue);*/
-						//å‰é¢æœ‰å¤„ç†æ›´æ¢å¥—é¤æ“ä½œçš„å¤„ç†ï¼Œåœ¨åå°ï¼Œå¹¶ä¸”é€šè¿‡recordæ¥ä¼ é€’è¦ä¿®æ”¹çš„å¥—é¤ä¿¡æ¯ï¼Œå¹¶ä¸”å°†recordçš„ä¿¡æ¯ä¼ åˆ°åå°ï¼Œè¿›è¡Œå¤„ç†
-						//è¿˜æ¶‰åŠåˆ°ç™»å½•ç”¨æˆ·çš„ä¿¡æ¯ã€‚è·å–ç™»å½•ç”¨æˆ·çš„ä¿¡æ¯ï¼Œå°†ç™»å½•çš„ç”¨æˆ·çš„å¥—é¤ä¿¡æ¯ä¿®æ”¹
-						/*Ext.MessageBox.alert("æç¤º", "æ›´æ¢æˆåŠŸï¼", myReturn);*/
+						//Ç°ÃæÓĞ´¦Àí¸ü»»Ì×²Í²Ù×÷µÄ´¦Àí£¬ÔÚºóÌ¨£¬²¢ÇÒÍ¨¹ırecordÀ´´«µİÒªĞŞ¸ÄµÄÌ×²ÍĞÅÏ¢£¬²¢ÇÒ½«recordµÄĞÅÏ¢´«µ½ºóÌ¨£¬½øĞĞ´¦Àí
+						//»¹Éæ¼°µ½µÇÂ¼ÓÃ»§µÄĞÅÏ¢¡£»ñÈ¡µÇÂ¼ÓÃ»§µÄĞÅÏ¢£¬½«µÇÂ¼µÄÓÃ»§µÄÌ×²ÍĞÅÏ¢ĞŞ¸Ä
+						/*Ext.MessageBox.alert("ÌáÊ¾", "¸ü»»³É¹¦£¡", myReturn);*/
 						var packagesName = '';
 						if (record != '') {
 							packagesName = record.data.month;
 
 						}
 						
-						//å‘åå°ä¼ è¾“æ•°æ®
+						//ÏòºóÌ¨´«ÊäÊı¾İ
 						   this.up('form').getForm().doAction('submit', {
 						   	url : '/pronline/Msg',
 						   	method : 'post',
@@ -523,13 +523,13 @@ function openGrant(record)
 						   	success : function (form, action) {
 						   		//   	var msgaa=action.result.reason;
 						   		//           store.load();
-						   		alert('æ›´æ¢å¥—é¤!');
+						   		alert('¸ü»»Ì×²Í!');
 
 					}
 					})
         	}
 			},{
-        		text : 'å–æ¶ˆ',
+        		text : 'È¡Ïû',
         		handler : function () {
         			Ext.getCmp('addwindow').close();
         			//                fp.getForm().reset();
@@ -541,7 +541,7 @@ function openGrant(record)
 
         var win2 = new Ext.Window({
         		id : "addwindow",
-        		title : "æ›´æ¢å¥—é¤è¯¦ç»†",
+        		title : "¸ü»»Ì×²ÍÏêÏ¸",
         		x : 0,
         		y : 0,
         		width : 430,
@@ -558,7 +558,7 @@ function openGrant(record)
 }
 
 function myReturn(){
-	//å¤„ç†æ›´æ¢å¥—é¤ç¡®è®¤æ“ä½œï¼Œå¯èƒ½æ˜¯è·³è½¬åˆ°å…¶ä»–é¡µé¢
+	//´¦Àí¸ü»»Ì×²ÍÈ·ÈÏ²Ù×÷£¬¿ÉÄÜÊÇÌø×ªµ½ÆäËûÒ³Ãæ
 	Ext.getCmp('addwindow').close();
 	
 }
@@ -578,7 +578,7 @@ Ext.onReady(function(){
 				//idProperty: 'id'
 			});
 		
-				//å–æƒé™checkæ•°æ®
+				//È¡È¨ÏŞcheckÊı¾İ
 			   store_right = Ext.create('Ext.data.Store', {
 			        pageSize: 40,
 			        model: 'eimdata',
@@ -602,7 +602,7 @@ Ext.onReady(function(){
 
 
 Ext.override(Ext.form.CheckboxGroup,{    
-    //åœ¨inputValueä¸­æ‰¾åˆ°å®šä¹‰çš„å†…å®¹åï¼Œè®¾ç½®åˆ°itemsé‡Œçš„å„ä¸ªcheckboxä¸­    
+    //ÔÚinputValueÖĞÕÒµ½¶¨ÒåµÄÄÚÈİºó£¬ÉèÖÃµ½itemsÀïµÄ¸÷¸öcheckboxÖĞ    
     setValue : function(value){   
         this.items.each(function(f){
           if(value.indexOf(f.inputValue) != -1){  
@@ -613,7 +613,7 @@ Ext.override(Ext.form.CheckboxGroup,{
           
         });   
     },   
-    //ä»¥value1,value2çš„å½¢å¼æ‹¼æ¥groupå†…çš„å€¼   
+    //ÒÔvalue1,value2µÄĞÎÊ½Æ´½ÓgroupÄÚµÄÖµ   
     getValue : function(){   
         var re = "";   
         this.items.each(function(f){   
@@ -623,7 +623,7 @@ Ext.override(Ext.form.CheckboxGroup,{
         });   
         return re.substr(0,re.length - 1);   
     },   
-    //åœ¨Fieldç±»ä¸­å®šä¹‰çš„getNameæ–¹æ³•ä¸ç¬¦åˆCheckBoxGroupä¸­é»˜è®¤çš„å®šä¹‰ï¼Œå› æ­¤éœ€è¦é‡å†™è¯¥æ–¹æ³•ä½¿å…¶å¯ä»¥è¢«BasicFormæ‰¾åˆ°   
+    //ÔÚFieldÀàÖĞ¶¨ÒåµÄgetName·½·¨²»·ûºÏCheckBoxGroupÖĞÄ¬ÈÏµÄ¶¨Òå£¬Òò´ËĞèÒªÖØĞ´¸Ã·½·¨Ê¹Æä¿ÉÒÔ±»BasicFormÕÒµ½   
     getName : function(){   
         return this.name;   
     }   
@@ -649,7 +649,7 @@ Ext.override(Ext.form.CheckboxGroup,{
     });
 
     // create the Data Store
-    //é‡å†™æ’åºå‡½æ•°ï¼Œè§£å†³è¿œç¨‹æ¡ä»¶æŸ¥è¯¢é—®é¢˜
+    //ÖØĞ´ÅÅĞòº¯Êı£¬½â¾öÔ¶³ÌÌõ¼ş²éÑ¯ÎÊÌâ
     Ext.data.Store.prototype.doSort = function() {
     	reflash();
     }
@@ -659,7 +659,7 @@ Ext.override(Ext.form.CheckboxGroup,{
         remoteSort: true,
         proxy: {
             type: 'ajax',
-            url: '/pronline/Msg?FunName@change_package&lang@zh',
+            url: '/pronline/Msg?FunName@change_package',
             reader: {
                 type:'json',
                 root: 'eimdata',
@@ -696,7 +696,7 @@ Ext.override(Ext.form.CheckboxGroup,{
  
  
   
-//å¯¹ç¿»é¡µå·¥å…·æ¡é‡æ–°æ„å»ºï¼Œæ›¿æ¢ç¿»é¡µå‡½æ•°    
+//¶Ô·­Ò³¹¤¾ßÌõÖØĞÂ¹¹½¨£¬Ìæ»»·­Ò³º¯Êı    
   Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
      doRefresh:function(){  
      reflash();
@@ -750,7 +750,7 @@ Ext.override(Ext.form.CheckboxGroup,{
 });
 
     function grant(value,p,record){
-      return Ext.String.format( '<a href="#xxm" >æ›´æ¢</a>');
+      return Ext.String.format( '<a href="#xxm" >¸ü»»</a>');
       
     }
 
@@ -763,23 +763,23 @@ Ext.override(Ext.form.CheckboxGroup,{
    // grid columns
     columns:[{
       //id: 'month',
-      text: "å¥—é¤åç§°",
+      text: "Ì×²ÍÃû³Æ",
       dataIndex: 'name',
       hidden: false,
       width: 120,
       sortable: true
     },{
-      text: "è´¹ç”¨",
+      text: "·ÑÓÃ",
       dataIndex: 'money',
       width: 250,
       sortable: true
     },{
-      text: "å¥—é¤å†…å®¹",
+      text: "Ì×²ÍÄÚÈİ",
       dataIndex: 'namedes',
       width: 250,
       sortable: true
     },{
-			text: "æ›´æ¢",
+			text: "¸ü»»",
 			dataIndex: 'name',           
 			width: 50,
 			sortable: false,
@@ -800,8 +800,8 @@ Ext.override(Ext.form.CheckboxGroup,{
     tbar: Ext.create('Ext.PagingToolbar1', {
       store: store,
       displayInfo: true,
-      displayMsg: 'æ˜¾ç¤º{0} - {1}æ¡è®°å½• å…±{2}æ¡è®°å½•',
-      emptyMsg: "æ²¡æœ‰è®°å½•å¯æ˜¾ç¤º",
+      displayMsg: 'ÏÔÊ¾{0} - {1}Ìõ¼ÇÂ¼ ¹²{2}Ìõ¼ÇÂ¼',
+      emptyMsg: "Ã»ÓĞ¼ÇÂ¼¿ÉÏÔÊ¾",
                                    
       items: [{
 				xtype:'textfield',
@@ -809,11 +809,11 @@ Ext.override(Ext.form.CheckboxGroup,{
 				name:'keyword1',
 				width:'120px',
 				style:'color:#7aa7d5',
-				value:'è¾“å…¥è§’è‰²åæŸ¥è¯¢',
+				value:'ÊäÈë½ÇÉ«Ãû²éÑ¯',
 				enableKeyEvents:true,
 				listeners:{
 					'focus':function(){
-						if(this.value=='è¾“å…¥è§’è‰²åæŸ¥è¯¢'){                
+						if(this.value=='ÊäÈë½ÇÉ«Ãû²éÑ¯'){                
 							this.setValue('');
 						}
 					},
@@ -836,17 +836,17 @@ Ext.override(Ext.form.CheckboxGroup,{
          	}
         }
       },{
-				text:'ç¡®è®¤',
+				text:'È·ÈÏ',
 				iconCls:'accept',
 				handler: function(){
 					var aa=Ext.getCmp('keyword1').value;
-					if(aa!='è¾“å…¥è§’è‰²åæŸ¥è¯¢'){
+					if(aa!='ÊäÈë½ÇÉ«Ãû²éÑ¯'){
 						document.getElementById("form1").keyword.value=aa;
 						reflash();
 					}
         }
       },'-',{
-				text:'å¢åŠ ',
+				text:'Ôö¼Ó',
 				iconCls:'add',
 				id: "addrole",
 				handler : function() {
@@ -854,13 +854,13 @@ Ext.override(Ext.form.CheckboxGroup,{
 					openGrant();
    			}
       }, '-', {
-				text:'åˆ é™¤',
+				text:'É¾³ı',
 				itemId: 'removeButton',
 				iconCls:'remove',
 				disabled: true,
 				handler:function(){
 				
-					if(confirm('æ‚¨çœŸçš„è¦æ‰§è¡Œåˆ é™¤æ“ä½œå—ï¼Ÿ')){                  
+					if(confirm('ÄúÕæµÄÒªÖ´ĞĞÉ¾³ı²Ù×÷Âğ£¿')){                  
 						var selsid;  
 						var rows=sm.getSelection();
 						selsid='';
@@ -872,19 +872,19 @@ Ext.override(Ext.form.CheckboxGroup,{
 							}
 						}
 						var keyword=Ext.getCmp('keyword1').value;
-						if(keyword=='è¾“å…¥è§’è‰²åæŸ¥è¯¢'){
+						if(keyword=='ÊäÈë½ÇÉ«Ãû²éÑ¯'){
 							keyword='';
 						}
 						store.load({params:{del:"del",selsid:selsid,keyword:keyword}});
 					} 
 				}
       }, '-', {
-				text:'è¯¦ç»†ç»™å¯¹è±¡',
+				text:'ÏêÏ¸¸ø¶ÔÏó',
 				itemId: 'grantButton',
 				iconCls:'add',
 				disabled: true,
 				handler:function(){
-					if(confirm('æ‚¨çœŸçš„è¦æŠŠè¯¥è§’è‰²æƒé™æˆç»™å—ï¼Ÿ')){                  
+					if(confirm('ÄúÕæµÄÒª°Ñ¸Ã½ÇÉ«È¨ÏŞÊÚ¸øÂğ£¿')){                  
 						var selsid;  
 						var rows=sm.getSelection();
 						selsid='';
@@ -907,7 +907,7 @@ Ext.override(Ext.form.CheckboxGroup,{
     reflash();
  
  
-//å–ç³»ç»Ÿç”¨æˆ·ä¿¡æ¯
+//È¡ÏµÍ³ÓÃ»§ĞÅÏ¢
 			   store_adminuser = Ext.create('Ext.data.Store', {
 			        //pageSize: 40,
 					pageSize:1,

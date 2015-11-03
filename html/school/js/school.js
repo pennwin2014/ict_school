@@ -1,11 +1,24 @@
 var mapPage = {
 	'id_frontPage_main':['itm_frontPage_main','首页','frontPage/ict_frontPage_main.html'],
-	'id_ictShop_main':['itm_ictShop_main','ICT商城','ictShop/ict_ictShop_main.html'],
-	'id_support_help':['itm_support_help','客服与帮助','support/ict_support_help.html'],
-	'id_ictShop_products':['itm_ictShop_products','更换套餐','ictShop/ict_ictShop_products.html']
+	'id_ictShop_main':['itm_ictShop_main','ICT商城','system/ict_system_register.html'],
+	//'id_support_help':['itm_support_help','客服与帮助','support/ict_support_help.html'],
+	'id_support_help':['itm_support_help','客服与帮助','system/ict_system_login.html'],
+	'id_ictShop_products':['itm_ictShop_products','更换套餐','ictShop/ict_ictShop_products.html'],
+	'id_ictShop_charge':['itm_ictShop_charge','充值','ictShop/ict_ictShop_charge.html'],
+	'id_bill_check':['itm_bill_check','账单查询','bill/ict_bill_check.html'],
+	'id_pay_record':['itm_pay_record','充值记录','pay/ict_pay_record.html'],
+	'id_system_passwd':['itm_system_passwd','修改密码','system/ict_system_update_password.html']	
 };
 
 function f_IctGlobalContext(){
+//私有变量
+	this.userInfo = {
+		'userName':'小白',
+		'vName':'124',
+		'bType':'1',
+		'bName':'100元基础套餐',
+		'money':'23'
+	};
 //公共接口
 	this.jumpToPage = function(pid){
 		var title = mapPage[pid][1];
@@ -14,7 +27,21 @@ function f_IctGlobalContext(){
 		pnlCenter.setTitle("您当前的位置: "+title);
 		pnlCenter.body.update('<iframe src="'+url+'" frameborder="no" style="width:100%;height:1000px;"></iframe>');		
 	}
-
+	this.cutLan = function(){
+		alert("点击断线");
+	}
+	this.userQuit = function(){
+		alert("点击安全退出");
+	}
+	this.setUserInfo = function(info){
+		this.userInfo = info;
+	}
+	this.getUserInfo = function(){
+		return this.userInfo;
+	}
+	this.doOrderPackage = function(funId){
+		alert("点击订购套餐"+funId);
+	}
 //工具方法
 /**
 * 作用：判断远程文件是否存在

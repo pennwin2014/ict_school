@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>充值</title>
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all-gray.css" /> 
+<style type="text/css">   
+   .x-selectable, .x-selectable * {   
+		-moz-user-select: text!important;   
+		-khtml-user-select: text!important;   
+	}   
+	.csCharge{
+		font-size:18px;
+		position:absolute;
+		width:80%;
+		height:30%;
+		top:5%;
+		left:10%;
+		border:1px solid #000;		
+	}
+	.csInfo{
+		position:absolute;
+		left:5%;
+		top:5%;	
+	}
+	.csMoney{
+		position:absolute;
+		left:5%;
+		top:15%;	
+	}
+	.csButton{
+		position:absolute;
+		top:30%;
+		text-align:center;	
+		width:100%;	
+	}
+	#h5 {
+		height:40px;
+		background:gray;
+	}
+	#h6 {
+		font-size:150%;
+	}
+	#h7{
+		float:right;
+	}
+	#h8{
+		width:300px;
+		height:80px;
+		float:left;
+	}
+	#h9{
+		margin-top:350px;	
+	}
+</style>
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+<script>
+	function doOrderPackage(funId){
+		parent.ictGlobalCtx.doOrderPackage(funId);
+	}
+</script>
+<script>  
+Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+Ext.require([
+    'Ext.form.*',
+    'Ext.window.*',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.window.MessageBox',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.tree.*'
+]);
+</script>
+    
+</head>
+<body>
+	<div class="csCharge">
+		<div class="csInfo">
+			<label for="txtVname">充值帐号</label>
+			<input id="txtVname" type="text" value="" />
+			<br/>
+		</div>
+		<div class="csMoney">
+			<label for="rb200">充值金额</label>
+			<input id="rb200" name="money" type="radio" value="200" checked="checked"/>
+			<label for="rb200">200元</label>
+			
+			<input id="rb100" name="money" type="radio" value="100" />
+			<label for="rb100">100元</label>
+			
+			<input id="rb50" name="money" type="radio" value="50" />
+			<label for="rb50">50元</label>
+		   
+			<input id="rb30" name="money" type="radio" value="30" />
+			<label for="rb30">30元</label>
+			
+			<input id="rbother" name="money" type="radio" value="0" />
+			<label for="rbother">其他金额</label>        
+		</div>
+		<div class="csButton">
+			<input name="btnConfirmCharge" type="button" value="确认充值" />
+		</div>
+		
+	</div>
+	<div id="h9">
+		<p>&nbsp;</p>
+		
+		<div id="h5">
+		<p><b><font color="#FFFFFF" id="h6">推荐套餐</font> <font color="#FFFFFF" style="cursor:pointer;" id="h7" href="#" onclick = "parent.ictGlobalCtx.jumpToPage('id_ictShop_products');"> 更多</font></b></p>
+		</div >	
+		<div id="h8">
+		  <p>&nbsp;</p>
+		  <p id="h6">100元包月套餐<input   type="submit" value="订购" onclick="doOrderPackage(1)"/></p>
+		</div>
+		<div id="h8">
+		  <p>&nbsp;</p>
+		  <p id="h6">50元月基础套餐<input   type="submit" value="订购" onclick="doOrderPackage(1)"/></p>
+		</div>
+		<div id="h8">
+		  <p>&nbsp;</p>
+		  <p id="h6">20元叠加套餐<input  type="submit" value="订购" onclick="doOrderPackage(1)"/></p>
+		</div>
+		<div id="h8">
+		  <p>&nbsp;</p>
+		  <p id="h6">10元叠加套餐 
+			<input name="submit2"  type="submit"  value="订购" onclick="doOrderPackage(1)"/>
+		  </p>
+		</div>
+		<div id="h8">
+		  <p>&nbsp;</p>
+		  <p id="h6">7天短期流量包
+			<input name="submit"  type="submit" value="订购" onclick="doOrderPackage(1)"/>
+		</p>
+		</div>
+		<div id="h8">
+		  <p>&nbsp;</p>
+		  <p id="h6">3个月流量包
+			<input name="submit3"  type="submit" value="订购" onclick="doOrderPackage(1)"/>
+		  </p>
+		</div>
+		<div id="h8">
+		  <p>&nbsp;</p>
+		  <p id="h6">6个月流量套餐<input  type="submit" value="订购" onclick="doOrderPackage(1)"/></p>
+		</div>
+		<div id="h8">
+		  <p>&nbsp;</p>
+		  <p id="h6">包年套餐
+			<input name="submit4"  type="submit" value="订购" onclick="doOrderPackage(1)"/>
+		  </p>
+		</div>
+		
+	</div>	
+    
+</body>
+</html>

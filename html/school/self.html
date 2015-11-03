@@ -5,6 +5,8 @@
 <title>个人中心</title>
 <link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all.css" /> 
 <style type="text/css">   
+	input::-moz-focus-inner{ border: 0;padding: 0;}/*针对Firefox*/
+
 	.csMain{
 		position:absolute;
 		width:100%;
@@ -12,7 +14,7 @@
 		color:#FFFFFF;
 	}
 	.csInfo{
-		font-size:16px;
+		font-size:15px;
 		position:absolute;
 		background:#44444c;
 		margin:3%;
@@ -21,18 +23,9 @@
 		top:0;
 		left:0;
 	}
-	.csHint{
-		position:absolute;
-		background:#44444c;
-		margin:3%;
-		width:94%;
-		top:350px;
-		height:300px;
-		left:0;
-	}
 	.csInfoLine{
 		position:relative;
-		margin:10px 0 0 15px;		
+		margin:10px 0 0 15px;
 	}
 	.csHeader{
 		position:absolute;
@@ -44,28 +37,61 @@
 		top:10%;
 		left:50%;
 	}
+	.csLine1{
+		position:absolute;
+		width:100%;
+		height:1px;
+		top:145px;
+		background-color:#a0a0a0;
+	}
+	.csLine2{
+		position:absolute;
+		width:100%;
+		height:1px;
+		top:190px;
+		background-color:#a0a0a0;
+	}
 	#idState{
 		position:absolute;
+		left:0;
+		top:15px;
 	}
 	#idCut{
-		position:absolute;
+		position:absolute;	
+		top:15px;
 		left:60%;
 		color:#44444c;
 		width:60px;
 		height:23px;
 		cursor:pointer;
+		line-height:23px;
+		font-size:10px;
+		vertical-align:middle
 	}
 	#idQuit{
 		position:absolute;
-		left:60px;
-		top:50px;
-		width:110px;
-		height:30px;
+		left:0;
+		top:80px;
+		width:100%;
+		height:35px;
 		cursor:pointer;
 		color:#FFFFFF;
-		background: url(/school/images/btnQuit.png) 0 0 no-repeat !important;
-		border-radius:3px;
-		text-align:'center';
+		text-align:center;
+	}
+	#idQuit img{
+		position:absolute;
+		top:0;
+		width:60%;
+		height:100%;
+		left:20%;
+	}
+	#idQuit span{
+		position:absolute;
+		top:5px;
+		left:0;
+		width:100%;
+		height:100%;
+		text-align:center;
 	}
 	#idCharge{		
 		position:absolute;
@@ -83,10 +109,52 @@
 		top:0;
 		cursor:pointer;
 	}
-
+	.csHint{
+		position:absolute;
+		background:#55555c;
+		margin:3%;
+		width:94%;
+		top:350px;
+		height:50px;
+		left:0;
+		text-align:center;
+		font-size:18px;
+		line-height:50px;
+	}
+	.csFunction{
+		position:absolute;
+		background:#44444c;
+		margin:3%;
+		width:94%;
+		top:400px;
+		height:130px;
+		left:0;
+		font-size:18px;
+	}
+	.csFunction span{
+		position:relative;
+		top:10px;
+		left:15px;
+	}
+	.csPhone{
+		position:absolute;
+		background:#55555c;
+		margin:3%;
+		width:94%;
+		top:530px;
+		height:70px;
+		left:0;
+		font-size:18px;
+	}
+	.csPhone span{
+		position:relative;
+		left:15px;
+		top:10px;
+	}
+	
 </style>
 <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
-   
+<script type="text/javascript" src="/newver/jquery/jquery-1.8.2.min.js"></script>
 <script>  
 Ext.Loader.setConfig({enabled: true});
 Ext.Loader.setPath('Ext.ux', '/newver/ux/');
@@ -104,10 +172,33 @@ Ext.require([
     'Ext.form.field.Number',
     'Ext.form.Panel'
 ]);
+function doInit(){
+	var info = parent.ictGlobalCtx.getUserInfo();
+	$("#idUsername").text(info.userName);
+	$("#idVname").text(info.vName);
+	$("#idBalance").text("余额: "+info.money+"元");
+	$("#idProducts").text("套餐: "+info.bName);
+}
 Ext.onReady(function(){
     Ext.tip.QuickTipManager.init();
-	
+	doInit();
 });
+function doCutLan(){
+	parent.ictGlobalCtx.cutLan();
+}
+function doQuit(){
+	parent.ictGlobalCtx.userQuit();
+}
+
+function doCharge(){
+	parent.ictGlobalCtx.jumpToPage('id_ictShop_charge');
+}
+
+function doTransferBalance(){
+	alert("点击余额转移");
+	//parent.ictGlobalCtx.jumpToPage('id_ictShop_charge');
+}
+
 </script>
     
     
@@ -116,10 +207,10 @@ Ext.onReady(function(){
 	<div class="csMain">
 		<div class="csInfo">
 			<div class="csInfoLine">
-				<img src="/school/images/header.png" style="margin:0 0px 0 0px;" width="61" height="60">
+				<img src="/school/images/header.png" style="margin:0 0px 0 0px;" width="61" height="60"/>
 				<div class="csUser">
-					<p>小明</p>
-					<p>1586*****</p>
+					<p id="idUsername">小明</p>
+					<p id="idVname">1586*****</p>
 				</div>
 			</div>
 			<div class="csInfoLine">
@@ -127,24 +218,40 @@ Ext.onReady(function(){
 			</div>
 			<div class="csInfoLine">
 				<p id="idBalance">余额: 20元</p>
-				<p id="idCharge">立即充值</p>
-				<p id="idTransfer">余额转让</p>
+				<p id="idCharge" onclick="doCharge()">立即充值</p>
+				<p id="idTransfer" onclick="doTransferBalance()">余额转让</p>
 			</div>
-			</br>
+			<div class="csLine1"></div>
 			<div class="csInfoLine">
 				<p id="idState">状态: 上网中</p>
-				<input id="idCut" type="button" value="断线"/>
+				<input id="idCut" type="button" onclick="doCutLan()" value="断线"/>
 			</div>
-			</br>
-			<div class="csInfoLine">
-				<div id="idQuit" value=""/>
-					<>
+			<div class="csLine2"></div>
+			<div class="csInfoLine">				
+				<div id="idQuit" onclick="doQuit()">
+					<img src="/school/images/btnQuit.png"/>				
+					<span>安全退出</span>
 				</div>
 			</div>		
 		</div>
 		<div class="csHint">
 			温馨提示
 		</div>
+		<div class="csFunction">
+			<span>校园智慧网提供如下功能:</span>
+			</br>
+			<span>1、查看校内通知信息</span>
+			</br>
+			<span>2、自助查询缴费</span>
+			</br>
+			<span>3、自助办理业务、更换套餐</span>
+		</div>
+		<div class="csPhone">
+			<span>如有疑问请致电:</span>
+			</br>
+			<span>400-000-0000</span>
+		</div>
+		
 	</div>
 </body>
 </html>

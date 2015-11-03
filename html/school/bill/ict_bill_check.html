@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>账单详情</title>
+	<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all-gray.css" />	
+	<style type="text/css">
+        .icon-grid {
+            background-image:url(/newver/resources/themes/images/share/grid.png) !important;
+        }
+        .add {
+            background-image:url(/newver/resources/themes/images/share/add.gif) !important;
+        }
+        .option {
+            background-image:url(/newver/resources/themes/images/share/plugin.gif) !important;
+        }
+        .remove {
+            background-image:url(/newver/resources/themes/images/share/delete.gif) !important;
+        }
+        .exp {
+            background-image:url(/newver/resources/themes/images/share/application_go.png) !important;
+        }
+        .accept {
+            background-image:url(/newver/resources/themes/images/share/accept.png) !important;
+        }
+        .x-form-clear-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/clear-trigger.gif);
+        }
+        
+        .x-form-search-trigger {
+            background-image: url(/newver/resources/themes/images/default/form/search-trigger.gif);
+        }
+
+	.x-selectable, .x-selectable * 
+	{   
+    		-moz-user-select: text!important;   
+		-khtml-user-select: text!important;   
+	}   
+
+	</style>
+	<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+    
+  <script> 
+		Ext.Loader.setConfig({enabled: true});
+		Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+		Ext.require([
+		    'Ext.form.*',
+		    'Ext.window.*',
+		    'Ext.grid.*',
+		    'Ext.data.*',
+		    'Ext.util.*',
+		    'Ext.window.MessageBox',
+		    'Ext.toolbar.Paging',
+		    'Ext.ux.PreviewPlugin'
+		//    'Ext.ModelManager',
+		//    'Ext.tip.QuickTipManager'
+		]);
+		var store;
+ 		function reflash(){
+			store.load();
+		}
+
+		Ext.onReady(function(){
+			Ext.define('EimData', {
+				extend: 'Ext.data.Model',
+				fields: ['dtime', 'dstatus', 'name']
+			});
+	    
+		    // create the Data Store
+		//重写排序函数，解决远程条件查询问题
+			Ext.data.Store.prototype.doSort = function() {
+				reflash();
+			}
+			store = Ext.create('Ext.data.Store', {
+				pageSize: 38,
+				model: 'EimData',
+				remoteSort: true,
+				proxy: {
+					type: 'ajax',
+					url: '/pronline/Msg?FunName@ict_orderLog_search',
+					reader: {
+						type:'json',
+						root: 'eimdata',
+						totalProperty: 'totalCount'
+					},         
+					simpleSortMode: true
+				}/*,
+				sorters: [{
+				property: 'sid',
+				direction: 'DESC'
+				}]*/
+			});
+	
+	/*
+		var timeFlagStore = Ext.create('Ext.data.Store', {
+	  		fields:['id','text'],
+	  		data:[
+					{id:'1',text:'十月份'},
+					{id:'2',text:'九月份'}]
+	  	});
+	  	
+		var pluginExpanded = true;
+			
+	  
+		//对翻页工具条重新构建，替换翻页函数    
+		Ext.PagingToolbar1 = Ext.extend(Ext.PagingToolbar, {
+			doRefresh:function(){
+				reflash();
+			},
+			moveLast:function(){
+				var b=this,a=b.getPageData().pageCount;
+				if(b.fireEvent("beforechange",b,a)!==false){
+					store.currentPage=a;
+					reflash();
+				}
+			},
+			moveFirst:function(){
+				if(this.fireEvent("beforechange",this,1)!==false){
+					store.currentPage=1;
+					reflash();
+				}
+			}, 
+			movePrevious:function(){
+				var b=this,a=b.store.currentPage-1;
+				if(a>0){
+					if(b.fireEvent("beforechange",b,a)!==false){
+						store.currentPage=a;reflash();
+					}
+				}
+			},
+			moveNext:function(){
+				var c=this,b=c.getPageData().pageCount,a=c.store.currentPage+1;
+				if(a<=b){
+					if(c.fireEvent("beforechange",c,a)!==false){
+						store.currentPage=a;reflash();
+					}
+				}
+			}
+		});*/
+		
+			var grid = Ext.create('Ext.grid.Panel', {
+				height: 980,
+				scrollOffset: 0,
+				store: store,
+				frame:true,
+				columns:[{
+						text: "时间",
+						dataIndex: 'dtime',
+						hidden: false,
+						width: 300,
+						sortable: true
+					},{
+						text: "费用",
+						dataIndex: 'dstatus', 
+						width: 300,
+						sortable: true
+					},{
+						text: "账单详情",
+						dataIndex: 'name',           
+						width: 300,
+						sortable: true
+					}],
+				columnLines: true,		 
+				/*tbar: Ext.create('Ext.PagingToolbar1', {
+					store: store,               
+					items: [
+						'-',
+						timeFlagCombo,
+						actionCombo]
+					}),*/
+				renderTo: 'grid-corp'
+			});
+
+		reflash();
+	});
+</script>
+    
+    
+</head>
+<body>
+    <div id="grid-corp"></div>
+</body>
+</html>
