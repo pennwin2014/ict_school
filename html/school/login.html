@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html >
+<head>
+<!-- Force IE9 Standards mode -->
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all-gray.css"/> 
+<title>新网程内网管理系统 V3.0.1</title>
+	<style>
+		.mainCls{
+			width: 1080px;
+			margin:100px auto;
+			<!-->background-image:url(/school/images/login/ict_bg.jpg) !important; -->
+		}
+		.loginCls1{
+			width:1080px;
+			height:409px;
+			background-image:url(/v8/images/login/nw007.png) !important;
+			background-repeat: no-repeat;
+			padding: 11px;
+		}
+		.back1{
+			width:529px;
+			height:387px;
+			float:left;
+			background-image:url(./v8/images/login/nw002.jpg) !important;
+		}
+		.back2{
+			width:529px;
+			height:387px;
+			float:left;
+			background-image:url(./v8/images/login/nw003.jpg) !important;
+		}
+		.titleCls{
+			position:absolute;
+			top:5%;
+			left:10%;
+		}
+		.footCls{
+			position:absolute;
+			width:100%;
+			top:70%;
+			height:10%;
+		}
+		.footCls1{
+			font-family:"创艺简黑体";
+			color:#01B6DE;
+			font-size:12px;
+			margin:0 0 0 10px;
+		}
+		.footCls2{
+			font-family:"微软雅黑";
+			color:#999999;
+			font-size:12px;
+			margin:15px 0 0 28px;
+		}
+		.formCls{
+			position:absolute;
+			left:28%;
+			top:40%;
+			width:23%;
+			height:20%;
+		}
+		.labelCls{
+			width:80px;
+			padding: 2px 0 2px 0;
+			font-family:"微软雅黑";
+			color:#333333;
+			margin: 5px 0 0 0;
+		}
+		.inputCls{
+			border:1px solid #999999;
+			height:20px;
+			width:170px;
+			margin: 5px 0 0 0;
+		}
+		.btnCls{
+			margin:30px 0 0 10px;
+		}
+		.csBk{
+			
+		}
+	</style>
+	
+	<script>
+		function spylogin(){
+			if (nclogin.username.value=="" || nclogin.password.value=="") {
+				window.alert("用户名或密码不能为空！");
+				return false;
+			}
+			return true;
+		}
+		function ss(){
+			if(event.keyCode==13){
+				if(spylogin()){
+					nclogin.submit();
+				}					
+			}
+		}
+		
+		function doResizeCss(){
+			//1916*890
+			var windowH = parent.window.innerHeight ? parent.window.innerHeight : parent.document.body.clientHeight;
+			var windowW = parent.window.innerWidth ? parent.window.innerWidth : parent.document.body.clientWidth;
+			var newH=windowH;
+			if(newH>890)
+				newH=890;
+			var newW = newH*1916.0/890.0;
+			if(newW>windowW){
+				newW=windowW;
+				newH=newW*890.0/1916.0;
+			}
+			var newL = (windowW-newW)/2.0;
+			var newT = (windowH-newH)/2.0;
+			
+			document.getElementById("idBg").style.left = newL+'px';
+			document.getElementById("idBg").style.top = 0+'px';
+			
+			document.getElementById("idBg").style.height = newH+'px';
+			document.getElementById("idBg").style.width = newW+'px';
+			//alert('['+newL+'],['+newT+'],['+newH+'],['+newW+']');
+		}
+	</script>
+</head>
+	<body onload="doResizeCss()">
+		<div id="idBg" style="width:100%;height:100%;background-image:url('/school/images/login/ict_login_bg.png');background-size:100% 100%;background-repeat:no-repeat;min-height:400px">
+			<div class="mainCls">
+				<div class="titleCls">
+					<img src="/school/images/login/ict_login_title.png"/>
+				</div>
+				<div class="formCls">
+					<form name="nclogin" id="nclogin" method="post" action="/pronline/Msg" onsubmit="spylogin()">
+						<input type="hidden" name="FunName" value="ict_Auth">
+						<table border = "0">
+							<tr><td><label for="name" class="labelCls">用 户 名&nbsp;:&nbsp;</label></td><td><input type="text" name="vname" class="inputCls" id="username"/ ></td></tr>
+							<tr><td><label for="password" class="labelCls">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;</label></td><td> <input type="password" name="passwd" class="inputCls" id="password" onKeyPress="ss()"/>&nbsp;&nbsp;&nbsp;<a href="changepsd.htm" class="labelCls">修改密码</a></td></tr>
+						</table>		
+							
+						<div class="btnCls">
+							<input type="submit" name="submit_button" value="" style="outline:none;border:0;width:105px;height:36px;background:url(/school/images/login/ict_login_btn1.jpg) no-repeat;">
+							<input type="reset" name="submit_button" value="" style="outline:none;border:0;width:105px;height:36px;background:url(/school/images/login/ict_login_btn2.jpg) no-repeat;margin:0 0 0 20px;">
+						</div>
+					</form>
+				</div>
+				<div class="footCls">
+					<div class="footCls1">全国服务热线：800 820 6268&nbsp;&nbsp;&nbsp;&nbsp;技术服务热线：021-5155 6119&nbsp;&nbsp;&nbsp;&nbsp;24小时热线电话：159 0052 9876</div>
+					<div class="footCls2">&copy;1998-2014 上海新网程信息技术股份有限公司&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;版本号：V3.0.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;www.pronetway.com</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

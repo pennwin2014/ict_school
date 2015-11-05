@@ -172,12 +172,55 @@ Ext.require([
     'Ext.form.field.Number',
     'Ext.form.Panel'
 ]);
-function doInit(){
+
+function updatePageUserInfo(){
 	var info = parent.ictGlobalCtx.getUserInfo();
-	$("#idUsername").text(info.userName);
-	$("#idVname").text(info.vName);
-	$("#idBalance").text("余额: "+info.money+"元");
-	$("#idProducts").text("套餐: "+info.bName);
+	if(info.loginStatus == true){
+		$("#idUsername").text(info.userName);
+		$("#idVname").text(info.vName);
+		$("#idBalance").text("余额: "+info.money+"元");
+		$("#idProducts").text("套餐: "+info.bName);
+	}else{
+		$("#idUsername").text(info.userName);
+		$("#idVname").text(info.vName);
+		$("#idBalance").text("余额: "+info.money+"元");
+		$("#idProducts").text("套餐: "+info.bName);
+	}
+}
+function checkUserInfo(){
+	Ext.Ajax.request({ 
+		url: '/pronline/Msg?FunName@ict_getUserInfo',  
+		method: 'GET',
+		success: function(resp,opts) {   
+			try{
+				var respText = resp.responseText; 
+				var respRecord = eval("("+respText+")");
+				if(respRecord.result == '0'){
+					var info = {
+						'userName':respRecord.username,
+						'vName':respRecord.vname,
+						'bType':respRecord.btype,
+						'bName':respRecord.bname,
+						'money':respRecord.money,
+						'loginStatus':true
+					};
+					parent.ictGlobalCtx.setUserInfo(info);
+					updatePageUserInfo();
+				}else{
+					console.log("获取用户信息无效");
+				}
+			}catch(e){
+				//console.log(e.message);
+			}				
+		},   
+		failure: function(resp,opts) {   
+			var respText = eval("("+respText+")");
+			alert('错误', respText.error);   
+		} 	 
+	});
+}
+function doInit(){	
+	checkUserInfo();
 }
 Ext.onReady(function(){
     Ext.tip.QuickTipManager.init();

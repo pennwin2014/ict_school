@@ -17,17 +17,24 @@
 #include "ncportal.h"
 #include <iconv.h>
 
-int insertToShm(char* vName)
+static int ictPrint(long isDebug, const char* fmt, ...)
 {
-	
-	return 0;
+    int retCnt = 0;
+    if(isDebug)
+    {
+        va_list ap;
+        va_start(ap, fmt);
+        retCnt = vprintf(fmt, ap);
+        va_end(ap);
+    }
+    return retCnt;
 }
 
 
 int isVnameRegistered(char* vName)
 {
-	
-	return 0;
+
+    return 0;
 }
 
 int ict_register(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
@@ -36,6 +43,7 @@ int ict_register(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     //pasDbOneRecord(sqlbuf, 0, UT_TYPE_LONG, 4, &lCount);一般是只返回一个数据，将数据存在lCount中
     //insert,delete,update等用pasDbExecSqlF?
     //查询语句用 psCur = pasDbOpenSql(sql, 0);
+    long wpDebug = utComGetVar_ld(psShmHead, "wpDebug", 0);
     int iReturn = 0;
     utMsgPrintMsg(psMsgHead);
     char caVname[32 + 1] = "";
@@ -62,7 +70,7 @@ int ict_register(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         memset(sqlbuf, 0, sizeof(sqlbuf));
         //先判断数据库里是否有该caVname，有的话直接报错
         snprintf(sqlbuf, sizeof(sqlbuf) - 1, "select count(*) from userlib where vname='%s'", caVname);
-        printf("sqlbuf=%s  \n", sqlbuf);
+        ictPrint(wpDebug, "sqlbuf=%s  \n", sqlbuf);
         pasDbOneRecord(sqlbuf, 0, UT_TYPE_LONG, 4, &lCount);
         if(lCount > 0)
         {
@@ -79,10 +87,10 @@ int ict_register(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         /*snprintf(sqlbuf, sizeof(sqlbuf) - 1, "insert into userlib (vname,dname,address,passwd,mname) values('%s','%s','%s','%s','%s')",
                 utf8convert(psShmHead,caVname), utf8convert(psShmHead,caDname), utf8convert(psShmHead,caPasswd), utf8convert(psShmHead,caAddress), utf8convert(psShmHead,caMname));   */
         //snprintf(sql,sizeof(sql),"insert into help (messageTitle,messageContent)values('%s','%s')",utf8convert(psShmHead,messageTitle),utf8convert(psShmHead,messageContent));
-        printf("insert sql=%s\n", sqlbuf);
+        ictPrint(wpDebug, "insert sql=%s\n", sqlbuf);
         iReturn = pasDbExecSqlF(sqlbuf);
         //pasDbExecSql(sqlbuf, 0);
-        printf("iReturn=%d\n", iReturn);
+        ictPrint(wpDebug, "iReturn=%d\n", iReturn);
         if(iReturn != 0)
         {
             snprintf(caMsg, sizeof(caMsg) - 1, "操作数据库失败,错误码=[%d]", iReturn);
@@ -92,7 +100,7 @@ int ict_register(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         }
         else
         {
-           // pasDbCommit(NULL);
+            // pasDbCommit(NULL);
         }
         utPltPutVarF(psDbHead, "result", "%d", iReturn);
     }
@@ -106,7 +114,20 @@ int ict_register(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     return 0;
 }
 
-int ict_Auth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+int addUserToShm(utShmHead *psShmHead)
+{
+
+    return 0;
+}
+
+int isInUserShm(utShmHead *psShmHead)
+{
+
+    return 0;
+}
+
+
+int ict_AuthMobile(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
     int iReturn = 0;
     utMsgPrintMsg(psMsgHead);
@@ -115,8 +136,8 @@ int ict_Auth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     char sqlbuf[1024] = "";
     ulong lCount = 0;
     char caMsg[256] = "";
-	
 
+    long wpDebug = utComGetVar_ld(psShmHead, "wpDebug", 0);
     iReturn = utMsgGetSomeNVar(psMsgHead, 2,
                                "vname",   UT_TYPE_STRING, sizeof(caVname) - 1, caVname,
                                "passwd",  UT_TYPE_STRING, sizeof(caPasswd) - 1, caPasswd);
@@ -126,18 +147,21 @@ int ict_Auth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     {
         memset(sqlbuf, 0, sizeof(sqlbuf));
         snprintf(sqlbuf, sizeof(sqlbuf) - 1, "select count(*) from userlib where vname='%s' and passwd='%s'", caVname, caPasswd);
-        printf("sqlbuf=%s  \n", sqlbuf);
+        ictPrint(wpDebug, "sqlbuf=%s  \n", sqlbuf);
         pasDbOneRecord(sqlbuf, 0, UT_TYPE_LONG, 4, &lCount);
         if(lCount <= 0)
         {
             snprintf(caMsg, sizeof(caMsg) - 1, "该vname[%s]不存在或者密码错误", caVname);
             utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caMsg));
             utPltPutVarF(psDbHead, "result", "%d", 1);
-        }else{
+            
+        }
+        else
+        {
+            //将用户加入共享内存
+            addUserToShm(caVname);
 			utPltPutVarF(psDbHead, "result", "%d", 0);
-			//登录成功，往共享内存插入一条数据
-			insertToShm(caVname);
-		}
+        }
     }
     else
     {
@@ -145,7 +169,201 @@ int ict_Auth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caMsg));
         utPltPutVarF(psDbHead, "result", "%d", 2);
     }
-    utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/login/login.htm");
+	utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/login/login.htm");
+    return 0;
+}
+
+int ict_Auth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+    int iReturn = 0;
+    utMsgPrintMsg(psMsgHead);
+    char caVname[32 + 1] = "";
+    char caPasswd[24 + 1] = "";
+    char sqlbuf[1024] = "";
+    ulong lCount = 0;
+    char caMsg[256] = "";
+
+    long wpDebug = utComGetVar_ld(psShmHead, "wpDebug", 0);
+    iReturn = utMsgGetSomeNVar(psMsgHead, 2,
+                               "vname",   UT_TYPE_STRING, sizeof(caVname) - 1, caVname,
+                               "passwd",  UT_TYPE_STRING, sizeof(caPasswd) - 1, caPasswd);
+    utStrDelSpaces(caVname);
+    utPltDbHead* psDbHead = utPltInitDb();
+    if(strlen(caVname) > 0)
+    {
+        memset(sqlbuf, 0, sizeof(sqlbuf));
+        snprintf(sqlbuf, sizeof(sqlbuf) - 1, "select count(*) from userlib where vname='%s' and passwd='%s'", caVname, caPasswd);
+        ictPrint(wpDebug, "sqlbuf=%s  \n", sqlbuf);
+        pasDbOneRecord(sqlbuf, 0, UT_TYPE_LONG, 4, &lCount);
+        if(lCount <= 0)
+        {
+            snprintf(caMsg, sizeof(caMsg) - 1, "该vname[%s]不存在或者密码错误", caVname);
+            utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caMsg));
+            utPltPutVarF(psDbHead, "result", "%d", 1);
+            utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/main/login_error.htm");
+        }
+        else
+        {
+            //将用户加入共享内存
+            addUserToShm(caVname);
+            utPltPutVarF(psDbHead, "result", "%d", 0);
+            utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/main/index.htm");
+        }
+    }
+    else
+    {
+        snprintf(caMsg, sizeof(caMsg) - 1, "vname不可以为空");
+        utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caMsg));
+        utPltPutVarF(psDbHead, "result", "%d", 2);
+        utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/main/login_error.htm");
+    }
+    return 0;
+}
+
+int ict_getUserInfo(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+    int iReturn = 0;
+    utMsgPrintMsg(psMsgHead);
+    long wpDebug = utComGetVar_ld(psShmHead, "wpDebug", 0);
+    char caTsid[512] = {0};
+    char caVname[32 + 1] = "";
+    char sqlbuf[1024] = "";
+    ulong lCount = 0;
+    char caMsg[256] = "";
+    utPltDbHead *psDbHead = utPltInitDbHead();
+
+    iReturn = utMsgGetSomeNVar(psMsgHead, 1,
+                               "tsid",   UT_TYPE_STRING, sizeof(caTsid) - 1, caTsid);
+    utStrDelSpaces(caTsid);
+    ictPrint(wpDebug, "tsid=%s\n", caTsid);
+    if(strlen(caTsid) > 0)
+    {
+
+    }
+    //暂时把所有信息都返回
+    utPltPutVarF(psDbHead, "result", "%d", 0);
+    utPltPutVar(psDbHead, "username", convert("GBK", "UTF-8", "小白"));
+    utPltPutVar(psDbHead, "vname", "124");
+    utPltPutVar(psDbHead, "btype", "1");
+    utPltPutVar(psDbHead, "bname", convert("GBK", "UTF-8", "100元基础套餐"));
+    utPltPutVar(psDbHead, "money", "211");
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/main/userInfo.htm");
+    return 0;
+}
+
+// 获取验证码
+int ictSrvUserGetPass(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+    long wpDebug = utComGetVar_ld(psShmHead, "wpDebug", 0);
+    if(wpDebug)
+        utMsgPrintMsg(psMsgHead);
+    char caPosturl[128];
+    char username[32] = {0};
+    char postarg[512] = {0};
+    long lStatus;
+    char caTsid[24];
+    memset(caTsid, 0, sizeof(caTsid));
+    memset(username, 0, sizeof(username));
+    // 获取手机号
+    utMsgGetSomeNVar(psMsgHead, 4,
+                     "username",  UT_TYPE_STRING,  sizeof(username) - 1, username,
+                     "postarg",   UT_TYPE_STRING,  sizeof(postarg) - 1,  postarg,
+                     "tsid",   UT_TYPE_STRING, sizeof(caTsid) - 1, caTsid,
+                     "posturl", UT_TYPE_STRING, sizeof(caPosturl) - 1, caPosturl
+                    );
+    ictPrint(wpDebug, "\n 手机号为 %s \n", username);
+    ictPrint(wpDebug, "\n tsid=%s \n", caTsid);
+    ictPrint(wpDebug, "posturl=%s\n", caPosturl);
+    ictPrint(wpDebug, "postarg=%s\n", postarg);
+
+    utMsgHead *psMsgHead2;
+    ncPortalOnline *psOnline = NULL;
+    long status = -1;
+    char server_ip[100] = {0};
+    char server_port[100] = {0};
+    char caIp[32];
+    unsigned long long llTsid;
+    // 获取丹尼斯接口的IP地址和端口号
+    strcpy(server_ip,  utComGetVar_sd(psShmHead, "verify_ip",  ""));
+    strcpy(server_port, utComGetVar_sd(psShmHead, "verify_port", ""));
+    strcpy(caIp, utComGetVar_sd(psShmHead, "AdminIp", ""));
+
+    sscanf(caTsid, "%llu", &llTsid);
+    psOnline = (ncPortalOnline *)ncSrvGetOnlineUserByTsid(psShmHead, llTsid);
+    if(psOnline)
+    {
+        lStatus = ncSrvGetUserStatus(psShmHead, psOnline->lStype, username);
+        ictPrint(wpDebug, "lStatus=%d,username=%s,stype=%d \n", lStatus, username, psOnline->lStype);
+    }
+    else
+    {
+
+        lStatus = ncSrvGetUserStatus(psShmHead, 4100021, username);
+        ictPrint(wpDebug, "_1lStatus=%d,username=%s,stype=%d \n", lStatus, username, 0);
+    }
+
+    if(lStatus == 9)
+    {
+        utPltDbHead *psDbHead = utPltInitDbHead();
+        utPltPutVar(psDbHead, "status", "sforbidden");
+        utPltPutVar(psDbHead, "posturl", caPosturl);
+        utPltPutVar(psDbHead, "postarg", postarg);
+        utPltPutVar(psDbHead, "ip", caIp);
+        utPltOutToHtml(iFd, psMsgHead, psDbHead, "genal/sms/redirect2.htm");
+        return 0;
+    }
+
+
+    ictPrint(wpDebug, "\n server_ip = %s \n", server_ip);
+    ictPrint(wpDebug, "\n server_port = %s \n", server_port);
+    unsigned long ip = utComHostAddress(server_ip);
+    unsigned long port = atol(server_port);
+    ictPrint(wpDebug, "\n port1 = %d \n", port);
+    port = ntohs(port);
+    ictPrint(wpDebug, "\n port2 = %d \n", port);
+    psMsgHead2 = NULL;
+    status = 1;
+    psMsgHead2 = pasTcpRequest(ip, port,
+                               0,        /* CheckSum */
+                               0,        /* Encrypt  */
+                               "ncSrvGetPassword",
+                               0,       /* Sid */
+                               0,       /* Rid  */
+                               30,      /* 超时  */
+                               NULL,    /* key   */
+                               1,
+                               "username", UT_TYPE_STRING, username);
+
+    if(psMsgHead2)
+    {
+        int iReturn = utMsgGetSomeNVar(psMsgHead2, 1,
+                                       "status", UT_TYPE_LONG, 4, &status);
+
+        utMsgFree(psMsgHead2);
+    }
+
+    ictPrint(wpDebug, "\n status = %d \n", status);
+    /*
+    ncSrvGetPass(psShmHead, iFd, psMsgHead);
+    return;
+    */
+    if(status == 1)     // 会员直接获取验证码
+    {
+        ictPrint(wpDebug, "\n 会员 \n");
+        ncSrvGetPass(psShmHead, iFd, psMsgHead);
+    }
+    else    // 非会员则跳到注册页
+    {
+        ictPrint(wpDebug, "\n 非会员 \n");
+        utPltDbHead *psDbHead = utPltInitDbHead();
+        utPltPutVar(psDbHead, "status", "forbidden");
+        utPltPutVar(psDbHead, "posturl", caPosturl);
+        utPltPutVar(psDbHead, "postarg", postarg);
+        utPltPutVar(psDbHead, "ip", caIp);
+        utPltOutToHtml(iFd, psMsgHead, psDbHead, "genal/sms/redirect2.htm");
+        //utPltOutToHtml(iFd,psMsgHead,psDbHead,"genal/sms/Register.html");
+    }
+    //  printf("\n 离开ictSrvUserGetPass \n");
     return 0;
 }
 
@@ -153,7 +371,10 @@ int ict_Auth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 int ictInitWebFun_wp(utShmHead *psShmHead)
 {
     pasSetTcpFunName("ict_register", ict_register, 0);
-	pasSetTcpFunName("ict_Auth", ict_Auth, 0);
+    pasSetTcpFunName("ict_Auth", ict_Auth, 0);
+    pasSetTcpFunName("ict_AuthMobile", ict_AuthMobile, 0);
+    pasSetTcpFunName("ict_getUserInfo", ict_getUserInfo, 0);
+    pasSetTcpFunName("ictSrvUserGetPass", ictSrvUserGetPass, 0);
     return 0;
 }
 

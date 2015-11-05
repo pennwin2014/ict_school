@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<!--link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all-gray.css" /--> 
+<link rel="stylesheet" href="/newver/jqm/jquery.mobile-1.4.5.min.css">
+<script src="/newver/jquery/jquery-1.8.2.min.js"></script>
+<script src="/newver/jqm/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
+<script type="text/javascript" src="/school/js/school.js"></script>
+<style>
+	.ui-bar-f
+	{
+		color:#FFFFFF;
+		background-color:#33a993;
+	}
+	.ui-body-f
+	{
+		font-weight:bold;
+		color:#229881;
+	}
+	.imgNav{
+		//position:absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:30%;
+	}
+	.csBigBtns{
+		position:relative;
+		width:100%;
+		height:20%;
+	}
+	.bigBtnQuery{
+		top:0;
+		width:47%;
+		height:100%;
+		margin-left:2%;
+	}
+	.bigBtnCharge{
+		width:47%;
+		height:100%;
+		margin-left:1%;
+		top:0;
+	} 
+</style>
+<script>
+/*
+	Ext.Loader.setConfig({enabled: true});
+	Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+	Ext.require([
+		'Ext.form.*',
+		'Ext.window.*',
+		'Ext.grid.*',
+		'Ext.data.*',
+		'Ext.util.*',
+		'Ext.window.MessageBox',
+		'Ext.toolbar.Paging',
+		'Ext.ux.PreviewPlugin',
+		'Ext.tree.*',
+		'Ext.form.field.File',
+		'Ext.form.field.Number',
+		'Ext.form.Panel'
+	]);
+	Ext.onReady(function(){
+		Ext.tip.QuickTipManager.init();
+		
+	});*/
+	function doSubmitLogin(){
+		var mVname = $("#vname").val();
+		var mPasswd = $("#passwd").val();
+		if(ictGlobalCtx.checkLoginData(mVname, mPasswd)){
+			alert(ictGlobalCtx.getLastError());
+			return;
+		}
+		Ext.Ajax.request({
+			url: '/pronline/Msg?FunName@ict_AuthMobile&vname='+mVname+'&passwd='+mPasswd, 
+			method: 'GET',
+			success: function(resp,opts) {   
+				try{
+					var respText = resp.responseText; 
+					var respRecord = eval("("+respText+")");
+					var ret = respRecord.result;
+					if(ret!='0'){
+						alert(ret+","+respRecord.mesg);
+					}else{
+						alert("登录成功!!");
+						jumpToPage('pgFrontpage');
+					}
+				}catch(e){
+					//console.log(e.message);
+				}			
+			},   
+			failure: function(resp,opts) {   
+				var respText = eval("("+respText+")");
+				alert('错误', respText.error);   
+			}   			 
+		});
+	}
+</script>
+<script>
+	function jumpToPage(pageId){
+		$.mobile.changePage("#"+pageId,{transition:"flip"});
+	}
+	
+	$('#btnQuery').live('click', function() {
+		/*
+		window.schoolfragment.voucherPay() 充值
+		window.schoolfragment.queryLog() 
+        */
+		$.mobile.changePage("#pgCharge",{transition:"pop"});//$('#selPage').popup('open');
+    });
+	
+	$('#btnCharge').live('click', function() {
+        $.mobile.changePage("#pgCharge",{transition:"flip"});
+    });
+	
+	$('#btnSchoolNews').live('click', function() {
+        $.mobile.changePage("#pgNews",{transition:"flow"});
+    });
+	
+	$('#btnLost').live('click', function() {
+        $.mobile.changePage("#pgNews",{transition:"fade"});
+    });
+	
+	$('#btnCourse').live('click', function() {
+        $.mobile.changePage("#pgNews",{transition:"slidefade"});
+    });
+	
+	$('#btnParty').live('click', function() {
+        $.mobile.changePage("#pgNews",{transition:"slideup"});
+    });
+	
+	$('#btnWork').live('click', function() {
+        $.mobile.changePage("#pgNews",{transition:"slidedown"});
+    });
+	
+	$('#btnMass').live('click', function() {
+        $.mobile.changePage("#pgNews",{transition:"turn"});
+    });
+	
+	$('#myInfo').live('click', function() {
+        $.mobile.changePage("#pgNews",{transition:"slide"});
+    });
+	
+</script>
+</head>
+<body>
+<!--登录页面-->
+<div data-role="page" id="pgLogin">
+	<div data-role="header" data-theme="f">
+		<h1>登录页面</h1>
+	</div>
+
+	<div data-role="content" data-theme="f">
+		<div data-role="fieldcontain">
+			<label for="vname">用户名</label>
+			<input type="text" name="vname" id="vname" placeholder="您的手机号" />       
+			<label for="passwd">密码</label>
+			<input type="password" name="passwd" id="passwd" />
+		</div>
+		<a href="#" data-role="button" data-inline="true" onclick="doSubmitLogin()">确定</a>
+		<a href="#" data-role="button" data-inline="true" onclick="jumpToPage('pgRegister')">注册</a>
+	</div>
+</div>
+<!--注册页面-->
+<div data-role="page" id="pgRegister">
+	<div data-role="header" data-theme="f">
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
+		<h1>注册</h1>
+	</div>
+
+	<div data-role="content">
+		<form method="post" action="demoform.asp">
+			<div data-role="fieldcontain">
+				<label for="fullname">手机号</label>
+				<input type="text" name="fullname" id="fullname">   
+				<label for="nickname">昵称</label>
+				<input type="text" name="nickname" id="nickname">  				
+				<label for="bday">密码</label>
+				<input type="date" name="bday" id="bday">
+				<label for="bday">确认密码</label>
+				<input type="date" name="bday" id="bday">
+				<label for="email">地址</label>
+				<input type="email" name="email" id="email" placeholder="您的地址..">
+			</div>
+			<input type="submit" data-inline="true" value="提交">
+		</form>
+	  </div>
+</div>
+<!--首页-->
+<div data-role="page" id="pgFrontpage">
+	<div data-role="header" data-theme="f">
+		<a href="#pgLogin" data-role="button" data-icon="gear" data-iconpos="notext">退出</a>
+		<h1>上海大学智慧校园</h1>
+		<a href="#" id="myInfo" data-role="button" data-icon="info" data-iconpos="notext">我的</a>
+	</div>
+	
+	<img class="imgNav" src="/mobile_school/images/frontPage/nav.png" />
+	<div class="csBigBtns">
+		<img id="btnQuery" src="/mobile_school/images/frontPage/btnQuery.png" class="bigBtnQuery"/>
+		<img id="btnCharge" src="/mobile_school/images/frontPage/btnCharge.png" class="bigBtnCharge" />
+	</div>
+	<div data-role="content">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#" id="btnSchoolNews" data-icon="plus">校园资讯</a></li>
+				<li><a href="#" id="btnLost" data-icon="minus">失物招领</a></li>
+				<li><a href="#" id="btnCourse" data-icon="delete">我的课表</a></li>
+				<li><a href="#" id="btnParty" data-icon="check">聚会聚餐</a></li>
+				<li><a href="#" id="btnWork" data-icon="info">兼职实习</a></li>
+				<li><a href="#" id="btnMass" data-icon="forward">社团实践</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!--充值页面-->
+<div data-role="page" id="pgCharge">
+  <div data-role="content">
+    <a href="#pageone">充值界面</a>
+	<a href="#" data-role="button" data-rel="back">返回</a>
+  </div>
+</div>
+
+
+<!--校园咨询页面-->
+<div data-role="page" id="pgNews">
+  <div data-role="content">
+    <a href="#pageone">校园咨询页面</a>
+	<a href="#" data-role="button" data-rel="back">返回</a>
+  </div>
+</div>
+</body>
+</html>
+

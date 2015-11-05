@@ -1,8 +1,7 @@
 var mapPage = {
 	'id_frontPage_main':['itm_frontPage_main','首页','frontPage/ict_frontPage_main.html'],
 	'id_ictShop_main':['itm_ictShop_main','ICT商城','system/ict_system_register.html'],
-	//'id_support_help':['itm_support_help','客服与帮助','support/ict_support_help.html'],
-	'id_support_help':['itm_support_help','客服与帮助','system/ict_system_login.html'],
+	'id_support_help':['itm_support_help','客服与帮助','support/ict_support_help.html'],
 	'id_ictShop_products':['itm_ictShop_products','更换套餐','ictShop/ict_ictShop_products.html'],
 	'id_ictShop_charge':['itm_ictShop_charge','充值','ictShop/ict_ictShop_charge.html'],
 	'id_bill_check':['itm_bill_check','账单查询','bill/ict_bill_check.html'],
@@ -17,7 +16,8 @@ function f_IctGlobalContext(){
 		'vName':'124',
 		'bType':'1',
 		'bName':'100元基础套餐',
-		'money':'23'
+		'money':'23',
+		'loginStatus':true
 	};
 //公共接口
 	this.jumpToPage = function(pid){
@@ -31,13 +31,22 @@ function f_IctGlobalContext(){
 		alert("点击断线");
 	}
 	this.userQuit = function(){
-		alert("点击安全退出");
+		this.clearUserInfo();
+		self.location='/school/login.html';
 	}
 	this.setUserInfo = function(info){
 		this.userInfo = info;
 	}
 	this.getUserInfo = function(){
 		return this.userInfo;
+	}
+	this.clearUserInfo = function(){
+		this.userInfo['loginStatus'] = false;
+		this.userInfo['userName'] = "";
+		this.userInfo['vName'] = "";
+		this.userInfo['bType'] = "";
+		this.userInfo['bName'] = "";
+		this.userInfo['money'] = "";
 	}
 	this.doOrderPackage = function(funId){
 		alert("点击订购套餐"+funId);

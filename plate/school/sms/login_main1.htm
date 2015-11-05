@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+
+<title>学校欢迎您</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:100%;
+	margin:0 auto;	
+}
+.top_tit img{ width:100%;}
+
+.contentinfo{ width:100%;}
+.bg_img{ width:100%; position:relative; text-align:center;}
+.bg_img img{ width:100%;}
+.login_style{ position:absolute; top:45%; width:100%}
+.tit_text{ position:relative; top:0; width:100%; font-size:0.8em;}
+.userstyle{ position:relative; width:80%; top:5px; margin-left:10%;}
+.passwordstyle{ position:relative; width:80%; top:15px;margin-left:10%;}
+.username{ width:100%; height:30px; color:#BFBFBF;  font-size:0.8em; }
+
+
+.password{ width:100%;height:30px; color:#BFBFBF; font-size:0.8em;}
+.check{ position:relative; top:25px; width:80%; font-size:0.8em; color:#333;}
+.check a{ color:#00F;}
+.btn_sty{ position:relative; top:35px;width:80%; margin-left:10%;}
+.btn_hq{ color:#996633; font-weight:bold; width:40%; height:30px;  border-radius:8px;
+    -webkit-border-radius: 8px;
+	FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#ffc337,endColorStr=red); /*IE 6 7 8*/ 
+	background: -ms-linear-gradient(top, #ffc337,  #fee086);        /* IE 10 */
+	background:-moz-linear-gradient(top,#ffc337,#fee086);/*火狐*/ 
+	background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#ffc337), to(#fee086));/*谷歌*/ 
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffc337), to(#fee086));      /* Safari 4-5, Chrome 1-9*/
+	background: -webkit-linear-gradient(top, #ffc337, #fee086);   /*Safari5.1 Chrome 10+*/
+	background: -o-linear-gradient(top, #ffc337, #fee086);  /*Opera 11.10+*/}
+.btn_ok{ color:#386b9e; font-weight:bold; width:40%; margin-left:20%; height:30px;  border-radius:8px;
+    -webkit-border-radius: 8px;
+	FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#b8c4cb,endColorStr=red); /*IE 6 7 8*/ 
+	background: -ms-linear-gradient(top, #99c5f1,  #cbe7fc);        /* IE 10 */
+	background:-moz-linear-gradient(top,#99c5f1,#cbe7fc);/*火狐*/ 
+	background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#99c5f1), to(#cbe7fc));/*谷歌*/ 
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#99c5f1), to(#cbe7fc));      /* Safari 4-5, Chrome 1-9*/
+	background: -webkit-linear-gradient(top, #99c5f1, #cbe7fc);   /*Safari5.1 Chrome 10+*/
+	background: -o-linear-gradient(top, #99c5f1, #cbe7fc);  /*Opera 11.10+*/}
+.span_zh{ border-right: solid 2px #FF9900; color:#996633; margin-left:10%;  padding-right:2%; margin-right:2%;}
+.span_eng{color:#4e2a05;}
+</style>
+<script type="text/javascript">
+function change1() {
+    document.getElementById("img1").src = "/images/sc/20.png";
+    var temp;
+    //	    temp="https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@"+flag+"&code@"+document.getElementById("code").value+"&usernametmp@"+document.getElementById("usernametmp").value+"&html@"+"/login_smsexplainzh.htm&[#getarg#]";
+    var flag = 'zh';
+    temp = "http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@" + flag + "&html@" + "/login_smsexplainzh.htm&[#getarg#]";
+    self.location = temp;
+}
+
+function change2() {
+    document.getElementById("img2").src = "/images/sc/21.png";
+}
+var p_flag = '1';
+
+function restore() {
+    document.getElementById("gpss").disabled = "";
+    p_flag = '1';
+}
+
+function chk(tel) {
+    if (/^1\d{10}$/g.test(tel) || (/^1\d{11}$/g.test(tel))) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+var i = 59;
+
+function fun() {
+    if (i == 0) {
+        document.getElementById("gpss").value = "获取密码";
+        clearInterval(intervalid);
+        i = 59;
+    } else {
+        document.getElementById("gpss").value = i;
+
+        i--;
+    }
+}
+
+function getpasswd() {
+    if (p_flag == '0') return false;
+    if (document.getElementById("nclogin").username.value == '' || document.getElementById("nclogin").username.value == '手机号') {
+        alert('请输入手机号');
+        return false;
+    }
+
+    var telno = document.getElementById("nclogin").username.value;
+    if (telno.length != 11) {
+        alert('手机号格式不对');
+        return false;
+    }
+    if (chk(telno) != '0') {
+        alert('请输入正确地手机号！');
+        return false;
+    }
+    //document.getElementById("input1").value='';
+
+    temp_html = "http://[#ip#]:[#port#]/pronline/Msg?FunName@ictSrvUserGetPass&tsid@[#tsid#]&lang@[#lang#]&username@" + document.getElementById("nclogin").username.value + "&tsid@" + document.getElementById("tsid").value;
+
+    document.getElementById("ifhide").src = temp_html;
+    document.getElementById("gpss").disabled = "true";
+    document.getElementById("gpss").value = "已发送";
+    intervalid = setInterval("fun()", 1000); //写在document.getElementById("gpss").disabled="true";的后面
+
+    p_flag = '0';
+    setTimeout('restore()', 60000);
+    return false;
+}
+
+var mz;
+
+function xianshi() {
+    mz = 1;
+    document.getElementById("password").style.width = "100%";
+    document.getElementById("bo").style.display = "block";
+    document.getElementById("ok1").style.display = "none";
+    document.getElementById("ok2").style.display = "block";
+
+}
+
+function spylogin() {
+    if (document.getElementById("username").value == "" || document.getElementById("username").value == "手机号" || document.getElementById("password").value == "" || document.getElementById("password").value == "密码") {
+        window.alert("手机号或密码不能为空!");
+        return false;
+    }
+    if (document.getElementById("radio1").checked != 1) {
+        window.alert("请确认接受免责声明！");
+        return false;
+    }
+    //document.getElementById("nclogin").submit();
+    /*var telno=document.getElementById("nclogin").username.value;
+		if(telno.length!=11){
+			  alert('手机号格式不对');
+			  return false;
+		}
+		if(chk(telno)!='0'){
+		    alert('请输入正确地手机号！');
+		  	return false;
+		}*/
+
+    return true;
+}
+
+function mr() {
+    if (document.getElementById("username").value == "手机号码") {
+        document.getElementById("username").style.color = "#aaa";
+    }
+    if (document.getElementById("password").value = "密码") {
+        document.getElementById("password").style.color = "#aaa";
+    }
+}
+
+function qk() {
+    if (document.getElementById("username").value == "手机号码") {
+        document.getElementById("username").value == "";
+    }
+    if (document.getElementById("password").value == "密码") {
+        document.getElementById("password").value == "";
+    }
+}
+
+function openpage(flag) {
+    var temp;
+    temp = "https://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvPlate&lang@" + flag + "&code@" + 86 + "&usernametmp@" + document.getElementById("username").value + "&html@" + "/login_smsexplainzh.htm&[#getarg#]";
+    self.location = temp;
+}
+
+function init() {
+    //alert('[#statusCode#]');
+    if ('[#statusCode#]' == '2') {
+        document.getElementById('err5').innerHTML = '账号与SSID不匹配。';
+    }
+    if ('[#statusCode#]' == '3') {
+        document.getElementById('err5').innerHTML = '用户账号已过期。';
+    }
+    if ('[#statusCode#]' == '4') {
+        document.getElementById('err5').innerHTML = '您登录的账号在黑名单中。';
+    }
+    if ('[#statusCode#]' == '5') {
+        document.getElementById('err5').innerHTML = '请输入正确的密码。';
+    }
+    if ('[#statusCode#]' == '6') {
+        document.getElementById('err5').innerHTML = '该用户不存在。';
+    }
+    if ('[#statusCode#]' == '7') {
+        document.getElementById('err5').innerHTML = '超出Mac最大绑定数量。';
+    }
+}
+
+function changlogin(flag) {
+    self.location = 'http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@' + flag + '&[#getarg#]';
+}	
+
+</script>
+</head>
+<body onload="init();">
+<div class="wrap" id="wrap">
+    <form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+        <input type="hidden" name="tsid" id="tsid" value="[#tsid#]">[#postarg#]
+        <div class="contentinfo">
+            <div class="bg_img">
+                <img src="/images/school/bg.jpg" />
+                <div class="login_style">
+                    <div class="tit_text"><span style="color:#4e2a05">免费WIFI,畅想自由</span><span class="span_zh" onclick="changlogin('zh')">中文</span><span class="span_eng" onclick="changlogin('eng')">English</span>
+                    </div>
+                    <div class="userstyle">
+                        <input class="username" type="text" value="请输入手机号码" id="username" name="username" onblur="if(this.value==''){this.value='请输入手机号码',this.style.color='#BFBFBF'}" onfocus="this.value='';this.style.color='#000000';document.getElementById('err5').innerHTML=''" />
+                    </div>
+                    <div class="passwordstyle">
+                        <input class="password" type="text" value="请输入手机获取的密码" id="password" name="password" onblur="if(this.value==''){this.type='text',this.value='请输入手机获取的密码',this.style.color='#BFBFBF'}" onfocus="this.value='';this.style.color='#000000';this.type='password';document.getElementById('err5').innerHTML=''" />
+                    </div>
+                    <div class="check">
+                        <input type="checkbox" id="radio1" />&nbsp;<span>我已阅读并接受相关<a target="_blank" href="/images/jiashan/mzsm_sj.html">免责条款</a></span>
+                    </div>
+                    <div class="btn_sty">
+                        <input type="button" value="获取密码" class="btn_hq" id="gpss" onClick="getpasswd();" />
+                        <input type="submit" value="登录" class="btn_ok" onClick="return spylogin();" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0 FrameBorder=0></iframe>
+    </form>
+</div>  
+</body>
+</html>
