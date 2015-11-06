@@ -4,9 +4,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 <!--link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all-gray.css" /--> 
-<link rel="stylesheet" href="/newver/jqm/jquery.mobile-1.4.5.min.css">
+<link rel="stylesheet" href="/newver/jqm/jquery.mobile-1.4.5.css">
+<link rel="stylesheet" href="/newver/jqm/pronetway.css">
+<!-- <link rel="stylesheet" href="/newver/jqm/jquery.mobile-1.4.5.min.css"> -->
 <script src="/newver/jquery/jquery-1.8.2.min.js"></script>
-<script src="/newver/jqm/jquery.mobile-1.4.5.min.js"></script>
+<script src="/newver/jqm/jquery.mobile-1.4.5.js"></script>
+<!-- <script src="/newver/jqm/jquery.mobile-1.4.5.min.js"></script> -->
 <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
 <script type="text/javascript" src="/school/js/school.js"></script>
 <style>
@@ -80,10 +83,11 @@
 		z-index:100; 
 	} 
 	.ui-icon-myicon:after {  
-        background-image: url("/mobile_school/images/frontPage/btnCharge");  /**你的图片，路径是相对于当前使用文件可以访问到的*/
-        background-size: 100% 100%;  
-        border-radius: 0; /*图标形态，0=方形，不设置就是默认的圆形*/  
-	} 
+        background-image: url("/mobile_school/images/frontPage/mine.png");  /**你的图片，路径是相对于当前使用文件可以访问到的*/
+        background-size: 18px 18px; 
+		background-color:#0FF;
+        border-radius: 15px; /*图标形态，0=方形，不设置就是默认的圆形*/  
+	}
 </style>
 <script>
 function a()
@@ -123,27 +127,6 @@ $(document).on("pageinit","#pgMyInfo",function(){
 
 </script>
 <script>
-/*
-	Ext.Loader.setConfig({enabled: true});
-	Ext.Loader.setPath('Ext.ux', '/newver/ux/');
-	Ext.require([
-		'Ext.form.*',
-		'Ext.window.*',
-		'Ext.grid.*',
-		'Ext.data.*',
-		'Ext.util.*',
-		'Ext.window.MessageBox',
-		'Ext.toolbar.Paging',
-		'Ext.ux.PreviewPlugin',
-		'Ext.tree.*',
-		'Ext.form.field.File',
-		'Ext.form.field.Number',
-		'Ext.form.Panel'
-	]);
-	Ext.onReady(function(){
-		Ext.tip.QuickTipManager.init();
-		
-	});*/
 	function doSubmitLogin(){
 		var mVname = $("#vname").val();
 		var mPasswd = $("#passwd").val();
@@ -242,28 +225,29 @@ $(document).on("pageinit","#pgMyInfo",function(){
 		   $('#allBanks').css('display','none');
 		});
 	});
+	$("#btnCharge").autoIMG(); 
 </script>
 </head>
 <body>
 <!--登录页面-->
-<div data-role="page" id="pgLogin">
-	<div data-role="header" data-theme="f">
+<div data-role="page" id="pgLogin" style="background-image: url('/mobile_school/images/login/bg_down.png'); ">
+	<!--div data-role="header" data-theme="f">
 		<h1>登录页面</h1>
-	</div>
-
-	<div data-role="content" data-theme="f">
-		<div data-role="fieldcontain">
-			<label for="vname">用户名</label>
-			<input type="text" name="vname" id="vname" placeholder="您的手机号" />       
-			<label for="passwd">密码</label>
-			<input type="password" name="passwd" id="passwd" />
+	</div-->
+	<img src="/mobile_school/images/login/bg_school.png" style="width:100%;height:50%" />
+	<div data-role="content">
+		<input type="text" name="vname" id="vname" placeholder="您的手机号" value="15868887771"/>
+		<input type="password" name="passwd" id="passwd" placeholder="您的密码" value="123"/>
+		
+		<div class="ui-grid-b">
+			 <div class="ui-block-a"><a href="#" data-role="button" data-inline="true" onclick="doSubmitLogin()">确定</a></div>
+			 <div class="ui-block-b"></div>
+			 <div class="ui-block-c"><a href="#" data-role="button" data-inline="true" onclick="jumpToPage('pgRegister')">注册</a></div>
 		</div>
-		<a href="#" data-role="button" data-inline="true" onclick="doSubmitLogin()">确定</a>
-		<a href="#" data-role="button" data-inline="true" onclick="jumpToPage('pgRegister')">注册</a>
 	</div>
 </div>
 <!--注册页面-->
-<div data-role="page" id="pgRegister">
+<div data-role="page" id="pgRegister" style="background-image: url('/mobile_school/images/login/bg_down.png'); ">
 	<div data-role="header" data-theme="f">
 		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
 		<h1>注册</h1>
@@ -286,10 +270,13 @@ $(document).on("pageinit","#pgMyInfo",function(){
 </div>
 <!--首页-->
 <div data-role="page" id="pgFrontpage">
-	<div data-role="header" data-theme="f">
-		<a href="#pgLogin" data-role="button" data-icon="gear" data-iconpos="notext">退出</a>
-		<h1>上海大学智慧校园</h1>
-		<a href="#" id="myInfo" data-role="button" data-icon="info" data-iconpos="notext">我的</a>
+	<div data-role="header" data-theme="f"  data-position="fixed">		
+		<a href="#pgLogin" data-role="button" data-icon="video" data-iconpos="notext">退出</a>
+		<h1>上海大学智慧校园</h1>		
+		<a href="#" id="myInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
+		<!-- <a href="#" id="myInfo" data-role="button" style="background-color:#FFF;color:#FFF;" data-icon="user" data-iconpos="notext"></a> -->
+		<!-- <a href="#" id="myInfo" data-role="button" class="ui-btn ui-shadow  ui-btn-icon-left ui-icon-myicon">我的</a> -->
+		<!-- <img src="/mobile_school/images/frontpage/mine.png" style="width:18px;height:18px;" data-inline="true"/>  -->
 	</div>
 	
 	<img class="imgNav" src="/mobile_school/images/frontPage/nav.png" />

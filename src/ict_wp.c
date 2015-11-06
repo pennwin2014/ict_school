@@ -154,13 +154,13 @@ int ict_AuthMobile(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             snprintf(caMsg, sizeof(caMsg) - 1, "该vname[%s]不存在或者密码错误", caVname);
             utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caMsg));
             utPltPutVarF(psDbHead, "result", "%d", 1);
-            
+
         }
         else
         {
             //将用户加入共享内存
             addUserToShm(caVname);
-			utPltPutVarF(psDbHead, "result", "%d", 0);
+            utPltPutVarF(psDbHead, "result", "%d", 0);
         }
     }
     else
@@ -169,7 +169,7 @@ int ict_AuthMobile(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caMsg));
         utPltPutVarF(psDbHead, "result", "%d", 2);
     }
-	utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/login/login.htm");
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/login/login.htm");
     return 0;
 }
 
@@ -367,6 +367,53 @@ int ictSrvUserGetPass(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     return 0;
 }
 
+int ict_getRecPackage(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+    utMsgPrintMsg(psMsgHead);
+    char caName[32 + 1] = "";
+    char caNamedes[128 + 1] = "";
+    ulong lPtype = 0;
+    ulong lMoney = 0;
+    uint8 lId = 0;
+    int iret = -1;
+    int iNum = 0;
+    char start_in[8] = "";
+    char limit_in[8] = "";
+    utMsgGetSomeNVar(psMsgHead, 2,
+                     "start",    UT_TYPE_STRING,  sizeof(start_in) - 1,    start_in,
+                     "limit",        UT_TYPE_STRING,      sizeof(limit_in) - 1,    limit_in);
+    char sql[1024] = "";
+    pasDbCursor *psCur = NULL;
+    utPltDbHead *psDbHead = utPltInitDb();
+    int db_count = 0;
+    snprintf(sql, sizeof(sql) - 1, "select package.id,name,namedes,ptype,money from package,recpackage where package.id=recpackage.id and useflag=1");
+    psCur = pasDbOpenSql(sql, 0);
+    if(psCur != NULL)
+    {
+        while(0 == (iret = pasDbFetchInto(psCur,
+                                          UT_TYPE_LONG8, 8, &lId,
+                                          UT_TYPE_STRING, sizeof(caName) - 1, caName,
+                                          UT_TYPE_STRING, sizeof(caNamedes) - 1, caNamedes,
+                                          UT_TYPE_ULONG, 4, &lPtype,
+                                          UT_TYPE_ULONG, 4, &lMoney)) || 1405 == iret)
+        {
+            iNum++;
+            if(iNum > 1)
+            {
+                utPltPutLoopVar(psDbHead, "dh", iNum, ",");
+            }
+            utPltPutLoopVarF(psDbHead, "id", iNum, "%llu", lId);
+            utPltPutLoopVar(psDbHead, "name", iNum, convert("GBK", "UTF-8", caName));
+            utPltPutLoopVar(psDbHead, "namedes", iNum, convert("GBK", "UTF-8", caNamedes));
+            utPltPutLoopVarF(psDbHead, "ptype", iNum, "%lu", lPtype);
+            utPltPutLoopVarF(psDbHead, "money", iNum, "%lu", lMoney);
+        }
+        pasDbCloseCursor(psCur);
+    }
+    utPltPutVarF(psDbHead, "TotRec", "%lu", iNum);
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/package/rec_package.htm");
+    return 0;
+}
 
 int ictInitWebFun_wp(utShmHead *psShmHead)
 {
@@ -375,6 +422,7 @@ int ictInitWebFun_wp(utShmHead *psShmHead)
     pasSetTcpFunName("ict_AuthMobile", ict_AuthMobile, 0);
     pasSetTcpFunName("ict_getUserInfo", ict_getUserInfo, 0);
     pasSetTcpFunName("ictSrvUserGetPass", ictSrvUserGetPass, 0);
+    pasSetTcpFunName("ict_getRecPackage", ict_getRecPackage, 0);
     return 0;
 }
 
