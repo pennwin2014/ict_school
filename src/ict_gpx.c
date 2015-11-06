@@ -44,6 +44,7 @@ int ict_orderLog_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     memset(sql, 0, sizeof(sql));
     snprintf(sql, sizeof(sql), "select dtime,dstatus,name from orderlog");
+	
     printf("sql:%s\n", sql);
     psCur = pasDbOpenSql(sql, 0);
     uint8 dtime = 0;

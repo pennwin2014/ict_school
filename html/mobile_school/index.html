@@ -10,6 +10,9 @@
 <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
 <script type="text/javascript" src="/school/js/school.js"></script>
 <style>
+	.ui-page { 
+		background: #FFFFFF;
+	}
 	.ui-bar-f
 	{
 		color:#FFFFFF;
@@ -18,10 +21,9 @@
 	.ui-body-f
 	{
 		font-weight:bold;
-		color:#229881;
+		color:#FFFFFF;
 	}
 	.imgNav{
-		//position:absolute;
 		top:0;
 		left:0;
 		width:100%;
@@ -45,6 +47,81 @@
 		top:0;
 	} 
 </style>
+<style>
+	.divcss5-3{border-bottom:1px dotted #000;height:10px }
+	 #h4 {
+		width:40px;
+		height:122px;
+	}
+	.pic1{left:40px;background:#EEEEEE}
+	.blank{background:#EEEEEE;height:20px}
+	<!-- 进度条样式 -->
+	.progressbar_3{ 
+    background-color:#eee; 
+    color:#222; 
+    height:16px; 
+    width:150px; 
+    border:1px solid #bbb; 
+    text-align:center; 
+    position:relative; 
+	} 
+.bar { 
+    background-color:#6CAF00; 
+    height:16px; 
+    width:0; 
+    position:absolute; 
+    z-index:10; 
+	} 
+	.text{ 
+		height:16px; 
+		position:absolute; 
+		width:100%; 
+		line-height:16px; 
+		z-index:100; 
+	} 
+	.ui-icon-myicon:after {  
+        background-image: url("/mobile_school/images/frontPage/btnCharge");  /**你的图片，路径是相对于当前使用文件可以访问到的*/
+        background-size: 100% 100%;  
+        border-radius: 0; /*图标形态，0=方形，不设置就是默认的圆形*/  
+	} 
+</style>
+<script>
+function a()
+{
+	alert ("更换套餐");
+}
+
+function b()
+{
+	alert ("立即充值");
+}
+function c()
+{
+	alert ("充值记录");
+}
+
+function d()
+{
+	alert ("账单查询");
+}
+
+$(document).on("pageinit","#pgMyInfo",function(){
+	document.getElementById("current_package").innerHTML ="500M无忧套餐";
+	document.getElementById("current_package").style.color ="#AFAFAF";
+	document.getElementById("valid_date").innerHTML ="2015-03-01至2015-3-31";
+	document.getElementById("valid_date").style.color ="#AFAFAF";
+	document.getElementById("account_balance").innerHTML ="20元";
+	document.getElementById("account_balance").style.color ="#AFAFAF";
+	document.getElementById("data_package").innerHTML ="流量套餐";
+	document.getElementById("data_package").style.color ="#AFAFAF";
+	document.getElementById("package_content").innerHTML="每月享有500M上网流量";
+	document.getElementById("package_content").style.color ="#AFAFAF";
+	<!-- 动态加载滚动条 -->
+	document.getElementById("progress").innerHTML="50%";
+	document.getElementById("bar").style.width="50%";
+});
+
+</script>
 <script>
 /*
 	Ext.Loader.setConfig({enabled: true});
@@ -70,7 +147,7 @@
 	function doSubmitLogin(){
 		var mVname = $("#vname").val();
 		var mPasswd = $("#passwd").val();
-		if(ictGlobalCtx.checkLoginData(mVname, mPasswd)){
+		if(ictGlobalCtx.checkLoginData(mVname, mPasswd) == false){
 			alert(ictGlobalCtx.getLastError());
 			return;
 		}
@@ -109,7 +186,7 @@
 		window.schoolfragment.voucherPay() 充值
 		window.schoolfragment.queryLog() 
         */
-		$.mobile.changePage("#pgCharge",{transition:"pop"});//$('#selPage').popup('open');
+		$.mobile.changePage("#pgQuery",{transition:"pop"});//$('#selPage').popup('open');
     });
 	
 	$('#btnCharge').live('click', function() {
@@ -141,9 +218,30 @@
     });
 	
 	$('#myInfo').live('click', function() {
-        $.mobile.changePage("#pgNews",{transition:"slide"});
+        $.mobile.changePage("#pgMyInfo",{transition:"flip"});//slide
     });
 	
+
+	$('#mother').live('change', function() {
+        $('#otherAmount').css('display','');
+    });
+	
+	$(document).on("pageinit","#pgCharge",function(){
+		$('#otherAmount').css('display','none');
+		$("input[name='money'][type='radio']").bind("change",function(event,ui){
+		   $('#otherAmount').css('display','none');
+		});
+	});
+	
+	$('#bankTransfer').live('change', function() {
+        $('#allBanks').css('display','');
+    });
+	$(document).on("pageinit","#pgChargePay",function(){
+		$('#allBanks').css('display','none');
+		$("input[name='paytype'][type='radio']").bind("change",function(event,ui){
+		   $('#allBanks').css('display','none');
+		});
+	});
 </script>
 </head>
 <body>
@@ -170,24 +268,21 @@
 		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
 		<h1>注册</h1>
 	</div>
-
 	<div data-role="content">
-		<form method="post" action="demoform.asp">
-			<div data-role="fieldcontain">
-				<label for="fullname">手机号</label>
-				<input type="text" name="fullname" id="fullname">   
-				<label for="nickname">昵称</label>
-				<input type="text" name="nickname" id="nickname">  				
-				<label for="bday">密码</label>
-				<input type="date" name="bday" id="bday">
-				<label for="bday">确认密码</label>
-				<input type="date" name="bday" id="bday">
-				<label for="email">地址</label>
-				<input type="email" name="email" id="email" placeholder="您的地址..">
-			</div>
-			<input type="submit" data-inline="true" value="提交">
-		</form>
-	  </div>
+		<div data-role="fieldcontain">
+			<label for="fullname">手机号</label>
+			<input type="text" name="fullname" id="fullname">   
+			<label for="nickname">昵称</label>
+			<input type="text" name="nickname" id="nickname">  				
+			<label for="bday">密码</label>
+			<input type="date" name="bday" id="bday">
+			<label for="bday">确认密码</label>
+			<input type="date" name="bday" id="bday">
+			<label for="email">地址</label>
+			<input type="email" name="email" id="email" placeholder="您的地址..">
+		</div>
+		<input type="submit" data-inline="true" value="提交">		
+	</div>
 </div>
 <!--首页-->
 <div data-role="page" id="pgFrontpage">
@@ -218,12 +313,309 @@
 
 <!--充值页面-->
 <div data-role="page" id="pgCharge">
+	<div data-role="header" data-theme="f" data-position="fixed">
+		<a href="#pgFrontpage" data-role="button" data-icon="home" data-iconpos="notext">首页</a>
+		<h1>充值</h1>
+		<a href="#" id="myInfo" data-role="button" data-icon="info" data-iconpos="notext">我的</a>
+	</div>
+	<div data-role="content" data-theme="e">
+		<div data-role="fieldcontain">
+			<table>
+				<tr>
+					<td><label for="fullname">充值帐号：</label></td>
+					<td><input type="text" name="fullname" id="fullname"/></td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td><label for="fullname">充值金额：</label></td>
+					<td><input type="radio" name="money" id="m200" value="200" /></td>
+					<td><label for="m200">200元</label></td>
+					<td><input type="radio" name="money" id="m100" value="100"/></td>
+					<td><label for="m100">100元</label></td>
+					<td><input type="radio" name="money" id="m50" value="50"/></td>
+					<td><label for="m50">50元</label></td>
+				</tr>
+			</table>
+			
+			<table>
+				<tr>
+					<td><input type="radio" name="money" id="m30" value="30"/></td>
+					<td><label for="m30">30元</label></td>
+					<td><input type="radio" name="money" id="mother"/></td>
+					<td><label for="mother">其他金额</label></td>
+					<td><input type="number" name="money" id="otherAmount" /></td>
+				</tr>
+			</table>
+			<hr style="border: 1px dashed #ccc; width: 100%;" /> 
+			<a href="#" style="width:30%;left:35%;" onclick="jumpToPage('pgChargePay')" data-role="button">立即充值</a>
+		</div>
+		<div data-role="fieldcontain" data-theme="e">
+			<div class="ui-grid-d">
+			 <div class="ui-block-a"><span>推荐套餐</span></div>
+			 <div class="ui-block-b"></div>
+			 <div class="ui-block-c"></div>
+			 <div class="ui-block-d"></div>
+			 <div class="ui-block-e"><span style="color:#F00" onclick="jumpToPage('pgPackage')">更多》</span></div>
+		   </div>
+			<hr style="border: 1px dashed #ccc; width: 100%;" /> 
+			<table>
+				<tr>
+					<td>500M流量套餐</td>
+					<td>30元/月</td>
+					<td><a href="#" data-role="button" data-icon="plus" data-theme="e" onclick="jumpToPage('pgOrderPackage')">订购</a></td>
+				</tr>
+				<tr>
+					<td>1G流量套餐</td>
+					<td>60元/月</td>
+					<td><a href="#" data-role="button" data-icon="plus" data-theme="e" onclick="jumpToPage('pgOrderPackage')">订购</a></td>
+				</tr>
+				<tr>
+					<td>50元包月套餐</td>
+					<td>50元/月</td>
+					<td><a href="#" data-role="button" data-icon="plus" data-theme="e" onclick="jumpToPage('pgOrderPackage')">订购</a></td>
+				</tr>
+				<tr>
+					<td>100元包月套餐</td>
+					<td>100元/月</td>
+					<td><a href="#" data-role="button" data-icon="plus" data-theme="e" onclick="jumpToPage('pgOrderPackage')">订购</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+<div data-role="page" id="pgChargePay">
+	<div data-role="header" data-theme="f">
+		<a href="#pgCharge" data-role="button" data-icon="back" data-iconpos="notext">返回</a>
+		<h1>充值</h1>
+		<a href="#" id="myInfo" data-role="button" data-icon="info" data-iconpos="notext">我的</a>
+	</div>
+	<div data-role="content">
+		<table>
+			<tr>
+				<td><span>充值帐号：13812454541</span></td>
+				<td style="width:20%"></td>
+				<td><span style="color:#ccc">支付100元</span></td>
+			</tr>
+			
+		</table>
+		<hr style="border: 1px dashed #ccc; width: 100%;" /> 
+		<div class="ui-grid-a">
+		  <div class="ui-block-a"><input type="radio" name="paytype" id="ecard" value="1" /></div>
+		  <div class="ui-block-b"><label for="ecard">一卡通</label></div>
+		</div>
+		<div class="ui-grid-a">
+		  <div class="ui-block-a"><input type="radio" name="paytype" id="bankTransfer" value="2" /></div>
+		  <div class="ui-block-b"><label for="bankTransfer">银行转账</label></div>
+		</div>
+		<div id="allBanks">
+			<table>
+				<tr>
+					<td><a href="#" data-role="button" data-icon="plus" data-theme="e">农业银行</a></td>
+					<td><a href="#" data-role="button" data-icon="plus" data-theme="e">中国银行</a></td>
+					<td><a href="#" data-role="button" data-icon="plus" data-theme="e">建设银行</a></td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td><a href="#" data-role="button" data-icon="plus" data-theme="e">招商银行</a></td>
+					<td><a href="#" data-role="button" data-icon="plus" data-theme="e">银行卡</a></td>
+				</tr>
+			</table>
+		</div>
+		<div class="ui-grid-a">
+			<div class="ui-block-a"><input type="radio" name="paytype" id="rcard" value="3" /></div>
+			<div class="ui-block-b"><label for="rcard">实体卡</label></div>
+		</div>
+		<div class="ui-grid-a">
+			<div class="ui-block-a"><input type="radio" name="paytype" id="alipay" value="4" /></div>
+			<div class="ui-block-b"><label for="alipay">支付宝</label></div>
+		</div>
+		<div class="ui-grid-a">
+			<div class="ui-block-a"><input type="radio" name="paytype" id="wechart" value="5" /></div>
+			<div class="ui-block-b"><label for="wechart">微信支付</label></div>
+		</div>
+		<hr style="border: 1px dashed #ccc; width: 100%;" /> 
+		<table>
+			<tr>
+				<td><label for="password">请输入登录密码：</label></td>
+				<td><input type="password" name="password" id="password"/></td>
+			</tr>
+		</table>
+		<a href="#" style="width:30%;left:33%;" onclick="jumpToPage('pgChargePay')" data-role="button">确定充值</a>
+	</div>
+</div>
+
+<!--订购套餐页面-->
+<div data-role="page" id="pgOrderPackage">
+	<div data-role="header" data-theme="f">
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
+		<h1>订购套餐</h1>
+		<a href="#" id="myInfo" data-role="button" data-icon="info" data-iconpos="notext">我的</a>
+	</div>
+	<div data-role="content">
+		<table>
+			<tr>
+				<td>订购套餐：</td>
+				<td><span style="color:#ccc">100元包月套餐</span></td>
+			</tr>
+			<tr>
+				<td>套餐内容：</td>
+				<td><span style="color:#ccc">100元不限流量上网</span></td>
+			</tr>
+			<tr>
+				<td>套餐费用：</td>
+				<td><span style="color:#ccc">100元/月</span></td>
+			</tr>
+			<tr>
+				<td>生效时间：</td>
+				<td><span style="color:#ccc">次月生效</span></td>
+			</tr>
+		</table>
+		<hr style="border: 1px dashed #ccc; width: 100%;" /> 
+		<div class="ui-grid-b">
+			<div class="ui-block-a"><a href="#" data-role="button">确定订购</a></div>
+			<div class="ui-block-b"></div>
+			<div class="ui-block-c"><a href="#" data-role="button" data-rel="back">取消</a></div>
+		</div>
+		
+	</div>
+</div>
+
+<div data-role="page" id="pgPackage">
+	<div data-role="header" data-theme="f">
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
+		<h1>套餐列表</h1>
+		<a href="#" id="myInfo" data-role="button" data-icon="info" data-iconpos="notext">我的</a>
+	</div>
+	<div data-role="content">
+		<table>
+			<tr>
+				<td>500M流量套餐</td>
+				<td>30元/月</td>
+				<td><a href="#" data-role="button" data-icon="plus" data-theme="e" onclick="jumpToPage('pgOrderPackage')">订购</a></td>
+			</tr>
+			<tr>
+				<td>1G流量套餐</td>
+				<td>60元/月</td>
+				<td><a href="#" data-role="button" data-icon="plus" data-theme="e" onclick="jumpToPage('pgOrderPackage')">订购</a></td>
+			</tr>
+			<tr>
+				<td>50元包月套餐</td>
+				<td>50元/月</td>
+				<td><a href="#" data-role="button" data-icon="plus" data-theme="e" onclick="jumpToPage('pgOrderPackage')">订购</a></td>
+			</tr>
+			<tr>
+				<td>100元包月套餐</td>
+				<td>100元/月</td>
+				<td><a href="#" data-role="button" data-icon="plus" data-theme="e" onclick="jumpToPage('pgOrderPackage')">订购</a></td>
+			</tr>
+			<tr>
+				<td>100元包月套餐</td>
+				<td>100元/月</td>
+				<td><a href="#" data-role="button" data-icon="plus" data-theme="e" onclick="jumpToPage('pgOrderPackage')">订购</a></td>
+			</tr>
+			<tr>
+				<td>100元包月套餐</td>
+				<td>100元/月</td>
+				<td><a href="#" data-role="button" data-icon="plus" data-theme="e" onclick="jumpToPage('pgOrderPackage')">订购</a></td>
+			</tr>
+			<tr>
+				<td>100元包月套餐</td>
+				<td>100元/月</td>
+				<td><a href="#" data-role="button" data-icon="plus" data-theme="e" onclick="jumpToPage('pgOrderPackage')">订购</a></td>
+			</tr>
+			<tr>
+				<td>100元包月套餐</td>
+				<td>100元/月</td>
+				<td><a href="#" data-role="button" data-icon="plus" data-theme="e" onclick="jumpToPage('pgOrderPackage')">订购</a></td>
+			</tr>
+			<tr>
+				<td>100元包月套餐</td>
+				<td>100元/月</td>
+				<td><a href="#" data-role="button" data-icon="plus" data-theme="e" onclick="jumpToPage('pgOrderPackage')">订购</a></td>
+			</tr>
+			<tr>
+				<td>100元包月套餐</td>
+				<td>100元/月</td>
+				<td><a href="#" data-role="button" data-icon="plus" data-theme="e" onclick="jumpToPage('pgOrderPackage')">订购</a></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<!--查询页面-->
+<div data-role="page" id="pgQuery">
   <div data-role="content">
-    <a href="#pageone">充值界面</a>
+    <a href="#pgCharge">查询界面</a>
+	<a href="#"  class="ui-btn ui-shadow  ui-btn-icon-top ui-icon-myicon"  data-transition="slide">标题</a>
 	<a href="#" data-role="button" data-rel="back">返回</a>
   </div>
 </div>
 
+<!--我的界面-->
+<div data-role="page" id="pgMyInfo">
+	<div data-role="header" data-theme="f">
+		<a href="#pgFrontpage" data-role="button" data-icon="home" data-iconpos="notext">首页</a>
+		<h1>个人中心</h1>
+	</div>
+	<div id="h2"><p><b>我的当前套餐使用情况</b></p></div>
+	<div class ="main">
+	 <div>
+		<div class="divcss5-3"></div>
+		<img src="/images/mobile_school/query/asterisk.png" height="30" width="30" /> 
+		<b>账户概况</b><br>
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>当前套餐：</b>
+		<span id= current_package></span>
+		<!-- <a href="#" onclick="a()">更换套餐</a><br> -->
+		<input onclick="a()" type="button" data-role="none" value="更换套餐"></input>
+		<div>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>有效时间：</b>
+			<span id="valid_date"></span>
+		</div>
+		<div>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>账户余额：</b>
+			<span id="account_balance"></span>
+			<!-- <a href="#" onclick="b()">立即充值</a> -->
+			<input onclick="b()" type="button" data-role="none"  value="立即充值"></input>
+		</div>
+	 </div>
+	 
+	 <div>
+		<div class="divcss5-3"></div>
+		<img src="/images/mobile_school/query/asterisk.png" height="30" width="30" /> 
+		<b>套餐使用情况</b><br>
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>套餐类别：</b>
+		<span id="data_package"></span>
+		<div>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>套餐内容：</b>
+			<span id="package_content"></span>
+		</div>
+	 </div>
+	 <div>
+		<div class="divcss5-3"></div>
+		<img src="/images/mobile_school/query/asterisk.png" height="30" width="30" /> 
+		<b>套餐使用进度</b><br>
+		<div>
+			<!-- <b id="package_content"></b><br> -->
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<div class="progressbar_3"> 
+				<div id="progress" class="text"></div> 
+				<div id="bar" class="bar" ></div> 
+			</div> 
+		</div>
+	 </div>
+	 <div class="pic1">
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		<div id="h3" class="pic" ><a href="#" onclick = "c()" ><img  src="/images/mobile_school/query/recharge_record.png" /></a></div>
+		<div id="h3" class="pic" ><a href="#" onclick = "d()" ><img  src="/images/mobile_school/query/bill_inquiry.png" /></a></div>
+	 </div>
+	 
+	 </div>
+	 <div id="h4"></div>
+	 </div>
+</div>
 
 <!--校园咨询页面-->
 <div data-role="page" id="pgNews">

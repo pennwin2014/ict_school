@@ -11,6 +11,7 @@ var mapPage = {
 
 function f_IctGlobalContext(){
 //私有变量
+	this.lastErrorMsg = "";
 	this.userInfo = {
 		'userName':'小白',
 		'vName':'124',
@@ -20,6 +21,12 @@ function f_IctGlobalContext(){
 		'loginStatus':true
 	};
 //公共接口
+	this.setLastError = function(msg){
+		this.lastErrorMsg = msg;
+	}
+	this.getLastError = function(){
+		return this.lastErrorMsg;
+	}
 	this.jumpToPage = function(pid){
 		var title = mapPage[pid][1];
 		var url = '/school/'+mapPage[pid][2];
@@ -83,7 +90,7 @@ function f_IctGlobalContext(){
 		if (filter.test(mail)) 
 			return true;
 		else {
-			alert('您的电子邮件格式不正确');
+			this.setLastError('您的电子邮件格式不正确');
 			return false;
 		}
 	}
@@ -92,9 +99,19 @@ function f_IctGlobalContext(){
 		if (filter.test(Phone)){
 			return true;
 		}else {
-			alert('您的电话格式不正确');
+			this.setLastError('您的电话格式不正确');
 			return false;
 		}
+	}
+	this.checkLoginData = function(vname, passwd){
+		if(this.CheckPhone(vname)==false){
+			return false;
+		}
+		if(passwd == ""){
+			this.setLastError("密码不能为空");
+			return false;
+		}
+		return true;
 	}
 }
 var ictGlobalCtx = new f_IctGlobalContext(); 

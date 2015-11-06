@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+
+<title>我的当前套餐使用情况</title>
+<style>
+	.class{background-color:#FFFFFF}
+	.divcss5-3{border-bottom:1px dotted #000;height:10px }
+	.main{}
+	<!-- .pic img{ width:100px; height:100px;float:left; } -->
+	 #h4 {
+		width:40px;
+		height:122px;
+		<!-- float:left; -->
+		<!-- clear:both; -->
+	}
+	.pic1{left:40px;background:#EEEEEE}
+	.blank{background:#EEEEEE;height:20px}
+	<!-- 进度条样式 -->
+	.progressbar_3{ 
+    background-color:#eee; 
+    color:#222; 
+    height:16px; 
+    width:150px; 
+    border:1px solid #bbb; 
+    text-align:center; 
+    position:relative; 
+	} 
+.bar { 
+    background-color:#6CAF00; 
+    height:16px; 
+    width:0; 
+    position:absolute; 
+    z-index:10; 
+	} 
+.text { 
+    height:16px; 
+    position:absolute; 
+    width:100%; 
+    line-height:16px; 
+    z-index:100; 
+	} 
+</style>
+<script>
+function a()
+{
+	alert ("更换套餐");
+}
+
+function b()
+{
+	alert ("立即充值");
+}
+function c()
+{
+	alert ("充值记录");
+}
+
+function d()
+{
+	alert ("账单查询");
+}
+function onload()
+{
+	document.getElementById("current_package").innerHTML ="500M无忧套餐";
+	document.getElementById("current_package").style.color ="#AFAFAF";
+	document.getElementById("valid_date").innerHTML ="2015-03-01至2015-3-31";
+	document.getElementById("valid_date").style.color ="#AFAFAF";
+	document.getElementById("account_balance").innerHTML ="20元";
+	document.getElementById("account_balance").style.color ="#AFAFAF";
+	document.getElementById("data_package").innerHTML ="流量套餐";
+	document.getElementById("data_package").style.color ="#AFAFAF";
+	document.getElementById("package_content").innerHTML="每月享有500M上网流量";
+	document.getElementById("package_content").style.color ="#AFAFAF";
+	<!-- 动态加载滚动条 -->
+	document.getElementById("progress").innerHTML="50%";
+	document.getElementById("bar").style.width="50%";
+}
+</script>
+</head>
+<body onload="onload()" class="mybody">
+<div id="h2"><p><b>我的当前套餐使用情况</b></p></div>
+<div class ="main">
+ <div>
+	<div class="divcss5-3"></div>
+	<img src="/images/mobile_school/query/asterisk.png" height="30" width="30" /> 
+	<b>账户概况</b><br>
+	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>当前套餐：</b>
+	<span id= current_package></span>
+	<!-- <a href="#" onclick="a()">更换套餐</a><br> -->
+	<input onclick="a()" type="button" value="更换套餐"></input>
+	<div>
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>有效时间：</b>
+		<span id="valid_date"></span>
+	</div>
+	<div>
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>账户余额：</b>
+		<span id="account_balance"></span>
+		<!-- <a href="#" onclick="b()">立即充值</a> -->
+		<input onclick="b()" type="button" value="立即充值"></input>
+	</div>
+ </div>
+ 
+ <div>
+	<div class="divcss5-3"></div>
+	<img src="/images/mobile_school/query/asterisk.png" height="30" width="30" /> 
+	<b>套餐使用情况</b><br>
+	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>套餐类别：</b>
+	<span id="data_package"></span>
+	<div>
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>套餐内容：</b>
+		<span id="package_content"></span>
+	</div>
+ </div>
+ <div>
+	<div class="divcss5-3"></div>
+	<img src="/images/mobile_school/query/asterisk.png" height="30" width="30" /> 
+	<b>套餐使用进度</b><br>
+	<div>
+		<!-- <b id="package_content"></b><br> -->
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		<div class="progressbar_3"> 
+			<div id="progress" class="text"></div> 
+			<div id="bar" class="bar" ></div> 
+		</div> 
+	</div>
+ </div>
+ <div class="pic1">
+	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	<div id="h3" class="pic" ><a href="#" onclick = "c()" ><img  src="/images/mobile_school/query/recharge_record.png" /></a></div>
+	<div id="h3" class="pic" ><a href="#" onclick = "d()" ><img  src="/images/mobile_school/query/bill_inquiry.png" /></a></div>
+ </div>
+ 
+ </div>
+ <div id="h4"></div>
+ </div>
+</body>
+</html>
