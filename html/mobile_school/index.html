@@ -6,12 +6,17 @@
 <!--link rel="stylesheet" type="text/css" href="/newver/resources/css/ext-all-gray.css" /--> 
 <link rel="stylesheet" href="/newver/jqm/jquery.mobile-1.4.5.css">
 <link rel="stylesheet" href="/newver/jqm/pronetway.css">
+<link rel="stylesheet" href="/school/css/recharge_record.css">
+<link rel="stylesheet" href="/school/css/my_account_info.css">
+
 <!-- <link rel="stylesheet" href="/newver/jqm/jquery.mobile-1.4.5.min.css"> -->
 <script src="/newver/jquery/jquery-1.8.2.min.js"></script>
 <script src="/newver/jqm/jquery.mobile-1.4.5.js"></script>
 <!-- <script src="/newver/jqm/jquery.mobile-1.4.5.min.js"></script> -->
 <script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
 <script type="text/javascript" src="/school/js/school.js"></script>
+<script type="text/javascript" src="/school/js/recharge_record.js"></script>
+<script type="text/javascript" src="/school/js/my_account_info.js"></script>
 <style>
 	.ui-page { 
 		background: #FFFFFF;
@@ -51,37 +56,6 @@
 	} 
 </style>
 <style>
-	.divcss5-3{border-bottom:1px dotted #000;height:10px }
-	 #h4 {
-		width:40px;
-		height:122px;
-	}
-	.pic1{left:40px;background:#EEEEEE}
-	.blank{background:#EEEEEE;height:20px}
-	<!-- 进度条样式 -->
-	.progressbar_3{ 
-    background-color:#eee; 
-    color:#222; 
-    height:16px; 
-    width:150px; 
-    border:1px solid #bbb; 
-    text-align:center; 
-    position:relative; 
-	} 
-.bar { 
-    background-color:#6CAF00; 
-    height:16px; 
-    width:0; 
-    position:absolute; 
-    z-index:10; 
-	} 
-	.text{ 
-		height:16px; 
-		position:absolute; 
-		width:100%; 
-		line-height:16px; 
-		z-index:100; 
-	} 
 	.ui-icon-myicon:after {  
         background-image: url("/mobile_school/images/frontPage/mine.png");  /**你的图片，路径是相对于当前使用文件可以访问到的*/
         background-size: 18px 18px; 
@@ -89,43 +63,6 @@
         border-radius: 15px; /*图标形态，0=方形，不设置就是默认的圆形*/  
 	}
 </style>
-<script>
-function a()
-{
-	alert ("更换套餐");
-}
-
-function b()
-{
-	alert ("立即充值");
-}
-function c()
-{
-	alert ("充值记录");
-}
-
-function d()
-{
-	alert ("账单查询");
-}
-
-$(document).on("pageinit","#pgMyInfo",function(){
-	document.getElementById("current_package").innerHTML ="500M无忧套餐";
-	document.getElementById("current_package").style.color ="#AFAFAF";
-	document.getElementById("valid_date").innerHTML ="2015-03-01至2015-3-31";
-	document.getElementById("valid_date").style.color ="#AFAFAF";
-	document.getElementById("account_balance").innerHTML ="20元";
-	document.getElementById("account_balance").style.color ="#AFAFAF";
-	document.getElementById("data_package").innerHTML ="流量套餐";
-	document.getElementById("data_package").style.color ="#AFAFAF";
-	document.getElementById("package_content").innerHTML="每月享有500M上网流量";
-	document.getElementById("package_content").style.color ="#AFAFAF";
-	<!-- 动态加载滚动条 -->
-	document.getElementById("progress").innerHTML="50%";
-	document.getElementById("bar").style.width="50%";
-});
-
-</script>
 <script>
 	function doSubmitLogin(){
 		var mVname = $("#vname").val();
@@ -226,6 +163,7 @@ $(document).on("pageinit","#pgMyInfo",function(){
 		});
 	});
 	$("#btnCharge").autoIMG(); 
+	
 </script>
 </head>
 <body>
@@ -255,24 +193,26 @@ $(document).on("pageinit","#pgMyInfo",function(){
 	<div data-role="content">
 		<div data-role="fieldcontain">
 			<label for="fullname">手机号</label>
-			<input type="text" name="fullname" id="fullname">   
+			<input type="text" name="fullname" id="fullname"/>   
 			<label for="nickname">昵称</label>
-			<input type="text" name="nickname" id="nickname">  				
+			<input type="text" name="nickname" id="nickname"/>  				
 			<label for="bday">密码</label>
-			<input type="date" name="bday" id="bday">
+			<input type="date" name="bday" id="bday"/>
 			<label for="bday">确认密码</label>
-			<input type="date" name="bday" id="bday">
+			<input type="date" name="bday" id="bday"/>
 			<label for="email">地址</label>
-			<input type="email" name="email" id="email" placeholder="您的地址..">
+			<input type="email" name="email" id="email" placeholder="您的地址.."/>
 		</div>
-		<input type="submit" data-inline="true" value="提交">		
+		<input type="submit" data-inline="true" value="提交"/>		
 	</div>
 </div>
 <!--首页-->
 <div data-role="page" id="pgFrontpage">
-	<div data-role="header" data-theme="f"  data-position="fixed">		
+	<div data-role="header" data-theme="f"  data-position="fixed">
+		
 		<a href="#pgLogin" data-role="button" data-icon="video" data-iconpos="notext">退出</a>
-		<h1>上海大学智慧校园</h1>		
+		<h1>上海大学智慧校园</h1>
+		
 		<a href="#" id="myInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
 		<!-- <a href="#" id="myInfo" data-role="button" style="background-color:#FFF;color:#FFF;" data-icon="user" data-iconpos="notext"></a> -->
 		<!-- <a href="#" id="myInfo" data-role="button" class="ui-btn ui-shadow  ui-btn-icon-left ui-icon-myicon">我的</a> -->
@@ -545,63 +485,64 @@ $(document).on("pageinit","#pgMyInfo",function(){
 <div data-role="page" id="pgMyInfo">
 	<div data-role="header" data-theme="f">
 		<a href="#pgFrontpage" data-role="button" data-icon="home" data-iconpos="notext">首页</a>
-		<h1>个人中心</h1>
+		<h1>我的当前套餐使用情况</h1>
 	</div>
-	<div id="h2"><p><b>我的当前套餐使用情况</b></p></div>
-	<div class ="main">
-	 <div>
-		<div class="divcss5-3"></div>
-		<img src="/images/mobile_school/query/asterisk.png" height="30" width="30" /> 
-		<b>账户概况</b><br>
-		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>当前套餐：</b>
-		<span id= current_package></span>
-		<!-- <a href="#" onclick="a()">更换套餐</a><br> -->
-		<input onclick="a()" type="button" data-role="none" value="更换套餐"></input>
-		<div>
-			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>有效时间：</b>
-			<span id="valid_date"></span>
-		</div>
-		<div>
-			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>账户余额：</b>
-			<span id="account_balance"></span>
-			<!-- <a href="#" onclick="b()">立即充值</a> -->
-			<input onclick="b()" type="button" data-role="none"  value="立即充值"></input>
-		</div>
-	 </div>
-	 
-	 <div>
-		<div class="divcss5-3"></div>
-		<img src="/images/mobile_school/query/asterisk.png" height="30" width="30" /> 
-		<b>套餐使用情况</b><br>
-		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>套餐类别：</b>
-		<span id="data_package"></span>
-		<div>
-			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>套餐内容：</b>
-			<span id="package_content"></span>
-		</div>
-	 </div>
-	 <div>
-		<div class="divcss5-3"></div>
-		<img src="/images/mobile_school/query/asterisk.png" height="30" width="30" /> 
-		<b>套餐使用进度</b><br>
-		<div>
-			<!-- <b id="package_content"></b><br> -->
-			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-			<div class="progressbar_3"> 
-				<div id="progress" class="text"></div> 
-				<div id="bar" class="bar" ></div> 
-			</div> 
-		</div>
-	 </div>
-	 <div class="pic1">
+<div class ="main">
+ <div>
+	<div class="divcss5-3"></div>
+	<img src="/images/mobile_school/query/asterisk.png" height="30" width="30" /> 
+	<b>账户概况</b><br>
+	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>当前套餐：</b>
+	<span id= current_package></span>
+	<!-- <a href="#" onclick="a()">更换套餐</a><br> -->
+	<input onclick="a()" type="button" data-role="none" value="更换套餐"></input>
+	<div>
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>有效时间：</b>
+		<span id="valid_date"></span>
+	</div>
+	<div>
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>账户余额：</b>
+		<span id="account_balance"></span>
+		<!-- <a href="#" onclick="b()">立即充值</a> -->
+		<input onclick="b()" type="button" data-role="none"  value="立即充值"></input>
+	</div>
+ </div>
+ 
+ <div>
+	<div class="divcss5-3"></div>
+	<img src="/images/mobile_school/query/asterisk.png" height="30" width="30" /> 
+	<b>套餐使用情况</b><br>
+	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>套餐类别：</b>
+	<span id="data_package"></span>
+	<div>
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>套餐内容：</b>
+		<span id="package_content"></span>
+	</div>
+ </div>
+ <div>
+	<div class="divcss5-3"></div>
+	<img src="/images/mobile_school/query/asterisk.png" height="30" width="30" /> 
+	<b>套餐使用进度</b><br>
+	<div>
+		<!-- <b id="package_content"></b><br> -->
 		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-		<div id="h3" class="pic" ><a href="#" onclick = "c()" ><img  src="/images/mobile_school/query/recharge_record.png" /></a></div>
-		<div id="h3" class="pic" ><a href="#" onclick = "d()" ><img  src="/images/mobile_school/query/bill_inquiry.png" /></a></div>
-	 </div>
-	 
-	 </div>
-	 <div id="h4"></div>
-	 </div>
+		<div class="progressbar_3"> 
+			<div id="progress" class="text"></div> 
+			<div id="bar" class="bar" ></div> 
+		</div> 
+	</div>
+ </div>
+ <div class="pic1">
+	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	<div id="h3" class="pic" ><a href="#" onclick = "c()" ><img  src="/images/mobile_school/query/recharge_record.png" /></a></div>
+	<div id="h3" class="pic" ><a href="#" onclick = "d()" ><img  src="/images/mobile_school/query/bill_inquiry.png" /></a></div>
+ </div>
+ 
+ </div>
+ <div id="h4"></div>
+ </div>
+	
+	
 </div>
 
 <!--校园咨询页面-->
@@ -611,6 +552,40 @@ $(document).on("pageinit","#pgMyInfo",function(){
 	<a href="#" data-role="button" data-rel="back">返回</a>
   </div>
 </div>
+
+<!--可更换套餐-->
+<div data-role="page" id="pgCanChangePackage">
+	<div data-role="header" data-theme="f"  data-position="fixed">		
+		<a href="#pgLogin" data-role="button" data-icon="video" data-iconpos="notext">退出</a>
+		<h1>可更换套餐</h1>		
+		<a href="#" id="myInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
+	</div>
+	<div id="change_package">
+	<div data-role="none" class="myDotted"></div>
+	<div id="package_content">
+	
+	</div>
+	</div>
+	
+</div>
+
+<!--可更换套餐-->
+<div data-role="page" id="pgRechargeRecord">
+	<div data-role="header" data-theme="f"  data-position="fixed">		
+		<a href="#pgLogin" data-role="button" data-icon="video" data-iconpos="notext">退出</a>
+		<h1>充值记录</h1>		
+		<a href="#" id="myInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
+	</div>
+	<!--充值记录-->
+	<div id="recharge_record" >
+	</div>
+	
+</div>
+
+
+	
+</div>
+
 </body>
 </html>
 
