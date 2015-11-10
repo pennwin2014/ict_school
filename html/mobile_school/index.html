@@ -8,6 +8,10 @@
 <link rel="stylesheet" href="/newver/jqm/pronetway.css">
 <link rel="stylesheet" href="/school/css/recharge_record.css">
 <link rel="stylesheet" href="/school/css/my_account_info.css">
+<link rel="stylesheet" href="/school/css/canChangePackage.css">
+<link rel="stylesheet" href="/school/css/changePackage.css">
+<link rel="stylesheet" href="/school/css/account_query.css">
+
 
 <!-- <link rel="stylesheet" href="/newver/jqm/jquery.mobile-1.4.5.min.css"> -->
 <script src="/newver/jquery/jquery-1.8.2.min.js"></script>
@@ -17,6 +21,9 @@
 <script type="text/javascript" src="/school/js/school.js"></script>
 <script type="text/javascript" src="/school/js/recharge_record.js"></script>
 <script type="text/javascript" src="/school/js/my_account_info.js"></script>
+<script type="text/javascript" src="/school/js/canChangePackage.js"></script>
+<script type="text/javascript" src="/school/js/changePackage.js"></script>
+<script type="text/javascript" src="/school/js/account_query.js"></script>
 <style>
 	.ui-page { 
 		background: #FFFFFF;
@@ -101,6 +108,11 @@
 		$.mobile.changePage("#"+pageId,{transition:"flip"});
 	}
 	
+	function popPage(pageId){
+		//$('#pgFrontpage').popup('open');
+		$.mobile.changePage("#"+pageId,{transition:"pop"});
+	}
+	
 	$('#btnQuery').live('click', function() {
 		/*
 		window.schoolfragment.voucherPay() 充值
@@ -137,6 +149,10 @@
         $.mobile.changePage("#pgNews",{transition:"turn"});
     });
 	
+	//测试用，将跳转页面修改下
+	/*$('#myInfo').live('click', function() {
+        $.mobile.changePage("#pgMemberInfo",{transition:"flip"});//slide
+    });*/
 	$('#myInfo').live('click', function() {
         $.mobile.changePage("#pgMyInfo",{transition:"flip"});//slide
     });
@@ -193,17 +209,17 @@
 	<div data-role="content">
 		<div data-role="fieldcontain">
 			<label for="fullname">手机号</label>
-			<input type="text" name="fullname" id="fullname"/>   
+			<input type="text" name="fullname" id="fullname">   
 			<label for="nickname">昵称</label>
-			<input type="text" name="nickname" id="nickname"/>  				
+			<input type="text" name="nickname" id="nickname">  				
 			<label for="bday">密码</label>
-			<input type="date" name="bday" id="bday"/>
+			<input type="date" name="bday" id="bday">
 			<label for="bday">确认密码</label>
-			<input type="date" name="bday" id="bday"/>
+			<input type="date" name="bday" id="bday">
 			<label for="email">地址</label>
-			<input type="email" name="email" id="email" placeholder="您的地址.."/>
+			<input type="email" name="email" id="email" placeholder="您的地址..">
 		</div>
-		<input type="submit" data-inline="true" value="提交"/>		
+		<input type="submit" data-inline="true" value="提交">		
 	</div>
 </div>
 <!--首页-->
@@ -231,7 +247,7 @@
 				<li><a href="#" id="btnLost" data-icon="minus">失物招领</a></li>
 				<li><a href="#" id="btnCourse" data-icon="delete">我的课表</a></li>
 				<li><a href="#" id="btnParty" data-icon="check">聚会聚餐</a></li>
-				<li><a href="#" id="btnWork" data-icon="info">兼职实习</a></li>
+				<li><a href="#" id="btnWork" data-icon="user">兼职实习</a></li>
 				<li><a href="#" id="btnMass" data-icon="forward">社团实践</a></li>
 			</ul>
 		</div>
@@ -243,7 +259,7 @@
 	<div data-role="header" data-theme="f" data-position="fixed">
 		<a href="#pgFrontpage" data-role="button" data-icon="home" data-iconpos="notext">首页</a>
 		<h1>充值</h1>
-		<a href="#" id="myInfo" data-role="button" data-icon="info" data-iconpos="notext">我的</a>
+		<a href="#" id="myInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
 	</div>
 	<div data-role="content" data-theme="e">
 		<div data-role="fieldcontain">
@@ -316,7 +332,7 @@
 	<div data-role="header" data-theme="f">
 		<a href="#pgCharge" data-role="button" data-icon="back" data-iconpos="notext">返回</a>
 		<h1>充值</h1>
-		<a href="#" id="myInfo" data-role="button" data-icon="info" data-iconpos="notext">我的</a>
+		<a href="#" id="myInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
 	</div>
 	<div data-role="content">
 		<table>
@@ -379,7 +395,7 @@
 	<div data-role="header" data-theme="f">
 		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
 		<h1>订购套餐</h1>
-		<a href="#" id="myInfo" data-role="button" data-icon="info" data-iconpos="notext">我的</a>
+		<a href="#" id="myInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
 	</div>
 	<div data-role="content">
 		<table>
@@ -414,7 +430,7 @@
 	<div data-role="header" data-theme="f">
 		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
 		<h1>套餐列表</h1>
-		<a href="#" id="myInfo" data-role="button" data-icon="info" data-iconpos="notext">我的</a>
+		<a href="#" id="myInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
 	</div>
 	<div data-role="content">
 		<table>
@@ -474,15 +490,6 @@
 
 <!--查询页面-->
 <div data-role="page" id="pgQuery">
-  <div data-role="content">
-    <a href="#pgCharge">查询界面</a>
-	<a href="#"  class="ui-btn ui-shadow  ui-btn-icon-top ui-icon-myicon"  data-transition="slide">标题</a>
-	<a href="#" data-role="button" data-rel="back">返回</a>
-  </div>
-</div>
-
-<!--我的界面-->
-<div data-role="page" id="pgMyInfo">
 	<div data-role="header" data-theme="f">
 		<a href="#pgFrontpage" data-role="button" data-icon="home" data-iconpos="notext">首页</a>
 		<h1>我的当前套餐使用情况</h1>
@@ -494,8 +501,8 @@
 	<b>账户概况</b><br>
 	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>当前套餐：</b>
 	<span id= current_package></span>
-	<!-- <a href="#" onclick="a()">更换套餐</a><br> -->
-	<input onclick="a()" type="button" data-role="none" value="更换套餐"></input>
+	<!-- <a href="#" onclick="jumpToPage('pgCanChangePackage');" data-role="none">更换套餐</a>  -->
+	<input onclick="canChangePackage()" type="button" data-role="none" value="更换套餐"></input>
 	<div>
 		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>有效时间：</b>
 		<span id="valid_date"></span>
@@ -504,7 +511,7 @@
 		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <b>账户余额：</b>
 		<span id="account_balance"></span>
 		<!-- <a href="#" onclick="b()">立即充值</a> -->
-		<input onclick="b()" type="button" data-role="none"  value="立即充值"></input>
+		<input onclick="charge()" type="button" data-role="none"  value="立即充值"></input>
 	</div>
  </div>
  
@@ -534,17 +541,15 @@
  </div>
  <div class="pic1">
 	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-	<div id="h3" class="pic" ><a href="#" onclick = "c()" ><img  src="/images/mobile_school/query/recharge_record.png" /></a></div>
-	<div id="h3" class="pic" ><a href="#" onclick = "d()" ><img  src="/images/mobile_school/query/bill_inquiry.png" /></a></div>
+	<div id="h3" class="pic" ><a href="#" onclick = "rechargeRecord()" ><img  src="/images/mobile_school/query/recharge_record.png" /></a></div>
+	<div id="h3" class="pic" ><a href="#" onclick = "accountQuery()" ><img  src="/images/mobile_school/query/bill_inquiry.png" /></a></div>
  </div>
  
  </div>
  <div id="h4"></div>
- </div>
-	
-	
 </div>
 
+	
 <!--校园咨询页面-->
 <div data-role="page" id="pgNews">
   <div data-role="content">
@@ -556,35 +561,155 @@
 <!--可更换套餐-->
 <div data-role="page" id="pgCanChangePackage">
 	<div data-role="header" data-theme="f"  data-position="fixed">		
-		<a href="#pgLogin" data-role="button" data-icon="video" data-iconpos="notext">退出</a>
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
 		<h1>可更换套餐</h1>		
 		<a href="#" id="myInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
 	</div>
 	<div id="change_package">
-	<div data-role="none" class="myDotted"></div>
-	<div id="package_content">
+	<!-- <div data-role="none" class="myDotted"></div> -->
+	<div class="myDotted"></div>
+	<div id="can_package_content">
 	
 	</div>
 	</div>
+</div>
+
+<!--更换套餐-->
+<div data-role="page" id="pgChangePackage">
+	<div data-role="header" data-theme="f"  data-position="fixed">		
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
+		<h1>更换套餐</h1>		
+		<a href="#" id="myInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
+	</div>
+	<!--更换套餐模块-->
+	<div class="package">
+		<div class="package_info">
+			<b>套餐名称：</b>
+			<span id="package_name"></span><br>
+			
+			<b>套餐内容：</b>
+			<span id="package_content_change"></span><br>
+			
+			<b>套餐费用：</b>
+			<span id="package_money"></span><br>
+			
+			<b>生效时间：</b>
+			<span id="timeval"></span><br>
+		</div>
+		<div class="dotted_style"></div>
+	</div>
+	<div data-theme="f" >
+		<input data-theme="f" type="button" id="ok_btn" data-inline="true" data-mini="true" data-theme="f" value="确认更换"></input>
+		<input type="button" id="cancel_btn" data-inline="true" data-mini="true" data-theme="f" value="取消"></input>
+	</div>
+	
+	
 	
 </div>
 
-<!--可更换套餐-->
+
+
+<!--充值记录-->
 <div data-role="page" id="pgRechargeRecord">
 	<div data-role="header" data-theme="f"  data-position="fixed">		
-		<a href="#pgLogin" data-role="button" data-icon="video" data-iconpos="notext">退出</a>
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
 		<h1>充值记录</h1>		
 		<a href="#" id="myInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
 	</div>
 	<!--充值记录-->
 	<div id="recharge_record" >
 	</div>
-	
+</div>
+
+<!--账单查询-->
+	<div data-role="page" id="pgAccountQueryOne">
+	<!-- <div data-role="header"> -->
+	<div data-role="header" data-theme="f"  data-position="fixed">		
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
+		<h1>账单查询</h1>		
+		<a href="#" id="myInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
+	</div>
+		<div class="account_content">
+			<b>账单金额：</b>
+			<span id="account_amount_detail" class="myColor"></span><br>
+			<b>充值：</b>
+			<span id="recharge_detail" class="myColor"></span>
+			<b>本月支出：</b>
+			<span id="expense_detail" class="myColor"></span>
+		</div>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#" class="ui-btn-active" data-icon="gear">明细</a></li>
+				<li><a href="#pgAccountQueryTwo" data-icon="arrow-r">详细报表</a></li>
+			</ul>
+		</div>
+	<!-- </div> -->
+
+	<div data-role="content">
+	<b>套餐费：</b><br>
+	<span id="package_name1" class="myColor"></span>
+	<span id="package_cost1" class="myColor"></span>
+	<br>
+	<b>叠加套餐费：</b><br>
+	<span id="package_name2" class="myColor"></span>
+	<span id="package_cost2" class="myColor"></span>
+	<br>
+	<b>超出套餐费：</b><br>
+	<span id="package_name3" class="myColor"></span>
+	<span id="package_cost3" class="myColor"></span>
+	<!-- <p>本例设有 ui-btn-active 类，请注意首页按钮时突出显示的（已选）。</p>
+	<p>如果点击页面二，您会注意到按钮不会突出显示。</p> -->
+	</div>
+</div> 
+
+<div data-role="page" id="pgAccountQueryTwo">
+	<div data-role="header" data-theme="f"  data-position="fixed">		
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
+		<h1>账单查询</h1>		
+		<a href="#" id="myInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
+	</div>
+		<div class="account_content">
+			<b>账单金额：</b>
+			<span id="account_amount_report" class="myColor"></span><br>
+			<b>充值：</b>
+			<span id="recharge_report" class="myColor"></span>
+			<b>本月支出：</b>
+			<span id="expense_report" class="myColor"></span>
+		</div>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#pgAccountQueryOne" data-icon="arrow-l">明细</a></li>
+				<li><a href="#" data-icon="gear">详细报表</a></li>
+			</ul>
+		</div>
+<div data-role="content">
+  <!--   <p>本页中没有被预选的按钮（突出显示）。</p> 
+    <p>如需让按钮被选的外观表示当前正在访问页面，请返回导航栏教程，继续向下阅读。</p> -->
+	<p>详细报表</p>
+</div>
 </div>
 
 
-	
+<!--会员信息-->
+<div data-role="page" id="pgMemberInfo">
+	<div data-role="header" data-theme="f" data-position="fixed">
+		<a href="#pgFrontpage" data-role="button" data-icon="home" data-iconpos="notext">首页</a>
+		<h1>会员信息</h1>
+		<a href="#" id="myInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
+	</div>
+	<div data-role="content" data-theme="e">
+		<div>
+			<span>头像</span>
+			<span>2345363</span>
+			<span class>
+			 
+			</span>
+			
+			
+		</div>
+	</div>
 </div>
+ 
 
 </body>
 </html>
