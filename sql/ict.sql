@@ -1,23 +1,23 @@
 drop table if exists  userlib;
 create table userlib(
 	id int(11) auto_increment primary key,
-	vname    char(32),  
-	photo     char(128),
-   dname    char(24),  
-   mname    char(24),  
-   gender    char,     
-   address    char(128),
-   passwd    char(24), 
-   mobno    char(24),  
-   money    int(11),   
-   package   char(32), 
-   timeval    int(11)  
+	vname    char(32) NOT NULL,  
+	photo     char(128) default '/home/ncmysql/ncsrv/photo/default.png',
+	dname    char(24) default '',  
+	mname    char(24) default '',  
+	gender    char default 0,     
+	address    char(128) default '',
+	passwd    char(24) default '123456', 
+	mobno    char(24) default '',  
+	money    int(11) default 0,   
+	packageid   int(11) default 0, 
+	timeval    int(11) default 0
 );
 
 drop table if exists package;
 create table package(
 id int(11) auto_increment primary key, 
-name char(32) NOT NULL,
+name char(32) NOT NULL ,
 namedes  char(128) default '',
 ptype     int(11) default 1,
 money    int(11) default 0, 
@@ -26,10 +26,11 @@ timeval    int(11) default 0,
 cuser     char(32) default '',
 content   char(128) default ''
 );
+alter table package add unique key uk_package_name(name);
 
 drop table if exists recpackage;
 create table recpackage(
-id int(11) primary key, 
+id int(11) not null primary key, 
 useflag int unsigned default 0,
 timeval    int(11) default 0,
 cuser     char(32) default '',
@@ -38,9 +39,23 @@ content   char(128) default ''
 create unique index uqidx_recpackage_id on recpackage(id); 
 ALTER TABLE recpackage ADD CONSTRAINT fk_recpackage_id FOREIGN KEY (id) REFERENCES package(id) ON DELETE CASCADE ON UPDATE CASCADE;
 
-create table rechargelog(id int(11), vname char(32),money int(11),mtype int(11),timeval int(11) );
+drop table if exists rechargelog;
+create table rechargelog(
+	id int(11) auto_increment primary key, 
+	vname char(32) default '',
+	money int(11) default 0,
+	mtype int(11) default 0,
+	timeval int(11) default 0
+);
 
-create table orderlog(id int(11),vname char(32),name char(32),dstatus int(11),dtime int(11));
+drop table if exists orderlog;
+create table orderlog(
+	id int(11) auto_increment primary key,
+	vname char(32) default '',
+	packageid int(11) default 0,
+	dstatus int(11) default 0,
+	dtime int(11) default 0
+);
 
 insert into package(name,namedes,ptype,money,timeval) values('100元包月套餐','套餐说明',2,50,unix_timestamp(now()));
 insert into package(name,namedes,ptype,money,timeval) values('50元基础套餐','套餐说明',6,50,unix_timestamp(now()));

@@ -24,13 +24,13 @@
 		height:40px;
 		background:gray;
 	}
-	#h6 {
+	.h6 {
 		font-size:150%;
 	}
 	#h7{
 		float:right;
 	}
-	#h8{
+	.h8{
 		width:300px;
 		height:80px;
 		float:left;
@@ -40,7 +40,68 @@
 		height:20px;
 	}
 </style>
+<script type="text/javascript" src="/newver/resources/js/ext-all.js"></script>
 <script>
+	Ext.Loader.setConfig({enabled: true});
+		Ext.Loader.setPath('Ext.ux', '/newver/ux/');
+		Ext.require([
+	    'Ext.form.*',
+	    'Ext.window.*',
+		    'Ext.grid.*',
+		    'Ext.data.*',
+		    'Ext.util.*',
+		    'Ext.window.MessageBox',
+		    'Ext.toolbar.Paging',
+		    'Ext.ux.PreviewPlugin'
+		//    'Ext.ModelManager',
+		//    'Ext.tip.QuickTipManager'
+		]);
+		
+	function creatTd(count,data)
+	{
+		var tb = document.getElementById("tabel1");
+        var rowsNum;
+        var row;
+        var cell0;
+        var cell1;
+        for(var i in data){            
+			if(i%3==0){
+				rowsNum = tb.length;
+				row = tb.insertRow(rowsNum-1);
+			}
+            cell0 = row.insertCell(0);
+            cell0.innerHTML = "<div class='h8'><p class='h6'>"+data[i].name+"<input   type='button' value='¶©¹º' onclick='doOrderPackage("+data[i].id+")'/></p></div>";
+        }
+	}
+		
+	Ext.onReady(function(){
+	
+		Ext.Ajax.request({
+			url: '/pronline/Msg?FunName@ict_getRecPackage',
+			method: 'GET',
+			async: false,
+			success: function(resp,opts) {   
+				try{
+					var respText = resp.responseText; 
+					var respRecord = eval("("+respText+")");
+					//document.getElementById("form1").value
+					//sp = respRecord.eimdata;
+					creatTd(respRecord.totalCount, respRecord.eimdata);
+				}catch(e){
+					//console.log(e.message);
+					}
+			},
+			failure: function(resp,opts) {  
+					var respText = eval("("+respText+")");
+					alert('´íÎó', respText.error);   
+					}
+		});
+		//eatTd(resp);
+	});
+					
+				
+				
+				
 	function doOrderPackage(funId){
 		alert("µã»÷¶©¹º"+funId);
 	}
@@ -65,7 +126,14 @@
 <div id="h5">
 <p><b><font color="#FFFFFF" id="h6">ÍÆ¼öÌ×²Í</font> <font color="#FFFFFF" style="cursor:pointer;" id="h7" href="#" onclick = "parent.ictGlobalCtx.jumpToPage('id_ictShop_products');"> ¸ü¶à</font></b></p>
 </div >	
-<div id="h8">
+<p>&nbsp;</p>
+
+<div>
+<table id="tabel1">
+</table>
+</div>
+
+<!--div id="h8">
   <p>&nbsp;</p>
   <p id="h6">100Ôª°üÔÂÌ×²Í<input   type="submit" value="¶©¹º" onclick="doOrderPackage(1)"/></p>
 </div>
@@ -104,7 +172,7 @@
   <p id="h6">°üÄêÌ×²Í
     <input name="submit4"  type="submit" value="¶©¹º" onclick="doOrderPackage(8)"/>
   </p>
-</div>
+</div-->
 
 </body>
 </html>

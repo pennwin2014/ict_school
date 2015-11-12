@@ -37,6 +37,56 @@ int isVnameRegistered(char* vName)
     return 0;
 }
 
+static uint8 getTsidByVname(utShmHead *psShmHead, char* vName)
+{
+    uint8 ltsid = 0;
+    pasHashInfo sHashInfo;
+    uchar *pHash = NULL;
+    ictOnlineUser* psOnline = NULL;
+    pHash = (unsigned char *)utShmHashHead(psShmHead, ICT_USER_LOGIN_TSID);
+    if(pHash == NULL)
+    {
+        utShmFreeHash(psShmHead, ICT_USER_LOGIN_TSID);
+        utShmHashInit(psShmHead, ICT_USER_LOGIN_TSID, 2000, 2000, sizeof(ictOnlineUser), 0, 8);
+    }
+    psOnline = (ictOnlineUser*)pasHashFirst(pHash, &sHashInfo);
+    while(psOnline)
+    {
+        if(strcmp(psOnline->vName, vName) == 0)
+        {
+            return psOnline->tsid;
+        }
+        psOnline = (ictOnlineUser *)pasHashNextS(&sHashInfo);
+    }
+    ltsid = time(0);
+    ictOnlineUser* psData = (ictOnlineUser*)utShmHashLookA(psShmHead, ICT_USER_LOGIN_TSID, (char*)(&ltsid));
+    if(psData)
+    {
+        psData->tsid = ltsid;
+        strcpy(psData->vName, vName);
+    }
+    return ltsid;
+
+}
+
+
+static char* getVnameByTsId(utShmHead *psShmHead, uint8 ltsid)
+{
+    pasHashInfo sHashInfo;
+    uchar *pHash;
+    ictOnlineUser* psOnline;
+    static char caVname[32] = "";
+
+    ictOnlineUser* psData = (ictOnlineUser*)utShmHashLookA(psShmHead, ICT_USER_LOGIN_TSID, (char*)(&ltsid));
+    if(psData)
+    {
+        //psData->tsid = ltsid;
+        memset(caVname, 0, sizeof(caVname));
+        memcpy(caVname, psData->vName, sizeof(psData->vName));
+    }
+    return caVname;
+}
+
 int ict_register(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
     //sql语句处理有三种，查询的话用pasDbOneRecord
@@ -75,11 +125,12 @@ int ict_register(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         if(lCount > 0)
         {
             snprintf(caMsg, sizeof(caMsg) - 1, "该vname[%s]已经存在", caVname);
-            utPltPutVar(psDbHead, "mesg", caMsg);
+            utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caMsg));
             utPltPutVarF(psDbHead, "result", "%d", 1);//表示已经存在该vname
             utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/register/register.htm");
             return 0;
         }
+        //printf();
         //插入数据库
         memset(sqlbuf, 0, sizeof(sqlbuf));
         snprintf(sqlbuf, sizeof(sqlbuf) - 1, "insert into userlib (vname,dname,address,passwd,mname) values('%s','%s','%s','%s','%s')",
@@ -103,6 +154,7 @@ int ict_register(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             // pasDbCommit(NULL);
         }
         utPltPutVarF(psDbHead, "result", "%d", iReturn);
+        utPltPutVarF(psDbHead, "tsid", "%llu", getTsidByVname(psShmHead, caVname));
     }
     else
     {
@@ -126,7 +178,11 @@ int isInUserShm(utShmHead *psShmHead)
     return 0;
 }
 
+//static uint8 getTsIdByVname(char* vname){
 
+//return 12345;
+
+//}
 int ict_AuthMobile(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
     int iReturn = 0;
@@ -155,12 +211,17 @@ int ict_AuthMobile(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caMsg));
             utPltPutVarF(psDbHead, "result", "%d", 1);
 
+
+
         }
         else
         {
             //将用户加入共享内存
             addUserToShm(caVname);
             utPltPutVarF(psDbHead, "result", "%d", 0);
+
+
+            utPltPutVarF(psDbHead, "tsid", "%llu", getTsidByVname(psShmHead, caVname));
         }
     }
     else
@@ -207,6 +268,7 @@ int ict_Auth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
             //将用户加入共享内存
             addUserToShm(caVname);
             utPltPutVarF(psDbHead, "result", "%d", 0);
+            utPltPutVarF(psDbHead, "tsid", "%llu", getTsidByVname(psShmHead, caVname));
             utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/main/index.htm");
         }
     }
@@ -215,8 +277,10 @@ int ict_Auth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         snprintf(caMsg, sizeof(caMsg) - 1, "vname不可以为空");
         utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caMsg));
         utPltPutVarF(psDbHead, "result", "%d", 2);
+        utPltPutVarF(psDbHead, "tsid", "%llu", getTsidByVname(psShmHead, caVname));
         utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/main/login_error.htm");
     }
+
     return 0;
 }
 
@@ -226,9 +290,14 @@ int ict_getUserInfo(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     utMsgPrintMsg(psMsgHead);
     long wpDebug = utComGetVar_ld(psShmHead, "wpDebug", 0);
     char caTsid[512] = {0};
+    uint8 ltsid = 0;
     char caVname[32 + 1] = "";
+    char caBname[32 + 1] = "";
+    char caDname[24 + 1] = "";
     char sqlbuf[1024] = "";
     ulong lCount = 0;
+    ulong lBtype = 0;
+    ulong lMoney = 0;
     char caMsg[256] = "";
     utPltDbHead *psDbHead = utPltInitDbHead();
 
@@ -238,15 +307,27 @@ int ict_getUserInfo(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     ictPrint(wpDebug, "tsid=%s\n", caTsid);
     if(strlen(caTsid) > 0)
     {
-
+        ltsid = atoll(caTsid);
     }
     //暂时把所有信息都返回
+    strcpy(caVname, getVnameByTsId(psShmHead, ltsid));
+    utPltPutVar(psDbHead, "vname", caVname);
+    //查表得到vname对应的信息
+    memset(sqlbuf, 0, sizeof(sqlbuf));
+    snprintf(sqlbuf, sizeof(sqlbuf) - 1, "select dname,package.id,package.name,userlib.money from userlib,package where userlib.package=package.id and vname='%s'", caVname);
+    ictPrint(wpDebug, "sqlbuf=%s  \n", sqlbuf);
+    pasDbOneRecord(sqlbuf, 0, UT_TYPE_STRING, sizeof(caDname) - 1, caDname,
+                   UT_TYPE_LONG, 4, &lBtype,
+                   UT_TYPE_STRING, sizeof(caBname) - 1, caBname,
+                   UT_TYPE_LONG, 4, &lMoney);
+
     utPltPutVarF(psDbHead, "result", "%d", 0);
-    utPltPutVar(psDbHead, "username", convert("GBK", "UTF-8", "小白"));
-    utPltPutVar(psDbHead, "vname", "124");
-    utPltPutVar(psDbHead, "btype", "1");
-    utPltPutVar(psDbHead, "bname", convert("GBK", "UTF-8", "100元基础套餐"));
-    utPltPutVar(psDbHead, "money", "211");
+    utPltPutVar(psDbHead, "username", convert("GBK", "UTF-8", caDname));
+
+    utPltPutVarF(psDbHead, "btype", "%lu", lBtype);
+    utPltPutVar(psDbHead, "bname", convert("GBK", "UTF-8", caBname));
+    utPltPutVarF(psDbHead, "money", "%lu", lMoney);
+	ictPrint(wpDebug, "caBname=%s\n", caBname);
     utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/main/userInfo.htm");
     return 0;
 }

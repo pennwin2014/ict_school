@@ -39,6 +39,8 @@
 #define  PORTAL_LNK_GROUPAP     62                     // AP和单位对照表
 #define  PORTAL_LNK_GROUPSSID   63                     // SSID和单位对照表
 #define  PORTAL_LNK_TSID        64                     // 终端SID对照表
+#define  ICT_USER_LOGIN_TSID    65                     // 记录用户登录的tsid以及手机号的关系
+
 
 // #define  NCM_LNK_WXATOKEN        65                 在 ncportalweb.h中定义
 #define  PORTAL_LNK_GROUP       70                     // 单位信息
@@ -169,6 +171,14 @@ typedef struct ncPortalACHead_s {
         uchar   AttrNum;
         uchar   caBuf[256];
     } ncPortalAcHead;
+// Portal在线用户, 以tsid为索引
+typedef struct ictOnlineUser_s {
+    uint8 tsid;                     // tsid
+	uchar vName[32];                // 手机号 
+	uchar loginFlag;                // 0---在线  1---离线  
+    uint4 lastTime;                 // 最后登录时间            
+} ictOnlineUser;
+
 
 /* Portal协议中的只  
 */

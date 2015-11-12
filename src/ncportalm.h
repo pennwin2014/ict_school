@@ -32,6 +32,8 @@
 #define  PORTAL_LNK_USERMAC     60                     // 用户Mac地址对照表
 #define  PORTAL_LNK_PORTALRULE  61                     // Portal使用策略
 
+
+
 #define  NCSRV_STA_SUCCESS     0                       /* 正确              */
 #define  NCSRV_STA_RELOGIN     10001                   /* 用户需要重新登录  */
 #define  NCSRV_STA_NOEXIST     10002                   /* 用户不存在        */
@@ -192,6 +194,9 @@ typedef struct ncPortalOnline_s {
     uchar caRev2[4];
 #endif    
 } ncPortalOnline;
+
+
+
 
 
 

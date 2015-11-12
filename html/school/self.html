@@ -188,8 +188,9 @@ function updatePageUserInfo(){
 	}
 }
 function checkUserInfo(){
+	alert("parent.tsid="+parent.tsid);
 	Ext.Ajax.request({ 
-		url: '/pronline/Msg?FunName@ict_getUserInfo',  
+		url: '/pronline/Msg?FunName@ict_getUserInfo&tsid='+parent.tsid,  
 		method: 'GET',
 		success: function(resp,opts) {   
 			try{
