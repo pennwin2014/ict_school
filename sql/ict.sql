@@ -2,6 +2,7 @@ drop table if exists  userlib;
 create table userlib(
 	id int(11) auto_increment primary key,
 	vname    char(32) NOT NULL,  
+	cid      char(32) default '00000000000000000',
 	photo     char(128) default '/home/ncmysql/ncsrv/photo/default.png',
 	dname    char(24) default '',  
 	mname    char(24) default '',  
@@ -45,7 +46,8 @@ create table rechargelog(
 	vname char(32) default '',
 	money int(11) default 0,
 	mtype int(11) default 0,
-	timeval int(11) default 0
+	timeval int(11) default 0,
+	orderno char(64) default ''
 );
 
 drop table if exists orderlog;
@@ -74,3 +76,18 @@ insert into recpackage(id, useflag, timeval) values(4, 1, unix_timestamp(now()))
 insert into recpackage(id, useflag, timeval) values(5, 1, unix_timestamp(now()));
 insert into recpackage(id, useflag, timeval) values(6, 1, unix_timestamp(now()));
 insert into recpackage(id, useflag, timeval) values(9, 1, unix_timestamp(now()));
+
+insert into orderlog(id,vname,packageid,dstatus,dtime) values(8,124,1,50,unix_timestamp("2015-11-12 12:12:12"));
+insert into orderlog(id,vname,packageid,dstatus,dtime) values(9,124,2,60,unix_timestamp("2015-11-22 12:12:12"));
+insert into orderlog(id,vname,packageid,dstatus,dtime) values(10,124,1,70,unix_timestamp("2015-10-11 12:12:12"));
+insert into orderlog(id,vname,packageid,dstatus,dtime) values(11,124,2,80,unix_timestamp("2015-10-22 12:12:12"));
+insert into orderlog(id,vname,packageid,dstatus,dtime) values(12,124,3,90,unix_timestamp("2015-09-12 12:12:12"));
+
+
+insert into rechargelog(id,vname,money,mtype,timeval,orderno) values(1,124,100,1,unix_timestamp("2015-11-02 12:12:12"),'100');
+insert into rechargelog(id,vname,money,mtype,timeval,orderno) values(2,124,200,2,unix_timestamp("2015-11-22 12:12:12"),'100');
+insert into rechargelog(id,vname,money,mtype,timeval,orderno) values(3,124,200,3,unix_timestamp("2015-10-22 12:12:12"),'100');
+insert into rechargelog(id,vname,money,mtype,timeval,orderno) values(4,124,100,1,unix_timestamp("2015-09-02 12:12:12"),'100');
+insert into rechargelog(id,vname,money,mtype,timeval,orderno) values(5,124,300,2,unix_timestamp("2015-09-12 12:12:12"),'100');
+
+

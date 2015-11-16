@@ -70,14 +70,14 @@
 				row = tb.insertRow(rowsNum-1);
 			}
             cell0 = row.insertCell(0);
-            cell0.innerHTML = "<div class='h8'><p class='h6'>"+data[i].name+"<input   type='button' value='订购' onclick='doOrderPackage("+data[i].id+")'/></p></div>";
+            cell0.innerHTML = "<div class='h8'><p class='h6'>"+data[i].name+"<input   type='button' value='订购' onclick=\"doOrderPackage('"+data[i].id+"','"+data[i].name+"','"+data[i].namedes+"','"+data[i].money+"')\"/></p></div>";
         }
 	}
 		
 	Ext.onReady(function(){
-	
+	//	alert("parent.tsid="+parent.tsid);
 		Ext.Ajax.request({
-			url: '/pronline/Msg?FunName@ict_getRecPackage',
+			url: '/pronline/Msg?FunName@ict_getRecPackage&tsid='+parent.tsid,
 			method: 'GET',
 			async: false,
 			success: function(resp,opts) {   
@@ -102,24 +102,26 @@
 				
 				
 				
-	function doOrderPackage(funId){
-		alert("点击订购"+funId);
+	function doOrderPackage(id,name,namedes,money){
+		alert("点击订购");
+		parent.ictGlobalCtx.openGrant(id, name, namedes, money);
+		
 	}
 </script>
 </head>
 <body>
 <div id="h1"></div>
 <div id="h2"><p><b>自主业务办理</b></p> <p>&nbsp;</p></div>
-<div id="h3" class="pic" ><a href="#"onclick = "parent.ictGlobalCtx.jumpToPage('id_ictShop_charge');" target=_blank>
+<div id="h3" class="pic" ><a href="#"onclick = "parent.ictGlobalCtx.jumpToPage('id_ictShop_charge');">
 <img  src="/school/images/frontPage/11.png" /></a></div>
 <div id="h4"></div>
-<div id="h3" class="pic" ><a href="#" onclick = "parent.ictGlobalCtx.jumpToPage('id_ictShop_products');" target=_blank><img  src="/school/images/frontPage/22.png" /></a></div>
+<div id="h3" class="pic" ><a href="#" onclick = "parent.ictGlobalCtx.jumpToPage('id_ictShop_products');"><img  src="/school/images/frontPage/22.png" /></a></div>
 <div id="h4"></div>
-<div id="h3" class="pic" ><a href="#" onclick = "parent.ictGlobalCtx.jumpToPage('id_bill_check');"target=_blank><img  src="/school/images/frontPage/33.png" /></a></div>
+<div id="h3" class="pic" ><a href="#" onclick = "parent.ictGlobalCtx.jumpToPage('id_bill_check');"><img  src="/school/images/frontPage/33.png" /></a></div>
 <div id="h4"></div>
-<div id="h3" class="pic" ><a href="#" onclick = "parent.ictGlobalCtx.jumpToPage('id_pay_record');" target=_blank><img  src="/school/images/frontPage/44.png" /></a></div>
+<div id="h3" class="pic" ><a href="#" onclick = "parent.ictGlobalCtx.jumpToPage('id_pay_record');"><img  src="/school/images/frontPage/44.png" /></a></div>
 <div id="h4"></div>
-<div id="h3" class="pic" ><a href="#" onclick = "parent.ictGlobalCtx.jumpToPage('id_system_passwd');"target=_blank><img  src="/school/images/frontPage/55.png" /></a></div>
+<div id="h3" class="pic" ><a href="#" onclick = "parent.ictGlobalCtx.jumpToPage('id_system_passwd');"><img  src="/school/images/frontPage/55.png" /></a></div>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
