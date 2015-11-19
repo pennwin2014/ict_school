@@ -40,12 +40,12 @@ alter table package add unique key uk_package_name(name);
 
 drop table if exists userpackage;
 create table userpackage(
-	id int(11) auto_increment primary key,
-	vname char(32) NOT NULL, 
-	packageid int(11) NOT NULL,
-	starttime int(11) default 0,
-	endtime  int(11) default 0,
-	status char default 0
+  vname char(32) NOT NULL, 
+  packageid int(11) NOT NULL,
+  starttime int(11) default 0,
+  endtime  int(11) default 0,
+  status char default 0,
+  primary key (vname, packageid)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 drop table if exists recpackage;
@@ -78,12 +78,12 @@ create table orderlog(
 	dtime int(11) default 0
 );
 
-insert into package(name,namedes,ptype,pdays,money,timeval) values('pweek','7天套餐',1,7,10,unix_timestamp(now()));
-insert into package(name,namedes,ptype,pdays,money,timeval) values('pmonth','包月套餐',2,30,20,unix_timestamp(now()));
-insert into package(name,namedes,ptype,pdays,money,timeval) values('pseason','季度套餐',3,90,30,unix_timestamp(now()));
-insert into package(name,namedes,ptype,pdays,money,timeval) values('phalfyear','半年套餐',4,180,40,unix_timestamp(now()));
-insert into package(name,namedes,ptype,pdays,money,timeval) values('pyear','包年套餐',5,365,50,unix_timestamp(now()));
-insert into package(name,namedes,ptype,pdays,money,timeval) values('puserdefine','用户自定义套餐',6,5000,50,unix_timestamp(now()));
+insert into package(name,namedes,ptype,pdays,money,timeval) values('pweek','????',1,7,10,unix_timestamp(now()));
+insert into package(name,namedes,ptype,pdays,money,timeval) values('pmonth','????',2,30,20,unix_timestamp(now()));
+insert into package(name,namedes,ptype,pdays,money,timeval) values('pseason','????',3,90,30,unix_timestamp(now()));
+insert into package(name,namedes,ptype,pdays,money,timeval) values('phalfyear','????',4,180,40,unix_timestamp(now()));
+insert into package(name,namedes,ptype,pdays,money,timeval) values('pyear','????',5,365,50,unix_timestamp(now()));
+insert into package(name,namedes,ptype,pdays,money,timeval) values('puserdefine','???????',6,5000,50,unix_timestamp(now()));
 
 insert into recpackage(id, useflag, timeval) values(1, 1, unix_timestamp(now()));
 insert into recpackage(id, useflag, timeval) values(2, 1, unix_timestamp(now()));
