@@ -114,33 +114,3 @@ create table orderlog(
 	dstatus int(11) default 0,--订购状态( 1 生效， 0无效)
 	dtime int(11) default 0--订单时间
 );
-
-insert into package(name,namedes,ptype,pdays,money,timeval,picture) values('pweek','7天套餐',1,7,10,unix_timestamp(now()),'/school/photo/package/pweek.png');
-insert into package(name,namedes,ptype,pdays,money,timeval,picture) values('pmonth','包月套餐',2,30,20,unix_timestamp(now()),'/school/photo/package/pmonth.png');
-insert into package(name,namedes,ptype,pdays,money,timeval,picture) values('pseason','季度套餐',3,90,30,unix_timestamp(now()),'/school/photo/package/pseason.png');
-insert into package(name,namedes,ptype,pdays,money,timeval,picture) values('phalfyear','半年套餐',4,180,40,unix_timestamp(now()),'/school/photo/package/phalfyear.png');
-insert into package(name,namedes,ptype,pdays,money,timeval,picture) values('pyear','包年套餐',5,365,50,unix_timestamp(now()),'/school/photo/package/pyear.png');
-insert into package(name,namedes,ptype,pdays,money,timeval,picture) values('puserdefine','用户自定义套餐',6,5000,50,unix_timestamp(now()),'/school/photo/package/puserdefine.png');
-
-insert into recpackage(id, useflag, timeval) values(1, 1, unix_timestamp(now()));
-insert into recpackage(id, useflag, timeval) values(2, 1, unix_timestamp(now()));
-insert into recpackage(id, useflag, timeval) values(3, 1, unix_timestamp(now()));
-insert into recpackage(id, useflag, timeval) values(4, 1, unix_timestamp(now()));
-insert into recpackage(id, useflag, timeval) values(5, 1, unix_timestamp(now()));
-insert into recpackage(id, useflag, timeval) values(6, 1, unix_timestamp(now()));
-insert into recpackage(id, useflag, timeval) values(9, 1, unix_timestamp(now()));
-
-insert into orderlog(id,vname,packageid,dstatus,dtime) values(8,124,1,50,unix_timestamp("2015-11-12 12:12:12"));
-insert into orderlog(id,vname,packageid,dstatus,dtime) values(9,124,2,60,unix_timestamp("2015-11-22 12:12:12"));
-insert into orderlog(id,vname,packageid,dstatus,dtime) values(10,124,1,70,unix_timestamp("2015-10-11 12:12:12"));
-insert into orderlog(id,vname,packageid,dstatus,dtime) values(11,124,2,80,unix_timestamp("2015-10-22 12:12:12"));
-insert into orderlog(id,vname,packageid,dstatus,dtime) values(12,124,3,90,unix_timestamp("2015-09-12 12:12:12"));
-
-
-insert into rechargelog(id,vname,money,mtype,timeval,orderno) values(1,124,100,1,unix_timestamp("2015-11-02 12:12:12"),'100');
-insert into rechargelog(id,vname,money,mtype,timeval,orderno) values(2,124,200,2,unix_timestamp("2015-11-22 12:12:12"),'100');
-insert into rechargelog(id,vname,money,mtype,timeval,orderno) values(3,124,200,3,unix_timestamp("2015-10-22 12:12:12"),'100');
-insert into rechargelog(id,vname,money,mtype,timeval,orderno) values(4,124,100,1,unix_timestamp("2015-09-02 12:12:12"),'100');
-insert into rechargelog(id,vname,money,mtype,timeval,orderno) values(5,124,300,2,unix_timestamp("2015-09-12 12:12:12"),'100');
-
-

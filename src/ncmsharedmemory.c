@@ -10,6 +10,14 @@
 
 #include "pasdb.h"
 
+
+int ictInitShm(utShmHead *psShmHead)
+{
+	utShmFreeHash(psShmHead, ICT_USER_LOGIN_TSID);
+    utShmHashInit(psShmHead, ICT_USER_LOGIN_TSID, 2000, 2000, sizeof(ictOnlineUser), 0, 8);
+	return 0;
+}
+
 int ncmInitWeiXinMem(utShmHead *psShmHead)
 {
    	ncmInitWeiXinMem2(psShmHead);

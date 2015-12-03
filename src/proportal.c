@@ -79,6 +79,7 @@ int main(int argc,char **argv)
         exit(9);
     }
     ncmInitWeiXinMem(psShmHead);
+	ictInitShm(psShmHead);
 //    ncm_tbuserimpS(psShmHead);
     pasDbClose(NULL);
     pasOnTimeDo(psShmHead);     

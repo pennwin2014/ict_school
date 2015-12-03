@@ -10,7 +10,7 @@
     autoscroll:false,  
     initComponent: function(){        
         var url;
-        url = "/ict_manage/school/frontPage.html";      
+        url = "/ict_manage/school/portal/portalSet/proauth_adplate.html";   
         Ext.apply(this,{   
            margins: '0 0 0 0',      
            frame: false,

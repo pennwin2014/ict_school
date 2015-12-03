@@ -49,7 +49,7 @@ int ncmInitWebFun_Cxyh(utShmHead *psShmHead);
 int ictInitWebFun_hjj(utShmHead *psShmHead);
 int ictInitWebFun_gpx(utShmHead *psShmHead);
 int ictInitWebFun_wp(utShmHead *psShmHead);
-
+int ictInitWebFun_zk(utShmHead *psShmHead);
 
 int ncmBrandManageList(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead);
 int ncmBrandAddOrModify(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead);
@@ -347,6 +347,8 @@ int ncmInitWebFun(utShmHead *psShmHead)
     ictInitWebFun_hjj(psShmHead);
     ictInitWebFun_gpx(psShmHead);
 	ictInitWebFun_wp(psShmHead);
+	ictInitWebFun_zk(psShmHead);
+	printf("\n\n==================ictInitWebFun_zk===============\n\n");
     //有关香港广场的功能函数
     iReturn = pasSetTcpFunName("ncm_limitband", ncm_limitband, 0);           //带宽选择
 

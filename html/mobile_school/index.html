@@ -11,6 +11,10 @@
 <link rel="stylesheet" href="/school/css/canChangePackage.css">
 <link rel="stylesheet" href="/school/css/changePackage.css">
 <link rel="stylesheet" href="/school/css/account_query.css">
+<link rel="stylesheet" href="/school/css/member_info.css">
+<link rel="stylesheet" href="/school/css/my_info.css">
+<link rel="stylesheet" href="/school/css/my_help.css">
+
 
 
 <!-- <link rel="stylesheet" href="/newver/jqm/jquery.mobile-1.4.5.min.css"> -->
@@ -24,6 +28,11 @@
 <script type="text/javascript" src="/school/js/canChangePackage.js"></script>
 <script type="text/javascript" src="/school/js/changePackage.js"></script>
 <script type="text/javascript" src="/school/js/account_query.js"></script>
+<script type="text/javascript" src="/school/js/member_info.js"></script>
+<script type="text/javascript" src="/school/js/my_info.js"></script>
+<script type="text/javascript" src="/school/js/my_help.js"></script>
+<!--日历控件-->
+<script type="text/javascript" src="/school/js/My97DatePicker/WdatePicker.js"></script>
 <style>
 	.ui-page { 
 		background: #FFFFFF;
@@ -71,11 +80,12 @@
 	}
 </style>
 <script>
+	var tsid = "";
 	function doSubmitLogin(){
 		var mVname = $("#vname").val();
 		var mPasswd = $("#passwd").val();
 		if(ictGlobalCtx.checkLoginData(mVname, mPasswd) == false){
-			alert(ictGlobalCtx.getLastError());
+			alert("123445"+ictGlobalCtx.getLastError());
 			return;
 		}
 		Ext.Ajax.request({
@@ -89,6 +99,8 @@
 					if(ret!='0'){
 						alert(ret+","+respRecord.mesg);
 					}else{
+						tsid = respRecord.tsid;
+						alert("tsid="+tsid);
 						alert("登录成功!!");
 						jumpToPage('pgFrontpage');
 					}
@@ -106,11 +118,6 @@
 <script>
 	function jumpToPage(pageId){
 		$.mobile.changePage("#"+pageId,{transition:"flip"});
-	}
-	
-	function popPage(pageId){
-		//$('#pgFrontpage').popup('open');
-		$.mobile.changePage("#"+pageId,{transition:"pop"});
 	}
 	
 	$('#btnQuery').live('click', function() {
@@ -149,15 +156,6 @@
         $.mobile.changePage("#pgNews",{transition:"turn"});
     });
 	
-	//测试用，将跳转页面修改下
-	/*$('#myInfo').live('click', function() {
-        $.mobile.changePage("#pgMemberInfo",{transition:"flip"});//slide
-    });*/
-	$('#myInfo').live('click', function() {
-        $.mobile.changePage("#pgMyInfo",{transition:"flip"});//slide
-    });
-	
-
 	$('#mother').live('change', function() {
         $('#otherAmount').css('display','');
     });
@@ -178,7 +176,6 @@
 		   $('#allBanks').css('display','none');
 		});
 	});
-	$("#btnCharge").autoIMG(); 
 	
 </script>
 </head>
@@ -190,8 +187,8 @@
 	</div-->
 	<img src="/mobile_school/images/login/bg_school.png" style="width:100%;height:50%" />
 	<div data-role="content">
-		<input type="text" name="vname" id="vname" placeholder="您的手机号" value="15868887771"/>
-		<input type="password" name="passwd" id="passwd" placeholder="您的密码" value="123"/>
+		<input type="text" name="vname" id="vname" placeholder="您的手机号" value="15951727773"/>
+		<input type="password" name="passwd" id="passwd" placeholder="您的密码" value="1234"/>
 		
 		<div class="ui-grid-b">
 			 <div class="ui-block-a"><a href="#" data-role="button" data-inline="true" onclick="doSubmitLogin()">确定</a></div>
@@ -229,9 +226,9 @@
 		<a href="#pgLogin" data-role="button" data-icon="video" data-iconpos="notext">退出</a>
 		<h1>上海大学智慧校园</h1>
 		
-		<a href="#" id="myInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
-		<!-- <a href="#" id="myInfo" data-role="button" style="background-color:#FFF;color:#FFF;" data-icon="user" data-iconpos="notext"></a> -->
-		<!-- <a href="#" id="myInfo" data-role="button" class="ui-btn ui-shadow  ui-btn-icon-left ui-icon-myicon">我的</a> -->
+		<a href="#pgMyInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
+		<!-- <a href="#" id="pgMyInfo" data-role="button" style="background-color:#FFF;color:#FFF;" data-icon="user" data-iconpos="notext"></a> -->
+		<!-- <a href="#" id="pgMyInfo" data-role="button" class="ui-btn ui-shadow  ui-btn-icon-left ui-icon-myicon">我的</a> -->
 		<!-- <img src="/mobile_school/images/frontpage/mine.png" style="width:18px;height:18px;" data-inline="true"/>  -->
 	</div>
 	
@@ -259,7 +256,7 @@
 	<div data-role="header" data-theme="f" data-position="fixed">
 		<a href="#pgFrontpage" data-role="button" data-icon="home" data-iconpos="notext">首页</a>
 		<h1>充值</h1>
-		<a href="#" id="myInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
+		<a href="#pgMyInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
 	</div>
 	<div data-role="content" data-theme="e">
 		<div data-role="fieldcontain">
@@ -332,7 +329,7 @@
 	<div data-role="header" data-theme="f">
 		<a href="#pgCharge" data-role="button" data-icon="back" data-iconpos="notext">返回</a>
 		<h1>充值</h1>
-		<a href="#" id="myInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
+		<a href="#pgMyInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
 	</div>
 	<div data-role="content">
 		<table>
@@ -395,7 +392,7 @@
 	<div data-role="header" data-theme="f">
 		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
 		<h1>订购套餐</h1>
-		<a href="#" id="myInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
+		<a href="#pgMyInfo"  data-role="button" data-icon="user" data-iconpos="notext">我的</a>
 	</div>
 	<div data-role="content">
 		<table>
@@ -430,7 +427,7 @@
 	<div data-role="header" data-theme="f">
 		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
 		<h1>套餐列表</h1>
-		<a href="#" id="myInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
+		<a href="#pgMyInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
 	</div>
 	<div data-role="content">
 		<table>
@@ -563,7 +560,7 @@
 	<div data-role="header" data-theme="f"  data-position="fixed">		
 		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
 		<h1>可更换套餐</h1>		
-		<a href="#" id="myInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
+		<a href="#pgMyInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
 	</div>
 	<div id="change_package">
 	<!-- <div data-role="none" class="myDotted"></div> -->
@@ -579,7 +576,7 @@
 	<div data-role="header" data-theme="f"  data-position="fixed">		
 		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
 		<h1>更换套餐</h1>		
-		<a href="#" id="myInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
+		<a href="#pgMyInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
 	</div>
 	<!--更换套餐模块-->
 	<div class="package">
@@ -594,7 +591,15 @@
 			<span id="package_money"></span><br>
 			
 			<b>生效时间：</b>
-			<span id="timeval"></span><br>
+			<!-- <span id="timeval"></span><br> -->
+			<span id="timeval">
+				<select data-role="none"  id="timeval_select_id" onchange="timeval_select_change(this.options[this.options.selectedIndex].id)">
+					<option id="1">立即生效</option>
+					<option id="2">次日生效</option>
+					<option id="3">自定义</option>
+				</select><br>
+				<input style="display:none;" placeholder="请选择生效时间" data-role="none" id="timeval_id" type="text" onClick="WdatePicker({minDate:'%y-%M-#{%d+1}',maxDate:'%y-%M-#{%d+30}'})"/>
+			</span><br>
 		</div>
 		<div class="dotted_style"></div>
 	</div>
@@ -602,8 +607,6 @@
 		<input data-theme="f" type="button" id="ok_btn" data-inline="true" data-mini="true" data-theme="f" value="确认更换"></input>
 		<input type="button" id="cancel_btn" data-inline="true" data-mini="true" data-theme="f" value="取消"></input>
 	</div>
-	
-	
 	
 </div>
 
@@ -614,10 +617,18 @@
 	<div data-role="header" data-theme="f"  data-position="fixed">		
 		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
 		<h1>充值记录</h1>		
-		<a href="#" id="myInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
+		<a href="#pgMyInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
 	</div>
 	<!--充值记录-->
 	<div id="recharge_record" >
+		<!--月份选择下拉框-->
+		<div id="month_select_div">
+			<select id="month_select" onchange="month_select_change(this.options[this.options.selectedIndex].value)"></select>
+		</div>
+		<!--充值记录显示div容器-->
+		<div id ="recharge_record_div">
+		
+		</div>
 	</div>
 </div>
 
@@ -627,7 +638,7 @@
 	<div data-role="header" data-theme="f"  data-position="fixed">		
 		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
 		<h1>账单查询</h1>		
-		<a href="#" id="myInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
+		<a href="#pgMyInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
 	</div>
 		<div class="account_content">
 			<b>账单金额：</b>
@@ -666,8 +677,9 @@
 	<div data-role="header" data-theme="f"  data-position="fixed">		
 		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
 		<h1>账单查询</h1>		
-		<a href="#" id="myInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
+		<a href="#pgMyInfo" data-role="button" data-theme="e" data-icon="user" data-iconpos="notext"></a>
 	</div>
+	
 		<div class="account_content">
 			<b>账单金额：</b>
 			<span id="account_amount_report" class="myColor"></span><br>
@@ -691,25 +703,278 @@
 
 
 <!--会员信息-->
-<div data-role="page" id="pgMemberInfo">
+<div data-role="page" id="pgMemberInfo" style="background-color:#eeeeee" >
 	<div data-role="header" data-theme="f" data-position="fixed">
-		<a href="#pgFrontpage" data-role="button" data-icon="home" data-iconpos="notext">首页</a>
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
 		<h1>会员信息</h1>
-		<a href="#" id="myInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
+		<a href="#pgMyInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
 	</div>
-	<div data-role="content" data-theme="e">
-		<div>
-			<span>头像</span>
-			<span>2345363</span>
-			<span class>
-			 
-			</span>
+	<div background-color="#eeeeee"  margin="0px" padding="0px">
+		<div data-role="none" id="member_info">
+			<!--第一部分-->
+			<div class="block1" data-role="none">
+				<div class="block_style" data-role="none">
+					<span class="port1">头像</span>
+					<span class="port2">2345363</span>
+					<span class="port3" id="setPortrait" onclick="setPortrait()">></span>
+				</div>
 			
+				<div class="block_style">
+					<span class="port1">昵称</span>
+					<span class="port2">设置个性昵称</span>
+					<span class="port3" onclick="setNickname()">></span>
+				</div>
+			
+				<div class="block_style">
+					<span class="port1">性别</span>
+					<span class="port2">男</span>
+					<span class="port3" onclick="setSex()">></span>
+				</div>
+			</div>
+			
+			<!--第二部分-->
+			<div class="block1" data-role="none">
+				<div class="block_style">
+					<span class="port1">学号</span>
+					<span class="port2">1232435</span>
+					<span class="port3" onclick="setNickname()">></span>
+				</div>
+			
+				<div class="block_style">
+					<span class="port1">手机号</span>
+					<span class="port2">18855972615</span>
+					<span class="port3" onclick="setSex()">></span>
+				</div>
+				
+				<div class="block_style">
+					<span class="port1">身份证号</span>
+					<span class="port2">175839569375432876</span>
+					<span class="port3" onclick="setPhoneNumber()">></span>
+				</div>
+			</div>
+			
+			<!--第三部分-->
+			<div class="block1" data-role="none">
+				<div class="block_style">
+					<span class="port1">学院班级</span>
+					<span class="port2">信息工程学院</span>
+					<span class="port3" onclick="setNickname()">></span>
+				</div>
+			
+				<div class="block_style">
+					<span class="port1">邮箱</span>
+					<span class="port2">1334355465@qq.com</span>
+					<span class="port3" onclick="setSex()">></span>
+				</div>
+				
+				<div class="block_style">
+					<span class="port1">地址管理</span>
+					<span class="port2">修改/添加</span>
+					<span class="port3" onclick="setAddress()">></span>
+				</div>
+			</div>
+			
+			<!--第四部分-->
+			<div class="block_style">
+					<span class="port1">添加兴趣爱好</span>
+					<span class="port2"></span>
+					<span class="port3" onclick="setAddress()">></span>
+			</div>
+			<div class="block_style">
+					<span class="port1">修改密码</span>
+					<span class="port2"></span>
+					<span class="port3" onclick="setPasswd()">></span>
+			</div>
+			<div class="block_style">
+					<span class="port1">地址管理</span>
+					<span class="port2">修改/添加</span>
+					<span class="port3" onclick="setAddress()">></span>
+			</div>
+			
+			<div id="passwd" class="block2">
+				<span class="port1">绑定</span>
+				<span class="port2"></span>
+				<span class="port3" onclick="setPasswd()">></span>
+			</div>
 			
 		</div>
+		
 	</div>
 </div>
  
+<!--设置昵称-->
+<div data-role="page" id="pgSetNickname" style="background-color:#eeeeee" >
+	<div data-role="header" data-theme="f" data-position="fixed">
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
+		<h1>设置昵称</h1>
+		<a href="#pgMyInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
+	</div>
+	<div margin="0px" padding="0px">
+		<input type="text" name="txtNickname">
+		
+		</input>
+		<div style="color:#afafaf">昵称由中文，英文，数字-和_组成</div>
+		<input type="submit" value="确定"></input>
+	</div>
+</div>
+
+<!--设置性别-->
+<div data-role="page" id="pgSetSex" style="background-color:#eeeeee" >
+	<div data-role="header" data-theme="f" data-position="fixed">
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
+		<h1>设置性别</h1>
+		<a href="#pgMyInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
+	</div>
+	<div margin="0px" padding="0px">
+		<fieldset data-role="controlgroup">
+		  <legend>请选择您的性别：</legend>
+			<label for="male">男</label>
+			<input type="radio" name="gender" id="male" value="male">
+			<label for="female">女</label>
+			<input type="radio" name="gender" id="female" value="female">	
+		</fieldset>
+		<input type="submit" data-inline="true" value="提交">
+	</div>
+</div>
+
+<!--设置地址-->
+<div data-role="page" id="pgSetAddress" style="background-color:#eeeeee" >
+	<div data-role="header" data-theme="f" data-position="fixed">
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
+		<h1>设置地址</h1>
+		<a href="#pgMyInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
+	</div>
+	<div margin="0px" padding="0px">
+		<input type="text" name="txtNickname" placeholder="请输入地址"></input>
+		<input type="submit" value="确定"></input>
+	</div>
+</div>
+
+<!--修改密码-->
+<div data-role="page" id="pgSetPasswd" style="background-color:#eeeeee" >
+	<div data-role="header" data-theme="f" data-position="fixed">
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
+		<h1>修改密码</h1>
+		<a href="#pgMyInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
+	</div>
+	<div margin="0px" padding="0px">
+		<input type="password" name="txtOldPasswd" placeholder="请输入原密码"></input>
+		<input type="password" name="txtNewPasswdFirst" placeholder="请输入新密码"></input>
+		<input type="password" name="txtNewPasswdSecond" placeholder="请重新输入新密码"></input>
+		<input type="submit" value="确定"></input>
+	</div>
+</div>
+
+<!--修改手机号-->
+<div data-role="page" id="pgSetPhoneNumber" style="background-color:#eeeeee" >
+	<div data-role="header" data-theme="f" data-position="fixed">
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
+		<h1>修改手机号</h1>
+		<a href="#pgMyInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
+	</div>
+	<div margin="0px" padding="0px">
+		<input type="text" name="txtPhoneNumber" placeholder="请输入手机号码"></input>
+		<input type="submit" value="确定"></input>
+	</div>
+</div>
+
+
+<!--我的-->
+<div data-role="page" id="pgMyInfo" style="background-color:#eeeeee" >
+	<div data-role="header" data-theme="f" data-position="fixed">
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
+		<h1>我的</h1>
+	</div>
+	<div background-color="#eeeeee"  margin="0px" padding="0px">
+		<div data-role="none" id="member_info">
+			<div class="block1" data-role="none">
+				<div id="my_block1" data-role="none">
+					<div class="float_left"><img src="/images/mobile_school/myInfo/1.png"></img></div>
+					<div class="my_basic_info">
+						<div id="mname_div">小明</div>
+						<div id="vname_div">学号:2354565768</div>
+					</div>
+					<div id="arrow_div" onclick="gotoMemberInfo()" style="float:left; margin-top:14%; width:10%">></div>
+				</div>
+				<div class="clear_float"></div>
+				<div id="my_account" class="my_info_block_style1">
+					<span class="my_info_port1"><img src="/images/mobile_school/myInfo/2.png"></img></span>
+					<span class="my_info_port2">我的账户</span>
+					<span class="my_info_port3"></span>
+					<span class="my_info_port4" onclick="gotoMyAccount()">></span>
+				</div>
+			
+				<div id="my_order" class="my_info_block_style1">
+					<span class="my_info_port1"><img src="/images/mobile_school/myInfo/2.png"></img></span>
+					<span class="my_info_port2">我的订单</span>
+					<span class="my_info_port3">查看所有订单</span>
+					<span class="my_info_port4" onclick="gotoMyOrder()">></span>
+				</div>
+			</div>
+		
+
+			<div class="my_info_block_style2">
+					<span class="my_info_port1"><img src="/images/mobile_school/myInfo/2.png"></img></span>
+					<span class="my_info_port2">我的活动</span>
+					<span class="my_info_port3">参与活动</span>
+					<span class="my_info_port4" onclick="gotoMyOrder()">></span>
+			</div>
+			
+			<div class="my_info_block_style2">
+					<span class="my_info_port1"><img src="/images/mobile_school/myInfo/2.png"></img></span>
+					<span class="my_info_port2">我的相册</span>
+					<span class="my_info_port3">new</span>
+					<span class="my_info_port4" onclick="gotoMyOrder()">></span>
+			</div>
+			
+			<div class="my_info_block_style2">
+					<span class="my_info_port1"><img src="/images/mobile_school/myInfo/2.png"></img></span>
+					<span class="my_info_port2">我的评论</span>
+					<span class="my_info_port3">评论足迹</span>
+					<span class="my_info_port4" onclick="gotoMyOrder()">></span>
+			</div>
+			
+			
+			<div class="my_info_block_style1">
+					<span class="my_info_port1"><img src="/images/mobile_school/myInfo/2.png"></img></span>
+					<span class="my_info_port2">我的学习</span>
+					<span class="my_info_port3">学习记录</span>
+					<span class="my_info_port4" onclick="gotoMyOrder()">></span>
+			</div>
+			
+			<div class="my_info_block_style1">
+					<span class="my_info_port1"><img src="/images/mobile_school/myInfo/2.png"></img></span>
+					<span class="my_info_port2">客服中心</span>
+					<span class="my_info_port3">您有新的回复</span>
+					<span class="my_info_port4" onclick="gotoMyHelp()">></span>
+			</div>	
+		</div>		
+	</div>
+</div>
+
+<!--客服中心-->
+<div data-role="page" id="pgMyHelp" style="background-color:#eeeeee" >
+	<div data-role="header" data-theme="f" data-position="fixed">
+		<a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="notext">返回</a>
+		<h1>客服中心</h1>
+		<a href="#pgMyInfo" data-role="button" data-icon="user" data-iconpos="notext">我的</a>
+	</div>
+	<div background-color="#eeeeee"  margin="0px" padding="0px">
+		<div data-role="none" id="my_help">
+			<div id="common_questions_div">
+				<div id="common_questions_title_div"><b>常见问题</b></div>
+				<div id="common_questions_content_div">
+				
+				</div>
+			</div>
+			<div id="messages_content_div" data-role="none">
+				<div><b>留言:</b></div>
+				<textarea style="height:100px" placeholder="请输入留言内容"></textarea>
+			</div>
+			<input type="submit" data-inline="true" data-mini="true" value="提交"></input>				
+		</div>
+	</div>
+</div>
 
 </body>
 </html>
