@@ -1,30 +1,43 @@
 #define  PAS_SRCFILE      2115
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <openssl/pem.h>
-#include <openssl/rsa.h>
-#include <openssl/rc2.h>
-#include <iconv.h>
-#include <utoall.h>
-#include "utoplt01.h"
-#include "pasdb.h"
-#include "ncdef.h"
+
 #include <iconv.h>
 #include <ctype.h>
 #include <netdb.h>
 #include <arpa/inet.h>
+#include <openssl/pem.h>
+#include <openssl/rsa.h>
+#include <openssl/rc2.h>
 #include <openssl/crypto.h>
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 #include <openssl/rand.h>
+
+#include <sys/types.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <time.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include "utoall.h"
+#include "pasutl.h"
+#include "pasdb.h"
+#include "pasutl.h"
+#include "ncportal.h"
+#include "ncportalweb.h"
+#include "utoplt01.h"
 #include "cjson.h"
+
+
+
+
 
 
 /********************************************
 功能：搜索字符串右边起的第一个匹配字符
 ********************************************/
-char *Rstrchr(char *s, char x)
+/*char *Rstrchr(char *s, char x)
 {
     int i = strlen(s);
     if(!(*s))
@@ -35,11 +48,12 @@ char *Rstrchr(char *s, char x)
         else
             i--;
     return 0;
-}
+}*/
 
 /**************************************************************
 功能：从字符串src中分析出网站地址和端口，并得到用户要下载的文件
 ***************************************************************/
+/*
 void GetHost(char *src, char *web, char *file, int *port)
 {
     char *pA;
@@ -76,7 +90,7 @@ void GetHost(char *src, char *web, char *file, int *port)
     else
         *port = 443;
 }
-
+*/
 /************文档********************************************
 *filename: ncmcomhttps.c
 *purpose: 演示HTTPS客户端编程方法
@@ -429,6 +443,7 @@ Host: %s:%d\r\nConnection: Keep-Alive\r\nContent-Length: %d\r\n\r\n%s\r\n\r\n", 
     return (char *)caReturn;
 }
 
+/*
 char *getWeiXinAccessToken(char *appid, char *secret)
 {
     char caReturn[10024];
@@ -452,7 +467,7 @@ char *getWeiXinAccessToken(char *appid, char *secret)
     }
     return caToken;
 }
-
+*/
 
 char *getWeiXinNickName(char *token, char *openid)
 {
@@ -637,6 +652,7 @@ int DecrypMobileInfo(utShmHead *psShmHead, const char *pIn,
     unsigned int iN1, iN2;
     memcpy(&iKv, in + 1, 2);
     iKeyVerison = ntohs(iKv);
+	pasLogs(PAS_SRCFILE, 1001, "iKeyVerison=%d\n", iKeyVerison);
     memcpy(&iN1, in + 3, 4);
     memcpy(&iN2, in + 7, 4);
     unsigned int iNonce = ntohl(iN1);
@@ -729,7 +745,24 @@ int DecrypMobileInfo(utShmHead *psShmHead, const char *pIn,
     return 0;
 }
 
-
+/*
+int getMacByIp(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+    char caIp[128];
+    int iReturn;
+    unsigned long lIp;
+    char caMac[20];
+    char caMac1[16];
+    iReturn = utMsgGetSomeNVar(psMsgHead, 11,
+                               "clientip",    UT_TYPE_STRING, 20, caIp);
+    ncUtlGetMacFromIpMacLst(psShmHead, lIp, caMac1);
+    strcpy(caMac, ncCvtMac(caMac1));
+    if(strlen(caMac) == 0)
+    {
+        strcpy(caMac, "10:00:00:00:00:01");
+    }
+    return 0;
+}
 
 
 //显示微信验证页面
@@ -924,14 +957,121 @@ int ncWebDispLogin_weixin(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
     return 0;
 }
+*/
+
+
+int ictGetUserInfo(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+    char caIp[20] = "";
+    char caTsid[64] = {0};
+    uint8 llTsid = 0;
+    char caUsragent[256] = "";
+    char caEng_flag[16] = "";
+    char caBssid[20] = "";
+    int iReturn;
+    utPltDbHead *psDbHead;
+    //utMsgPrintMsg(psMsgHead);
+    utMsgOutMsgToLog(PAS_SRCFILE, 1000, psMsgHead, "[ictGetUserInfo] \n");
+    iReturn = utMsgGetSomeNVar(psMsgHead, 4,
+                               "tsid",  UT_TYPE_STRING,  sizeof(caTsid) - 1,   caTsid,
+                               "clientip",    UT_TYPE_STRING, 19, caIp,
+                               "usragent",    UT_TYPE_STRING, 255, caUsragent,
+                               "eng_flag",    UT_TYPE_STRING, 8, caEng_flag);
+    pasLogs(PAS_SRCFILE, 1000, "接收到caIp=[%s],caTsid=[%s]\n", caIp, caTsid);
+    psDbHead = utPltInitDb();
+    utPltPutVar(psDbHead, "result", "0");
+    llTsid = atoll(caTsid);
+    utPltPutVar(psDbHead, "mac", ncmGetMacByTsid(psShmHead, llTsid));
+	
+    utPltPutVar(psDbHead, "bssid", caBssid);
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "wechat/userInfo.htm");
+    return 0;
+}
 
 
 
+int setUsernameByTsid(utShmHead *psShmHead, uint8 llTsid, char* username)
+{
+    pasHashInfo sHashInfo;
+    uchar *pHash = NULL;
+    pHash = (unsigned char *)utShmHashHead(psShmHead, ICT_USER_LOGIN_TSID);
+    if(pHash == NULL)
+    {
+        pasLogs(PAS_SRCFILE, 1001, "phash null!!\n");
+        utShmFreeHash(psShmHead, ICT_USER_LOGIN_TSID);
+        utShmHashInit(psShmHead, ICT_USER_LOGIN_TSID, 2000, 2000, sizeof(ictOnlineUser), 0, 8);
+
+    }
+
+    ictOnlineUser* psData = (ictOnlineUser*)utShmHashLookA(psShmHead, ICT_USER_LOGIN_TSID, (char*)(&llTsid));
+    if(psData)
+    {
+        pasLogs(PAS_SRCFILE, 1001, "add username=[%s]\n", username);
+        psData->tsid = llTsid;
+        strcpy(psData->userName, username);
+    }
+
+    return 0;
+}
+
+
+char* getUsernameByTsid(utShmHead *psShmHead, uint8 llTsid)
+{
+    pasHashInfo sHashInfo;
+    uchar *pHash;
+    ictOnlineUser* psOnline;
+    static char caUsername[64] = "";
+	memset(caUsername, 0, sizeof(caUsername));
+    ictOnlineUser* psData = (ictOnlineUser*)utShmHashLook(psShmHead, ICT_USER_LOGIN_TSID, (char*)(&llTsid));
+    if(psData)
+    {
+        //psData->tsid = ltsid;
+        memset(caUsername, 0, sizeof(caUsername));
+        memcpy(caUsername, psData->userName, sizeof(psData->userName));
+    }
+    return caUsername;
+}
+
+int printAllShm(utShmHead *psShmHead)
+{
+    pasHashInfo sHashInfo;
+    uchar *pHash;
+    long lBase;
+    ictOnlineUser  *psOnline;
+    pHash = (unsigned char *)utShmHashHead(psShmHead, ICT_USER_LOGIN_TSID);
+    pasLogs(PAS_SRCFILE, 1000, "\n\n输出所有的已认证的==========++++++++++++++++++=========\n");
+    if(pHash)
+    {
+        lBase = utShmGetBaseAddr(psShmHead);
+        psOnline = (ictOnlineUser *)pasHashFirst(pHash, &sHashInfo);
+        while(psOnline)
+        {
+           pasLogs(PAS_SRCFILE, 1000, "username=[%s]====>tsid=%llu\n", psOnline->userName, psOnline->tsid);
+            psOnline = (ictOnlineUser *)pasHashNextS(&sHashInfo);
+        }
+    }
+    pasLogs(PAS_SRCFILE, 1000, "\n==========++++++++++++++++=========\n\n");
+    return 0;
+}
+
+int deleteUsernameByTsid(utShmHead *psShmHead, uint8 llTsid)
+{
+	printAllShm(psShmHead);
+    ictOnlineUser* psData = (ictOnlineUser*)utShmHashLook(psShmHead, ICT_USER_LOGIN_TSID, (char*)(&llTsid));
+    if(psData)
+    {
+        pasLogs(PAS_SRCFILE, 1000, "find tsid=[%llu] and delete\n", llTsid);
+        utShmHashDel(psShmHead, ICT_USER_LOGIN_TSID, psData);
+    }    
+    pasLogs(PAS_SRCFILE, 1000, "删除tsid=%llu的信息后\n", llTsid);
+    printAllShm(psShmHead);
+    return 0;
+}
 
 
 
 /* 微信验证验证  */
-int ncLoginAuth_weixin(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+int ictLoginAuth_weixin(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
     char caIp[20];
     char caPlatePath[32], caPlate[128];
@@ -945,8 +1085,6 @@ int ncLoginAuth_weixin(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     char caSid[16];
     unsigned long lUserid, lGroupid, lUseflags, lIp;
     int iReturn;
-    ncUserInfo *psUserInfo = NULL;
-    ncUserCont *psUser;
     char caDip[20], caPort[16];
     char caHost_cqga[256], caUrl_all[256], caOut[4048];
     char caGender[24], caIdtype[24], caIdnum[64], caIdnum_bin[64];
@@ -983,7 +1121,7 @@ int ncLoginAuth_weixin(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     long tPort, nPort, lLasttime, lSvtime;
     char caServicecode[20], caSn[20];
     utMsgPrintMsg(psMsgHead);
-    utMsgOutMsgToLog(PAS_SRCFILE, 1000, psMsgHead, "[ncLoginAuth_weixin] \n");
+    utMsgOutMsgToLog(PAS_SRCFILE, 1001, psMsgHead, "[ncLoginAuth_weixin] \n");
     iReturn = utMsgGetSomeNVar(psMsgHead, 6,
                                "extend",    UT_TYPE_STRING, 127, caExtend,
                                "openId",    UT_TYPE_STRING, 63, caOpenId,
@@ -991,6 +1129,9 @@ int ncLoginAuth_weixin(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                                "clientip",    UT_TYPE_STRING, 19, caIp,
                                "usragent",    UT_TYPE_STRING, 255, caUsragent,
                                "eng_flag",    UT_TYPE_STRING, 8, caEng_flag);
+	pasLogs(2115, 1001, "接收到openid=[%s]\n", caOpenId);
+	pasLogs(2115, 1001, "接收到tid=[%s]\n", caTid);
+    printf("接收到openid=[%s]\n", caOpenId);
     psDbHead = utPltInitDb();
     strcpy(caToken, utComGetVar_sd(psShmHead, "WxToken", ""));
     lWeixinlasttime = utComGetVar_ld(psShmHead, "WxLasttime", 0);
@@ -1000,7 +1141,6 @@ int ncLoginAuth_weixin(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     long lTime = time(0);
     if(strlen(caOpenId) > 0)
     {
-
         //如果公众帐号不支持手机号解密，使用OPENID作为手机号，昵称为姓名，否则使用解密的手机号作为帐号
         int ret = 0;
         char caMobile[32];
@@ -1011,14 +1151,14 @@ int ncLoginAuth_weixin(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                                caAppid,
                                "",
                                caMobile);
+        pasLogs(PAS_SRCFILE, 1001, "caMobile=%s,caAppid=%s", caMobile, caAppid);
         if(ret == 0 && strlen(caMobile) > 0)
         {
             strcpy(caUsername, caMobile);
-            strcpy(caDispname, caMobile);
+            strcpy(caDispname, caOpenId);
         }
         else
         {
-
             //获取姓名
             if(strlen(caToken) == 0 || lTime - lWeixinlasttime > 3600)
             {
@@ -1055,215 +1195,138 @@ int ncLoginAuth_weixin(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                     }
 
                     utMsgFree(psMsgHead2);
-                    //      printf("caToken=%s,lasttime=%d\n",caToken,lLasttime+lTime-lSvtime);
-                }
-
-                /*
-                strcpy(caSecretkey,utComGetVar_sd(psShmHead,"wxsecretkey","0d657173dc911859b949cfd5362cb54e"));
-                strcpy(caToken,getWeiXinAccessToken(caAppid,caSecretkey));
-                */
-
-
-                //     printf("caToken=%s\n",caToken);
-
-
+                    pasLogs(PAS_SRCFILE, 1001, "从%s:%s获取到caToken=%s,lasttime=%d\n",caServerIp, caServerPort,caToken,lLasttime+lTime-lSvtime);
+                }else{
+					pasLogs(PAS_SRCFILE, 1001, "未从%s:%s获取到=[token]",caServerIp, caServerPort);
+				}
             }
-            //获取姓名
-            psUser = (ncUserCont *)ncUtlGetUserContByName(psShmHead, caOpenId);
-            if(psUser == NULL)
-            {
-                strcpy(caDispname, getWeiXinNickName(caToken, caOpenId));
-                printf("caDispname=%s\n", caDispname);
-            }
-
             strcpy(caUsername, caOpenId);
-
         }
-
-        //   if(strlen(caDispname)==0){
-        //      strcpy(caDispname,caOpenId);
-        //  }
-
     }
 
-    utStrDelSpaces(caIp);
+    utPltPutVar(psDbHead, "result", "0");
+    utPltPutVar(psDbHead, "username", caUsername);
+    pasLogs(PAS_SRCFILE, 1001, "caUsername=[%s]\n", caUsername);
+    ncSrvSynUserPassword(psShmHead, 0, 0, caUsername, "123456", "\0", utComGetVar_sd(psShmHead, "DefSsid", "\0"), NCSRV_USERTYPE_WEIXIN);
+
+    ncPortalSummary *psSumm;
+    psSumm = (ncPortalSummary *)utShmArray(psShmHead, NCSRV_LNK_SYSINFO);
+    int ret = ncSrvSynUserPassword2RadSrv(psSumm->psPar, caUsername, "123456", 0);
+    pasLogs(PAS_SRCFILE, 1001, "\n ncSrvSynUserPassword2RadSrv ret = %d \n", ret);
+
+
+    if(strlen(caExtend) > 0)
+    {
+        uint8 llTsid = atoll(caExtend);
+        pasLogs(PAS_SRCFILE, 1001, "set ltsid=%s, Username=%s\n", caExtend, caUsername);
+        //根据tsid建立一个关联到共享内存
+        setUsernameByTsid(psShmHead, llTsid, caUsername);
+    }
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "wechat/userInfo.htm");
+
+    //utStrDelSpaces(caIp);
     /* 验证  */
+    /*
     lIp = ntohl(pasIpcvtLong(caIp));
-    ncUtlGetAuthIp(psShmHead, lIp, caDip, caPort, caPlatePath);
+    //ncUtlGetAuthIp(psShmHead, lIp, caDip, caPort, caPlatePath);
     utPltPutVar(psDbHead, "ip", caDip);
     utPltPutVar(psDbHead, "port", caPort);
     utPltPutVar(psDbHead, "adminport", utComGetVar_sd(psShmHead, "AdminPort", "80"));
     strcpy(caNcName, utComGetVar_sd(psShmHead, "NcName", ""));
-    ncUtlGetMacFromIpMacLst(psShmHead, lIp, caMac1);
-    strcpy(caMac, ncCvtMac(caMac1));
+    //ncUtlGetMacFromIpMacLst(psShmHead, lIp, caMac1);
+    strcpy(caMac, pasCvtMac(caMac1));
     if(strlen(caUsername) == 11 && strlen(caMac) == 17)
     {
         pasDbExecSqlF("insert into ncwxmac(mac,mobile) values('%s','%s') ", caMac, caUsername);
     }
-    //先让这个用户下线
-    psUserInfo = (ncUserInfo *)ncGetUserInfoByIp(psShmHead, lIp);
-    if(psUserInfo)
-    {
-        printf("psUser->username=%s\n", psUserInfo->username);
-        if(strcmp(caUsername, psUserInfo->username) != 0)
-        {
-            ncUtlDoLogout(psShmHead, psUserInfo, "It is same user in system");
-        }
-    }
-    iReturn = ncUtlDyUserLogin(psShmHead, caUsername, caDispname, lIp, caMac);
-    printf("iReturn=%d\n", iReturn);
-    if(iReturn == 0)
-    {
-        ncUserInfo *psUserInfo;
-        psUserInfo = (ncUserInfo *)ncGetUserInfoByIp(psShmHead, lIp);
-        if(psUserInfo)
-        {
-            psUserInfo->cSaveDb = 0;
-            ncVidPutRecordU(psUserInfo, lIp, 0, 1071, caOpenId, caOpenId);
-            psUser = (ncUserCont *)ncUtlGetUserContByName(psShmHead, caUsername);
-            if(psUser)
-            {
-                if(strlen(caDispname) > 0)
-                {
-                    strcpy(psUser->dispname, caDispname);
-                }
-                strcpy(psUser->username, caUsername);
-
-            }
-        }
-        pasSetHttpHeadStatus(200, "Found");
-        utPltOutToHtmlFromBuf(iFd, psMsgHead, psDbHead, "\0");
-        /*
-                                       sprintf(caPlate,"nc/weixin/mobile/nc_login_main.htm");
-
-                                                printf("plate=%s\n",caPlate);
-                                                utPltOutToHtml(iFd,psMsgHead,psDbHead,caPlate);
-        */
-        return 0;
-    }
+    */
     return 0;
 }
 
-/* 往MAC平台传输MAC手机号信息 */
-int ncSysMobileMac(utShmHead *psShmHead)
+
+
+
+int ictApproveCommit(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
-    unsigned long lTimeOut, lTime;
-    unsigned char *pHash;
-    ncMwduser  *psHashData, *psHashData0;
-    char caServerIp[20];
-    char caServerPort[16];
-    long long currentTime;
-    unsigned long lIp;
-    long nPort, tPort, iNum;
-    pasDbCursor *psCur;
-    char caPosition[64];
-    char caTemp[1024];
-    char caKey[32], caServicecode[32], caFcode[32];
-    char caMac[24], caMobile[24];
-    utMsgHead *psMsgHead2;
-    memset(caKey, 0, sizeof(caKey));
-    strcpy(caKey, "pronetwayh7934#!");
-    cJSON * pJsonRoot = NULL;
-    cJSON * pSubJson = NULL;
-    strcpy(caServerIp, utComGetVar_sd(psShmHead, "sysmacip", "121.40.222.213"));
-    strcpy(caServerPort, utComGetVar_sd(psShmHead, "sysmacport", "7199"));
-    tPort = atol(caServerPort);
-    lIp = utComHostAddress(caServerIp);
-    nPort = ntohs(tPort);
-    strcpy(caServicecode, utComGetVar_sd(psShmHead, "NcName", ""));
-    strcpy(caFcode, "wx");
-    strcpy(caPosition, utComGetVar_sd(psShmHead, "ProductSN", ""));
-
-    int iReturn;
-
-    iReturn = pasConnect(psShmHead);
-    if(iReturn < 0)
+    int iReturn = 0;
+    char caIp[20] = "";
+    char caUsragent[256] = "";
+    char caUsername[128] = "";
+    char caTsid[64] = {0};
+    char caPasTsid[64] = {0};
+    uint8 llTsid = 0;
+    utMsgPrintMsg(psMsgHead);
+    iReturn = utMsgGetSomeNVar(psMsgHead, 5,
+                               "tsid",  UT_TYPE_STRING,  sizeof(caTsid) - 1,   caTsid,
+                               "PASTSID", UT_TYPE_STRING,  sizeof(caPasTsid) - 1,   caPasTsid,
+                               "clientip",    UT_TYPE_STRING, 19, caIp,
+                               "usragent",    UT_TYPE_STRING, 255, caUsragent,
+                               "username",    UT_TYPE_STRING, sizeof(caUsername) - 1, caUsername);
+    utPltDbHead* psDbHead = utPltInitDb();
+    if(strlen(caUsername) > 0)
     {
-        sleep(60);
-        return 0;
-    }
-    //     sleep(15);
-
-    pasDbExecSqlF("create table if not exists ncwxmac (mac char(20) primary key,mobile char (16)) ENGINE=MEMORY DEFAULT CHARSET=latin1 max_rows=10000000 avg_row_length=1500");
-
-    while(1)
-    {
-        sprintf(caTemp, "select mac,mobile from ncwxmac limit 0,100 ");
-        psCur = pasDbOpenSql(caTemp, 0);
-        if(psCur)
+        if(strlen(caPasTsid) > 0)
         {
-            pJsonRoot = cJSON_CreateArray();
-            if(NULL == pJsonRoot)
-            {
-                pasDbCloseCursor(psCur);
-                return -1;
-            }
-            iNum = 0;
-            memset(caMac, 0, sizeof(caMac));
-            memset(caMobile, 0, sizeof(caMobile));
-            iReturn = pasDbFetchInto(psCur, UT_TYPE_STRING, 19, caMac,
-                                     UT_TYPE_STRING, 15, caMobile);
-            while(iReturn == 0 || iReturn == 1405)
-            {
-                pSubJson = cJSON_CreateObject();
-                if(NULL == pSubJson)
-                {
-                    cJSON_Delete(pJsonRoot);
-                    pasDbCloseCursor(psCur);
-                    return -1;
-                }
-                iNum++;
-                cJSON_AddStringToObject(pSubJson, "mobile", utEncryptAes(caMobile, caKey));
-                cJSON_AddStringToObject(pSubJson, "mac", utEncryptAes(caMac, caKey));
-                cJSON_AddStringToObject(pSubJson, "servicecode", caServicecode);
-                cJSON_AddStringToObject(pSubJson, "fcode", caFcode);
-                long lStime = time(0);
-                sprintf(caTemp, "%lu", lStime);
-                cJSON_AddStringToObject(pSubJson, "position", utEncryptAes(caPosition, caKey));
-                cJSON_AddStringToObject(pSubJson, "stime", caTemp);
-                cJSON_AddItemToArray(pJsonRoot, pSubJson);
-
-                memset(caMac, 0, sizeof(caMac));
-                memset(caMobile, 0, sizeof(caMobile));
-                iReturn = pasDbFetchInto(psCur, UT_TYPE_STRING, 19, caMac,
-                                         UT_TYPE_STRING, 15, caMobile);
-            }
-            pasDbCloseCursor(psCur);
-            if(iNum > 0)
-            {
-                char * p = cJSON_Print(pJsonRoot);
-                printf("p=%s\n", p);
-                long lLen = strlen(p);
-                //               iReturn = pasSendHttpPost_t(caMac_url,"/pronline/Msg",caHtml,1023,2,
-                //                 "FunName", "proauth_sysmacbyjson",
-                //                 "json",p);
-
-                utMsgHead *psMsgHead2 = pasTcpRequest(lIp, nPort,
-                                                      0,        /* CheckSum */
-                                                      0,        /* Encrypt  */
-                                                      "proauth_sysmacbyjson",
-                                                      0,       /* Sid */
-                                                      0,       /* Rid  */
-                                                      60,      /* 超时  */
-                                                      NULL,    /* key   */
-                                                      2,
-                                                      "json", UT_TYPE_STRUCT, p, lLen,
-                                                      "len", UT_TYPE_LONG, lLen);
-                iReturn = -1;
-                if(psMsgHead2)
-                {
-                    utMsgGetSomeNVar(psMsgHead2, 1,
-                                     "status", UT_TYPE_LONG, 4, &iReturn);
-                    pasDbExecSqlF("delete from ncwxmac ");
-                    utMsgFree(psMsgHead2);
-                }
-
-
-                //     printf("iReturn=%d\n",iReturn);
-                free(p);
-            }
-            cJSON_Delete(pJsonRoot);
+            llTsid = atoll(caPasTsid);
+            deleteUsernameByTsid(psShmHead, llTsid);
         }
-        sleep(300);
+
     }
+    utPltPutVar(psDbHead, "username", caUsername);
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "wechat/userInfo.htm");
+    return 0;
 }
+
+int ictGetWechatLogin(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+    char caIp[20] = "";
+    char caUsragent[256] = "";
+    char caEng_flag[16] = "";
+    char caUsername[128] = "";
+    char caTsid[64] = {0};
+    char caPasTsid[64] = {0};
+    utPltDbHead *psDbHead;
+    int iReturn = 0;
+    uint8 llTsid = 0;
+    psDbHead = utPltInitDb();
+    utMsgOutMsgToLog(PAS_SRCFILE, 1000, psMsgHead, "[ictGetWechatLogin] \n");
+    iReturn = utMsgGetSomeNVar(psMsgHead, 5,
+                               "tsid",  UT_TYPE_STRING,  sizeof(caTsid) - 1,   caTsid,
+                               "PASTSID", UT_TYPE_STRING,  sizeof(caPasTsid) - 1,   caPasTsid,
+                               "clientip",    UT_TYPE_STRING, 19, caIp,
+                               "usragent",    UT_TYPE_STRING, 255, caUsragent,
+                               "eng_flag",    UT_TYPE_STRING, 8, caEng_flag);
+
+    if(strlen(caPasTsid) > 0)
+        llTsid = atoll(caPasTsid);
+    strcpy(caUsername, getUsernameByTsid(psShmHead, llTsid));
+	pasLogs(PAS_SRCFILE, 1000, "tsid=[%s],PASTSID=[%s],username=[%s]\n", caTsid, caPasTsid, caUsername);
+   // printf("tsid=[%s],PASTSID=[%s],username=[%s]\n", caTsid, caPasTsid, caUsername);
+    if(strlen(caUsername) > 0)
+    {
+        utMsgPrintMsg(psMsgHead);
+        pasLogs(PAS_SRCFILE, 1000, "got caUsername=[%s]\n", caUsername);
+    }
+
+    utPltPutVar(psDbHead, "username", caUsername);
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "wechat/userInfo.htm");
+    return 0;
+}
+
+
+
+
+int ictInitWebFun_weixin(utShmHead *psShmHead)
+{
+    int iReturn = 0;
+    iReturn = pasSetTcpFunName("ictApproveCommit", ictApproveCommit, 0);
+    iReturn = pasSetTcpFunName("ictGetUserInfo", ictGetUserInfo, 0);
+    iReturn = pasSetTcpFunName("ictGetWechatLogin", ictGetWechatLogin, 0);
+    iReturn = pasSetTcpFunName("ictLoginAuth_weixin", ictLoginAuth_weixin, 0);
+    return 0;
+}
+
+
+
+
+
