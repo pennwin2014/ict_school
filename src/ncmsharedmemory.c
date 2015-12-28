@@ -10,11 +10,16 @@
 
 #include "pasdb.h"
 
+int ictProAuthLoadGroupInfo(utShmHead *psShmHead);
+int ictProAuthLoadClientsInfo(utShmHead *psShmHead);
+
 
 int ictInitShm(utShmHead *psShmHead)
 {
 	utShmFreeHash(psShmHead, ICT_USER_LOGIN_TSID);
     utShmHashInit(psShmHead, ICT_USER_LOGIN_TSID, 2000, 2000, sizeof(ictOnlineUser), 0, 8);
+	ictProAuthLoadClientsInfo(psShmHead);
+	ictProAuthLoadGroupInfo(psShmHead);
 	return 0;
 }
 

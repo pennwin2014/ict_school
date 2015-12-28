@@ -39,8 +39,8 @@
 #define  PORTAL_LNK_GROUPAP     62                     // AP和单位对照表
 #define  PORTAL_LNK_GROUPSSID   63                     // SSID和单位对照表
 #define  PORTAL_LNK_TSID        64                     // 终端SID对照表
-#define  ICT_USER_LOGIN_TSID    65                     // 记录用户登录的tsid以及手机号的关系
-
+#define  ICT_USER_LOGIN_TSID    65                     //记录用户名与短信联系
+#define  ICT_USER_PASS          66                     //记录用户名与短信联系
 
 // #define  NCM_LNK_WXATOKEN        65                 在 ncportalweb.h中定义
 #define  PORTAL_LNK_GROUP       70                     // 单位信息
@@ -171,7 +171,8 @@ typedef struct ncPortalACHead_s {
         uchar   AttrNum;
         uchar   caBuf[256];
     } ncPortalAcHead;
-// Portal在线用户, 以tsid为索引
+
+	// Portal在线用户, 以tsid为索引
 typedef struct ictOnlineUser_s {
     uint8 tsid;                     // tsid
 	uchar vName[32];                // 手机号 
@@ -179,7 +180,11 @@ typedef struct ictOnlineUser_s {
     uint4 lastTime;                 // 最后登录时间            
 } ictOnlineUser;
 
-
+typedef struct ictPassUser_s{
+	uchar vName[32];
+	uchar pass[12];
+} ictPassUser;
+	
 /* Portal协议中的只  
 */
 #define ACPORTAL_ATTRTYPE_USERNAME       0x01
@@ -244,7 +249,8 @@ typedef struct ncPortalAcInfo_s {
 #define NCPORTAL_VENDOR_PROEIMV7      10  
 #define NCPORTAL_VENDOR_DEFAULT       9
 #define NCPORTAL_VENDOR_MERUAC        11
-#define NCPORTAL_VENDOR_MERUAC1        12
+#define NCPORTAL_VENDOR_MERUAC1       12
+#define NCPORTAL_VENDOR_BCTH          13
 
 
 
@@ -267,8 +273,6 @@ typedef struct ncPortalBlackUser_s {
     uchar caName[31];               // 登陆名或Mac地址
     uint4 validtime;                // 失效时间
 } ncPortalBlackUser;
-
-
 
 
 // 推送页面模板

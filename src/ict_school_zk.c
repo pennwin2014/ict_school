@@ -588,7 +588,7 @@ int ict_ncAdDefAd_upload_sec(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead
     printf(" caFile==[%s]\n", caFile);
     printf("caLocal=%s,caRemote=%s\n", caLocal, caRemote);
 
-    strcpy(caAdPlate, utComGetVar_sd(psShmHead, "adplate", "/home/adplate"));
+    strcpy(caAdPlate, utComGetVar_sd(psShmHead, "adplateimg", "/home/adplate"));
     if(caAdPlate[strlen(caAdPlate) - 1] == '/')
     {
         caAdPlate[strlen(caAdPlate) - 1] == '\0';
@@ -609,7 +609,7 @@ int ict_ncAdDefAd_upload_sec(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead
     {
         if(mkdir(caPlatepath, 0755) != 0)
         {
-            utWebDispMsg(iFd, psMsgHead, "v8/ncmsg_pasmsg.htm", "false", "创建模板路径出错");
+            utWebDispMsg(iFd, psMsgHead, "v8/ncmsg_pasmsg.htm", "false", "5创建模板路径出错");
             return 0;
         }
 
@@ -699,7 +699,7 @@ int ict_ncAdDefAd_upload_v8(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     printf(" caFile==[%s]\n", caFile);
     printf("caLocal=%s,caRemote=%s\n", caLocal, caRemote);
 
-    strcpy(caAdPlate, utComGetVar_sd(psShmHead, "adplate", "/home/adplate"));
+    strcpy(caAdPlate, utComGetVar_sd(psShmHead, "adplateimg", "/home/adplate"));
     if(caAdPlate[strlen(caAdPlate) - 1] == '/')
     {
         caAdPlate[strlen(caAdPlate) - 1] == '\0';
@@ -718,11 +718,19 @@ int ict_ncAdDefAd_upload_v8(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     sprintf(caPlatepath, "%s/%s/images", caAdPlate, caPlateid);
     if(!utFileIsExist(caPlatepath))
     {
-        if(mkdir(caPlatepath, 0755) != 0)
+		char caComm[256]="";
+        sprintf(caComm, "mkdir -p %s", caPlatepath);
+        system(caComm);
+		memset(caComm, 0, sizeof(caComm));
+		sprintf(caComm, "chmod 755 %s", caPlatepath);
+		system(caComm);
+        /*
+		if(mkdir(caPlatepath, 0755) != 0)
         {
-            utWebDispMsg(iFd, psMsgHead, "v8/ncmsg_pasmsg.htm", "false", "创建模板路径出错");
+            utWebDispMsg(iFd, psMsgHead, "v8/ncmsg_pasmsg.htm", "false", "6创建模板路径出错");
             return 0;
         }
+		*/
 
     }
     /*
@@ -781,6 +789,170 @@ int ict_ncAdDefAd_upload_v8(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
 }
 
+int ict_proauth_portplate(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+     printf("ncm_portplate start!!!!\n");
+    pasDbCursor *psCur;
+    // utPltDbHead *psDbHead;
+    char caPlateid[32];
+    utPltDbHead *psDbHead;
+    psDbHead = utPltInitDb();
+     utMsgPrintMsg(psMsgHead);
+    char update[32];
+    char sid[32];
+
+    char caStyped[32] = "";
+    dsCltGetSessionValue(1, "stype", UT_TYPE_STRING, sizeof(caStyped) - 1, caStyped);
+     //printf("caStyped = %s\n", caStyped);
+
+    utMsgGetSomeNVar(psMsgHead, 2,
+                     "update",        UT_TYPE_STRING,  sizeof(update) - 1,       update,
+                     "sid",        UT_TYPE_STRING,  sizeof(sid) - 1,       sid
+                    );
+    char caTemp[256];
+    int total;
+    //sprintf(caTemp,"select count(*) from portplate");
+    sprintf(caTemp, "select count(*) from portalplate");
+    pasDbOneRecord(caTemp, 0, UT_TYPE_LONG, sizeof(total) - 1, &total);
+    utPltPutVarF(psDbHead, "TotRec", "%d", total);
+
+
+    //sprintf(caTemp,"select sid, platename,status from portplate");
+    sprintf(caTemp, "select shopplateid, platename,plateid from portalplate where 1=1");
+
+    psCur = pasDbOpenSql(caTemp, 0);
+
+    if(psCur == NULL)
+    {
+        // printf("pscur is null\n");
+        // printf("Do SQL Error, sqlcode is %d \n",  pasDbSqlCode(NULL));
+    }
+    if(psCur != NULL)
+    {
+
+        int iReturn = 0;
+        int iNum = 0;
+        long id = 0;
+        long status = 0;
+        char name[64] = "";
+
+        while(0 == (iReturn = pasDbFetchInto(psCur,
+                                             UT_TYPE_LONG, sizeof(id), &id,
+                                             UT_TYPE_STRING, 64, name,
+                                             UT_TYPE_STRING, 15, caPlateid
+                                             //UT_TYPE_LONG,sizeof(status),&status
+                                            ))  || 1405 == iReturn)
+        {
+            iNum++;
+            if(iNum > 1)
+            {
+                utPltPutLoopVar(psDbHead, "dh", iNum, ",");
+            }
+            utPltPutLoopVarF(psDbHead, "sid", iNum, "%lu", id);
+            //utPltPutLoopVarF(psDbHead,"status",iNum,"%lu", status);
+            utPltPutLoopVarF(psDbHead, "iNum", iNum, "%lu", iNum);
+            //char *nameUTF = convert("GBK", "UTF-8", name);
+            utPltPutLoopVarF(psDbHead, "platename", iNum, "%s", name);
+            utPltPutLoopVar(psDbHead, "plateid", iNum, caPlateid);
+        }
+
+        pasDbCloseCursor(psCur);
+    }
+    //              utPltShowDb(psDbHead);
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "/ad/ncm_portplate.html");
+
+
+    return 0;
+}
+
+int ict_ncAddAdvert_Save(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{	
+	printf("ncAddAdvert_Save is Start!!!!\n");
+	utPltDbHead *psDbHead = NULL;
+    utMsgPrintMsg(psMsgHead);
+
+    psDbHead = utPltInitDbHead();
+	
+	char sql[1024];
+	char Tsql[1024];
+	char caAdname[32];
+	char caPlateid[32];
+	char caUname[32];
+	char caPrice[32];
+	char caStartdate[32];
+	char caStopdate[32];
+	char caTemp[32];
+	int iReturn;
+	unsigned long lStartTime = 0;
+	unsigned long lEndTime = 0;
+    utMsgGetSomeNVar(psMsgHead, 6,
+                     "adname",   UT_TYPE_STRING, sizeof(caAdname) - 1, caAdname,
+					 "plateid",   UT_TYPE_STRING, sizeof(caPlateid) - 1, caPlateid,
+					 "uname",   UT_TYPE_STRING, sizeof(caUname) - 1, caUname,					 
+					 "price",   UT_TYPE_STRING, sizeof(caPrice) - 1, caPrice,
+					 "startdate",   UT_TYPE_STRING, sizeof(caStartdate) - 1, caStartdate,
+					 "stopdate",   UT_TYPE_STRING, sizeof(caStopdate) - 1, caStopdate);
+    if(strlen(caAdname) > 0)
+    {
+        pasCvtGBK(2, caAdname, caTemp, 31);
+        strcpy(caAdname, caTemp);
+    }
+    if(strlen(caPlateid) > 0)
+    {
+        pasCvtGBK(2, caPlateid, caTemp, 31);
+        strcpy(caPlateid, caTemp);
+    }
+    if(strlen(caUname) > 0)
+    {
+        pasCvtGBK(2, caUname, caTemp, 31);
+		strcpy(caUname, caTemp);
+    }	
+    if(strlen(caPrice) > 0)
+    {
+        pasCvtGBK(2, caPrice, caTemp, 31);
+		strcpy(caPrice, caTemp);
+    }			
+    if(strlen(caStartdate) > 0)
+    {
+        pasCvtGBK(2, caStartdate, caTemp, 31);
+		strcpy(caStartdate, caTemp);
+    }			
+    if(strlen(caStopdate) > 0)
+    {
+        pasCvtGBK(2, caStopdate, caTemp, 31);
+		strcpy(caStopdate, caTemp);
+    }				
+	printf("adname is %s\n",caAdname);
+	printf("uname is %s\n",caUname);
+	printf("price is %s\n",caPrice);
+	printf("startdate is %s\n",caStartdate);
+	printf("stopdate is %s\n",caStopdate);
+	ncTimeToLong(caStartdate,&lStartTime);
+	ncTimeToLong(caStopdate,&lEndTime);
+	printf("lStartTime is %lu\n",lStartTime);
+	sprintf(sql,"insert into adManage(adname,username,price,starttime,endtime) values('%s','%s','%s',%lu,%lu)",caAdname,caUname,caPrice,lStartTime,lEndTime);
+	iReturn = pasDbExecSqlF(sql);
+	if(iReturn==0)
+	{
+		sprintf(Tsql,"insert into portalplateindex(plateid,plateindex) values('%s','%s')",caPlateid,caAdname);
+		printf("Tsql id %s\n",Tsql);
+		iReturn = pasDbExecSqlF(Tsql);
+	}
+	if(iReturn ==0){
+		utPltPutVar(psDbHead, "titel", "true");
+		utPltPutVar(psDbHead, "message", "上传成功");
+		
+	}else
+	{
+		utPltPutVar(psDbHead, "titel", "false");
+		utPltPutVar(psDbHead, "message", "上传失败");
+	}	
+	 utPltOutToHtml(iFd, psMsgHead, psDbHead, "v8/nc_adfile.htm");
+	printf("ncAddAdvert_Save is Stop!!!!\n");	
+	return 0;
+				 
+					 
+}
 
 int ictInitWebFun_zk(utShmHead *psShmHead)
 {
@@ -791,6 +963,8 @@ int ictInitWebFun_zk(utShmHead *psShmHead)
     pasSetTcpFunName("ict_ncAdPlateIndex_Save", ict_ncAdPlateIndex_Save, 0);
     pasSetTcpFunName("ict_portplate", ict_portplate, 0);
     pasSetTcpFunName("ict_proauthAdindexlist", ict_proauthAdindexlist, 0);
+	pasSetTcpFunName("ict_ncAddAdvert_Save", ict_ncAddAdvert_Save, 0);
+	pasSetTcpFunName("ict_proauth_portplate", ict_proauth_portplate, 0);
     return 0;
 }
 

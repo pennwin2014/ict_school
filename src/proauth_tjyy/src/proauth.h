@@ -10,6 +10,7 @@
 #define PROAUTH_LNK_MAC           6      /* MAC地址库 */
 #define PROAUTH_LNK_SMSCONENT     7      /* 短信内容队列 */
 #define NC_LNK_ADMIPLIST    72     /* 管理员IP地址, 用来记录登录失败的IP地址  */
+
 /* 客户端信息资料  */
 typedef struct authClient_s {
     char           servicecode[16];        // 场所编码
@@ -57,6 +58,10 @@ typedef struct authSmsContent_s {
     char   content[256];             //短信内容
     char   fws[16];                  //短信服务商通道
 } authSmsContent;
+typedef struct authClientId2Code_s {
+	  unsigned long id;               //单位ID            //短信内容
+    char   code[32];                  //场所代码
+} authClientId2Code;
 
 
 #endif

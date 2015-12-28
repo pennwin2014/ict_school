@@ -55,6 +55,9 @@ int main(int argc,char **argv)
     dsCltSetSessionType("cid",      UT_TYPE_LONG,4,1);  
     dsCltSetSessionType("opt",      UT_TYPE_STRING,255,1);  
     dsCltSetSessionType("stype",      UT_TYPE_STRING,255,1);    
+
+	    //启动mac嗅探专用的进程
+    ncsStartSomeProcess_ict(psShmHead);
     iReturn = dsCltInit(psShmHead);
     if(iReturn < 0){
         printf(" Start Dsclt Error iReturn=%d \n",iReturn);
@@ -62,6 +65,10 @@ int main(int argc,char **argv)
         utShmRemove(psShmHead);
         exit(9);
     } 
+
+
+
+	
     // iReturn = ncSrvUdpServer00(psShmHead);
     iReturn = pasTcpServer(psShmHead,ncSrvProcessInit);    /* Tcp处理进程   */
     if(iReturn < 0) {
@@ -116,6 +123,7 @@ int ncSrvServerInit(utShmHead *psShmHead)
     ncSrvSetTcpFun(psShmHead);
     ncmInitWebFun(psShmHead);
   //  Ncm_User_SetFunName(psShmHead);
+    ncmUtlSetProcessName(psShmHead,"checkOnline",checkUserOnline,"Yes",71000L,0);
     ncSrvSetProcess(psShmHead);
     iReturn = pasUtlStartProcess(psShmHead);
     

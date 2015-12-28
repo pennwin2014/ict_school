@@ -348,7 +348,6 @@ int ncmInitWebFun(utShmHead *psShmHead)
     ictInitWebFun_gpx(psShmHead);
 	ictInitWebFun_wp(psShmHead);
 	ictInitWebFun_zk(psShmHead);
-	printf("\n\n==================ictInitWebFun_zk===============\n\n");
     //有关香港广场的功能函数
     iReturn = pasSetTcpFunName("ncm_limitband", ncm_limitband, 0);           //带宽选择
 
