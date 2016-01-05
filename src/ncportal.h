@@ -1,5 +1,5 @@
 /* ProPotral     版权所有: 上海新网程信息技术有限公司 2013
-    
+
 */
 #ifndef __PROPORTALDEF__
 #define __PROPORTALDEF__
@@ -137,18 +137,20 @@
 #define NCSRV_TSIDTYPE_REDIRURL     1    // 重定向URL
 
 
-typedef struct ncPortalTsidInfo_s {
-    uint8   llTsid;                    // TSID   
+typedef struct ncPortalTsidInfo_s
+{
+    uint8   llTsid;                    // TSID
     uint2   nType;                     // 消息类别
     uchar   caMsg[254];                // 相关信息
     uint4   lLasttime;                 // 最后访问时间
 } ncPortalTsidInfo;
 
-    
+
 
 
 // 和Portal通信的客户端
-typedef struct ncPortalClient_s {
+typedef struct ncPortalClient_s
+{
     int4   iType;                          // 类别  1--ProEIM   2--Radius
     uchar  caName[32];                     // 名称
     uchar  caKey[32];                      // 通信秘钥
@@ -158,34 +160,39 @@ typedef struct ncPortalClient_s {
 
 
 
-typedef struct ncPortalACHead_s {
-        uchar   Ver;                  // 版本号  0x01
-        uchar   Type;                 //  0x01 -- REQ_CHALLENGE   0x02 -- ACK_CHALLENGE   0x03 ---REQ_AUTH  0x04 ---ACK_AUTH 
-        uchar   PapChap;              // Chap: 0x00  Pap: 0x01
-        uchar   Rsv;                  // 保留: 0
-        uint2   Sn;                   // 客户端随机生成
-        uint2   ReqId;
-        uint4   UserIp;
-        uint2   UserPort;
-        uchar   ErrCode;
-        uchar   AttrNum;
-        uchar   caBuf[256];
-    } ncPortalAcHead;
+typedef struct ncPortalACHead_s
+{
+    uchar   Ver;                  // 版本号  0x01
+    uchar   Type;                 //  0x01 -- REQ_CHALLENGE   0x02 -- ACK_CHALLENGE   0x03 ---REQ_AUTH  0x04 ---ACK_AUTH
+    uchar   PapChap;              // Chap: 0x00  Pap: 0x01
+    uchar   Rsv;                  // 保留: 0
+    uint2   Sn;                   // 客户端随机生成
+    uint2   ReqId;
+    uint4   UserIp;
+    uint2   UserPort;
+    uchar   ErrCode;
+    uchar   AttrNum;
+    uchar   caBuf[256];
+} ncPortalAcHead;
 
-	// Portal在线用户, 以tsid为索引
-typedef struct ictOnlineUser_s {
+// Portal在线用户, 以tsid为索引
+// Portal微信在线用户, 以tsid为索引
+typedef struct ictOnlineUser_s
+{
     uint8 tsid;                     // tsid
-	uchar vName[32];                // 手机号 
-	uchar loginFlag;                // 0---在线  1---离线  
-    uint4 lastTime;                 // 最后登录时间            
+    uchar userName[64];                // 微信openid
+    uchar loginFlag;                // 0---在线  1---离线
+    uint4 lastTime;                 // 最后登录时间
 } ictOnlineUser;
 
-typedef struct ictPassUser_s{
-	uchar vName[32];
-	uchar pass[12];
+
+typedef struct ictPassUser_s
+{
+    uchar vName[32];
+    uchar pass[12];
 } ictPassUser;
-	
-/* Portal协议中的只  
+
+/* Portal协议中的只
 */
 #define ACPORTAL_ATTRTYPE_USERNAME       0x01
 #define ACPORTAL_ATTRTYPE_PASSWORD       0x02
@@ -201,16 +208,18 @@ typedef struct ictPassUser_s{
 #define ACPORTAL_ATTRTYPE_APMAC          0x40
 #define ACPORTAL_ATTRTYPE_SSID           0x41
 
- // AC 对照表
-typedef struct ncPortalACAttr_s {
-        uchar   Type;
-        uchar   AttrLen;
-        uchar   Value[254];
+// AC 对照表
+typedef struct ncPortalACAttr_s
+{
+    uchar   Type;
+    uchar   AttrLen;
+    uchar   Value[254];
 } ncPortalACAttr;
 
 
 // User Agent 信息采集
-typedef struct ncPortalUseAgent_s {
+typedef struct ncPortalUseAgent_s
+{
     char    caKey[32];                 // 关键字
     char    caName[32];                // 名称
     char    caDevType[8];              // 设备类型
@@ -223,7 +232,8 @@ typedef struct ncPortalUseAgent_s {
 #define NC_PORTALAUTH_PAP       0
 #define NC_PORTALAUTH_CHAP      1
 
-typedef struct ncPortalAcInfo_s {
+typedef struct ncPortalAcInfo_s
+{
     uchar           caName[32];                // AC名称
     unsigned long   lAcip;                     // AC IP地址
     uint2           nAcPort;                   // AC 端口
@@ -245,8 +255,8 @@ typedef struct ncPortalAcInfo_s {
 #define NCPORTAL_VENDOR_ARUBA         5
 #define NCPORTAL_VENDOR_MOTO          6
 #define NCPORTAL_VENDOR_PROEIM        7
-#define NCPORTAL_VENDOR_MERU          8  
-#define NCPORTAL_VENDOR_PROEIMV7      10  
+#define NCPORTAL_VENDOR_MERU          8
+#define NCPORTAL_VENDOR_PROEIMV7      10
 #define NCPORTAL_VENDOR_DEFAULT       9
 #define NCPORTAL_VENDOR_MERUAC        11
 #define NCPORTAL_VENDOR_MERUAC1       12
@@ -267,7 +277,8 @@ typedef struct ncPortalAcInfo_s {
 
 #define NCSRV_ONLINEFILE     "../log/portalonlineuserv1.dat"
 // 用户黑名单
-typedef struct ncPortalBlackUser_s {
+typedef struct ncPortalBlackUser_s
+{
     uint4 groupid;                  // 单位ID
     uchar ctype;                    // 类别 1-MAC  2-Uername
     uchar caName[31];               // 登陆名或Mac地址
@@ -276,7 +287,8 @@ typedef struct ncPortalBlackUser_s {
 
 
 // 推送页面模板
-typedef struct ncPortalPlate_s {
+typedef struct ncPortalPlate_s
+{
     uchar caName[16];               // 名称
     uchar caTerm[8];                // 终端
     uchar caLang[8];                // 语言
@@ -290,7 +302,8 @@ typedef struct ncPortalPlate_s {
 // 界面投放策略，策略建议每5分钟检查一次，去掉过时的，生成新的，以提高效率
 
 
-typedef struct ncPortalPlateRule_s {
+typedef struct ncPortalPlateRule_s
+{
     uint4           ruleid;
     uint4           priority;
     uchar           groupcode[32];
@@ -330,7 +343,8 @@ typedef struct ncPortalPlateRule_s {
 #define NCSRV_LOC_BYIP           1
 #define NCSRV_LOC_BYMAC          0
 
-typedef struct ncPortalIpPort_s {
+typedef struct ncPortalIpPort_s
+{
     unsigned long   lIp;                // 地址
     uchar caSrvName[32];                // Sms网关名称
     uchar caPass[32];                   // 通信秘钥
@@ -350,7 +364,8 @@ typedef struct ncPortalIpPort_s {
 
 
 // Portal统计信息
-typedef struct ncPortalCount_s {
+typedef struct ncPortalCount_s
+{
     unsigned long   lTime;               // 数据采集时间
     unsigned long   lSmsLocalCount;      // 国内短信发送次数
     unsigned long   lSmsInterCount;      // 国际短信发送次数
@@ -378,11 +393,12 @@ typedef struct ncPortalCount_s {
     针对部门      ---- 特定的Groupid
     针对SSID      ---- 部门SSID
 
-*/     
-typedef struct ncPortalPar_s {
+*/
+typedef struct ncPortalPar_s
+{
     uchar           cFlags;                       // 0-全局  1-部门  2-SSID
     uchar           cRev[3];
-    uint4           lId;                          // 
+    uint4           lId;                          //
     uint4           lSesstime;                    // 上网时间限制
     uint4           lIdletime;                    // 空闲时间
     uint4           lMacbindtime;                 // 用户Mac地址绑定失效时间
@@ -418,7 +434,8 @@ typedef struct ncPortalPar_s {
 } ncPortalPar;
 
 // 单位信息
-typedef struct ncPortalGroup_s {
+typedef struct ncPortalGroup_s
+{
     uint4  lGroupid;
     uint4  lModTime;                // 内容最后修改时间
     double dLongitude;              // 经度
@@ -429,7 +446,7 @@ typedef struct ncPortalGroup_s {
     uchar  caMark[128];
     uint4  lLasttime;                // 最后一次登录时间
     uchar  cDb;                      // 0--Db中无记录    1--Db中存在记录
-    uchar  cMod;                     // 更新记录 
+    uchar  cMod;                     // 更新记录
     uchar  cStatus;                  // 状态 1--正常  9--删除
     uchar  cCurCount;                // 当前统计位置
     ncPortalCount   psPortalCount[NC_PORTAL_MAXCOUNT];   // 统计信息
@@ -438,14 +455,15 @@ typedef struct ncPortalGroup_s {
 
 
 // SSID为索引
-  
-typedef struct ncPortalSsid_s {
+
+typedef struct ncPortalSsid_s
+{
     uchar           caSsid[32];                   // SSID名称
     uint4           lGroupid;
     uint4           lSid;
     uchar           cStatus;
     uchar           cSurCount;
-    uchar           cRev[6];    
+    uchar           cRev[6];
     ncPortalPar     *psPar;                       // 对应的参数
     ncPortalGroup   *psGroup;                     // 对应的部门
     ncPortalCount   psPortalCount[NC_PORTAL_MAXCOUNT]; // Portal统计数据
@@ -453,8 +471,9 @@ typedef struct ncPortalSsid_s {
 
 
 // AP信息, 增加caAddr--安装地址
-  
-typedef struct ncPortalAp_s {
+
+typedef struct ncPortalAp_s
+{
     uchar           caApid[32];     // ApID
     uint4           lGroupid;       // 对应的单位ID
     uint4           lLastTime;      // 最后联系时间
@@ -473,11 +492,11 @@ typedef struct ncPortalAp_s {
     uint4           lUpTime;        // 运行时间
     uchar           mac[64];        // 设备MAC地址
     uchar           cLogoutFlags;   // 0--无需要离线终端  1--有离线终端
-    uchar           cDb:4;          // 0--数据库中不存在  1--数据库中已存在
-    uchar           cMod:4;         // 0--未修改          1--修改过
+    uchar           cDb: 4;         // 0--数据库中不存在  1--数据库中已存在
+    uchar           cMod: 4;        // 0--未修改          1--修改过
     uint4           lApIp;          // AP地址
     uint2           nPort;          // 端口
-    uint2           nDevType;       // 设备类别   
+    uint2           nDevType;       // 设备类别
     uint2           nVendor;        // 厂商编码
     uint2           nMarkNum;       // Mark对应的数组序号
     uchar           caRev[8];      // 保留
@@ -486,14 +505,15 @@ typedef struct ncPortalAp_s {
 } ncPortalAp;
 
 
-typedef struct ncPortalApIndex_s {
+typedef struct ncPortalApIndex_s
+{
     uchar           apmac[6];
     uchar           rev[2];
     ncPortalAp      *psAp;
 } ncPortalApIndex;
 
 
-// 
+//
 #define  NCSRV_USERTYPE_FIX      9
 #define  NCSRV_USERTYPE_SMS      1
 #define  NCSRV_USERTYPE_QQ       2
@@ -501,7 +521,8 @@ typedef struct ncPortalApIndex_s {
 #define  NCSRV_USERTYPE_APP      4
 
 // 名字和Groupid唯一, Groupid为0表示通用用户
-typedef struct ncPortalUser_s {
+typedef struct ncPortalUser_s
+{
     uchar caName[32];               // 登陆名
     uint4 lStype;
     uchar caDisp[32];               // 显示名
@@ -523,20 +544,21 @@ typedef struct ncPortalUser_s {
     uint4 lRev;
     uchar cDb;                      // 0--Db中无记录    1--Db中存在记录
     uchar cMod;                     // 更新记录 0--记录未修改  1--记录已修改
-    uchar cFlags;                   // 记录来源 
+    uchar cFlags;                   // 记录来源
     uchar cStatus;                  // 状态 0--正常 1--被禁用  2--正在处理 9--暂时禁用
     uchar cSum;                     // 绑定的Mac地址数
     uchar cUseType;                 // 0--固定用户  1--短信  2--QQ  3--微信
     uchar cMaxMac;                  // 可以绑定的最多MAC地址数
     uchar cRev;
-    ncPortalGroup  *psGroup;        // 用户对应的单位 
+    ncPortalGroup  *psGroup;        // 用户对应的单位
     ncPortalPar    *psPar;
     ncPortalSsid   *psSsid;
 } ncPortalUser;
 
 // 用户和Mac地址对照表
 
-typedef struct ncPortalUserMac_s {
+typedef struct ncPortalUserMac_s
+{
     uint4 lGroupid;                 // 单位类别
     uchar mac[6];                   // Mac地址
     uchar cStatus;                  // 0-有效  1--无效
@@ -544,7 +566,7 @@ typedef struct ncPortalUserMac_s {
     uchar caName[32];               // 登陆名
     uint4 starttime;                // 起始时间
     uint4 lasttime;                 // 最后使用时间
-    uint4 moditime;                 
+    uint4 moditime;
     uchar cMod;                     // 0--记录未修改  1--记录已修改
     uchar cFlags;                   // 0--正常  9--绑定失效
     uchar cRev[2];
@@ -552,7 +574,7 @@ typedef struct ncPortalUserMac_s {
 } ncPortalUserMac;
 
 //   Portal在线用户, 以IP地址为索引
-// 
+//
 
 #define NCPORTAL_ONLINE_LOGIN          1
 #define NCPORTAL_ONLINE_LOGOUTING      2
@@ -576,7 +598,8 @@ typedef struct ncPortalUserMac_s {
 #define NCPORTAL_LOGIN_CARDAUTH        6       // 证件认证
 #define NCPORTAL_LOGIN_MEMBERAUTH      7       // 账号认证
 
-typedef struct ncPortalOnline_s {
+typedef struct ncPortalOnline_s
+{
     uchar   nasid[24];                // 网关标识
     uint4   lSip;                     // IP地址, 用户上网的内网IP地址
     uint4   lGroupid;                 // 单位ID
@@ -625,7 +648,7 @@ typedef struct ncPortalOnline_s {
     uint4   locationtime;             // 定位信息发送时间
     uint4   lGwip;                    // 网关IP
     uint2   nGwport;                  // 网关端口
-    uchar   cCause;                   // 退出原因 
+    uchar   cCause;                   // 退出原因
     uchar   cAuthWay;                 // NCPORTAL_LOGIN_WEBAUTH NCPORTAL_LOGIN_WEBAUTH NCPORTAL_LOGIN_APPAUTH
     uint4   lStype;                   // 用户类别
     uint4   lSessionTime;             // Session Time
@@ -642,7 +665,8 @@ typedef struct ncPortalOnline_s {
 /* 位置标签
 
 */
-typedef struct ncLocationMark_s {
+typedef struct ncLocationMark_s
+{
     char    caMark[32];
     char    caMapid[16];
     double  sx;
@@ -655,13 +679,15 @@ typedef struct ncLocationMark_s {
 
 
 
-typedef struct ncPortalTsid_s {
+typedef struct ncPortalTsid_s
+{
     uint8             tsid;         // TSID,唯一标识在线用户的数字
     ncPortalOnline    *psOnline;
 } ncPortalTsid;
 
 
-typedef struct ncPortalMacOnline_s {
+typedef struct ncPortalMacOnline_s
+{
     uchar             mac[6];       // MAC地址,在在线用户中也应该唯一
     uchar             rev[2];       // 保留
     ncPortalOnline    *psOnline;
@@ -669,7 +695,7 @@ typedef struct ncPortalMacOnline_s {
 
 /* 用户类别
    数据来自表: ncmautotype
-   
+
  */
 #define NCSRV_MATCH_EQUAL        0
 #define NCSRV_MATCH_START        1
@@ -677,7 +703,8 @@ typedef struct ncPortalMacOnline_s {
 #define NCSRV_MATCH_INCLUDE      3
 #define NCSRV_MATCH_ANY          4
 
-typedef struct ncPortalStype_s {
+typedef struct ncPortalStype_s
+{
     uchar groupcode[30];
     uchar groupmatch;                 // 0--全匹配  1--起始  2--结束  3--包含
     uchar grouplen;
@@ -689,19 +716,21 @@ typedef struct ncPortalStype_s {
     uchar namecode[8];                // 编码6位
     uchar ucode[32];                  // 对应的编码
     uchar descr[32];                  // 描述
-    ncPortalPar     *psPar; 
+    ncPortalPar     *psPar;
 } ncPortalStype;
 
 
 
-typedef struct ncPortalBand_s {
+typedef struct ncPortalBand_s
+{
     int  id;
     char name[32];
 } ncPortalBand;
 
 
 // App验证相关信息
-typedef struct ncPortalAppAuth_s {
+typedef struct ncPortalAppAuth_s
+{
     char sjname[16];              // 审计厂商来源
     char host[32];                // 验证服务器IP
     char port[16];                // 端口
@@ -714,7 +743,8 @@ typedef struct ncPortalAppAuth_s {
 } ncPortalAppAuth;
 
 // 综合信息
-typedef struct ncPortalSummary_s {
+typedef struct ncPortalSummary_s
+{
     uchar caPortalName[32];            //  Portal名称
     uchar caProdSn[32];                //  产品序列号
     unsigned long   lPortalId;
@@ -764,7 +794,8 @@ typedef struct ncPortalSummary_s {
 
 
 // 服务器状态
-typedef struct ncPortalSrvStatus_s {
+typedef struct ncPortalSrvStatus_s
+{
     uchar               caName[32];                // 名称
     unsigned long       lIp;                       // IP地址
     unsigned long       lLastTime;                 // 最后一次活动时间
@@ -775,7 +806,8 @@ typedef struct ncPortalSrvStatus_s {
 
 
 // 位置标签
-typedef struct ncLbsLocApMark_s {
+typedef struct ncLbsLocApMark_s
+{
     char        caMark[32];
     uint4       lMacCount;        // Mac地址数量
 } ncLbsLocMark;
@@ -784,8 +816,9 @@ typedef struct ncLbsLocApMark_s {
 //     人流统计
 //     当markid变化时，写日志   268
 //     mac,starttime,endtime,mark
-typedef struct ncLbsMacLocation_s {
-    uchar   mac[6];                                   // Mac地址，为索引   
+typedef struct ncLbsMacLocation_s
+{
+    uchar   mac[6];                                   // Mac地址，为索引
     uchar   apmac[6];                                 // AP Mac地址
     char    lrssi;                                    // 信号强度,最小
     char    urssi;                                    // 信号强度,最大
@@ -811,21 +844,24 @@ typedef struct ncLbsMacLocation_s {
     uchar   name[64];                                 // 身份内容
 } ncLbsMacLocation;
 
-typedef struct ncLbsMacRecord_s {
+typedef struct ncLbsMacRecord_s
+{
     ncLbsMacLocation *psMacLoc;
 } ncLbsMacRecord;
 
-typedef struct ncSrvComBuf_s {
+typedef struct ncSrvComBuf_s
+{
     uchar     status;          // 状态 0--无数据 1--未执行  2--正在执行   3--执行完成
     uchar     fun;             // 执行的功能    1--LOGON    2--LOGOFF  3--GET
     uchar     rc;              // 命令返回状态  0--不成功   1--成功
     uchar     rev;
-    uint4     lasttime;        // 起始时间    
+    uint4     lasttime;        // 起始时间
     uchar     command[128];    // 要执行的命令
     uchar     buf[128];        // 命令结果内容
 } ncSrvComBuf;
 
-typedef struct ncSrvComBufHead_s {
+typedef struct ncSrvComBufHead_s
+{
     int4     iMaxCom;
     int4     iCurNum;
     int4     iCurDo;
@@ -834,13 +870,13 @@ typedef struct ncSrvComBufHead_s {
     int4     iPid;
     uint4    lDoStartTime;         // 命令处理开始时间
     int4     iStatus;              // 状态
-    uchar    caAcName[16];    
+    uchar    caAcName[16];
     ncSrvComBuf *psBuf;
 } ncSrvComBufHead;
 
 
 // ncsrv000.c
-ncPortalPar *ncSrvGetPar(ncPortalSummary *psSumm,int iType,uint4 lGroupid);
+ncPortalPar *ncSrvGetPar(ncPortalSummary *psSumm, int iType, uint4 lGroupid);
 ncPortalUser *ncSrvSynUserInfo(utShmHead *psShmHead,
                                uchar *pGroupCode,         // 部门编码, NULL, lGroupid =0
                                uchar *pSsid,              // SSID, NULL -- 无SSID
@@ -854,14 +890,14 @@ ncPortalUser *ncSrvSynUserInfo(utShmHead *psShmHead,
                                int  *iStatus0);
 
 
-ncPortalAcInfo *ncSrvGetAcInfo(utShmHead *psShmHead,char *pAcName);
-int ncSrvSetPlateInfo(utShmHead *psShmHead,char *pName,char *pTerm,char *pLang,char *pPlate,char *pCode);
-char *ncSrvGetPlateInfo(utShmHead *psShmHead,char *pName,char *pTerm,char *pLang,int *iCode);
-int ncUtlPortalTermAttr(char *pUa,char *pTerm,char *pOs,char *pBro,char *pTtype);
+ncPortalAcInfo *ncSrvGetAcInfo(utShmHead *psShmHead, char *pAcName);
+int ncSrvSetPlateInfo(utShmHead *psShmHead, char *pName, char *pTerm, char *pLang, char *pPlate, char *pCode);
+char *ncSrvGetPlateInfo(utShmHead *psShmHead, char *pName, char *pTerm, char *pLang, int *iCode);
+int ncUtlPortalTermAttr(char *pUa, char *pTerm, char *pOs, char *pBro, char *pTtype);
 char *ncSrvGetMyPlateName(utShmHead *psShmHead);
-char *ncSrvGetPlateByRule(utShmHead *psShmHead,int iType,char *pSsid,char *pLable,char *pDefault);
-int  ncSrvGetClientKey(utShmHead *psShmHead,uint4 lId,char *pKey);
-int  ncSrvGetClientIdByName(utShmHead *psShmHead,char *pName);
+char *ncSrvGetPlateByRule(utShmHead *psShmHead, int iType, char *pSsid, char *pLable, char *pDefault);
+int  ncSrvGetClientKey(utShmHead *psShmHead, uint4 lId, char *pKey);
+int  ncSrvGetClientIdByName(utShmHead *psShmHead, char *pName);
 ncPortalStype  *ncSrvGetStypeById(utShmHead *psShmHead, uint4 lStype);
 
 //  和 HttpServer通信
@@ -886,29 +922,29 @@ int ncSrvBakOnlineUser2Db(utShmHead *psShmHead);
 
 // 7004  ncsrv004.c
 
-ncPortalSsid *ncSrvGetSsidInfo(utShmHead *psShmHead,uint4 lGroupid,char *pSsid);
-ncPortalSsid *ncSrvGetSsidInfoBySid(utShmHead *psShmHead,uint4 lSid);
-int ncSrvGetSsidNameBySid(utShmHead *psShmHead,uint4 lSid,char *pGroup,char *pSsid);
-ncPortalGroup *ncSrvGetGroupInfoById(utShmHead *psShmHead,uint4 lGroupid);
-char *ncSrvGetGroupNameById(utShmHead *psShmHead,uint4 lGroupid);
-ncPortalGroup *ncSrvGetGroupInfoByName(utShmHead *psShmHead,uchar *pName);
-ncPortalOnline *ncSrvGetOnlineUserByNasidIp(utShmHead *psShmHead,char *nasid,uint4 lSip);
-ncPortalOnline *ncSrvGetOnlineUserByNasidIpA(utShmHead *psShmHead,char *nasid, char *apmac,uint4 lSip,char *mac,char *ssid,
-                                              char *pGwip,char *pGwPort,uint8 llTsid);
-ncPortalOnline *ncSrvGetOnlineUserByIp(utShmHead *psShmHead,uint4 lSip);
-ncPortalOnline *ncSrvGetOnlineUserByTsid(utShmHead *psShmHead,uint8 llTsid);
-ncPortalOnline *ncSrvGetOnlineUserByStrTsid(utShmHead *psShmHead,char *caTsid);
-ncPortalUser *ncSrvGetUserById(utShmHead *psShmHead,uint4 lUid);
-ncPortalUser *ncSrvGetUserByName(utShmHead *psShmHead,uchar *pName,uint4 lGroupid);
-ncPortalOnline *ncSrvGetOnlineUserByMac(utShmHead *psShmHead,char *pMac);
-ncPortalOnline *ncSrvGetOnlineUserByName(utShmHead *psShmHead,uint4 lGroupid,char *pName);
-int ncSrvGetSmsMsg(utShmHead *psShmHead,ncPortalOnline *psOnline,char *pLang,char *caMsg);
-int ncSrvThirdAuth(utShmHead *psShmHead,int iFd,utMsgHead *psMsgHead);
-uint8 ncSrvAddOnlineUserByTsid(utShmHead *psShmHead,ncPortalOnline *psOnline);
-int ncSrvSetOnlineUserByTsid(utShmHead *psShmHead,ncPortalOnline *psOnline,uint8 llTsid);
+ncPortalSsid *ncSrvGetSsidInfo(utShmHead *psShmHead, uint4 lGroupid, char *pSsid);
+ncPortalSsid *ncSrvGetSsidInfoBySid(utShmHead *psShmHead, uint4 lSid);
+int ncSrvGetSsidNameBySid(utShmHead *psShmHead, uint4 lSid, char *pGroup, char *pSsid);
+ncPortalGroup *ncSrvGetGroupInfoById(utShmHead *psShmHead, uint4 lGroupid);
+char *ncSrvGetGroupNameById(utShmHead *psShmHead, uint4 lGroupid);
+ncPortalGroup *ncSrvGetGroupInfoByName(utShmHead *psShmHead, uchar *pName);
+ncPortalOnline *ncSrvGetOnlineUserByNasidIp(utShmHead *psShmHead, char *nasid, uint4 lSip);
+ncPortalOnline *ncSrvGetOnlineUserByNasidIpA(utShmHead *psShmHead, char *nasid, char *apmac, uint4 lSip, char *mac, char *ssid,
+                                             char *pGwip, char *pGwPort, uint8 llTsid);
+ncPortalOnline *ncSrvGetOnlineUserByIp(utShmHead *psShmHead, uint4 lSip);
+ncPortalOnline *ncSrvGetOnlineUserByTsid(utShmHead *psShmHead, uint8 llTsid);
+ncPortalOnline *ncSrvGetOnlineUserByStrTsid(utShmHead *psShmHead, char *caTsid);
+ncPortalUser *ncSrvGetUserById(utShmHead *psShmHead, uint4 lUid);
+ncPortalUser *ncSrvGetUserByName(utShmHead *psShmHead, uchar *pName, uint4 lGroupid);
+ncPortalOnline *ncSrvGetOnlineUserByMac(utShmHead *psShmHead, char *pMac);
+ncPortalOnline *ncSrvGetOnlineUserByName(utShmHead *psShmHead, uint4 lGroupid, char *pName);
+int ncSrvGetSmsMsg(utShmHead *psShmHead, ncPortalOnline *psOnline, char *pLang, char *caMsg);
+int ncSrvThirdAuth(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead);
+uint8 ncSrvAddOnlineUserByTsid(utShmHead *psShmHead, ncPortalOnline *psOnline);
+int ncSrvSetOnlineUserByTsid(utShmHead *psShmHead, ncPortalOnline *psOnline, uint8 llTsid);
 ncPortalSummary *ncSrvGetSumm(utShmHead *psShmHead);
-ncPortalAp *ncSrvGetApInfoByName(utShmHead *psShmHead,char *pName);
-int ncSrvLetUserLogout(utShmHead *psShmHead,uint8 lTsid);
+ncPortalAp *ncSrvGetApInfoByName(utShmHead *psShmHead, char *pName);
+int ncSrvLetUserLogout(utShmHead *psShmHead, uint8 lTsid);
 
 // ncutl_gbwifi.c
 int ncSrvGBping(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead);

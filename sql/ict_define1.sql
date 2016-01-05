@@ -60,6 +60,11 @@ CREATE TABLE ncsrvuserex(
 	hobby char(127) default '',                      -- 爱好
 	address char(127) default '',                    -- 地址	
 	money int(11) default 0,                         -- 充值余额(我的钱包)
+	utype char,                                      -- 用户类型 0 普通用户 1 商家 20151228增加
+	shopid char(32),                                 -- 商店id   20151228增加
+	authcontent char(32),                            -- 加入好友认证   20151228增加
+	authphoto char(127) default '/home/ncmysql/ncsrv/photo/default.png', -- 二维码路径
+	winpotho char(127) default '/home/ncmysql/ncsrv/photo/default.png', -- 相册封面
 	addtime int(10) unsigned default '0',            -- 增加时间
   	moditime int(10) unsigned default '0',           -- 修改时间	
 	UNIQUE KEY ictuser(mark,username)

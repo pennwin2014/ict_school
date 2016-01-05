@@ -2463,7 +2463,29 @@ int ict_ncSrvLogOut(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     utPltOutToHtml(iFd, psMsgHead, psDbHead, caPlate);
     return 0;
 }
+int removeMac(utShmHead *psShmHead)
+{/*
+	                    sprintf(caTempd, "update ncsrvusermac set flags = 9 where username in (select username from ncsrvuser where userid = '%s')", caTemp2);
+                    printf("caTempd = %s\n", caTempd);
+                    pasDbExecSqlF(caTempd);
 
+                    sprintf(caTempd, "select username, groupid from ncsrvuser where userid = '%s'", caTemp2);
+                    pasDbOneRecord(caTempd, 0, UT_TYPE_STRING, sizeof(uUsername) - 1,   uUsername,
+                                   UT_TYPE_ULONG,  sizeof(long),          &uGroupid);
+
+                    char *pUsername = NULL;
+                    unsigned long pGroupid = 0;
+                    pUsername = strdup(uUsername);
+                    pGroupid = uGroupid;
+                    printf("pUsername = %s, pGroupid = %d\n", pUsername, pGroupid);
+                    ncSrvDelUserMacByName(psShmHead, pGroupid, pUsername);
+                    if(pUsername)
+                    {
+                        free(pUsername);
+                        pUsername = NULL;
+                    }*/
+	return 0 ;
+}
 
 //ªÒ»°∂Ã–≈
 int ictSrvGetPass(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)

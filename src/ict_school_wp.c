@@ -20,9 +20,17 @@
 #include "pasdb.h"
 #include "ncportal.h"
 #include "portalweb.h"
-
+//微信新增
 #include <iconv.h>
+#include <ctype.h>
+#include <openssl/crypto.h>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+#include <openssl/rand.h>
+#include "cjson.h"
 #include "ict_zjj_tool.h"
+
+
 
 //根据ID获取单位
 char *authGetClientName(utShmHead *psShmHead, unsigned long lId)
@@ -271,208 +279,7 @@ int adStrReplaceWith(char *pBuf, char *s, char *d)
     return iCount;
 }
 
-/*
-int ictPrint(long isDebug, const char* fmt, ...)
-{
-    int retCnt = 0;
-    if(isDebug)
-    {
-        va_list ap;
-        va_start(ap, fmt);
-        retCnt = vprintf(fmt, ap);
-        va_end(ap);
-    }
-    return retCnt;
-}
 
-
-int isVnameRegistered(char* vName)
-{
-
-    return 0;
-}
-
-uint8 getTsidByVname(utShmHead *psShmHead, char* vName)
-{
-    uint8 ltsid = 0;
-    pasHashInfo sHashInfo;
-    uchar *pHash = NULL;
-    ictOnlineUser* psOnline = NULL;
-    long wpDebug = utComGetVar_ld(psShmHead, "wpDebug", 0);
-    pHash = (unsigned char *)utShmHashHead(psShmHead, ICT_USER_LOGIN_TSID);
-    if(pHash == NULL)
-    {
-        ictPrint(wpDebug, "pHash==null\n");
-        utShmFreeHash(psShmHead, ICT_USER_LOGIN_TSID);
-        utShmHashInit(psShmHead, ICT_USER_LOGIN_TSID, 2000, 2000, sizeof(ictOnlineUser), 0, 8);
-
-    }
-    psOnline = (ictOnlineUser*)pasHashFirst(pHash, &sHashInfo);
-    while(psOnline)
-    {
-        if(strcmp(psOnline->vName, vName) == 0)
-        {
-            return psOnline->tsid;
-        }
-        psOnline = (ictOnlineUser *)pasHashNextS(&sHashInfo);
-    }
-    ltsid = time(0);
-    ictOnlineUser* psData = (ictOnlineUser*)utShmHashLookA(psShmHead, ICT_USER_LOGIN_TSID, (char*)(&ltsid));
-    if(psData)
-    {
-        psData->tsid = ltsid;
-        strcpy(psData->vName, vName);
-    }
-    return ltsid;
-}
-
-
-char* getVnameByTsId(utShmHead *psShmHead, uint8 ltsid)
-{
-    pasHashInfo sHashInfo;
-    uchar *pHash;
-    ictOnlineUser* psOnline;
-    static char caVname[32] = "";
-
-    ictOnlineUser* psData = (ictOnlineUser*)utShmHashLookA(psShmHead, ICT_USER_LOGIN_TSID, (char*)(&ltsid));
-    if(psData)
-    {
-        //psData->tsid = ltsid;
-        memset(caVname, 0, sizeof(caVname));
-        memcpy(caVname, psData->vName, sizeof(psData->vName));
-    }
-    return caVname;
-}
-
-int isTsidLogin(utShmHead *psShmHead, uint8 lTsid)
-{
-    pasHashInfo sHashInfo;
-    uchar *pHash;
-    ictOnlineUser* psOnline;
-    ictOnlineUser* psData = (ictOnlineUser*)utShmHashLookA(psShmHead, ICT_USER_LOGIN_TSID, (char*)(&lTsid));
-    if(psData)
-    {
-        if(strlen(psData->vName) > 0)
-        {
-            return 0;
-        }
-    }
-    return 1;
-}
-
-int checkTsid(utShmHead *psShmHead, utPltDbHead *psDbHead, utMsgHead *psMsgHead, int iFd, char* caTsid, const char* platePath)
-{
-    if(strlen(caTsid) > 0)
-    {
-        uint8 ltsid = atol(caTsid);
-        if(isTsidLogin(psShmHead, ltsid))
-        {
-            utPltPutVarF(psDbHead, "result", "%d", 2);//2标识tsid未登录
-            utPltPutVarF(psDbHead, "mesg", convert("GBK", "UTF-8", "用户未登录，tsid无效"));//1标识
-            utPltOutToHtml(iFd, psMsgHead, psDbHead, platePath);
-            return 1;
-        }
-    }
-    else
-    {
-        utPltPutVarF(psDbHead, "result", "%d", 1);//1标识tsid未上传
-        utPltPutVarF(psDbHead, "mesg", convert("GBK", "UTF-8", "tsid参数未上传"));//1标识
-        utPltOutToHtml(iFd, psMsgHead, psDbHead, platePath);
-        return 1;
-    }
-    return 0;
-}
-*/
-
-//static uint8 getTsIdByVname(char* vname){
-
-//return 12345;
-
-//}
-/*
-int ict_getUserInfo(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
-{
-    int iReturn = 0;
-    utMsgPrintMsg(psMsgHead);
-    long wpDebug = utComGetVar_ld(psShmHead, "wpDebug", 0);
-    char caTsid[24] = {0};
-    uint8 ltsid = 0;
-    char caVname[32] = "";//用户名
-    char caBname[32] = "";//套餐名称
-    char caDname[24] = "";//昵称
-    char sql[1024] = "";
-    ulong lCount = 0;
-    ulong lBtype = 0;
-    ulong pMoney = 0;//余额
-    ulong lMoney = 0;//套餐价格
-
-    char startTime[12] = "";
-    char endTime[12] = "";
-    char caMsg[256] = "";
-    utPltDbHead *psDbHead = utPltInitDbHead();
-    pasDbCursor *psCur = NULL;
-
-    iReturn = utMsgGetSomeNVar(psMsgHead, 1,
-                               "tsid",   UT_TYPE_STRING, sizeof(caTsid) - 1, caTsid);
-    utStrDelSpaces(caTsid);
-    ictPrint(wpDebug, "tsid=%s\n", caTsid);
-
-    if(checkTsid(psShmHead, psDbHead, psMsgHead, iFd, caTsid, "school/main/userInfo.htm"))
-    {
-        return 0;
-    }
-
-    //暂时把所有信息都返回
-    strcpy(caVname, getVnameByTsId(psShmHead, atoll(caTsid)));
-    // utPltPutVar(psDbHead, "vname", caVname);
-    //查表得到vname对应的信息
-    memset(sql, 0, sizeof(sql));
-    snprintf(sql, sizeof(sql) - 1, "select userlib.dname,userlib.money,package.namedes,package.money,userpackage.starttime,userpackage.endtime from userlib,package,userpackage where userpackage.packageid=package.id and userlib.vname='%s'", caVname);
-    ictPrint(wpDebug, "sqlbuf=%s  \n", sql);
-
-    psCur = pasDbOpenSql(sql, 0);
-    int iret = 0, iNum = 0;
-    if(psCur)
-    {
-        while(0 == (iret = pasDbFetchInto(psCur,
-                                          UT_TYPE_STRING, sizeof(caDname) - 1, caDname,
-                                          UT_TYPE_LONG, 4, &lMoney,
-                                          UT_TYPE_STRING, sizeof(caBname) - 1, caBname,
-                                          UT_TYPE_LONG, 4, &pMoney,
-                                          UT_TYPE_STRING, sizeof(startTime) - 1, startTime,
-                                          UT_TYPE_STRING, sizeof(endTime) - 1, endTime)) || 1405 == iret)
-        {
-            printf("########%s,%lu,%s,%lu,%s,%s\n", caDname, lMoney, caBname, pMoney, startTime, endTime);
-            iNum++;
-            if(iNum > 1)
-            {
-                printf("0%s", caVname);
-                utPltPutLoopVar(psDbHead, "dh", iNum, ",");
-            }
-            printf("iNum=\n", iNum);
-            //utPltPutLoopVar(psDbHead, "caVname", iNum, caVname);
-            printf("1\n");
-            //utPltPutLoopVar(psDbHead, "caDname", iNum, convert("GBK", "UTF-8", caDname));
-            printf("2\n");
-            //  utPltPutLoopVarF(psDbHead, "lMoney", "%lu", iNum, lMoney);
-            printf("3\n");
-            //  utPltPutLoopVar(psDbHead, "caBname", iNum, convert("GBK", "UTF-8", caBname));
-            printf("4\n");
-            utPltPutLoopVarF(psDbHead, "pMoney", iNum, "%lu",  pMoney);
-            printf("5\n");
-            utPltPutLoopVar(psDbHead, "startTime", iNum, startTime);
-            printf("6%s", startTime);
-            utPltPutLoopVar(psDbHead, "endTime", iNum, endTime);
-            printf("7%s", endTime);
-        }
-        pasDbCloseCursor(psCur);
-    }
-    utPltPutVar(psDbHead, "tsid", caTsid);
-    utPltPutVarF(psDbHead, "result", "%d", 0);
-    utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/main/userInfo.htm");
-    return 0;
-}
-*/
 
 //加载单位信息
 int ictProAuthLoadClientsInfo(utShmHead *psShmHead)
@@ -2118,7 +1925,7 @@ int ictAdPlate_Save_v9(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     sprintf(caTemp, "select count(*) from portalplate where plateid='%s' ", caPlateid);
     lCount = 0;
     pasDbOneRecord(caTemp, 0, UT_TYPE_LONG, 4, &lCount);
-	uint8 lltime = time(0);
+    uint8 lltime = time(0);
     if(lCount > 0)
     {
         printf("update portalplate set platename='%s',modtime=%llu,shopplateid=%lu where plateid='%s' \n",
@@ -2156,20 +1963,20 @@ int ictAdPlate_Save_v9(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         pasDbOneRecord(caTemp, 0, UT_TYPE_LONG, 4, &lCount);
         if(lCount > 0)
         {
-        	memset(caTemp, 0, sizeof(caTemp));
-			snprintf(caTemp, sizeof(caTemp)-1, "update portalprule set modtime=%llu, status=%lu, priority=%lu where plateid='%s'", lltime, lStatus, lPriority, caPlateid);
-            
+            memset(caTemp, 0, sizeof(caTemp));
+            snprintf(caTemp, sizeof(caTemp) - 1, "update portalprule set modtime=%llu, status=%lu, priority=%lu where plateid='%s'", lltime, lStatus, lPriority, caPlateid);
+
         }
         else
         {
-        	
+
             ulong lMaxid = 0;
             pasDbOneRecord("select max(ruleid) from portalprule", 0, UT_TYPE_ULONG, 4, &lMaxid);
-        	memset(caTemp, 0, sizeof(caTemp));
-			snprintf(caTemp, sizeof(caTemp)-1, "insert into portalprule(ruleid,priority,plateid,addtime,modtime,status) values(%lu,%lu,'%s',%llu,%llu,%lu) ", (lMaxid+1), lPriority, caPlateid, lltime, lltime, lStatus);
+            memset(caTemp, 0, sizeof(caTemp));
+            snprintf(caTemp, sizeof(caTemp) - 1, "insert into portalprule(ruleid,priority,plateid,addtime,modtime,status) values(%lu,%lu,'%s',%llu,%llu,%lu) ", (lMaxid + 1), lPriority, caPlateid, lltime, lltime, lStatus);
         }
-		printf("sql=[%s]\n", caTemp);
-		iReturn = pasDbExecSqlF(caTemp);
+        printf("sql=[%s]\n", caTemp);
+        iReturn = pasDbExecSqlF(caTemp);
         if(iReturn != 0)
         {
             sqlflag = 1;
@@ -2196,7 +2003,7 @@ int ictAdPlate_Save_v9(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 
 
     utPltOutToHtml(iFd, psMsgHead, psDbHead, "v8/nc_adfile.htm");
-	return 0;
+    return 0;
 }
 
 
@@ -2334,17 +2141,422 @@ int ictFirstDispAd(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 int ictGetLoginTsid(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
     int iReturn = 0;
-	char caTsid[32] = "";
+    char caTsid[32] = "";
     iReturn = utMsgGetSomeNVar(psMsgHead, 1,
                                "PASTSID", UT_TYPE_STRING, sizeof(caTsid) - 1 , caTsid
                               );
-	return 0;
+    return 0;
+}
+
+char* getNonceStr()
+{
+    static char sstr[36] = "";
+    memset(sstr, 0, sizeof(sstr));
+    strcpy(sstr, "5K8264ILTKCH16CQ2502SI8ZNMTM67VS");
+    return sstr;
+}
+
+char* createTradeNo()
+{
+    static char sstr[32] = "";
+    memcpy(sstr, "20150806125346", 14);
+    return sstr;
+}
+
+#define DEBUG 1
+//post方式获取内容
+char *getHttpsConByPost(char *pUrl, char *pPostVar)
+{
+    int sockfd, ret;
+    char buffer[1024];
+    struct sockaddr_in server_addr;
+    struct hostent *host;
+    int portnumber, nbytes;
+    char host_addr[256];
+    char host_file[1024];
+    char local_file[256];
+    char request[1024];
+    int send, totalsend;
+    int i;
+    char *pt;
+    SSL *ssl;
+    SSL_CTX *ctx;
+
+    char tmpch[4] = "";
+    static char pCont[10024] = "";
+    //    strcpy(argv,"https://api.weixin.qq.com/cgi-bin/menu/create?access_token=");
+    GetHost(pUrl, host_addr, host_file, &portnumber);        /*分析网址、端口、文件名等 */
+    if(DEBUG)
+        printf("webhost:%s\n", host_addr);
+    if(DEBUG)
+        printf("hostfile:%s\n", host_file);
+    if(DEBUG)
+        printf("portnumber:%d\n\n", portnumber);
+
+    //    if ((host = gethostbyname(host_addr)) == NULL) {        /*取得主机IP地址 */
+    //        if (DEBUG)
+    //            fprintf(stderr, "Gethostname error, %s\n", strerror(errno));
+    //        exit(1);
+    //    }
+    if((host = gethostbyname(host_addr)) == NULL)           /*取得主机IP地址 */
+    {
+        if(DEBUG)
+            fprintf(stderr, "Gethostname error, %s\n", strerror(errno));
+        exit(1);
+    }
+
+
+    /* 客户程序开始建立 sockfd描述符 */
+    if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)           /*建立SOCKET连接 */
+    {
+        if(DEBUG)
+            fprintf(stderr, "Socket Error:%s\a\n", strerror(errno));
+        exit(1);
+    }
+
+    /* 客户程序填充服务端的资料 */
+    bzero(&server_addr, sizeof(server_addr));
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(portnumber);
+    server_addr.sin_addr = *((struct in_addr *) host->h_addr);
+
+    /* 客户程序发起连接请求 */
+    if(connect(sockfd, (struct sockaddr *)(&server_addr), sizeof(struct sockaddr)) == -1)            /*连接网站 */
+    {
+        if(DEBUG)
+            fprintf(stderr, "Connect Error:%s\a\n", strerror(errno));
+        exit(1);
+    }
+
+    /* SSL初始化 */
+    SSL_library_init();
+    SSL_load_error_strings();
+    ctx = SSL_CTX_new(SSLv23_client_method());
+    if(ctx == NULL)
+    {
+        ERR_print_errors_fp(stderr);
+        exit(1);
+    }
+
+    ssl = SSL_new(ctx);
+    if(ssl == NULL)
+    {
+        ERR_print_errors_fp(stderr);
+        exit(1);
+    }
+
+    /* 把socket和SSL关联 */
+    ret = SSL_set_fd(ssl, sockfd);
+    if(ret == 0)
+    {
+        ERR_print_errors_fp(stderr);
+        exit(1);
+    }
+
+    RAND_poll();
+    while(RAND_status() == 0)
+    {
+        unsigned short rand_ret = rand() % 65536;
+        RAND_seed(&rand_ret, sizeof(rand_ret));
+    }
+
+    ret = SSL_connect(ssl);
+    if(ret != 1)
+    {
+        ERR_print_errors_fp(stderr);
+        exit(1);
+    }
+    //host_file
+    /*
+    post格式说明：每行前不可以有空格
+    POST https://api.weixin.qq.com/cgi-bin/menu/create?access_token=lQEAXOvehXccOPDfSCCX50giI46RlcT2X_OqrhS_sbTkIi0laDx8bfMDGVEKD3IVgQl24PuiP9rXHKvskdTcOoPcRbj-K5NXfRxBSGNUgIaorMl3Z4Jx6WUnnAvAChVorpTh-cViMxiJltMNtC2LNg HTTP/1.1
+    Accept: *\/*
+    Accept-Language: zh-cn
+    User-Agent: Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)
+    Content-Type: application/json               //must
+    Host: api.weixin.qq.com:443
+    Connection: Keep-Alive
+    Content-Length: 68                           //must
+
+    {"button":[{"type":"click","name":"Wifi Net","key":"ncm_wifi_net"}]}
+
+    506 bytes send OK!
+
+    The following is the response header:
+    HTTP/1.1 200 OK
+    Server: nginx/1.4.4
+    Date: Thu, 27 Mar 2014 06:16:11 GMT
+    Content-Type: application/json; encoding=utf-8
+    Content-Length: 27
+    Connection: close
+
+    {"errcode":0,"errmsg":"ok"}
+    */
+    sprintf(request, "POST %s HTTP/1.1\r\nAccept: */*\r\nAccept-Language: UTF-8\r\n\
+User-Agent: Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)\r\n\Content-Type: application/json\r\n\
+Host: %s:%d\r\nConnection: Keep-Alive\r\nContent-Length: %d\r\n\r\n%s\r\n\r\n", pUrl, host_addr,
+            portnumber, strlen(pPostVar), pPostVar);
+    if(DEBUG)
+        printf("%s", request);        /*准备request，将要发送给主机 */
+
+
+
+    /*发送https请求request */
+    send = 0;
+    totalsend = 0;
+    nbytes = strlen(request);
+    while(totalsend < nbytes)
+    {
+        send = SSL_write(ssl, request + totalsend, nbytes - totalsend);
+        if(send == -1)
+        {
+            if(DEBUG)
+                ERR_print_errors_fp(stderr);
+            exit(0);
+        }
+        totalsend += send;
+        if(DEBUG)
+            printf("%d bytes send OK!\n", totalsend);
+    }
+
+
+    if(DEBUG)
+        printf("\nThe following is the response header:\n");
+    i = 0;
+    /* 连接成功了，接收https响应，response */
+    while((nbytes = SSL_read(ssl, buffer, 1)) == 1)
+    {
+        if(i < 4)
+        {
+            if(buffer[0] == '\r' || buffer[0] == '\n')
+                i++;
+            else
+                i = 0;
+            if(DEBUG)
+                printf("%c", buffer[0]);        /*把https头信息打印在屏幕上 */
+        }
+        else
+        {
+            if(DEBUG)
+                printf("%c", buffer[0]);
+            sprintf(tmpch, "%c", buffer[0]);
+            if(i == 4)
+            {
+                strcpy(pCont, tmpch);
+            }
+            else
+            {
+                strcat(pCont, tmpch);
+            }
+            i++;
+        }
+    }
+
+    /* 结束通讯 */
+    ret = SSL_shutdown(ssl);
+    if(ret != 1)
+    {
+        ERR_print_errors_fp(stderr);
+        //        exit(1);
+    }
+    close(sockfd);
+    SSL_free(ssl);
+    SSL_CTX_free(ctx);
+    ERR_free_strings();
+
+    char caReturn[1024];
+    pasUtf8ToGBK(pCont, caReturn, 1000);
+    printf("return=%s\n", caReturn);
+
+    return (char *)caReturn;
+}
+
+
+/**
+* 接收微信的支付结果
+*/
+int receiveWeixinNotify(utShmHead* psShmHead, int iFd, utMsgHead* psMsgHead)
+{
+    int iReturn = 0;
+    char caOut_trade_no[32] = "";
+	char caOutXml[2048] = "";
+	char caTemp[128] = "";
+	char cDataLeft[16] = "<![CDATA[";
+    char cDataRight[16] = "]]>";
+	char caReturn[16] = "";
+	pasLogs(1066, 1066, "\n\n===================接收到微信的反馈===========================\n\n");
+    utMsgOutMsgToLog(1066, 1066, psMsgHead, "[recieve weixin] \n");
+    iReturn = utMsgGetSomeNVar(psMsgHead, 1,
+                               "PASXml", UT_TYPE_STRING, sizeof(caOutXml) - 1 , caOutXml);
+	ncUtlGetWordBetween(caOutXml, "<return_code>", "</return_code>", caTemp, 128);
+	ncUtlGetWordBetween(caTemp, cDataLeft, cDataRight, caReturn, 16);
+	pasLogs(1066, 1066, "return code=%s\n", caReturn);
+    return 0;
+}
+
+/**
+* 请求微信支付预支付订单
+* https://api.mch.weixin.qq.com/pay/unifiedorder
+*/
+int createWeixinPreOrder(utShmHead* psShmHead, int iFd, utMsgHead* psMsgHead)
+{
+    long lStatus = 0;
+    int  iReturn;
+    char caMesg[32];
+    char caHost[256] = "", caHtml[2024] = "", caXml[2048] = "", caReturn[16] = "";
+    char caAppId[32] = "";
+    char caMch_id[32] = "";
+    char caDevice_info[32] = "";
+    char caNonce_str[36] = "";
+    char caSign[32] = "";
+    char caBody[32] = "";
+    long iTotal_fee = 0;
+    char caTotal_fee[16] = "";
+    char caSpbill_create_ip[16] = "";
+    char caNotify_url[256] = "";
+    char caOut_trade_no[32] = "";
+    char caRetMsg[128] = "";
+    char caPrepay_id[64] = "";
+    char stringA[2048] = "";
+    char caKey[64] = "4390Y61FDO124533xLF33b0c5CKwvymB";
+    char caKey2[64] = "d4624c36b6795d1d99dcf0547af5443d";
+    char caSignTmp[1024] = "";
+    char caTsid[64] = "";
+    char cDataLeft[16] = "<![CDATA[";
+    char cDataRight[16] = "]]>";
+    char caTemp[128] = "";
+    iReturn = utMsgGetSomeNVar(psMsgHead, 3,
+                               "PASTSID", UT_TYPE_STRING, sizeof(caTsid) - 1 , caTsid,
+                               "total_fee", UT_TYPE_STRING, sizeof(caTotal_fee) - 1 , caTotal_fee,
+                               "tradeno", UT_TYPE_STRING, sizeof(caOut_trade_no) - 1 , caOut_trade_no);
+
+    //strcpy(caOut_trade_no, createTradeNo());
+    utPltDbHead* psDbHead = utPltInitDb();
+
+    strcpy(caAppId, utComGetVar_sd(psShmHead, "WeChatPayAppid", "wx709aadbe9b24f033"));
+    strcpy(caBody, utComGetVar_sd(psShmHead, "WeChatPayBody", "shopbody"));
+    strcpy(caDevice_info, utComGetVar_sd(psShmHead, "WeChatPayDevice_info", "deviceinfo"));
+    strcpy(caMch_id, utComGetVar_sd(psShmHead, "WeChatPayMch_id", "1283145801"));
+    strcpy(caNonce_str, getNonceStr());
+    strcpy(caNotify_url, utComGetVar_sd(psShmHead, "payNotify_url", "http://www.weixin.qq.com/wxpay/pay.php"));
+	pasLogs(1066, 1066, "\n====================caNotify_url=%s===================", caNotify_url);
+    strcpy(caSpbill_create_ip, utComGetVar_sd(psShmHead, "caSpbill_create_ip", "123.12.12.123"));
+    iTotal_fee = atol(caTotal_fee);
+    sprintf(caXml, "<xml>\r\n");
+    sprintf(caXml + strlen(caXml), "<appid>%s</appid>\r\n", caAppId);
+    sprintf(stringA + strlen(stringA), "appid=%s&", caAppId);
+    sprintf(caXml + strlen(caXml), "<body>%s</body>\r\n", caBody);//商品描述
+    sprintf(stringA + strlen(stringA), "body=%s&", caBody);
+    sprintf(caXml + strlen(caXml), "<device_info>%s</device_info>\r\n", caDevice_info);
+    sprintf(stringA + strlen(stringA), "device_info=%s&", caDevice_info);
+    sprintf(caXml + strlen(caXml), "<mch_id>%s</mch_id>\r\n", caMch_id);
+    sprintf(stringA + strlen(stringA), "mch_id=%s&", caMch_id);
+    sprintf(caXml + strlen(caXml), "<nonce_str>%s</nonce_str>\r\n", caNonce_str);
+    sprintf(stringA + strlen(stringA), "nonce_str=%s&", caNonce_str);
+    sprintf(caXml + strlen(caXml), "<notify_url>%s</notify_url>\r\n", caNotify_url);
+    sprintf(stringA + strlen(stringA), "notify_url=%s&", caNotify_url);
+    sprintf(caXml + strlen(caXml), "<out_trade_no>%s</out_trade_no>\r\n", caOut_trade_no);//商品订单号
+    sprintf(stringA + strlen(stringA), "out_trade_no=%s&", caOut_trade_no);
+    sprintf(caXml + strlen(caXml), "<spbill_create_ip>%s</spbill_create_ip>\r\n", caSpbill_create_ip);//终端IP
+    sprintf(stringA + strlen(stringA), "spbill_create_ip=%s&", caSpbill_create_ip);
+    sprintf(caXml + strlen(caXml), "<total_fee>%d</total_fee>\r\n", iTotal_fee);//总金额
+    sprintf(stringA + strlen(stringA), "total_fee=%d&", iTotal_fee);
+    sprintf(caXml + strlen(caXml), "<trade_type>APP</trade_type>\r\n");
+    sprintf(stringA + strlen(stringA), "trade_type=APP&");
+    pasLogs(1066, 1066, "生成字符串=%s", stringA);
+    sprintf(stringA + strlen(stringA), "key=%s", caKey);
+    pasLogs(1066, 1066, "连接KEY之后=%s", stringA);
+    //将stringA进行md5加密
+    utMd5(stringA, strlen(stringA), caSignTmp);
+    pasStrCvtBin2Hex(caSignTmp, 16, caSign);
+    pasLogs(1066, 1066, "md5加密后=%s", caSign);
+    sprintf(caXml + strlen(caXml), "<sign>%s</sign>\r\n", caSign);
+    sprintf(caXml + strlen(caXml), "</xml>\r\n", caSign);
+    pasLogs(1066, 1066, "最终提交的XML=%s", caXml);
+    // pasGBKToUtf8(caXml,caXml_utf8,2000);
+    strcpy(caHost, utComGetVar_sd(psShmHead, "WeChatPayHost", "https://api.mch.weixin.qq.com/pay/unifiedorder"));
+    strcpy(caHtml, getHttpsConByPost(caHost, caXml));
+    //iReturn = pasSendHttpPostXml(caHost, "/pay/unifiedorder", caHtml, 2023, caXml);
+    pasLogs(1066, 1066, "iReturn=%d Html:[%s]\n", iReturn, caHtml);
+
+
+    ncUtlGetWordBetween(caHtml, "<return_code>", "</return_code>", caTemp, 128);
+    ncUtlGetWordBetween(caTemp, cDataLeft, cDataRight, caReturn, 16);
+    //<return_msg><![CDATA[invalid notify_url]]></return_msg>
+    ncUtlGetWordBetween(caHtml, "<return_msg>", "</return_msg>", caTemp, 128);
+    //<![CDATA[     invalid notify_url      ]]>
+    ncUtlGetWordBetween(caTemp, cDataLeft, cDataRight, caRetMsg, 128);
+
+    pasLogs(1066, 1066, "caRetMsg=[%s]\n", caRetMsg);
+
+    if(strcmp(caReturn, "SUCCESS") == 0)
+    {
+    	memset(caReturn, 0, sizeof(caReturn));
+        ncUtlGetWordBetween(caHtml, "<result_code>", "</result_code>", caTemp, 128);
+        ncUtlGetWordBetween(caTemp, cDataLeft, cDataRight, caReturn, 64);
+        if(strcmp(caReturn, "SUCCESS") == 0)
+        {
+            ncUtlGetWordBetween(caHtml, "<prepay_id>", "</prepay_id>", caTemp, 128);
+            ncUtlGetWordBetween(caTemp, cDataLeft, cDataRight, caPrepay_id, 64);
+            //返回预支付订单
+            pasLogs(1066, 1066, "最终得到caPrepay_id=[%s]\n", caPrepay_id);
+            //生成sign返回给前台
+            //统一下单接口返回正常的prepay_id，再按签名规范重新生成签名后，将数据传输给APP。
+            //参与签名的字段名为appId，partnerId，prepayId，nonceStr，timeStamp，package
+            //注意：package的值格式为Sign=WXPay
+            memset(stringA, 0, sizeof(stringA));
+            sprintf(stringA + strlen(stringA), "appid=%s&", caAppId);
+            memset(caNonce_str, 0, sizeof(caNonce_str));
+            strcpy(caNonce_str, getNonceStr());
+            char otherNonce_str[36] = "";
+            memcpy(otherNonce_str, caNonce_str, 36);
+            sprintf(stringA + strlen(stringA), "noncestr=%s&", caNonce_str);
+            sprintf(stringA + strlen(stringA), "package=Sign=WXPay&");
+            sprintf(stringA + strlen(stringA), "partnerid=%s&", caMch_id);
+            sprintf(stringA + strlen(stringA), "prepayid=%s&", caPrepay_id);
+            ulong lNow = time(0);
+            sprintf(stringA + strlen(stringA), "timestamp=%lu&", lNow);
+            sprintf(stringA + strlen(stringA), "key=%s", caKey);
+            //sprintf(stringA + strlen(stringA), "key=%s", caKey2);
+
+            pasLogs(1066, 1066, "连接KEY后=[%s]", stringA);
+            //将stringA进行md5加密
+            memset(caSignTmp, 0, sizeof(caSignTmp));
+            memset(caSign, 0, sizeof(caSign));
+            utMd5(stringA, strlen(stringA), caSignTmp);
+            pasStrCvtBin2Hex(caSignTmp, 16, caSign);
+            pasLogs(1066, 1066, "发给前台的sign=%s", caSign);
+            utPltPutVar(psDbHead, "sign", caSign);
+            utPltPutVar(psDbHead, "app_id", caAppId);
+            utPltPutVar(psDbHead, "trade_no", caOut_trade_no);
+            utPltPutVar(psDbHead, "prepay_id", caPrepay_id);
+            utPltPutVar(psDbHead, "mch_id", caMch_id);
+            pasLogs(1066, 1066, "caNonce_str=%s", otherNonce_str);
+            utPltPutVar(psDbHead, "nonce_str", otherNonce_str);
+            utPltPutVarF(psDbHead, "timestamp", "%lu", lNow);
+            utPltPutVar(psDbHead, "result", "0");
+        }
+        else
+        {
+        	memset(caRetMsg, 0, sizeof(caRetMsg));
+        	ncUtlGetWordBetween(caHtml, "<err_code_des>", "</err_code_des>", caTemp, 128);
+		    ncUtlGetWordBetween(caTemp, cDataLeft, cDataRight, caRetMsg, 128);        	
+			utPltPutVar(psDbHead, "result", "2");
+        }
+		
+    }
+    else
+    {
+        utPltPutVar(psDbHead, "result", "1");
+    }
+	utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caRetMsg));
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/weixin/getPreOrder.htm");
+    return 0;
 }
 
 
 int ictInitWebFun_wp(utShmHead * psShmHead)
 {
-
     pasSetTcpFunName("ictFirstDispAd", ictFirstDispAd, 0);
     pasSetTcpFunName("ictGetUserLoginInfo", ictGetUserLoginInfo, 0);
     //投放模版
@@ -2359,6 +2571,10 @@ int ictInitWebFun_wp(utShmHead * psShmHead)
     pasSetTcpFunName("ictAdPlate_Save_v9", ictAdPlate_Save_v9, 0);
     //获取资源
     pasSetTcpFunName("getSrcByAdindex", getSrcByAdindex, 0);
+    //生成微信预支付订单
+    pasSetTcpFunName("createWeixinPreOrder", createWeixinPreOrder, 0);
+    //接收微信订单通知
+    pasSetTcpFunName("receiveWeixinNotify", receiveWeixinNotify, 0);
     return 0;
 }
 
