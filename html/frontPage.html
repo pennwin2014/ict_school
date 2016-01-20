@@ -1,0 +1,357 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="./newver/jquery/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="./newver/chart/highcharts.js"></script>
+<script type="text/javascript" src="./newver/ext-4.2.1.883/ext-all.js"></script>
+<link rel="stylesheet" type="text/css" href="./newver/ext-4.2.1.883/resources/css/ext-all.css" /> 
+<title>首页</title>
+<style>
+html,body{
+    -webkit-text-size-adjust:none;
+	font-family: 微软雅黑;
+}
+.main_content{position:absolute;overflow:auto;height:100%;width:100%;background-color:#FFFFF0;}
+.main_top{position:absolute;background-color:#00FFF0; top:0;left:0;width:100%; height:20%;border: solid 1px #0000FF;z-index:101;}
+.main_center{position:absolute;background-color:#FFFFFF; top:20%;left:0;width:100%; height:80%;border: solid 1px #FF0000;z-index:101;}
+
+.info_block{float:left; position:relative;border:solid 1px #FFFFFF; width:20%; height:105px; margin:10px 0px 0px 20px;}
+.info_logo{position:relative;left:6px;top:4px;width:75px;height:90px;}
+.info_text_single{ display:block;position:absolute;color:#143554;font-size:12px;left:80px;top:25px;width:65px;text-align:right;}
+.info_number_single{position:absolute;color:#EE0225;left:100px;top:39px;font-size:22px;}
+.info_text_first{ display:block;position:absolute;color:#143554;font-size:12px;left:80px;top:19px;width:80px;text-align:right;}
+.info_number_first{position:absolute;font-size:22px;left:160px;top:10px;}
+.info_text_second{display:block; position:absolute;color:#143554;font-size:12px;left:80px;top:37px;width:80px;text-align:right;}
+.info_number_second{position:absolute;font-size:22px;left:160px;top:30px;}
+.main_gap_line{z-index:10100;top:20%;left:0;position:fixed;height:100%;width:1px;background-color:#00B1F1;}
+.tab_group1{ background-color:#FFFF00;position:absolute;left:1%; top:0; width:100%;height:50%;}
+.tab_group2{ background-color:#00FFFF;position:absolute;left:1%; top:51%; width:100%;height:50%;}
+.cls_tab_normal{float:left; position:relative;background-color:#FFF; border: solid 1px #00B1F1; width:40%; height:220px; margin:20px 0px 0px 20px;}
+.tab_top span{margin-left:10px;}
+.cls_chart_rect{position:absolute; top:29px; left:0px; height:80%; width:95%; text-align:center}
+.tab_btn_group{position:absolute; top:31px; height:20px; width:100%;}
+.tab_button_normal{cursor:pointer;display:-moz-inline-box;display:inline-block;text-align:center;background-color:#FFF;color:#0D3967;margin-left:1%;height:95%;width:50px;border-radius:3px 3px 3px 3px;}
+.tab_button_focus{cursor:pointer;display:-moz-inline-box;display:inline-block;text-align:center;background-color:#BEDCF5;color:#0D3967;margin-left:1%;height:95%;width:50px;border-radius:3px 3px 3px 3px;}
+.cls_chart_rect_with_buttons{position:absolute; top:50px; left:0px; height:70%; width:95%; text-align:center}
+</style>
+
+<script>
+	var chart21;
+	function doOnResize(){
+		/*var ph = parent.window.innerHeight ? parent.window.innerHeight : parent.document.body.clientHeight;
+		$(".main_content").height(ph-141);*/
+	}
+
+	function getTopBlockData(){
+		/*
+		if(!parent.ictGlobalCtx.isInFocus("itm_frontPage")){
+			return ;
+		}
+		*/
+		/*
+		Ext.Ajax.request({ 
+			url: '/pronline/Msg?FunName@macFrontPageLeftBlocks&groupid@1',  
+			method: 'GET',
+			success: function(resp,opts) {   
+				try{
+					var respText = resp.responseText; 
+					var respRecord = eval("("+respText+")");
+					//实时在线终端统计
+					$("#id_number01").text(respRecord.onlineTerms);
+				}catch(e){
+					console.log(e.message);
+				}			
+			},   
+			failure: function(resp,opts) {   
+				
+				alert('错误');  
+			}   	 
+		});	*/
+	}
+
+	
+
+	function setTopBlock(){
+		getTopBlockData();
+		setInterval("getTopBlockData()", 60000);
+	}
+
+	$(window).resize(function() {
+		//chart1.redraw();
+		console.log("window resize");
+	});
+	var current_chart_type = 'day';
+	function getChart21Data(request_type){
+		current_chart_type = request_type;
+		Ext.Ajax.request({   
+			url: '/pronline/Msg?FunName@ictFrontPageChart21&request_type@'+request_type,
+			method: 'GET',
+			success: function(resp,opts) {   
+				var tmpData = [];
+				try{
+					var respText = resp.responseText; 
+					var respRecord = eval("("+respText+")");
+					var colNum = 0;
+					var colTime;
+					for(var i in respRecord.data){
+						colNum = parseInt(respRecord.data[i].collect_number);
+						colTime = parseInt(respRecord.data[i].collect_time);
+						var unixTimestamp = new Date(colTime * 1000);
+						var commonTime = unixTimestamp.getTime();
+						var commonOffset = unixTimestamp.getTimezoneOffset()*60000;
+						commonTime = commonTime - commonOffset;
+						tmpData.push({x:commonTime, y:colNum, name:'第'+i+'个点'});
+					}
+				}catch(e){
+					console.log(e.message);
+				}			
+				chart21.series[0].setData(tmpData);					
+			},   
+			failure: function(resp,opts) {  
+				alert("错误");
+			}  				 
+		});			
+
+	}
+	
+	function createChart21(){
+		chart21 = new Highcharts.Chart({ 
+			chart: { 
+				type: 'area',
+				renderTo: 'container21'  
+			}, 
+			title: { 
+				text: '' 
+			}, 
+			exporting:{
+                enabled:false
+            },
+			credits: {
+				enabled: false
+			},
+			xAxis: { 
+				lineColor: '#0F3D71',
+				lineWidth: 2,
+				gridLineDashStyle: 'longdash',
+				type: 'datetime', 
+				labels: { 
+					formatter: function() { 
+						if(current_chart_type == 'day'){
+							return Highcharts.dateFormat('%H时', this.value); 
+						}else if(current_chart_type == 'week'){
+							return Highcharts.dateFormat('%m/%d', this.value);
+						}else if(current_chart_type == 'month'){
+							return Highcharts.dateFormat('%m/%d', this.value);
+						}else{
+							return Highcharts.dateFormat('%y年%m月', this.value); 
+						}		
+					} 
+				},
+				gridLineWidth: 1
+			}, 
+			yAxis: { 
+				lineColor: '#0F3D71',
+				lineWidth: 2,
+				gridLineDashStyle: 'longdash',
+				title: { 
+					text: '' 
+				}, 
+				min: 0 
+			}, 
+			plotOptions: {
+				series: {
+					fillColor: {
+						linearGradient: [0, 0, 0, 300],
+						stops: [
+							[0, Highcharts.getOptions().colors[0]],
+							[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+						]
+					}
+				}
+			},
+			tooltip: { 
+			//这种模式下，每点的tooltip单独显示 
+				shared: false, 
+				formatter: function() { 
+					var s;
+					if(current_chart_type == 'day'){
+						s = Highcharts.dateFormat("%H时", this.point.x) +'   '+this.point.y +'个<br/>'; 
+					}else if((current_chart_type == 'week')||(current_chart_type == 'month')){
+						//s = Highcharts.dateFormat("%H时", this.point.x) +'   '+this.point.y +'个<br/>'; 
+						s = Highcharts.dateFormat("%m月%d日", this.point.x) +'   '+this.point.y +'个<br/>'; 
+					}else{
+						s = Highcharts.dateFormat("%y年%m月", this.point.x) +'   '+this.point.y +'个<br/>'; 
+					}
+					return s; 
+				}  
+			}, 
+			legend: {
+				enabled: false
+			},
+			series: [{ 
+				name: '终端采集数量', 
+				data: [],
+				color:"#0c96d4" 
+			}] 
+		});
+
+		getChart21Data("day");
+		$("#btnDay").click(function(){
+			$(this).css({"background-color":"#BEDCF5"});
+			$("#btnWeek").css({"background-color":"#FFF"});
+			$("#btnMonth").css({"background-color":"#FFF"});
+			$("#btnSeason").css({"background-color":"#FFF"});
+			$("#btnYear").css({"background-color":"#FFF"});
+			getChart21Data("day");
+		});
+
+		$("#btnWeek").click(function(){
+			$(this).css({"background-color":"#BEDCF5"});
+			$("#btnDay").css({"background-color":"#FFF"});
+			$("#btnMonth").css({"background-color":"#FFF"});
+			$("#btnSeason").css({"background-color":"#FFF"});
+			$("#btnYear").css({"background-color":"#FFF"});
+			getChart21Data("week");
+		});
+
+		$("#btnMonth").click(function(){
+			$(this).css({"background-color":"#BEDCF5"});
+			$("#btnDay").css({"background-color":"#FFF"});
+			$("#btnWeek").css({"background-color":"#FFF"});
+			$("#btnSeason").css({"background-color":"#FFF"});
+			$("#btnYear").css({"background-color":"#FFF"});
+			getChart21Data("month");
+		});
+
+		$("#btnSeason").click(function(){
+			$(this).css({"background-color":"#BEDCF5"});
+			$("#btnDay").css({"background-color":"#FFF"});
+			$("#btnWeek").css({"background-color":"#FFF"});
+			$("#btnMonth").css({"background-color":"#FFF"});
+			$("#btnYear").css({"background-color":"#FFF"});
+			getChart21Data("season");
+		});
+
+		$("#btnYear").click(function(){
+			$(this).css({"background-color":"#BEDCF5"});
+			$("#btnDay").css({"background-color":"#FFF"});
+			$("#btnWeek").css({"background-color":"#FFF"});
+			$("#btnSeason").css({"background-color":"#FFF"});
+			$("#btnMonth").css({"background-color":"#FFF"});
+			getChart21Data("year");
+		});
+	}
+	$(function () {
+		//重新改变窗口高度
+		setInterval("doOnResize();", 1000);		
+		setTopBlock();	
+		createChart21();
+	});
+</script>
+
+</head>
+
+
+
+<body>	
+	<div class="main_content">
+		<div class="main_top">
+			<td>
+				<div class="info_block" id="info_1">
+					<img class="info_logo" src="./images/mac/chart/logo1.png"/>
+					<span class="info_text_single" id="id_info11" >在线人数</span>
+					<span class="info_number_single" id="id_number11">12345678</span>
+				</div>
+				<div class="info_block" id="info_2">
+					<img class="info_logo" src="./images/mac/chart/logo2.png"/>
+					<span class="info_text_first" id="id_info21">今日新增</span>
+					<span class="info_number_first" id="id_number21">12345678</span>
+					<span class="info_text_second" id="id_info22">用户总数</span>
+					<span class="info_number_second" id="id_number22">12345678</span>
+				</div>
+				<div class="info_block" id="info_3">
+					<img class="info_logo" src="./images/mac/chart/logo3.png"/>
+					<span class="info_text_first" id="id_info31">今日充值</span>
+					<span class="info_number_first" id="id_number31">12345678</span>
+					<span class="info_text_second" id="id_info32">充值总额</span>
+					<span class="info_number_second" id="id_number32">12345678</span>
+				</div>
+				<div class="info_block" id="info_4">
+					<img class="info_logo" src="./images/mac/chart/logo4.png"/>
+					<span class="info_text_first" id="id_info41">今日订购</span>
+					<span class="info_number_first" id="id_number41">12345678</span>
+					<span class="info_text_second" id="id_info42">订购总额</span>
+					<span class="info_number_second" id="id_number42">12345678</span>
+				</div>
+			</td>
+		</div>
+		<div class="main_gap_line"></div>
+		<div class="main_center">			
+			<div class="tab_group1">
+				<div  id="hchart11" class="cls_tab_normal">
+					<div class="tab_top">
+						<span>历史订购分布图</span>
+					</div>
+					<div id="container11" class="cls_chart_rect"></div>
+				</div>	
+				<div  id="hchart12" class="cls_tab_normal">
+					<div class="tab_top">
+						<span>历史充值分布图</span>
+					</div>
+					<div id="container12" class="cls_chart_rect"></div>
+				</div>
+			</div>
+			<div class="tab_group2">
+				<td>
+					<div id="hchart21" class="cls_tab_normal">
+						<div class="tab_top">
+							<span>上网人数统计</span>
+						</div>
+
+						<div class="tab_btn_group">
+							<span class="tab_button_focus" id="btnDay">今日</span>
+							<span class="tab_button_normal" id="btnWeek">近一周</span>
+							<span class="tab_button_normal" id="btnMonth">近一月</span>
+							<span class="tab_button_normal" id="btnSeason">本季度</span>
+							<span class="tab_button_normal" id="btnYear">本年</span>
+						</div>
+						<div id="container21" class="cls_chart_rect_with_buttons"></div>
+					</div>
+					
+					
+					<div id="hchart22" class="cls_tab_normal">
+						<div class="tab_top">
+							<span>用户上网天数统计</span>
+						</div>
+						<!--div id="container22" class="cls_chart_rect">
+							<iframe style="width:105%;height:105%; " scrolling="no" src="/mac/datamining/map/country.htm"></iframe>
+						</div-->
+					</div>	
+				</td>
+			</div>
+		</div>
+	</div>
+
+	<!--div class="main_content">
+
+
+		<div class="main_center">
+			<div class="tab_group1">
+				<div  id="hchart2" class="cls_tab_normal">
+					<div class="tab_top">
+						<span>设备在线分析</span>
+						<img onclick="charthide(2)" src="/images/mac/exit.png" />
+					</div>
+					<div id="container2" class="cls_chart_rect"></div>
+				</div>				
+			</div>
+			<div class="tab_group2">
+				
+			</div>
+		</div>
+	</div-->
+</body>
+
+</html>
+

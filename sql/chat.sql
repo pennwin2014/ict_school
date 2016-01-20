@@ -64,7 +64,8 @@ CREATE TABLE ncsrvims(
 	content	char(128) default NULL,      -- 发送内容
 	ictpath char(128) default NULL,      -- 发送图片路径
 	conttype char, 	-- 内容类型，0 内容，1 要求加为朋友 2 要求加入群 3 系统信息
-	timeval	int(11) unsigned default 0, -- 发送时间
+    qunid int(11) unsigned default 0, 	-- 群ID
+	timeval int(11) unsigned default 0, -- 发送时间
 	ploattype char(32) default NULL,      -- 发送平台类型描叙
 	sendmac char(16) default NULL,      -- 发送平台MAC地址
 	ssid char(16) default NULL,      -- 发送者连接的SSID
@@ -127,8 +128,8 @@ CREATE TABLE ncsrvfriendmsgauth(
 
 
 -- 朋友圈评论
-drop table if exists ncsrvfriendmsg;
-CREATE TABLE ncsrvfriendmsg(
+drop table if exists ncsrvfriendmsgex;
+CREATE TABLE ncsrvfriendmsgex(
 	id int(11) auto_increment primary key,
 	mark char(128) default '',		    -- 产品标识(参照非经单位编码)
 	msgid int(11) unsigned default 0, -- 朋友圈内容ID

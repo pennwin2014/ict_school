@@ -544,12 +544,12 @@ int main(int argc, char **argv)
     char caUrl[512];
     char caToken[600];
     char caPostVar[1024];
-    strcpy(caToken, getWeiXinAccessToken(""));
+    //strcpy(caToken, getWeiXinAccessToken(""));
     //strcpy(caToken,"oDpSow31xmyMZgTVmmv7gI4UCKYdzmp8sKt5PQ-vRegfG4oo80Ir8mGEu-HYiPsobP9KLkfXFql0GzkWazstRZyQmAtJaceWDbn8r7mAaEA");
 
-    //strcpy(caToken,"HeLye1x9Dqj44r8KL3ybKR6M2GTiYgrHJjzBFOEfDEosOtt3oE82-Iw7qr7Jp0HPOTq9Fxel_BRpZsd_l-EqLqZW3RaPW4zavQYR1d_x7To");
+    strcpy(caToken,"wyzH5UWjsXKXYaBbmc0mFoOA75dnfp0aTJ4VNu-FW1XhBRJZ1J_mpMXquMyHVXsCN7c_CgWEOj6IUHSYN0iLjVLQ5JYsrZ9AsLSkWt8NiMASSQgADABBZ");
     //获取白名单
-    getWeiXinWhiteList(caToken);
+   // getWeiXinWhiteList(caToken);
     //获取二维码
     printf("caToken=%s\n", caToken);
 
@@ -557,7 +557,7 @@ int main(int argc, char **argv)
     //获取门店信息
     sprintf(caUrl, "https://api.weixin.qq.com/bizwifi/shop/list?access_token=%s", caToken);
     sprintf(caPostVar, "{\"pageindex\":1,\"pagesize:\":2}");
-    getHttpsConByPost(caUrl, caPostVar);
+    printf("get mendian=[%s]",getHttpsConByPost(caUrl, caPostVar));
 
 
     //获取二维码信息

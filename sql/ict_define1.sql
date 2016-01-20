@@ -79,6 +79,7 @@ create table package(
 	namech char(31) NOT NULL,                          -- 套餐中文名称
 	namedes char(127) default '',                    -- 套餐说明
 	ptype int(11) default 1,                         -- 套餐类型 1 包周 2 包月 3 包季 4  包半年 5包年 6 其他
+	pbytes int(11) default 0,                        -- 套餐带宽 单位：kb
 	pdays int(11) default 0,                         -- 套餐天数
 	money int(11) default 0,                         -- 套餐金额(元)
 	picture char(127) default '/school/photo/package/default.png',          -- 套餐图片 
@@ -88,9 +89,23 @@ create table package(
 	timeval int(11) default 0,                       -- 编辑时间
 	cuser char(31) default '',                       -- 编辑用户
     content char(127) default '',                    -- 备注
+	discountid int(11) default 0,                    -- 优惠推广ID  20160114添加
     UNIQUE KEY nameex1(mark,name)                    -- wu
 )ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+-- 优惠活动表
+drop table if exists discount;
+create table discount(
+	id int(11) not null primary key, -- 套餐id
+	mark char(128) default '', -- 产品标识(参照非经单位编码)
+	name char(32) default '', -- 优惠活动名称
+	content char(128) default '', -- 优惠活动内容
+	rate int(11) default 0, -- 优惠折扣率
+	begtime int(11) default 0, -- 优惠活动有效期起始时间
+	endtime int(11) default 0, -- 优惠活动有效期结束时间
+	timeval int(11) default 0, -- 编辑时间
+	UNIQUE KEY discount(mark,name)  
+)ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- 推荐套餐表
 drop table if exists recpackage;
@@ -185,8 +200,8 @@ create table rechargelog_201511(
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- 客户互动日志
-drop table if exists feedback_201511;
-create table feedback_201511(
+drop table if exists feedback;
+create table feedback(
 	id int(11) auto_increment primary key,                  -- 问题ID
 	username char(32) default NULL,                         -- 账号名称
 	mobno char(23) default '',                              -- 绑定手机号
@@ -196,6 +211,7 @@ create table feedback_201511(
 	subject char(128) default '',                           -- 新问题标题
 	content char(255) default '',                           -- 提交OR回复
 	timeval int(11) default 0,                              -- 操作时间
+	ptimeval int(11) default 0,                             -- 新问题的时间
 	cuser char(31) default '',                              -- 管理员
 	KEY feedback_l1(mark),
 	KEY feedback_l2(problemid),
@@ -306,6 +322,50 @@ create table tCommonQuestion(
 	cuser char(31) default '',                             -- 管理员
 	mark char(128) default ''                              -- 产品标识(参照非经单位编码)	
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 事件表
+drop table if exists ncsrvevent;
+CREATE TABLE ncsrvevent(
+	id int(11) auto_increment primary key,
+	mark char(128) default '',               -- 产品标识(参照非经单位编码)
+    username char(32) default NULL,          -- 操作帐号
+	eventname char(32) default NULL,         -- 事件名称
+	status int(10) unsigned default '0',     -- 事件处理状态 0 成功 1 失败
+	commandstr char(128) default '',         -- 命令字符串
+	commandpath char(128) default '',        -- 命令字符串如果超过127个字节，就保存到文件
+	resultpath char(128) default '',         -- 保存结果
+	addtime int(10) unsigned default '0',    -- 增加时间
+	KEY ncsrvevent_i1(mark,addtime)
+)ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--- 警务通用户关系表
+drop table if exists jwtuserinfo;                             -- 用户信息
+create table jwtuserinfo (
+     uidsn          char(32)      primary       key,
+	 mark           char(128)     default ' ',                -- 产品标识(参照非经单位编码)
+     username       char(32)      default ' ',                -- 名称
+     dispname       char(32)      default ' ',                -- 显示名
+     password       char(32)      default ' ',                -- 密码
+     usertype       int unsigned  default 0,                  -- 0 帐号  1 手机号  2 身份证号
+     addtime        int unsigned  default 0,                  -- 加入时间
+     lasttime       int unsigned  default 0                   -- 最后使用时间
+)ENGINE=MyISAM DEFAULT CHARSET=latin1;
+create unique index jwtuserinfo_i1 on jwtuserinfo (username, mark);
+
+-- 上网用户数量统计表
+drop table if exists jwtuserinfo;   
+CREATE TABLE ictusercount (
+  sid int(10) unsigned NOT NULL AUTO_INCREMENT,
+  groupcode char(32) COLLATE latin1_bin DEFAULT NULL,
+  apname char(24) COLLATE latin1_bin DEFAULT NULL,
+  lcount int(10) unsigned DEFAULT 0,
+  sdate char(10) COLLATE latin1_bin DEFAULT NULL,
+  lssid int(11) DEFAULT 0,
+  luniqmac int(11) DEFAULT 0,
+  luniqssid int(11) DEFAULT 0,
+  PRIMARY KEY (sid),
+  KEY ictusercount_ind1 (sdate)
+) ENGINE=MyISAM AUTO_INCREMENT=968 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 
 insert into tDepartment(depName, depCode, depLevel, pid) values('人文学院', '01', 0, 0);
 insert into tDepartment(depName, depCode, depLevel, pid) values('信息工程学院', '02', 0, 0);

@@ -61,60 +61,42 @@ void  combine_table(char *table_name, char *sdate, char *edate, char *table)
         strcat(table_name, "(");
 
         pasDbCursor *psCur = NULL;
-        for(i = syear; i <= eyear && j <= emonth;)
-        {
-            snprintf(sql, sizeof(sql)-1, "select * from %s%4u%02u", table, i, j);
-            psCur = pasDbOpenSql(sql, 0);
-            if(psCur != NULL)
-            {
-                if(iNum > 0)
-                {
-                    strcat(table_name, " union all ");
-                }
-                iNum++;
-                snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), sql);
-                pasDbCloseCursor(psCur);
-            }
+		
+		int emonth_tmp;
+		if(syear < eyear)
+		{
+			emonth_tmp=12;			
+		}
+		else
+		{
+			emonth_tmp=emonth;
+		}
+		
+		for(i = syear; i <= eyear && j <= emonth_tmp;)
+		{			
+			snprintf(sql, sizeof(sql)-1, "select * from %s%4u%02u", table, i, j);
+			psCur = pasDbOpenSql(sql, 0);
+			if(psCur != NULL)
+			{
+				if(iNum > 0)
+				{
+					strcat(table_name, " union all ");
+				}
+				iNum++;
+				snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), sql);
+				pasDbCloseCursor(psCur);
+			}
 
-            if(j > 11)
-            {
-                i++;
-                j = 0;
-            }
-            j++;
-        }
+			if(j > 11)
+			{
+				i++;
+				j = 0;
+				emonth_tmp=emonth;
+			}
+			j++;
+		}
         snprintf(table_name + strlen(table_name), 1024 - strlen(table_name), ")new_table");
     }
-}
-
-int checkTableExists(char* tableName)
-{
-    char sql[1024] = "";
-    int ret = 0;
-    pasDbCursor *psCur = NULL;
-    snprintf(sql, sizeof(sql), "select count(*) from %s", tableName);
-    psCur = pasDbOpenSql(sql, 0);
-    if(psCur != NULL)
-    {
-        ret = 1;
-        pasDbCloseCursor(psCur);
-    }
-    return ret;
-}
-
-char* getNewLogTable(char* tableOri, char * yearMonth)
-{
-    static char newTable[64] = "";
-    snprintf(newTable, sizeof(newTable) - 1, "%s_%s", tableOri,yearMonth);
-	char sql[1024] = "";
-	if(!checkTableExists(newTable))
-    {
-        snprintf(sql, sizeof(sql) - 1, "create table %s like %s", newTable, tableOri);
-     //   printf("not exist logTable=%s, do sql=%s\n", newTable, sql);
-		//Ö´ÐÐsqlÓï¾ä
-        pasDbExecSqlF(sql);
-    }
-    return newTable;
 }
 
 static int checkMoney(char money[16])//¼ì²âmoneyÓÐÐ§ÐÔ
@@ -143,7 +125,9 @@ int ict_orderLog_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//ÕË
     char vname[32] = "";
     char name[32] = "";
     ulong money = 0;
-	char dtime[24]="";
+	char dtime[24] = "";
+	char info[60] = "";
+	char cainfo[60] = "";
 	char timeFlag[8] = "";
 	char sql[1024] = "";
 	char sql_count[1024] = "";
@@ -268,11 +252,11 @@ int ict_orderLog_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//ÕË
 			memset(sql_tmp, 0, sizeof(sql_tmp));
 			memset(sql, 0, sizeof(sql));
 			snprintf(sql_tmp, sizeof(sql_tmp)-1, "where username='%s' and new_table.timeval>=%lu and new_table.timeval<=%lu", vname, begintime, endtime);		
-			snprintf(sql, sizeof(sql)-1, "select timeval,money,name from %s %s", table_name, sql_tmp);
+			snprintf(sql, sizeof(sql)-1, "select timeval,money,name,info from %s %s", table_name, sql_tmp);
 			char sql1[1024] = "";
 			memset(sql_tmp, 0, sizeof(sql_tmp));
 			snprintf(sql_tmp, sizeof(sql_tmp)-1, "where username='%s' and new_table.timeval>=%lu and new_table.timeval<=%lu", vname, begintime, endtime);
-			snprintf(sql1, sizeof(sql1)-1, "select timeval,money,'' from %s %s", table_name1, sql_tmp);
+			snprintf(sql1, sizeof(sql1)-1, "select timeval,money,'',info from %s %s", table_name1, sql_tmp);
 			
 			memset(sql_tmp, 0, sizeof(sql_tmp));
 			snprintf(sql_tmp, sizeof(sql_tmp)-1, "select count(*) from (%s union all %s order by timeval desc)new_table", sql, sql1);
@@ -280,7 +264,7 @@ int ict_orderLog_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//ÕË
 			
 			
 			memset(sql_tmp, 0, sizeof(sql_tmp));
-			snprintf(sql_tmp, sizeof(sql_tmp)-1, "select from_unixtime(timeval),money,name from (%s union all %s)new_table order by timeval desc limit %lu,%lu", sql, sql1, atol(start_in), atol(limit_in));
+			snprintf(sql_tmp, sizeof(sql_tmp)-1, "select from_unixtime(timeval),money,name,info from (%s union all %s)new_table order by timeval desc limit %lu,%lu", sql, sql1, atol(start_in), atol(limit_in));
 			psCur = pasDbOpenSql(sql_tmp, 0);	
 			//pasLogs(5001,5001,"ÕËµ¥²éÑ¯ %s\n", sql_tmp);
 			printf("********************sql_tmp=%s\n", sql_tmp);
@@ -293,29 +277,48 @@ int ict_orderLog_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//ÕË
 				while(0 == (iret = pasDbFetchInto(psCur,
 									  UT_TYPE_STRING, sizeof(dtime) - 1, dtime,  
 									  UT_TYPE_LONG, 4, &money,
-									  UT_TYPE_STRING, sizeof(name) - 1, name)) || 1405 == iret)
+									  UT_TYPE_STRING, sizeof(name) - 1, name,
+									  UT_TYPE_STRING, sizeof(info) - 1, info)) || 1405 == iret)
 				{
 					iNum++;
 					if(iNum > 1)
 					{
 						utPltPutLoopVar(psDbHead, "dh", iNum, ",");
 					}
-					if(strlen(name) == 0)
+					if(strlen(name) == 0 && strlen(info)==0 )
 					{
 						utPltPutLoopVarF(psDbHead, "flag", iNum, "%d", 1);
 					    utPltPutLoopVar(psDbHead, "dtime", iNum, dtime);
-						snprintf(name, sizeof(name)-1, "³äÖµ%.2fÔª", money/100.0);
-					    utPltPutLoopVar(psDbHead, "name", iNum, convert("GBK", "UTF-8", name));
+						snprintf(cainfo, sizeof(name)-1, "³äÖµ%.2fÔª", money/100.0);
+					    utPltPutLoopVar(psDbHead, "name", iNum, convert("GBK", "UTF-8", cainfo));
 					    utPltPutLoopVarF(psDbHead, "money", iNum, "%lu", money);
 					}
 					else
 					{
-						utPltPutLoopVarF(psDbHead, "flag", iNum, "%d", 0);
-					    utPltPutLoopVar(psDbHead, "dtime", iNum, dtime);
-					    utPltPutLoopVar(psDbHead, "name", iNum, convert("GBK", "UTF-8", name));
-					    utPltPutLoopVarF(psDbHead, "money", iNum, "%lu", money);
-					}
-						
+						printf("info %s\n",info);
+						if(strlen(info)==0 && strlen(name)!=0){
+							utPltPutLoopVarF(psDbHead, "flag", iNum, "%d", 0);
+							utPltPutLoopVar(psDbHead, "dtime", iNum, dtime);
+							utPltPutLoopVar(psDbHead, "name", iNum, convert("GBK", "UTF-8", name));
+							utPltPutLoopVarF(psDbHead, "money", iNum, "%lu", money);
+						}
+						if(strcmp(info,"Óà¶î×ª³ö")==0)
+						{
+							utPltPutLoopVarF(psDbHead, "flag", iNum, "%d", 0);
+							utPltPutLoopVar(psDbHead, "dtime", iNum, dtime);
+							snprintf(cainfo, sizeof(cainfo)-1, "Óà¶î×ª³ö%.2fÔª", money/100.0);
+							utPltPutLoopVar(psDbHead, "name", iNum, convert("GBK", "UTF-8", cainfo));
+							utPltPutLoopVarF(psDbHead, "money", iNum, "%lu", money);
+						}
+						if(strcmp(info,"Óà¶î×ªÈë")==0)
+						{
+							utPltPutLoopVarF(psDbHead, "flag", iNum, "%d", 1);
+							utPltPutLoopVar(psDbHead, "dtime", iNum, dtime);
+							snprintf(cainfo, sizeof(cainfo)-1, "Óà¶î×ªÈë%.2fÔª", money/100.0);
+							utPltPutLoopVar(psDbHead, "name", iNum, convert("GBK", "UTF-8", cainfo));
+							utPltPutLoopVarF(psDbHead, "money", iNum, "%lu", money);
+						}			
+					}										
 				}
 				pasDbCloseCursor(psCur);
 			}
@@ -413,6 +416,7 @@ int ict_rechargelog_search(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)/
                 begintime = utTimStrToLong("%Y%m%d %H%M%S", begin);
                 endtime = nowTime;
                 snprintf(end, sizeof(begin) - 1, "%s", utTimFormat("%Y%m%d", nowTime));
+				printf("%s,%s\n",begin,end);
                 combine_table(table_name, begin, end, "rechargelog_");
 
             }
@@ -507,21 +511,15 @@ int ict_create_orderno(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     }
     else
     {
-        /*memset(sql, 0, sizeof(sql));
+        memset(sql, 0, sizeof(sql));
         snprintf(sql, sizeof(sql) - 1, "select count(*) from ncsrvuser where username='%s'", username);
         pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &lCount);
         if(lCount <= 0)
         {
             utPltPutVarF(psDbHead, "result", "%d", 4);//ÓÃ»§Ãû²»´æÔÚ
-			utPltPutVar(psDbHead, "mesg",  convert("GBK", "UTF-8", "ÓÃ»§ÃûÊäÈë´íÎó"));
+			utPltPutVar(psDbHead, "mesg",  convert("GBK", "UTF-8", "ÓÃ»§Ãû²»´æÔÚ"));
             utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/payRecord/get_orderno.htm");
-        }*/
-		if(strcmp(caVname,username) != 0)
-		{
-			utPltPutVarF(psDbHead, "result", "%d", 4);//ÓÃ»§ÃûÊäÈë´íÎó
-			utPltPutVar(psDbHead, "mesg",  convert("GBK", "UTF-8", "ÓÃ»§ÃûÊäÈë´íÎó"));
-            utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/payRecord/get_orderno.htm");		
-		}
+        }
         else
         {		
             if(!checkMoney(money))
@@ -533,9 +531,8 @@ int ict_create_orderno(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 			else
 			{
 				memset(sql, 0, sizeof(sql));
-				snprintf(sql, sizeof(sql)-1, "select ncsrvuserex.mobno,ncsrvuser.password from ncsrvuserex,ncsrvuser where ncsrvuserex.username='%s' and ncsrvuser.username='%s'", username, username);  
-				pasDbOneRecord(sql, 0,  UT_TYPE_STRING, sizeof(mobno)-1, mobno,
-										UT_TYPE_STRING, sizeof(caPasswd)-1, caPasswd);
+				snprintf(sql, sizeof(sql)-1, "select password from ncsrvuser where username='%s'", caVname);  
+				pasDbOneRecord(sql, 0, UT_TYPE_STRING, sizeof(caPasswd)-1, caPasswd);
 				if(strcmp(passwd,caPasswd) != 0)
 				{
 					utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", "ÃÜÂë´íÎó"));
@@ -551,6 +548,11 @@ int ict_create_orderno(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 					uint8 NowTime=time(0);
 					snprintf(orderno,sizeof(orderno)-1, "%llu%09u", NowTime, maxId);
 					printf("orderno %s\n",orderno);
+					
+					memset(sql, 0, sizeof(sql));
+					snprintf(sql, sizeof(sql)-1, "select mobno from ncsrvuserex where username='%s'",username);  
+					pasDbOneRecord(sql, 0, UT_TYPE_STRING, sizeof(mobno)-1, mobno);
+					
 					memset(sql, 0, sizeof(sql));
 					snprintf(sql, sizeof(sql)-1, "insert into rechargeTransdtl(username,mobno,mark,money,mtype,orderno,timeval,orderstatus) values('%s','%s','%s',%lu,%lu,'%s',%llu,1)", username,mobno,mark,atol(money),atol(mtype),orderno,NowTime);
 					printf("%s\n",sql);
@@ -1012,7 +1014,7 @@ int ict_update_userInfo(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//ÐÞ
 
     char caTsid[32] = "";
     char caVname[32] = "";
-    char caPhoto[128] = "";
+    char caPhoto[124] = "";
     char caDname[24] = "";
     char caMname[24] = "";
     char caGender[12] = "";
@@ -1257,126 +1259,137 @@ int ictSrvUserGetPass(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//»ñÈ¡
 int ict_getUserInfo(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//»ñÈ¡ÓÃ»§ÐÅÏ¢
 
 {
-    utMsgPrintMsg(psMsgHead);
-
+   // utMsgPrintMsg(psMsgHead);
+	
     long wpDebug = utComGetVar_ld(psShmHead, "wpDebug", 0);
     char caTsid[32] = "";
-    char caVname[32] = "";
-
-    char caPhoto[128] = "";
-    char caDname[24] = "";
-    char caMname[24] = "";
-    char caGender[12] = "";
-    char caCid[24] = "";
-    char caStudentid[24] = "";
-    char caCollege[128] = "";
-    char caDepartment[128] = "";
-    char caMobno[24] = "";
+	char caVname[32] = "";
+	
+	char caPhoto[128] = "";
+	char caDname[24] = "";
+	char caMname[24] = "";
+	char caGender[12] = "";
+	char caCid[24] = "";
+	char caStudentid[24] = "";
+	char caCollege[128] = "";
+	char caDepartment[128] = "";
+	char caMobno[24] = "";
     char caEmail[24] = "";
-    char caQQ[24] = "";
+	char caQQ[24] = "";
     char caHobby[128] = "";
-    char caAddress[128] = "";
-    char pMoney[24] = "";//Óà¶î
-
-    char packageId[4] = "";
-    char namech[32] = "";
-    char namedes[128] = "";
-    char caBname[32] = "";
-    char lMoney[24] = "";//Ì×²Í¼Û¸ñ
-    char startTime[12] = "";
-    char endTime[12] = "";
-    char autoxiding[4] = "";
-
-    char sql[1024] = "";
-    char caMsg[256] = "";
-    int iReturn = 0;
-
+	char caAddress[128] = "";
+	char pMoney[24] = "";//Óà¶î
+	
+	char packageId[4] = "";
+	char namech[32] = "";
+	char namedes[128] = "";
+	char caBname[32] = "";
+	char lMoney[24] = "";//Ì×²Í¼Û¸ñ
+	char startTime[12] = "";
+	char endTime[12] = "";
+	char autoxiding[4] = "";
+	
+	char sql[1024] = "";
+	char caMsg[256] = "";
+	int iReturn = 0;
+	long count = 0; 
     utPltDbHead *psDbHead = utPltInitDbHead();
-    pasDbCursor *psCur = NULL;
+	pasDbCursor *psCur = NULL;
 
     utMsgGetSomeNVar(psMsgHead, 1,
-                     "tsid",   UT_TYPE_STRING, sizeof(caTsid) - 1, caTsid);
+                        "tsid",   UT_TYPE_STRING, sizeof(caTsid) - 1, caTsid);
 
     utStrDelSpaces(caTsid);
     ictPrint(wpDebug, "tsid=%s\n", caTsid);
-    if(checkTsid(psShmHead, psDbHead, psMsgHead, iFd, caTsid, "school/main/userInfo.htm"))
-    {
-        return 0;
-    }
-
+	if(checkTsid(psShmHead, psDbHead,psMsgHead, iFd, caTsid, "school/main/userInfo.htm")){
+		return 0;
+	}
+    
     //ÔÝÊ±°ÑËùÓÐÐÅÏ¢¶¼·µ»Ø
-    snprintf(caVname, sizeof(caVname) - 1, "%s", getVnameByTsId(psShmHead, atoll(caTsid)));
+	snprintf(caVname, sizeof(caVname)-1, "%s", getVnameByTsId(psShmHead, atoll(caTsid)));
     //strcpy(caVname, getVnameByTsId(psShmHead, atoll(caTsid)));
 
-    // utPltPutVar(psDbHead, "vname", caVname);
+   // utPltPutVar(psDbHead, "vname", caVname);
 
     //²é±íµÃµ½vname¶ÔÓ¦µÄÐÅÏ¢
 
-    /* memset(sql, 0, sizeof(sql));
+   /* memset(sql, 0, sizeof(sql));
+	
+	uint8 nowTime = time(0);
+    snprintf(sql, sizeof(sql) - 1, "select ncsrvuserex.photo,ncsrvuserex.dname,ncsrvuserex.mname,ncsrvuserex.gender,ncsrvuserex.cid,ncsrvuserex.studentid,ncsrvuserex.college,ncsrvuserex.department,ncsrvuserex.mobno,ncsrvuserex.email,ncsrvuserex.qq,ncsrvuserex.hobby,ncsrvuserex.address,ncsrvuserex.money,userorder.packageid,package.name,package.namech,package.namedes,package.money,from_unixtime(userorder.starttime,'%%Y-%%m-%%d'),from_unixtime(userorder.endtime,'%%Y-%%m-%%d'),userorder.autoxiding from ncsrvuserex,package,userorder where userorder.packageid=package.id and ncsrvuserex.username='%s' and userorder.username='%s' and userorder.starttime<=%llu and userorder.endtime > %llu", caVname, caVname, nowTime, nowTime);
 
-    uint8 nowTime = time(0);
-     snprintf(sql, sizeof(sql) - 1, "select ncsrvuserex.photo,ncsrvuserex.dname,ncsrvuserex.mname,ncsrvuserex.gender,ncsrvuserex.cid,ncsrvuserex.studentid,ncsrvuserex.college,ncsrvuserex.department,ncsrvuserex.mobno,ncsrvuserex.email,ncsrvuserex.qq,ncsrvuserex.hobby,ncsrvuserex.address,ncsrvuserex.money,userorder.packageid,package.name,package.namech,package.namedes,package.money,from_unixtime(userorder.starttime,'%%Y-%%m-%%d'),from_unixtime(userorder.endtime,'%%Y-%%m-%%d'),userorder.autoxiding from ncsrvuserex,package,userorder where userorder.packageid=package.id and ncsrvuserex.username='%s' and userorder.username='%s' and userorder.starttime<=%llu and userorder.endtime > %llu", caVname, caVname, nowTime, nowTime);
-
-     ictPrint(wpDebug, "sql=%s  \n", sql);*/
-    uint8 nowTime = time(0);
-    memset(sql, 0, sizeof(sql));
-    snprintf(sql, sizeof(sql) - 1, "select ncsrvuserex.photo,ncsrvuserex.dname,ncsrvuserex.mname,ncsrvuserex.gender,ncsrvuserex.cid,ncsrvuserex.studentid,ncsrvuserex.college,ncsrvuserex.department,ncsrvuserex.mobno,ncsrvuserex.email,ncsrvuserex.qq,ncsrvuserex.hobby,ncsrvuserex.address,ncsrvuserex.money from ncsrvuserex where username='%s'", caVname);
-    pasDbOneRecord(sql, 0,   UT_TYPE_STRING, sizeof(caPhoto) - 1, caPhoto,
-                   UT_TYPE_STRING, sizeof(caDname) - 1, caDname,
-                   UT_TYPE_STRING, sizeof(caMname) - 1, caMname,
-                   UT_TYPE_STRING, sizeof(caGender) - 1, caGender,
-                   UT_TYPE_STRING, sizeof(caCid) - 1, caCid,
-                   UT_TYPE_STRING, sizeof(caStudentid) - 1, caStudentid,
-                   UT_TYPE_STRING, sizeof(caCollege) - 1, caCollege,
-                   UT_TYPE_STRING, sizeof(caDepartment) - 1, caDepartment,
-                   UT_TYPE_STRING, sizeof(caMobno) - 1, caMobno,
-                   UT_TYPE_STRING, sizeof(caEmail) - 1, caEmail,
-                   UT_TYPE_STRING, sizeof(caQQ) - 1, caQQ,
-                   UT_TYPE_STRING, sizeof(caHobby) - 1, caHobby,
-                   UT_TYPE_STRING, sizeof(caAddress) - 1, caAddress,
-                   UT_TYPE_STRING, sizeof(pMoney) - 1, pMoney
-                  );
-
-    memset(sql, 0, sizeof(sql));
-    snprintf(sql, sizeof(sql) - 1, "select userorder.id,package.name,package.namech,package.namedes,package.money,from_unixtime(userorder.starttime,'%%Y-%%m-%%d'),from_unixtime(userorder.endtime,'%%Y-%%m-%%d'),userorder.autoxiding from userorder,package where userorder.packageid=package.id and userorder.username='%s' and userorder.starttime<=%llu and userorder.endtime>%llu and userorder.status=1", caVname, nowTime, nowTime);
-    pasDbOneRecord(sql, 0,    UT_TYPE_STRING, sizeof(packageId) - 1, packageId,
-                   UT_TYPE_STRING, sizeof(caBname) - 1, caBname,
-                   UT_TYPE_STRING, sizeof(namech) - 1, namech,
-                   UT_TYPE_STRING, sizeof(namedes) - 1, namedes,
-                   UT_TYPE_STRING, sizeof(lMoney) - 1, lMoney,
-                   UT_TYPE_STRING, sizeof(startTime) - 1, startTime,
-                   UT_TYPE_STRING, sizeof(endTime) - 1, endTime,
-                   UT_TYPE_STRING, sizeof(autoxiding) - 1, autoxiding
-                  );
-
-
-    utPltPutVar(psDbHead, "caPhoto", convert("GBK", "UTF-8", caPhoto));
-    utPltPutVar(psDbHead, "caDname", convert("GBK", "UTF-8", caDname));
-    utPltPutVar(psDbHead, "caMname", convert("GBK", "UTF-8", caMname));
-    utPltPutVar(psDbHead, "caGender", caGender);
-    utPltPutVar(psDbHead, "caCid", caCid);
-    utPltPutVar(psDbHead, "caStudentid", caStudentid);
-    utPltPutVar(psDbHead, "caCollege", convert("GBK", "UTF-8", caCollege));
-    utPltPutVar(psDbHead, "caDepartment", convert("GBK", "UTF-8", caDepartment));
-    utPltPutVar(psDbHead, "caMobno", caMobno);
-    utPltPutVar(psDbHead, "caEmail", convert("GBK", "UTF-8", caEmail));
-    utPltPutVar(psDbHead, "caQQ", caQQ);
-    utPltPutVar(psDbHead, "caHobby", convert("GBK", "UTF-8", caHobby));
-    utPltPutVar(psDbHead, "caAddress", convert("GBK", "UTF-8", caAddress));
-    utPltPutVar(psDbHead, "pMoney", pMoney);
-
-    utPltPutVar(psDbHead, "packageid", packageId);
+    ictPrint(wpDebug, "sql=%s  \n", sql);*/
+	uint8 nowTime = time(0);
+	memset(sql, 0, sizeof(sql));
+	snprintf(sql,sizeof(sql) -1, "select ncsrvuserex.photo,ncsrvuserex.dname,ncsrvuserex.mname,ncsrvuserex.gender,ncsrvuserex.cid,ncsrvuserex.studentid,ncsrvuserex.college,ncsrvuserex.department,ncsrvuserex.mobno,ncsrvuserex.email,ncsrvuserex.qq,ncsrvuserex.hobby,ncsrvuserex.address,ncsrvuserex.money from ncsrvuserex where username='%s'", caVname);
+	pasDbOneRecord(sql, 0,   UT_TYPE_STRING, sizeof(caPhoto) - 1, caPhoto,						   
+							   UT_TYPE_STRING, sizeof(caDname) - 1, caDname,							   
+							   UT_TYPE_STRING, sizeof(caMname) - 1, caMname,
+							   UT_TYPE_STRING, sizeof(caGender) - 1, caGender,
+							   UT_TYPE_STRING, sizeof(caCid) - 1, caCid,
+							   UT_TYPE_STRING, sizeof(caStudentid) - 1, caStudentid,						   
+							   UT_TYPE_STRING, sizeof(caCollege) - 1, caCollege,
+							   UT_TYPE_STRING, sizeof(caDepartment) - 1, caDepartment, 
+							   UT_TYPE_STRING, sizeof(caMobno) - 1, caMobno,
+							   UT_TYPE_STRING, sizeof(caEmail) - 1, caEmail,		   
+							   UT_TYPE_STRING, sizeof(caQQ) - 1, caQQ,						   
+							   UT_TYPE_STRING, sizeof(caHobby) - 1, caHobby,						   
+							   UT_TYPE_STRING, sizeof(caAddress) - 1, caAddress,
+							   UT_TYPE_STRING, sizeof(pMoney) - 1, pMoney
+					);
+					
+	 memset(sql, 0, sizeof(sql));
+	 snprintf(sql,sizeof(sql) -1, "select userorder.id,package.name,package.namech,package.namedes,package.money,from_unixtime(userorder.starttime,'%%Y-%%m-%%d'),from_unixtime(userorder.endtime,'%%Y-%%m-%%d') from userorder,package where userorder.packageid=package.id and userorder.username='%s' and userorder.starttime<=%llu and userorder.endtime>%llu and userorder.status=1", caVname, nowTime, nowTime);
+	 pasDbOneRecord(sql, 0,    UT_TYPE_STRING, sizeof(packageId) - 1, packageId,
+							   UT_TYPE_STRING, sizeof(caBname) - 1, caBname,
+							   UT_TYPE_STRING, sizeof(namech) - 1, namech,
+							   UT_TYPE_STRING, sizeof(namedes) - 1, namedes,
+                               UT_TYPE_STRING, sizeof(lMoney) - 1, lMoney,
+				               UT_TYPE_STRING, sizeof(startTime) - 1, startTime,
+							   UT_TYPE_STRING, sizeof(endTime) - 1, endTime);
+							   
+	memset(sql, 0, sizeof(sql));
+	snprintf(sql, sizeof(sql) - 1, "select count(*) from userorder where username='%s' and status=1",caVname);		
+	pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &count);
+	if(count <= 1)
+	{
+		utPltPutVarF(psDbHead, "packageflag", "%d", 0);
+	}
+	else
+	{
+		utPltPutVarF(psDbHead, "packageflag", "%d", 1);		
+	}
+	memset(sql, 0, sizeof(sql));
+    snprintf(sql, sizeof(sql) - 1, "select autoxiding from userorder where username='%s' and status='1' and endtime=(select max(endtime) from userorder where username='%s' and status='1')",caVname,caVname);
+	pasDbOneRecord(sql, 0, UT_TYPE_STRING, sizeof(autoxiding)-1, autoxiding);
+	
+	utPltPutVar(psDbHead, "caPhoto", convert("GBK", "UTF-8", caPhoto));
+	utPltPutVar(psDbHead, "caDname", convert("GBK", "UTF-8", caDname));		
+	utPltPutVar(psDbHead, "caMname", convert("GBK", "UTF-8", caMname));
+	utPltPutVar(psDbHead, "caGender", caGender);
+	utPltPutVar(psDbHead, "caCid", caCid);	
+	utPltPutVar(psDbHead, "caStudentid", caStudentid);	
+	utPltPutVar(psDbHead, "caCollege", convert("GBK", "UTF-8", caCollege));	
+	utPltPutVar(psDbHead, "caDepartment", convert("GBK", "UTF-8", caDepartment));	
+	utPltPutVar(psDbHead, "caMobno", caMobno);	
+	utPltPutVar(psDbHead, "caEmail", convert("GBK", "UTF-8", caEmail));	
+	utPltPutVar(psDbHead, "caQQ", caQQ);	
+	utPltPutVar(psDbHead, "caHobby", convert("GBK", "UTF-8", caHobby));	
+	utPltPutVar(psDbHead, "caAddress", convert("GBK", "UTF-8", caAddress));
+	utPltPutVar(psDbHead, "pMoney", pMoney);
+	
+	utPltPutVar(psDbHead, "packageid", packageId);
     utPltPutVar(psDbHead, "caBname", convert("GBK", "UTF-8", caBname));
-    utPltPutVar(psDbHead, "namech", convert("GBK", "UTF-8", namech));
-    utPltPutVar(psDbHead, "namedes", convert("GBK", "UTF-8", namedes));
+	utPltPutVar(psDbHead, "namech", convert("GBK", "UTF-8", namech));
+	utPltPutVar(psDbHead, "namedes", convert("GBK", "UTF-8", namedes));
     utPltPutVar(psDbHead, "lMoney", lMoney);
-    utPltPutVar(psDbHead, "startTime", startTime);
-    utPltPutVar(psDbHead, "endTime", endTime);
-    utPltPutVar(psDbHead, "autoxiding", autoxiding);
-
-    utPltPutVar(psDbHead, "caVname", caVname);
-    utPltPutVar(psDbHead, "tsid", caTsid);
-    utPltPutVarF(psDbHead, "result", "%d", 0);
+	utPltPutVar(psDbHead, "startTime", startTime);
+	utPltPutVar(psDbHead, "endTime", endTime);
+	utPltPutVar(psDbHead, "autoxiding", autoxiding);	
+	
+	utPltPutVar(psDbHead, "caVname", caVname);	
+	utPltPutVar(psDbHead, "tsid", caTsid);
+	utPltPutVarF(psDbHead, "result", "%d", 0);
     utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/main/userInfo.htm");
 
     return 0;
@@ -1790,10 +1803,12 @@ int ict_balance_transfer(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//Ó
                             snprintf(sql, sizeof(sql) - 1, "update ncsrvuserex set money=money+'%ld' where username='%s'", atol(caMoney), caVname);
                             iReturn1 = pasDbExecSqlF(sql);
                             pasLogs(PAS_SRCFILE, 2002, "222sql=%s iReturn1=%d\n", sql, iReturn1);
+							
+							
 
                             if(iReturn != 0 || iReturn != 0)
                             {
-                                //²Ù×÷Ê§°Ü sqlÓï¾ä»Ø¹ö
+                                //²Ù×÷Ê§°Ü sqlÓï¾ä»Ø¹ö							
                                 utPltPutVar(psDbHead, "tsid", caTsid);
                                 utPltPutVarF(psDbHead, "result", "%d", 9);//Óà¶î×ªÈÃ³É¹¦
                                 utPltPutVar(psDbHead, "mesg",  convert("GBK", "UTF-8", "Êý¾Ý¿âÓï¾ä²Ù×÷Ê§°Ü"));
@@ -1803,6 +1818,34 @@ int ict_balance_transfer(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//Ó
                             }
                             else
                             {
+								char mobno[16]="";
+								char camobno[16]="";
+								char tableTime[12] = "";
+								char caMark[20] = "";
+								char caNamedes[124] ="";
+								uint8 nowTime=time(0);
+								memset(sql, 0 , sizeof(sql));
+								snprintf(sql, sizeof(sql)-1, "select mobno from ncsrvuserex where username='%s'", vname);
+								pasDbOneRecord(sql, 0, UT_TYPE_STRING, sizeof(mobno) - 1, mobno);
+								
+								memset(sql, 0 , sizeof(sql));
+								snprintf(sql, sizeof(sql)-1, "select mobno from ncsrvuserex where username='%s'", caVname);
+								pasDbOneRecord(sql, 0, UT_TYPE_STRING, sizeof(camobno) - 1, camobno);
+																
+								snprintf(caMark, sizeof(caMark) - 1, "%s", utComGetVar_sd(psShmHead, "mark", "0"));
+								snprintf(tableTime, sizeof(tableTime) - 1, "%s", utTimFormat("%Y%m", nowTime));
+								
+								memset(sql, 0 , sizeof(sql));
+								snprintf(caNamedes, sizeof(caNamedes)-1, "Óà¶î×ª³ö");
+								snprintf(sql, sizeof(sql) - 1, "insert into userorderlog_%s(username,mobno,mark,info,money,timeval) values('%s','%s','%s','%s',%lu,%llu)", tableTime,vname, mobno, caMark, caNamedes, atol(caMoney), nowTime); 
+								pasDbExecSqlF(sql);
+								
+								
+								memset(sql, 0 , sizeof(sql));
+								snprintf(caNamedes, sizeof(caNamedes)-1, "Óà¶î×ªÈë");
+								snprintf(sql, sizeof(sql) - 1, "insert into userorderlog_%s(username,mobno,mark,info,money,timeval) values('%s','%s','%s','%s',%lu,%llu)", tableTime,caVname, camobno, caMark, caNamedes, atol(caMoney), nowTime); 
+								pasDbExecSqlF(sql);	
+								
                                 utPltPutVar(psDbHead, "tsid", caTsid);
                                 utPltPutVarF(psDbHead, "result", "%d", 0);//Óà¶î×ªÈÃ³É¹¦
                                 utPltPutVar(psDbHead, "mesg",  convert("GBK", "UTF-8", "Óà¶î×ªÈÃ³É¹¦"));
@@ -1837,19 +1880,19 @@ int ict_getRecPackage(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//»ñÈ¡
     char start_in[8] = "";
     char limit_in[8] = "";
     uint8 pdays = 0;
-    utMsgGetSomeNVar(psMsgHead, 3,
+  /*  utMsgGetSomeNVar(psMsgHead, 3,
                      "start",    UT_TYPE_STRING,  sizeof(start_in) - 1,    start_in,
                      "limit",    UT_TYPE_STRING,      sizeof(limit_in) - 1,    limit_in,
-                     "tsid",     UT_TYPE_STRING,      sizeof(caTsid) - 1,    caTsid);
+                     "tsid",     UT_TYPE_STRING,      sizeof(caTsid) - 1,    caTsid);*/
 
     //printf("ict_getRecPackage*****%s\n",caTsid);
     char sql[1024] = "";
     pasDbCursor *psCur = NULL;
     utPltDbHead *psDbHead = utPltInitDb();
-    if(checkTsid(psShmHead, psDbHead, psMsgHead, iFd, caTsid, "school/package/rec_package.htm"))
+    /*if(checkTsid(psShmHead, psDbHead, psMsgHead, iFd, caTsid, "school/package/rec_package.htm"))
     {
         return 0;
-    }
+    }*/
     int db_count = 0;
     snprintf(sql, sizeof(sql) - 1, "select package.id,package.pdays,package.namech,package.namedes,package.money,package.picture,package.colorpicture from package,recpackage where package.id=recpackage.id and useflag=0");
     psCur = pasDbOpenSql(sql, 0);
@@ -1879,7 +1922,7 @@ int ict_getRecPackage(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//»ñÈ¡
         }
         pasDbCloseCursor(psCur);
     }
-	utPltPutVarF(psDbHead, "tsid", caTsid);
+	//utPltPutVarF(psDbHead, "tsid", caTsid);
     utPltPutVarF(psDbHead, "result", "%d", 0);
     utPltPutVarF(psDbHead, "TotRec", "%lu", iNum);
     utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/package/rec_package.htm");
@@ -1909,7 +1952,7 @@ int ict_check_upgradePackage(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead
     snprintf(caVname, sizeof(caVname) - 1, "%s", getVnameByTsId(psShmHead, atoll(caTsid)));
 
     uint8 nowTime = time(0);
-    snprintf(sql, sizeof(sql) - 1, "select count(*) from userorder where username='%s' and starttime<=%llu and endtime>%llu", caVname, nowTime, nowTime);
+    snprintf(sql, sizeof(sql) - 1, "select count(*) from userorder where username='%s' and starttime<=%llu and endtime>%llu and status=1", caVname, nowTime, nowTime);
     pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &lCount);
 
     if(lCount <= 0)
@@ -1923,7 +1966,7 @@ int ict_check_upgradePackage(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead
     {
         memset(sql, 0 , sizeof(sql));
         uint8 nowTime = time(0);
-        snprintf(sql, sizeof(sql) - 1, "select package.money,package.pdays from package,userorder where userorder.packageid=package.id and userorder.username='%s' and userorder.starttime<=%llu and userorder.endtime>%llu", caVname, nowTime, nowTime);
+        snprintf(sql, sizeof(sql) - 1, "select package.money,package.pdays from package,userorder where userorder.packageid=package.id and userorder.username='%s' and userorder.starttime<=%llu and userorder.endtime>%llu and status=1", caVname, nowTime, nowTime);
         pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &caMoney,
                        UT_TYPE_LONG, 4, &caDays);
 
@@ -1985,7 +2028,8 @@ int ict_show_upgradePackage(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     }
     snprintf(caVname, sizeof(caVname) - 1, "%s", getVnameByTsId(psShmHead, atoll(caTsid)));
     //strcpy(caVname, getVnameByTsId(psShmHead, atoll(caTsid)));
-    snprintf(sql, sizeof(sql) - 1, "select package.money,package.pdays from package,userorder where userorder.packageid=package.id and userorder.username='%s' and stautus=1", caVname);
+	uint8 nowTime=time(0);
+    snprintf(sql, sizeof(sql) - 1, "select package.money,package.pdays from package,userorder where userorder.packageid=package.id and userorder.username='%s' and status=1 and userorder.starttime<=%llu and userorder.endtime>%llu", caVname, nowTime, nowTime);
 
     pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &caMoney,
                    UT_TYPE_LONG, 4, &caDays);
@@ -2016,7 +2060,7 @@ int ict_show_upgradePackage(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                 utPltPutLoopVar(psDbHead, "dh", iNum, ",");
             }
             utPltPutLoopVarF(psDbHead, "packageid", iNum, "%lu", packageid);
-            utPltPutLoopVarF(psDbHead, "name", iNum, name);
+            utPltPutLoopVarF(psDbHead, "name", iNum, convert("GBK", "UTF-8", name));
             utPltPutLoopVarF(psDbHead, "money", iNum, "%lu", money);
             utPltPutLoopVar(psDbHead, "namedes", iNum, convert("GBK", "UTF-8", namedes));
             utPltPutLoopVarF(psDbHead, "pdays", iNum, "%lu", pdays);
@@ -2061,13 +2105,14 @@ int ict_package_balance(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//»ñ
     snprintf(caVname, sizeof(caVname) - 1, "%s", getVnameByTsId(psShmHead, atoll(caTsid)));
     //strcpy(caVname, getVnameByTsId(psShmHead, atoll(caTsid)));
     uint8 nowTime = time(0);
-    snprintf(sql, sizeof(sql) - 1, "select package.pdays,package.money,userorder.starttime from package,userorder where username='%s' and userorder.packageid=package.id and userorder.starttime<=%llu and userorder.endtime>%llu", caVname, nowTime, nowTime);
+    snprintf(sql, sizeof(sql) - 1, "select package.pdays,package.money,userorder.starttime from package,userorder where username='%s' and userorder.packageid=package.id and userorder.starttime<=%llu and userorder.endtime>%llu and status=1", caVname, nowTime, nowTime);
     pasDbOneRecord(sql, 0,
                    UT_TYPE_LONG, 4, &caDays,
                    UT_TYPE_LONG, 4, &caMoney,
-                   UT_TYPE_LONG8, 4, &startTime);
+                   UT_TYPE_LONG8, 8, &startTime);
+				   
     lmoney = (caDays * 24 * 3600 + startTime - nowTime) * caMoney / (caDays * 24 * 3600);
-
+	pasLogs(6222,6222,"day:%lu,money:%lu,startTime:%llu,jiu:%ld\n",caDays,caMoney,startTime,lmoney);
     utPltPutVar(psDbHead, "tsid", caTsid);
     utPltPutVarF(psDbHead, "money", "%lu", lmoney);
     utPltPutVarF(psDbHead, "time", "%llu", nowTime);
@@ -2083,17 +2128,21 @@ int ict_upgrade_package(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//Éý
     char sql[1024] = "";
     char namedes[32] = "";
     uint8 startTime = 0;
-    char mobno[16] = "";
+	uint8 endTime = 0;
     ulong caPackageId = 0;
     char packageId[8] = "";
     ulong caMoney = 0;
     char caTime[24] = "";
+	char mobno[16] = "";
     ulong caDays = 0;
     long Money = 0;
     ulong Days = 0;
     long lmoney = 0;
     long money = 0;
+	long nmoney = 0;
 	long lCount = 0;
+	char caMark[128] = "";
+	char autoxiding[2] = "";
     utMsgGetSomeNVar(psMsgHead, 3,
                      "tsid",   UT_TYPE_STRING, sizeof(caTsid) - 1, caTsid,
                      "packageid",   UT_TYPE_STRING, sizeof(packageId) - 1, packageId,
@@ -2105,7 +2154,7 @@ int ict_upgrade_package(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//Éý
     {
         return 0;
     }
-	snprintf(sql, sizeof(sql) - 1, "select count(*) where package.id=%lu", atol(packageId));
+	snprintf(sql, sizeof(sql) - 1, "select count(*) from package where package.id=%lu", atol(packageId));
 	pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &lCount);
 	if(lCount ==0 )
 	{
@@ -2122,7 +2171,7 @@ int ict_upgrade_package(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//Éý
     //strcpy(caVname, getVnameByTsId(psShmHead, atoll(caTsid)));
     uint8 nowTime = time(0);
 
-    if(nowTime>(atoll(caTime) +60))//¸¶¿î³¬Ê±²»ÄÜ³¬¹ý60Ãë
+    if(nowTime>(atoll(caTime) +65))//¸¶¿î³¬Ê±²»ÄÜ³¬¹ý65Ãë
     {
         utPltPutVar(psDbHead, "tsid", caTsid);
         //utPltPutVarF(psDbHead, "money", "%lu", lmoney);
@@ -2133,27 +2182,30 @@ int ict_upgrade_package(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//Éý
     else
     {
 		memset(sql, 0, sizeof(sql));
-        snprintf(sql, sizeof(sql) - 1, "select package.pdays,package.money,userorder.starttime,userorder.mobno from package,userorder where username='%s' and userorder.packageid=package.id and userorder.starttime<=%llu and userorder.endtime>%llu", caVname, atoll(caTime), atoll(caTime));
+        snprintf(sql, sizeof(sql) - 1, "select package.pdays,package.money,userorder.starttime,userorder.endtime,userorder.mobno,userorder.autoxiding from package,userorder where username='%s' and userorder.packageid=package.id and userorder.starttime<=%llu and userorder.endtime>%llu and status=1", caVname, atoll(caTime), atoll(caTime));
         pasDbOneRecord(sql, 0,
                        UT_TYPE_LONG, 4, &caDays,
                        UT_TYPE_LONG, 4, &caMoney,
                        UT_TYPE_LONG8, 8, &startTime,
-                       UT_TYPE_STRING, sizeof(mobno) - 1, mobno);
-
+					   UT_TYPE_LONG8, 8, &endTime,
+                       UT_TYPE_STRING, sizeof(mobno) - 1, mobno,
+					   UT_TYPE_STRING, sizeof(autoxiding) - 1, autoxiding);
+		
         memset(sql, 0, sizeof(sql));
         snprintf(sql, sizeof(sql) - 1, "select namech,pdays,money from package where package.id=%lu", atol(packageId));
         pasDbOneRecord(sql, 0,
                        UT_TYPE_STRING, sizeof(namedes) - 1, namedes,
                        UT_TYPE_LONG, 4, &Days,
-                       UT_TYPE_LONG, 4, &Money);
-									   
-        lmoney = (caDays * 24 * 3600 + startTime - atoll(caTime)) * caMoney / (caDays * 24 * 3600);
-        money = Money - lmoney;
+                       UT_TYPE_LONG, 4, &Money);						   
+        lmoney = (caDays * 24 * 3600 + startTime - atoll(caTime)) * caMoney / (caDays * 24 * 3600);//Ô­Ì×²ÍÊ£ÓàÇ®
+		nmoney = (caDays * 24 * 3600 + startTime - atoll(caTime)) * Money / (caDays * 24 * 3600);//Éý¼¶Ì×²ÍÐèÒªµÄÇ®
+        money = nmoney - lmoney;//¿Û¿î
+		
         long uMoney = 0;
         memset(sql, 0, sizeof(sql));
         snprintf(sql, sizeof(sql) - 1, "select money from ncsrvuserex where username='%s'", caVname);
-
         pasDbOneRecord(sql, 0,  UT_TYPE_LONG, 4, &uMoney);
+		pasLogs(6222,6222,"jiu:%ld,xin:%ld,kou:%ld,left:%ld\n",lmoney,nmoney,money,uMoney);
         if(money > uMoney)
         {
 
@@ -2169,19 +2221,29 @@ int ict_upgrade_package(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//Éý
         {
 
             memset(sql, 0, sizeof(sql));
-            snprintf(sql, sizeof(sql) - 1, "update ncsrvuserex set money=money-%lu where username='%s'", money, caVname);
+            snprintf(sql, sizeof(sql) - 1, "update ncsrvuserex set money=money-%ld where username='%s'", money, caVname);
             pasDbExecSqlF(sql);
-            memset(sql, 0, sizeof(sql));
-            snprintf(sql, sizeof(sql) - 1, "update userorder set packageid=%lu,name='%s',starttime=%llu,endtime=%llu,timeval=%llu where username='%s' and status=1", atol(packageId), namedes, atoll(caTime), atoll(caTime) + Days * 24 * 3600, atoll(caTime), caVname);
-            pasDbExecSqlF(sql);
-
+         //   memset(sql, 0, sizeof(sql));
+        //    snprintf(sql, sizeof(sql) - 1, "update userorder set packageid=%lu,name='%s' where username='%s' and userorder.starttime<=%llu and userorder.endtime>%llu and status=1", atol(packageId), namedes, caVname, atoll(caTime), atoll(caTime));
+       //     pasDbExecSqlF(sql);
+	   
+			memset(sql, 0, sizeof(sql));
+			snprintf(sql, sizeof(sql) - 1, "update userorder set status=2 where username='%s' and userorder.starttime<=%llu and userorder.endtime>%llu and status=1",caVname, atoll(caTime), atoll(caTime));
+		    pasDbExecSqlF(sql);
+			
+			snprintf(caMark, sizeof(caMark) - 1, "%s",utComGetVar_sd(psShmHead, "mark", "0"));
+			
+			memset(sql, 0, sizeof(sql));
+			snprintf(sql, sizeof(sql) - 1, "insert into userorder(username,mobno,mark,packageid,name,starttime,endtime,autoxiding,status,timeval) values('%s','%s','%s',%lu,'%s',%llu,%llu,%c,1,%llu)",caVname,mobno,caMark,atol(packageId),namedes,startTime,endTime,autoxiding[0],atoll(caTime));
+		    pasDbExecSqlF(sql);
+			
             char tableTime[12] = "";
-            char caMark[20] = "";
-            snprintf(caMark, sizeof(caMark) - 1, "%s", utComGetVar_sd(psShmHead, "mark", "0"));
-            //strcpy(caMark, utComGetVar_sd(psShmHead, "mark", "0"));
             snprintf(tableTime, sizeof(tableTime) - 1, "%s", utTimFormat("%Y%m", nowTime));
+			char caNamedes[124]="";
+			snprintf(caNamedes, sizeof(caNamedes)-1, "%s(Éý¼¶)",namedes);
+			
             memset(sql, 0, sizeof(sql));
-            snprintf(sql, sizeof(sql) - 1, "insert into userorderlog_%s(username,mobno,mark,packageid,name,status,money,starttime,endtime,timeval) values('%s','%s','%s',%lu,'%s','2',%lu,%lu,%lu,%lu)", tableTime, caVname, mobno, caMark, atol(packageId), namedes, money, atoll(caTime), atoll(caTime) + Days * 24 * 3600, atoll(caTime));
+            snprintf(sql, sizeof(sql) - 1, "insert into userorderlog_%s(username,mobno,mark,packageid,name,status,money,starttime,endtime,timeval) values('%s','%s','%s',%lu,'%s','2',%lu,%llu,%llu,%llu)", tableTime, caVname, mobno, caMark, atol(packageId), caNamedes, money, startTime, endTime, atoll(caTime));
             pasDbExecSqlF(sql);
             utPltPutVar(psDbHead, "tsid", caTsid);
             utPltPutVarF(psDbHead, "money", "%lu", lmoney);
@@ -2272,6 +2334,7 @@ int ict_auto_renewal(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//×Ô¶¯¶
     char caVname[32] = "";
     char sql[1024] = "";
     char flag[4] = "";
+	uint8 endTime=0;
     utPltDbHead *psDbHead = utPltInitDb();
     utMsgGetSomeNVar(psMsgHead, 3,
                      "tsid",   UT_TYPE_STRING, sizeof(caTsid) - 1, caTsid,
@@ -2284,10 +2347,13 @@ int ict_auto_renewal(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//×Ô¶¯¶
     snprintf(caVname, sizeof(caVname) - 1, "%s", getVnameByTsId(psShmHead, atoll(caTsid)));
     //strcpy(caVname, getVnameByTsId(psShmHead, atoll(caTsid)));
     uint8 nowTime = time(0);
-
+	snprintf(sql, sizeof(sql) - 1, "select max(endtime) from userorder where username='%s' and status='1'",caVname);
+	pasDbOneRecord(sql, 0, UT_TYPE_LONG8, 8, &endTime);
+	
     if(atoi(flag) == 0)
-    {
-        snprintf(sql, sizeof(sql) - 1, "update userorder set autoxiding='1' where username='%s' and starttime<=%llu and endtime>%llu", caVname, nowTime, nowTime);
+    {	
+		memset(sql,0,sizeof(sql));
+        snprintf(sql, sizeof(sql) - 1, "update userorder set autoxiding='1' where username='%s' and  status='1' and endtime=%llu and endtime>=%llu", caVname,endTime,nowTime);
         pasDbExecSqlF(sql);
         utPltPutVar(psDbHead, "tsid", caTsid);
         utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", "×Ô¶¯Ðø¶©³É¹¦"));
@@ -2298,9 +2364,10 @@ int ict_auto_renewal(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//×Ô¶¯¶
     {
         if(atoi(flag) == 1)
         {
-            snprintf(sql, sizeof(sql) - 1, "update userorder set autoxiding='0' where username='%s' and starttime<=%llu and endtime>%llu", caVname, nowTime, nowTime);
+			memset(sql,0,sizeof(sql));
+            snprintf(sql, sizeof(sql) - 1, "update userorder set autoxiding='0' where username='%s' and  status='1' and endtime=%llu and endtime>=%llu", caVname,endTime,nowTime);
             pasDbExecSqlF(sql);
-
+			
             utPltPutVar(psDbHead, "tsid", caTsid);
             utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", "È¡Ïû×Ô¶¯Ðø¶©³É¹¦"));
             utPltPutVarF(psDbHead, "result", "%d", 0);
@@ -2338,7 +2405,7 @@ int ict_disconnect_net(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//¶ÏÏ
 }
 
 
-int ict_safe_exit(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//°²È«ÍË³ö
+/*int ict_safe_exit(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//°²È«ÍË³ö
 {
     utMsgPrintMsg(psMsgHead);
     char caTsid[24] = "";
@@ -2355,7 +2422,7 @@ int ict_safe_exit(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//°²È«ÍË³ö
     utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/safeExit/ict_safe_exit.htm");
 
     return 0;
-}
+}*/
 
 int ict_ncSrvLogOut(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
@@ -2394,6 +2461,11 @@ int ict_ncSrvLogOut(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
                                "srvport",     UT_TYPE_STRING, 7,  caSrvPort,
                                "usragent",      UT_TYPE_STRING, 255, caUserAgent,
                                "clientip",      UT_TYPE_STRING, 31, caClientIp);
+							   
+	if(checkTsid(psShmHead, psDbHead, psMsgHead, iFd, caTsid, "school/safeExit/ict_safe_exit.htm"))
+    {
+        return 0;
+    }						   
 
     if(!utStrIsSpaces(caTsid))
     {
@@ -2437,22 +2509,47 @@ int ict_ncSrvLogOut(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         utStrAddF(caMsg, "<input type=\"hidden\" name=\"%s\" value=\"%s\">", "usermac", pasCvtMac(psOnline->caMac));
         utStrAddF(caMsg, "<input type=\"hidden\" name=\"%s\" value=\"%llu\">", "tsid", psOnline->lTsid);
         utStrAddF(caMsg, "<input type=\"hidden\" name=\"%s\" value=\"%s\">", "username", psOnline->caName);
-        utPltPutVar(psDbHead, "postarg", caMsg);
+      //  utPltPutVar(psDbHead, "postarg", caMsg);
         utPltPutVarF(psDbHead, "tsid", "%llu", psOnline->lTsid);
-        utPltPutVar(psDbHead, "userip", utComHostIp(htonl(psOnline->lSip)));
-        utPltPutVar(psDbHead, "usermac", pasCvtMac(psOnline->caMac));
+    //    utPltPutVar(psDbHead, "userip", utComHostIp(htonl(psOnline->lSip)));
+     //   utPltPutVar(psDbHead, "usermac", pasCvtMac(psOnline->caMac));
         pPlate = ncSrvGetPlateInfo(psShmHead, (char *)ncSrvGetPlateName(psShmHead, psOnline), psOnline->caTermType, psOnline->caLang, &iCode);
+		
+		char caTempd[1024] = "";//½â³ý°ó¶¨
+		char uUsername[32] = "";
+		long uGroupid=0;
+		sprintf(caTempd,"update ncsrvusermac set flags = 9 where username='%s'", psOnline->caName);
+		printf("caTempd = %s\n", caTempd);
+		pasDbExecSqlF(caTempd);
+		
+		memset(caTempd,0,sizeof(caTempd));
+		sprintf(caTempd,"select username, groupid from ncsrvuser where username = '%s'", psOnline->caName);
+		pasDbOneRecord(caTempd, 0, UT_TYPE_STRING, sizeof(uUsername)-1,   uUsername,
+								   UT_TYPE_ULONG,  sizeof(long),          &uGroupid);
+		
+		char *pUsername = NULL;
+		unsigned long pGroupid = 0;
+		pUsername = strdup(uUsername);
+		pGroupid = uGroupid;
+		printf("pUsername = %s, pGroupid = %d\n", pUsername, pGroupid);
+		ncSrvDelUserMacByName(psShmHead,pGroupid,pUsername);
+		deleteUsernameByTsid(psShmHead, psOnline->lTsid);
+		utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", "°²È«ÍË³ö³É¹¦"));
+		utPltPutVarF(psDbHead, "result", "%d", 0);
+		utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/safeExit/ict_safe_exit.htm");
     }
     else
     {
         iRet = pasUtlTermAttr(caUserAgent, caTerm, caOs, caBro, caType);
         pPlate = ncSrvGetPlateInfo(psShmHead, ncSrvGetPlateName(psShmHead, psOnline), caType, caLang, &iCode);
+		utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", "°²È«ÍË³öÊ§°Ü"));
+		utPltPutVarF(psDbHead, "result", "%d", 3);
+		utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/safeExit/ict_safe_exit.htm");	
     }
-    utPltPutVar(psDbHead, "ip",      caSrvIp);
-    utPltPutVar(psDbHead, "port",    caSrvPort);
-
-
-    if(pPlate)
+   // utPltPutVar(psDbHead, "ip",      caSrvIp);
+ //   utPltPutVar(psDbHead, "port",    caSrvPort);
+	
+    /*if(pPlate)
     {
         sprintf(caPlate, "%s/logout_ok.htm", pPlate);
     }
@@ -2461,31 +2558,12 @@ int ict_ncSrvLogOut(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         sprintf(caPlate, "default/logout_ok.htm", pPlate);
     }
     utPltOutToHtml(iFd, psMsgHead, psDbHead, caPlate);
+	*/
+	//utPltPutVar(psDbHead, "tsid", caTsid);
+		
     return 0;
 }
-int removeMac(utShmHead *psShmHead)
-{/*
-	                    sprintf(caTempd, "update ncsrvusermac set flags = 9 where username in (select username from ncsrvuser where userid = '%s')", caTemp2);
-                    printf("caTempd = %s\n", caTempd);
-                    pasDbExecSqlF(caTempd);
 
-                    sprintf(caTempd, "select username, groupid from ncsrvuser where userid = '%s'", caTemp2);
-                    pasDbOneRecord(caTempd, 0, UT_TYPE_STRING, sizeof(uUsername) - 1,   uUsername,
-                                   UT_TYPE_ULONG,  sizeof(long),          &uGroupid);
-
-                    char *pUsername = NULL;
-                    unsigned long pGroupid = 0;
-                    pUsername = strdup(uUsername);
-                    pGroupid = uGroupid;
-                    printf("pUsername = %s, pGroupid = %d\n", pUsername, pGroupid);
-                    ncSrvDelUserMacByName(psShmHead, pGroupid, pUsername);
-                    if(pUsername)
-                    {
-                        free(pUsername);
-                        pUsername = NULL;
-                    }*/
-	return 0 ;
-}
 
 //»ñÈ¡¶ÌÐÅ
 int ictSrvGetPass(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
@@ -3167,6 +3245,165 @@ int checkUserOnline(utShmHead *psShmHead)
 	
 }*/
 
+int ict_getmobno_byusername(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)//¸ù¾ÝÓÃ»§Ãû²éÕÒÊÖ»úºÅ
+{
+	utMsgPrintMsg(psMsgHead);
+    long wpDebug = utComGetVar_ld(psShmHead, "wpDebug", 0);
+    char caVname[32] = "";
+    char sqlbuf[1024] = "";
+    char caMsg[256] = "";
+	char mobno[16]="";
+    ulong lCount = 0;
+
+    utMsgGetSomeNVar(psMsgHead, 1,
+                               "vname", UT_TYPE_STRING, sizeof(caVname) - 1, caVname						
+                              );
+    utStrDelSpaces(caVname);
+    utPltDbHead* psDbHead = utPltInitDb();
+
+    if(strlen(caVname) > 0)
+    {
+        memset(sqlbuf, 0, sizeof(sqlbuf));
+        //ÏÈÅÐ¶ÏÊý¾Ý¿âÀïÊÇ·ñÓÐ¸ÃcaVname£¬ÓÐµÄ»°Ö±½Ó±¨´í
+        snprintf(sqlbuf, sizeof(sqlbuf) - 1, "select count(*) from ncsrvuser where username='%s'", caVname);
+        ictPrint(wpDebug, "sqlbuf=%s  \n", sqlbuf);
+        pasDbOneRecord(sqlbuf, 0, UT_TYPE_LONG, 4, &lCount);
+        if(lCount > 0)
+        {
+			memset(sqlbuf, 0, sizeof(sqlbuf));
+			snprintf(sqlbuf, sizeof(sqlbuf)-1, "select mobno from ncsrvuserex where username='%s'", caVname);
+			ictPrint(wpDebug, "sqlbuf1=%s \n", sqlbuf);
+			pasDbOneRecord(sqlbuf, 0, UT_TYPE_STRING, sizeof(mobno)-1, mobno);
+					
+            snprintf(caMsg, sizeof(caMsg) - 1, "ÕÒµ½ÓÃ»§Ãû¶ÔÓ¦ÊÖ»úºÅ");
+            utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caMsg));
+			utPltPutVarF(psDbHead, "mobno", mobno);//ÕÒµ½ÓÃ»§Ãû
+            utPltPutVarF(psDbHead, "result", "%d", 0);//ÕÒµ½ÓÃ»§Ãû
+            utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/findPassword/ict_find_mobno.htm");
+        }
+        else
+        {
+            snprintf(caMsg, sizeof(caMsg) - 1, "ÓÃ»§Ãû²»´æÔÚ");
+            utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caMsg));
+            utPltPutVarF(psDbHead, "result", "%d", 3);//ÓÃ»§Ãû²»´æÔÚ
+            utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/findPassword/ict_find_mobno.htm");
+        }
+    }
+    else
+    {
+        snprintf(caMsg, sizeof(caMsg) - 1, "ÓÃ»§Ãû²»¿ÉÒÔÎª¿Õ");
+        utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caMsg));
+        utPltPutVarF(psDbHead, "result", "%d", 2);//±íÊ¾ÓÃ»§Ãû²»¿ÉÒÔÎª¿Õ
+        utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/findPassword/ict_find_mobno.htm");
+    }
+	
+    return 0;			
+}
+
+int ict_find_password(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+    utMsgPrintMsg(psMsgHead);
+ //   char vName[32] = "";//ÓÃ»§Ãû,¶ÔÓ¦ncsrvuser±íÖÐµÄusername
+	char caVname[32] = "";
+    char caPasswd[32] = "";//ÐÂÃÜÂë
+    ulong lCount = 0;
+    char caMsg[256] = "";
+    char caTsid[24] = {0};
+    int iReturn = 0;
+	int irett =0;
+    //È¡Ç°Ì¨µÄ²ÎÊýÀ´¸³Öµ¸ø±äÁ¿£¬¿ÉÒÔÓÃÀ´×÷ÎªÊý¾Ý¿â²Ù×÷µÄÒÀ¾Ý£¬Ç°Ì¨ÏòºóÌ¨×¨µÝÊý¾ÝµÄ·½Ê½Ò»°ãÎªquerystringµÄ·½Ê½£¬Èç¹ûÓÐ´«²ÎÊýµÄ»°£¬¾Í½«²ÎÊý¸¶¸øÏàÓ¦µÄÖµ
+    //Õâ¸öµØ·½µÄÊý×Ö±ØÐëºÍµ×ÏÂµÄ²ÎÊýµÄ¸öÊýÏàÍ¬
+    utMsgGetSomeNVar(psMsgHead, 3,
+                     "newpasswd", UT_TYPE_STRING, sizeof(caPasswd) - 1, caPasswd,
+                     "tsid", UT_TYPE_STRING, sizeof(caTsid) - 1, caTsid,
+					 "username", UT_TYPE_STRING, sizeof(caVname) - 1, caVname
+                    );
+    char sqlbuf[1024] = "";
+    utPltDbHead *psDbHead = utPltInitDbHead();
+    if(checkTsid(psShmHead, psDbHead, psMsgHead, iFd, caTsid, "school/findPassword/ict_change_password.htm"))
+    {
+        return 0;
+    }
+	
+	/*strcpy(vName, getVnameByTsId(psShmHead, atoll(caTsid)));*/
+	
+	/*if(strcmp(vName,username) != 0)
+	{
+		snprintf(caMsg, sizeof(caMsg) - 1, "ÕË»§ÃûÓëÑéÖ¤Âë²»Æ¥Åä");
+		utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caMsg));
+        utPltPutVarF(psDbHead, "result", "%d", 3);//ÕË»§ÃûÓëÑéÖ¤Âë²»Æ¥Åä
+        utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/findPassword/ict_change_password.htm");
+		return 
+		
+	}*/
+    //ÔÚÊ¹ÓÃsqlÖ®Ç°£¬½«sqlµÄÇå¿Õ
+   /* memset(sqlbuf, 0, sizeof(sqlbuf));
+    snprintf(sqlbuf, sizeof(sqlbuf), "update ncsrvuser set password = '%s' where username ='%s'", newPasswd, username);
+    printf("%s\n", sqlbuf);
+    iReturn = pasDbExecSql(sqlbuf, 0);*/
+	char caGroupCode[32] = "";
+	char caUserIp[32] = "";
+	ncPortalSummary *psSumm;
+	ncPortalOnline* psOnline = NULL;
+	psSumm = (ncPortalSummary *)utShmArray(psShmHead, NCSRV_LNK_SYSINFO);
+	psOnline = (ncPortalOnline *)ncSrvGetOnlineUserByTsid(psShmHead, atoll(caTsid));
+	iUpdateUserFlags = 2;
+	if(psOnline)
+	{
+		pasLogs(1234, 1233, "psOnline not null");
+		psOnline->psUser = ncSrvSynUserPassword(psShmHead, psOnline->lStype, psOnline->lGroupid, caVname, caPasswd, psOnline->caGroupCode, psOnline->caSsid, NCSRV_USERTYPE_SMS);
+		if(iUpdateUserFlags == 2)
+		{
+			irett = ncSrvSynUserPassword2RadSrv(psOnline->psPar, caVname, caPasswd, psOnline->lStype);
+			pasLogs(PAS_SRCFILE, 1008, " Update User [%s]  Pass:[%s] Group:%s Ssid:%s  Stype:%u Ret=%d ",
+					caVname, caPasswd, psOnline->caGroupCode, psOnline->caSsid, psOnline->lStype, iReturn);
+			pasLogs(1234, 1233, "after ncSrvSynUserPassword2RadSrv,ret=%d", irett);
+		}
+		strcpy(caGroupCode, psOnline->caGroupCode);
+		if(utStrIsSpaces(caUserIp))
+		{
+			strcpy(caUserIp, utComHostIp(htonl(psOnline->lSip)));
+		}
+		pasLogs(1234, 1233, "after ncSrvSynUserPassword,iUpdateUserFlags=%d", iUpdateUserFlags);
+	}
+	else
+	{
+		pasLogs(1234, 1233, "psOnline is null");
+		
+		ncSrvSynUserPassword(psShmHead, 0, 0, caVname, caPasswd, "\0", utComGetVar_sd(psShmHead, "DefSsid", "\0"), NCSRV_USERTYPE_SMS);
+		if(iUpdateUserFlags == 2)
+		{
+			irett = ncSrvSynUserPassword2RadSrv(psSumm->psPar, caVname, caPasswd, 0);
+			pasLogs(PAS_SRCFILE, 1008, " Update User [%s]  Pass:[%s] iReturn=%d ",
+					caVname, caPasswd, iReturn);
+			pasLogs(1234, 1233, "after ncSrvSynUserPassword2RadSrv,ret=%d", irett);
+		}else{
+			pasLogs(1234, 1233, "Error Update User [%s]  Pass:[%s] iReturn=%d ",
+					caVname, caPasswd, iReturn);
+		}
+		pasLogs(1234, 1233, "after ncSrvSynUserPassword,iUpdateUserFlags=%d", iUpdateUserFlags);
+	}
+
+	
+	
+    memset(caMsg, 0, sizeof(caMsg));
+    if(iReturn != 0)
+    {
+    	snprintf(caMsg, sizeof(caMsg) - 1, "ÃÜÂëÐÞ¸ÄÊ§°Ü,sqlÓï¾äÖ´ÐÐ²»³É¹¦");
+		utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caMsg));
+        utPltPutVarF(psDbHead, "result", "%d", 3);//ÃÜÂëÐÞ¸ÄÊ§°Ü,sqlÓï¾äÖ´ÐÐ²»³É¹¦
+        utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/findPassword/ict_change_password.htm");
+    }
+    else
+    {
+    	snprintf(caMsg, sizeof(caMsg) - 1, "ÃÜÂëÕÒ»Ø³É¹¦");
+		utPltPutVar(psDbHead, "mesg", convert("GBK", "UTF-8", caMsg));
+        utPltPutVarF(psDbHead, "result", "%d", 0);//ÃÜÂëÐÞ¸Ä³É¹¦
+        utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/findPassword/ict_change_password.htm");
+    }
+    return  0;
+}
+
 int ictInitWebFun_gpx(utShmHead *psShmHead)
 {
     pasSetTcpFunName("ict_orderLog_search", ict_orderLog_search, 0);//ÕËµ¥²éÑ¯
@@ -3195,12 +3432,12 @@ int ictInitWebFun_gpx(utShmHead *psShmHead)
     pasSetTcpFunName("ict_upgrade_package", ict_upgrade_package, 0);//Éý¼¶Ì×²Í
     pasSetTcpFunName("ict_auto_renewal", ict_auto_renewal, 0);//×Ô¶¯¶©¹º
     pasSetTcpFunName("ict_disconnect_net", ict_disconnect_net, 0);//¶ÏÍø
-    pasSetTcpFunName("ict_safe_exit", ict_safe_exit, 0);//°²È«ÍË³ö
+   // pasSetTcpFunName("ict_safe_exit", ict_safe_exit, 0);//°²È«ÍË³ö
     pasSetTcpFunName("ict_ncSrvLogOut", ict_ncSrvLogOut, 0);//°²È«ÍË³ö
     pasSetTcpFunName("ictSrvGetPass", ictSrvGetPass, 0);
-    pasSetTcpFunName("ict_check_pass", ict_check_pass, 0);
-
-
+    pasSetTcpFunName("ict_check_pass", ict_check_pass, 0);	
+	pasSetTcpFunName("ict_getmobno_byusername", ict_getmobno_byusername, 0);
+	pasSetTcpFunName("ict_find_password", ict_find_password, 0);
     return 0;
 }
 

@@ -244,6 +244,13 @@ int isTsidLogin(utShmHead *psShmHead, uint8 lTsid)
     {
 		pasLogs(1234,1233," for tsid=%llu", psOnline->lTsid);
 		if(psOnline->lTsid == lTsid){
+			/*if(psOnline->login == 1){
+				pasLogs(1234,1233,"login=%d", psOnline->login);
+				pasLogs(1234,1233,"caName=%s", psOnline->caName);
+				return 0;
+			}else{
+				return 2;//非在线
+			}*/
 			pasLogs(1234,1233,"login=%d", psOnline->login);
 			pasLogs(1234,1233,"caName=%s", psOnline->caName);
 			return 0;
@@ -254,7 +261,7 @@ int isTsidLogin(utShmHead *psShmHead, uint8 lTsid)
         psOnline = (ncPortalOnline *)pasHashNextS(&sHashInfo);
     }
 
-    return 1;
+    return 1;//tsid是无效的
 
 }
 

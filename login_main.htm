@@ -1,0 +1,382 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<link href="/css/pronetway/flexslider.css" rel="stylesheet" type="text/css" />
+<script src="/js/pronetway/jquery-1.10.2.min.js"></script>
+<script src="/js/pronetway/jquery.flexslider-min.js"></script>
+<script src="/js/pronetway/shop_home.js"></script>
+<script type="text/javascript" src="http://[#ip#]:[#port#]/newver/resources/js/ext-all.js" ></script>
+<script type="text/javascript" src="https://wifi.weixin.qq.com/resources/js/wechatticket/wechatutil.js" ></script>
+<script type="text/javascript" src="http://[#ip#]:[#port#]/newver/weixin/md5.js" ></script>
+<title>success</title>
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+.wrap {
+	width:100%;
+	margin:0 auto;
+	dispaly:block;
+	
+}
+
+.contentinfo{ width:100%;}
+.tit_info{color:#fd9a55; font-size:0.8em; text-align:center;}
+.username{ background:url(/images/pronetway/username2.png) no-repeat; 	  	  
+		   background-position:12px 7px; min-height:40px; background-size:15px 25px;
+		   text-align:center; color:#989fa9; font-size:1em; width:54%; margin-left:10%;
+		   border:1px solid #dedede;}
+.username_onfocus{ background:url(/images/pronetway/username1.png) no-repeat; 	  	  
+		   background-position:12px 7px; min-height:40px; background-size:15px 25px;
+		   text-align:center; color:#989fa9; font-size:1em; width:54%; margin-left:10%;
+		   border:1px solid #dedede;}
+.btn_hq{appearance: none;-moz-appearance: none;-webkit-appearance: none; position:absolute; background:#91d210; min-height:42px; color:#fff; margin-left:0; width:25%; border:0px;}
+.password{background:url(/images/pronetway/password2.png) no-repeat; 	  	  
+		   background-position:12px 7px; min-height:40px; background-size:15px 25px;
+		   text-align:center; color:#989fa9; font-size:1em; min-width:80%; margin-left:10%;border:1px solid #dedede;}
+.password_onfocus{background:url(/images/pronetway/password1.png) no-repeat; 	  	  
+		   background-position:12px 7px; min-height:40px; background-size:15px 25px;
+		   text-align:center; color:#989fa9; font-size:1em; min-width:80%; margin-left:10%;border:1px solid #dedede;}
+.btn_ok{appearance: none;-moz-appearance: none;-webkit-appearance: none;  background:#47b2db; color:#fff; width:80%; min-height:40px; font-size:1.1em; 	
+          margin-left:10%;  
+	
+}
+.check{  width:80%;font-size:0.8em; color:#333; margin-left:10%;}
+
+
+.user_info{ position:relative;}
+.footer{width:100%;height:50px;position:absolute;bottom:0px;left:0px;}
+.footer_out{ width:100%; margin-top:30px;}
+
+</style>
+<script>
+function approveCommit(userName){
+	var tsid = '[#tsid#]';
+	var askUrl = 'http://[#ip#]:[#port#]/pronline/Msg?FunName@ictApproveCommit&tsid='+tsid+'&username='+userName;
+	try{
+		Ext.Ajax.request({
+			url: askUrl,
+			method: 'GET',
+			success: function(resp,opts) { 
+				try{
+					var respText = resp.responseText; 
+					var respRecord = eval("("+respText+")");
+					document.getElementById("nclogin").username.value = respRecord.username;
+					document.getElementById("nclogin").password.value = '123456';
+					document.getElementById("nclogin").submit();
+					alert("认证完成!");		
+				}catch(e){
+					alert(e.message+"[2"+resp.responseText+"]");
+				}
+			},   
+			failure: function(resp,opts) {   
+				var respText = eval("("+respText+")");
+				alert('错误', respText.error);  
+			}   
+		});
+	}catch(e){
+		alert(e);
+	}
+}
+var mac = '';//用户手机mac地址，格式冒号分隔，字符长度17个，并且字母小写，例如：00:1f:7a:ad:5c:a8 
+var bssid = ''; //无线网络设备的无线mac地址，格式冒号分隔，字符长度17个，并且字母小写，例如：00:1f:7a:ad:5c:a8 
+function doWechatInit(){
+	var tsid = [#tsid#];	
+	var askUrl = 'http://[#ip#]:[#port#]/pronline/Msg?FunName@ictGetWechatLogin&tsid='+tsid;
+	try{
+		Ext.Ajax.request({
+			url: askUrl,
+			method: 'GET',
+			success: function(resp,opts) { 
+				try{
+					var respText = resp.responseText; 
+					var respRecord = eval("("+respText+")");
+					if(respRecord.username.length>0){
+						//alert("之前已经认证成功1!");
+						//发送一次认证成功的请求清理后台数据
+						approveCommit(respRecord.username);				
+					}
+
+				}catch(e){
+					alert(e.message+"[askUrl="+askUrl+','+resp.responseText+"]");
+				}
+			},   
+			failure: function(resp,opts) {   
+				var respText = eval("("+respText+")");
+				alert('错误', respText.error);  
+			}   
+		});
+	}catch(e){
+		alert(e);
+	}
+	/*
+	var marg = "";//'[#posturl#]'; 
+	alert("arg="+marg);
+	//调用后台接口得到mac地址和bssid
+	var tsid = [#tsid#];	
+	var askUrl = 'http://[#ip#]:[#port#]/pronline/Msg?FunName@ictGetUserInfo&tsid='+tsid;
+	try{
+		Ext.Ajax.request({
+			url: askUrl,
+			method: 'GET',
+			success: function(resp,opts) { 
+				try{
+					var respText = resp.responseText; 
+					var respRecord = eval("("+respText+")");
+					alert("mac="+respRecord.mac);
+					//已经认证过了就直接填帐号密码
+				}catch(e){
+					//console.log(e.message);
+				}
+			},   
+			failure: function(resp,opts) {   
+				var respText = eval("("+respText+")");
+				alert('错误', respText.error);  
+			}   
+		});
+	}catch(e){
+		alert(e);
+	}*/
+}
+
+var loginInterval = "";
+function getWechatLogin(){
+	var tsid = [#tsid#];	
+	var askUrl = 'http://[#ip#]:[#port#]/pronline/Msg?FunName@ictGetWechatLogin&tsid='+tsid;
+	try{
+		Ext.Ajax.request({
+			url: askUrl,
+			method: 'GET',
+			success: function(resp,opts) { 
+				try{
+					var respText = resp.responseText; 
+					var respRecord = eval("("+respText+")");
+					//alert(respRecord.username);
+					if(respRecord.username.length>0){
+						clearInterval(loginInterval);
+						//alert("认证成功1!");
+						//发送一次认证成功的请求
+						approveCommit(respRecord.username);						
+					}
+
+				}catch(e){
+					alert(e.message+"[1"+resp.responseText+"]");
+				}
+			},   
+			failure: function(resp,opts) {   
+				var respText = eval("("+respText+")");
+				alert('错误', respText.error);  
+			}   
+		});
+	}catch(e){
+		alert(e);
+	}
+}
+/**
+	门店名称：建业·凯旋广场
+	SSID：WXkxgc-wifi
+	shopId：7689453
+	appId：wx7b56333c4f4dad79
+	secretKey：59f7f9ac3e1ad73c1bb6aed91bc60aa2
+	*如无设备改造能力，建议联系此店的Wi-Fi设备商
+*/
+/*
+function doWeixin() {
+    var appId = 'wx7b56333c4f4dad79';
+    var extend = "[#tsid#]";
+	alert("extend="+extend);
+    var timestamp = '' + new Date().getTime();
+    var shop_id = '7689453';
+    var secretkey = '59f7f9ac3e1ad73c1bb6aed91bc60aa2';
+    var authUrl = 'http://[#ip#]:[#port#]/pronline/Msg?FunName@ictLoginAuth_weixin';     
+    var ssid = 'WXkxgc-wifi'; //AP设备的信号名称     
+    var sign = hex_md5(appId + extend + timestamp + shop_id + authUrl + mac + ssid + bssid + secretkey);
+	alert(authUrl+',+++'+sign);
+    Wechat_GotoRedirect(appId, extend, timestamp, sign, shop_id, authUrl, mac,  ssid,  bssid);
+	loginInterval = setInterval("getWechatLogin()", 5000);
+}
+*/
+/*
+function doWeixin() {
+    var appId = 'wx086f838720eb4d73';
+    var extend = "[#tsid#]";
+    var timestamp = '' + new Date().getTime();
+    var shop_id = '7789679';
+    var secretkey = 'c1881db3420a6525eebae6a3a18b2d5c';
+    var authUrl = 'http://[#ip#]:[#port#]/pronline/Msg?FunName@ictLoginAuth_weixin';     
+    var ssid = 'WXPronetway_VIP1'; //AP设备的信号名称     
+    var sign = hex_md5(appId + extend + timestamp + shop_id + authUrl + mac + ssid + bssid + secretkey);
+	alert(authUrl+','+sign);
+    Wechat_GotoRedirect(appId, extend, timestamp, sign, shop_id, authUrl, mac,  ssid,  bssid);
+	loginInterval = setInterval("getWechatLogin()", 5000);
+}
+*/
+function doWeixin() {
+    var appId = 'wxe59ff0ed31bd6dbf';
+    var extend = "[#tsid#]";
+    var timestamp = '' + new Date().getTime();
+    var shop_id = '7480278';
+    var secretkey = '63fbf55ff3994b4fe1508e1cc682d604';
+    var authUrl = 'http://[#ip#]:[#port#]/pronline/Msg?FunName@ictLoginAuth_weixin';     
+    var ssid = 'WXPronetway_VIP1'; //AP设备的信号名称     
+    var sign = hex_md5(appId + extend + timestamp + shop_id + authUrl + mac + ssid + bssid + secretkey);
+	//alert(authUrl+','+sign);
+    Wechat_GotoRedirect(appId, extend, timestamp, sign, shop_id, authUrl, mac,  ssid,  bssid);
+	loginInterval = setInterval("getWechatLogin()", 5000);
+}
+
+/*****************************************************************************
+ ***********新网程Portal手机验证javascript代码*********************************/
+
+var p_flag = '1';
+/*****************************************************************************
+ ***********点击获取密码按钮一个后重置按钮*********************************/
+function restore() {
+    document.getElementById("gpss").disabled = "";
+    p_flag = '1';
+}
+/*****************************************************************************
+ ***********正则表达检验用户输入手机号格式是否正确*********************************/
+function chk(tel) {
+    if (/^1\d{10}$/g.test(tel) || (/^1\d{11}$/g.test(tel))) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+/*****************************************************************************
+ ***********点击获取密码按钮后一分钟倒计时*********************************/
+var i = 59;
+
+function fun() {
+    if (i == 0) {
+        document.getElementById("gpss").value = "获取密码";
+        clearInterval(intervalid);
+        i = 59;
+    } else {
+        document.getElementById("gpss").value = i;
+
+        i--;
+    }
+}
+/*****************************************************************************
+ ***********新网程Portal手机验证点击获取密码按钮后调用的javascript代码*********************************/
+function getpasswd() {
+
+    if (p_flag == '0') return false;
+    if (document.getElementById("username").value == '' || document.getElementById("username").value == '手机号') {
+        alert('请输入手机号');
+        return false;
+    }
+
+    var telno = document.getElementById("username").value;
+    if (telno.length != 11) {
+        alert('手机号格式不对');
+        return false;
+    }
+    if (chk(telno) != '0') {
+        alert('请输入正确地手机号！');
+        return false;
+    }
+    //document.getElementById("input1").value='';
+
+    temp_html = "http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvGetPass&tsid@[#tsid#]&lang@[#lang#]&username@" + document.getElementById("username").value + "&tsid@" + document.getElementById("tsid").value;
+
+    document.getElementById("ifhide").src = temp_html;
+    document.getElementById("gpss").disabled = "true";
+    document.getElementById("gpss").value = "已发送";
+    intervalid = setInterval("fun()", 1000); //写在document.getElementById("gpss").disabled="true";的后面
+
+    p_flag = '0';
+    setTimeout('restore()', 60000);
+    return false;
+}
+
+
+/*****************************************************************************
+ ***********新网程Portal手机验证点击登录后调用的javascript代码*********************************/
+function spylogin() {
+    if (document.getElementById("username").value == "" || document.getElementById("username").value == "手机号码" || document.getElementById("password").value == "" || document.getElementById("password").value == "密码") {
+
+        window.alert("手机号或密码不能为空!");
+        return false;
+    }
+    if (document.getElementById("radio1").checked != 1) {
+        window.alert("请确认接受免责声明！");
+        return false;
+    }
+    document.getElementById("nclogin").submit();
+
+    return true;
+}
+
+
+/*****************************************************************************
+ ***********新网程Portal手机验证中英文版本切换javascript代码*********************************/
+function changlogin(flag) {
+    self.location = 'http://[#ip#]:[#port#]/pronline/Msg?FunName@ncSrvDispLogin&lang@' + flag + '&[#getarg#]';
+}
+
+function init(){
+	//alert("postarg=["+'[#postarg#]'+']');
+	//alert("posturl=["+'[#posturl#]'+']');
+	doWechatInit();
+}
+</script>
+</head>
+<body onload="init();">
+<form id="nclogin" name="nclogin" id="nclogin" method="post" action="[#posturl#]">
+	<input type="hidden" name="tsid" id="tsid" value="[#tsid#]" >
+	[#postarg#]
+<div class="wrap" id="wrap">
+	
+<div class="banner">
+  <section class="slider">
+    <div class="flexslider">
+      <ul class="slides">
+        
+        <li> <img src="/images/pronetway/minion_1.jpg" /></li>
+		<li> <img src="/images/pronetway/minion_2.jpg" /></li>
+        <li> <img src="/images/pronetway/minion_3.jpg" /></li>
+		<li> <img src="/images/pronetway/minion_4.jpg" /></li>
+      </ul>
+    </div>
+  </section>
+</div>
+<div style="height:15px; clear:both;"></div>
+<div class="contentinfo">	
+	<div class="tit_info">欢迎使用免费无线网络</div>
+    <div style="height:15px; clear:both;"></div>
+    <div class="user_info">
+    <input  type="text" class="username" id="username" name="username" placeholder="手机号"
+     onBlur="if(this.className=='username_onfocus') this.className='username';" onFocus="if(this.className=='username') this.className='username_onfocus';"/>
+    <input  type="button" class="btn_hq" value="获取密码" id="gpss" onClick="getpasswd();"/>
+    </div>
+    <div style="height:20px; clear:both;"></div>
+    <div>
+    	<input  type="password" class="password" name="password" id="password" placeholder="密码"
+        onBlur="if(this.className=='password_onfocus') this.className='password';" onFocus="if(this.className=='password') this.className='password_onfocus';"/>
+    </div>
+     <div style="height:40px; clear:both;"></div>
+     <div class="check"><input type="checkbox" id="radio1" checked />&nbsp;<span>我已阅读并接受相关<a target="_blank" href="/images/pronetway/mzsm_sj.html">免责条款</a></span></div>
+     <div style="height:30px; clear:both;"></div>
+     <div><input  type="button" class="btn_ok" value="登录" onclick="return spylogin();"/></div>
+<div style="height:15px; clear:both;"></div>
+	 <div><input  type="button" class="btn_ok" value="微信登录" onclick="return doWeixin();"/></div>     
+
+
+</div> 
+<!--div><img style="width:100%; position:absolute; bottom:0px;" src="/images/pronetway/footer.jpg"/></div-->
+	
+</div>
+
+
+
+	<iframe style="display:none;" id="ifhide" name="ifhide" src="" scrolling="no" width=0 height=0  FrameBorder=0></iframe>	
+</form> 
+  
+</body>
+</html>
