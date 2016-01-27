@@ -399,7 +399,7 @@ int ictProAuthLoadGroupInfo(utShmHead *psShmHead)
     pasDbCloseCursor(psCur);
     return 0;
 }
-
+/*
 //广告模板
 int ictAdplatelist_v9(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
@@ -725,7 +725,7 @@ int ictAdplatelist_v9(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     utPltOutToHtml(iFd, psMsgHead, psDbHead, "v8/nc_adplate_list.htm");
     return 0;
 }
-
+*/
 int doParseAdvert(utPltDbHead *psDbHead, const char* caPid, const char* caFilename, const char* advertMark, const char* pBuf, long iNum_s, long iNum)
 {
     char caIpPort[32] = "";
@@ -2225,6 +2225,53 @@ int receiveWeixinNotify(utShmHead* psShmHead, int iFd, utMsgHead* psMsgHead)
     return 0;
 }
 
+//展示的页面
+int showAlipayRet(utShmHead* psShmHead, int iFd, utMsgHead* psMsgHead)
+{
+    int iReturn = 0;
+    char caOut_trade_no[32] = "";
+    char caOutXml[2048] = "";
+    char caReturn[16] = "";
+    pasLogs(1066, 1066, "\n\n===================显示支付宝的return_url===========================\n\n");
+    utMsgOutMsgToLog(1066, 1066, psMsgHead, "[show  return url] \n");
+    iReturn = utMsgGetSomeNVar(psMsgHead, 1,
+                               "requri", UT_TYPE_STRING, sizeof(caOutXml) - 1 , caOutXml);
+    ncUtlGetWordBetween(caOutXml, "body=", "&buyer_email=", caReturn, 128);
+
+    pasLogs(1066, 1066, "return code=%s\n", caReturn);
+
+    utPltDbHead* psDbHead = utPltInitDb();
+    utPltPutVar(psDbHead, "body", caReturn);
+    utPltPutVar(psDbHead, "tradeno", "20150000000");
+    utPltPutVar(psDbHead, "subject", convert("GBK", "UTF-8", "充值"));
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "ict/pay/alipayRet.htm");
+    return 0;
+}
+
+int showWechatRet(utShmHead* psShmHead, int iFd, utMsgHead* psMsgHead)
+{
+    int iReturn = 0;
+    char caOut_trade_no[32] = "";
+    char caOutXml[2048] = "";
+    char caReturn[16] = "";
+    pasLogs(1066, 1066, "\n\n===================显示微信的return_url===========================\n\n");
+    utMsgOutMsgToLog(1066, 1066, psMsgHead, "[show weixin return url] \n");
+    iReturn = utMsgGetSomeNVar(psMsgHead, 1,
+                               "PASXml", UT_TYPE_STRING, sizeof(caOutXml) - 1 , caOutXml);
+
+    pasLogs(1066, 1066, "return code=%s\n", caReturn);
+    if(strcmp(caReturn, "SUCCESS") == 0)
+    {
+
+    }
+    utPltDbHead* psDbHead = utPltInitDb();
+    utPltPutVar(psDbHead, "ret_flag", "return_url wechat");
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "ict/pay/wechatRet.htm");
+    return 0;
+}
+
+
+
 /**
 * 接收支付宝的支付结果
 *
@@ -2234,11 +2281,24 @@ int receiveAlipayNotify(utShmHead* psShmHead, int iFd, utMsgHead* psMsgHead)
     int iReturn = 0;
     char caOut_trade_no[32] = "";
     char caOutXml[2048] = "";
+    char caBody[16] = {0};
     char caReturn[16] = "";
     pasLogs(1066, 1066, "\n\n===================接收到支付宝的反馈===========================\n\n");
     utMsgOutMsgToLog(1066, 1066, psMsgHead, "[recieve alipay] \n");
-    iReturn = utMsgGetSomeNVar(psMsgHead, 1,
-                               "PASXml", UT_TYPE_STRING, sizeof(caOutXml) - 1 , caOutXml);
+    iReturn = utMsgGetSomeNVar(psMsgHead, 2,
+                               "body", UT_TYPE_STRING, sizeof(caBody) - 1 , caBody,
+                               "out_trade_no", UT_TYPE_STRING, sizeof(caOut_trade_no) - 1 , caOut_trade_no);
+    pasLogs(1066, 1066, "caBody =%s", caBody);
+    //处理数据库的数据更新
+    if(strcmp(caBody, "order") == 0) //订购套餐
+    {
+        pasLogs(1066, 1066, "===caBody =%s", caBody);
+        ict_complete_package_order_zf(psShmHead, iFd, psMsgHead, caOut_trade_no);
+    }
+    else if(strcmp(caBody, "charge") == 0) //订购套餐
+    {
+        ict_complete_recharge(psShmHead, iFd, psMsgHead, caOut_trade_no);
+    }
     utPltDbHead* psDbHead = utPltInitDb();
     utPltPutVar(psDbHead, "ret_flag", "success");
     utPltOutToHtml(iFd, psMsgHead, psDbHead, "ict/pay/alipay.htm");
@@ -2482,14 +2542,14 @@ int ictAlipayapi(utShmHead* psShmHead, int iFd, utMsgHead* psMsgHead)
     }
 
     strcpy(alipayConfig.notify_url, utComGetVar_sd(psShmHead, "aliNotify_url", "http://180.169.1.201:8006/ictpay/notifyAlipayResult"));
-    strcpy(alipayConfig.return_url, utComGetVar_sd(psShmHead, "aliNotify_url", "http://180.169.1.201:8006/ictpay/notifyAlipayResult"));
-    strcpy(alipayConfig.show_url, utComGetVar_sd(psShmHead, "aliNotify_url", "http://180.169.1.201:8006/ictpay/notifyAlipayResult"));
+    strcpy(alipayConfig.return_url, utComGetVar_sd(psShmHead, "aliRetUrl", "http://180.169.1.201:8006/ictpay/alipayRetUrl"));
+    strcpy(alipayConfig.show_url, utComGetVar_sd(psShmHead, "aliShowUrl", "http://180.169.1.201:8006/ictpay/notifyAlipayResult"));
     alipayConfig.payment_type = utComGetVar_ld(psShmHead, "aliPayType", 1);
     strcpy(alipayConfig.input_charset, "utf-8");
     strcpy(alipayConfig.partner, "2088411881747090");
     strcpy(alipayConfig.seller_email, "liqin@pronetway.com");
     strcpy(alipayConfig.md5_key, "5yqgnewnsj0m08t2l0rt0z6gje0dk18c");
-    strcpy(alipayConfig.subject, "subject2017");
+    strcpy(alipayConfig.subject, caSubject);
     /*
         snprintf(alipayConfig.rsa_key + strlen(alipayConfig.rsa_key), sizeof(alipayConfig.rsa_key) - 1, "MIICXAIBAAKBgQC41wBqh3c5z+AH1nx4edgiqTFf8Jzre37K6NdjFAt9OI6mHGpL");
         snprintf(alipayConfig.rsa_key + strlen(alipayConfig.rsa_key), sizeof(alipayConfig.rsa_key) - 1, "BzQYGysS7se2pmn7ni7rJC4cLG4fy72ATmDSY9itfQYCJp0Vm2NYJOPh6/a4pllc");
@@ -3811,7 +3871,7 @@ int doCalcByDays(int days, utMsgHead *psMsgHead, int iFd, utPltDbHead *psDbHead)
         lttime = letime - 3600 * 24 * (days - i + 1);
         //统计出该天的总数
         memset(sql, 0, sizeof(sql));
-        snprintf(sql, sizeof(sql)-1, "select ifnull(sum(lcount),0) from ictusercount where sdate=\'%s\' ", utTimFormat("%Y%m%d", lttime));
+        snprintf(sql, sizeof(sql) - 1, "select ifnull(sum(lcount),0) from ictusercount where sdate=\'%s\' ", utTimFormat("%Y%m%d", lttime));
         pasLogs(1066, 1600, "sql=[%s]\n", sql);
         iReturn = pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &collect_number);
         if(iReturn != 0)
@@ -3841,11 +3901,11 @@ typedef struct
     long rtime;
 } retData;
 
-uint8 getMonthFirstDay(long lttime)
+uint8 getMonthFirstDay(uint8 lttime)
 {
     char caStemptime[56] = "";
-    snprintf(caStemptime, sizeof(caStemptime), "%s/%02d 00:00", utTimFormat("%Y/%m", lttime), 1);
-    pasLogs(1066,1600, "caStemptime=[%s]\n", caStemptime);
+    snprintf(caStemptime, sizeof(caStemptime) - 1, "%s/%02d 00:00", utTimFormat("%Y/%m", lttime), 1);
+    pasLogs(1066, 1603, "caStemptime=[%s]\n", caStemptime);
     return utTimStrToLong("%Y/%m/%d %H:%M", caStemptime);
 }
 
@@ -3856,7 +3916,7 @@ long getCountInDuration(uint8 lstime, uint8 letime)
     long collect_number = 0;
     pasLogs(1066, 1600, "lstime=%llu, letime=%llu\n", lstime, letime);
     memset(sql, 0, sizeof(sql));
-    snprintf(sql, sizeof(sql), "select ifnull(sum(lcount),0) from ncmactermcount where sdate>=\'%s01\' and sdate<=\'%s31\' ", utTimFormat("%Y%m", lstime), utTimFormat("%Y%m", letime));
+    snprintf(sql, sizeof(sql), "select ifnull(sum(lcount),0) from ictusercount where sdate>=\'%s01\' and sdate<=\'%s31\' ", utTimFormat("%Y%m", lstime), utTimFormat("%Y%m", letime));
     pasLogs(1066, 1600, "temp sql=[%s]\n", sql);
     iReturn = pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &collect_number);
     pasLogs(1066, 1600, "iret = %d, n=%lu\n", iReturn, collect_number);
@@ -3904,9 +3964,290 @@ int doCalcByMonths(int months, utMsgHead *psMsgHead, int iFd, utPltDbHead *psDbH
     return 0;
 }
 
+
+int ictFrontPageChart11(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+    ulong lTotalCount = 0;
+    int iReturn = 0;
+    ulong sumNum = 0;
+    ulong lNumber = 0;
+    char caDispname[32] = "";
+    char caKeyword[32] = "";
+    char sql[1024] = "";
+    pasDbCursor *psCur = NULL;
+    utMsgOutMsgToLog(1066, 1603, psMsgHead, "[ictFrontPageChart11] \n");
+    uint8 lPackId = 0;
+    utPltDbHead *psDbHead = NULL;
+    unsigned char *pHash_pac = NULL;
+
+    struct package_s
+    {
+        uint8 packid;
+        char caName[64];
+    };
+    struct package_s *psPac;
+
+    utMsgGetSomeNVar(psMsgHead, 1,
+                     "keyword",   UT_TYPE_STRING, sizeof(caKeyword) - 1,  caKeyword);
+    psDbHead = utPltInitDb();
+    //将所有套餐装入内存
+    pHash_pac = (unsigned char *)pasLHashInit(30, 30, sizeof(struct package_s), 0, 8);
+    if(pHash_pac == NULL)
+    {
+        utPltPutVar(psDbHead, "result", "2");
+        utPltOutToHtml(iFd, psMsgHead, psDbHead, "ict/frontPage/ictOrderType.htm");
+        return 0;
+    }
+    //将接入厂家装入到内存
+    memset(sql, 0, sizeof(sql));
+    sprintf(sql, "select id,namech from package");
+    psCur = pasDbOpenSql(sql, 0);
+    if(psCur)
+    {
+        lPackId = 0;
+        memset(caDispname, 0, sizeof(caDispname));
+        iReturn = pasDbFetchInto(psCur,
+                                 UT_TYPE_LONG8, 8, &lPackId,
+                                 UT_TYPE_STRING, sizeof(caDispname) - 1, caDispname);
+        while((iReturn == 0) || (iReturn == 1405))
+        {
+            psPac = (struct package_s *)pasLHashLookA(pHash_pac, (char*)(&lPackId));
+            if(psPac)
+            {
+                strcpy(psPac->caName, caDispname);
+            }
+
+            lPackId = 0;
+            memset(caDispname, 0, sizeof(caDispname));
+            iReturn = pasDbFetchInto(psCur,
+                                     UT_TYPE_LONG8, 8, &lPackId,
+                                     UT_TYPE_STRING, sizeof(caDispname) - 1, caDispname);
+        }
+        pasDbCloseCursor(psCur);
+
+    }
+    //查询套餐的统计信息
+    memset(sql, 0, sizeof(sql));
+    sprintf(sql, "select sum(lcount),packageid from ictpackagecount group by packageid");
+
+    psCur = pasDbOpenSql(sql, 0);
+    if(psCur)
+    {
+        iReturn = pasDbFetchInto(psCur,
+                                 UT_TYPE_LONG, 4, &lNumber,
+                                 UT_TYPE_LONG8, 8, &lPackId);
+        int iNum = 0;
+        while((iReturn == 0) || (iReturn == 1405))
+        {
+            sumNum += lNumber;
+            iNum ++;
+            utPltPutLoopVarF(psDbHead, "collect_number", iNum, "%lu", lNumber);
+            memset(caDispname, 0, sizeof(caDispname));
+            psPac = (struct package_s *)pasLHashLookA(pHash_pac, (char*)(&lPackId));
+            if(psPac)
+            {
+
+                strcpy(caDispname, convert("GBK", "UTF-8", psPac->caName));
+            }
+            utPltPutLoopVar(psDbHead, "collect_name", iNum, caDispname);
+            if(iNum > 1)
+            {
+                utPltPutLoopVar(psDbHead, "dh", iNum, ",");
+            }
+
+            iReturn = pasDbFetchInto(psCur,
+                                     UT_TYPE_LONG, 4, &lNumber,
+                                     UT_TYPE_LONG8, 8, &lPackId);
+        }
+        pasDbCloseCursor(psCur);
+        utPltPutVar(psDbHead, "result", "0");
+        utPltPutVarF(psDbHead, "sumNum", "%lu", sumNum);
+    }
+    else
+    {
+        utPltPutVar(psDbHead, "result", "1");
+    }
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "ict/frontPage/ictOrderType.htm");
+    //释放内存
+    free(pHash_pac);
+    return 0;
+}
+
+int ictFrontPageChart12(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+    ulong lTotalCount = 0;
+    int iReturn = 0;
+    ulong sumNum = 0;
+    ulong lNumber = 0;
+    char dispname[24] = "";
+    char caKeyword[32] = "";
+    char sql[1024] = "";
+    pasDbCursor *psCur;
+    utMsgOutMsgToLog(1066, 1603, psMsgHead, "[ictFrontPageChart12] \n");
+    long lMtype = 0;
+    utPltDbHead *psDbHead;
+
+    utMsgGetSomeNVar(psMsgHead, 1,
+                     "keyword",   UT_TYPE_STRING, sizeof(caKeyword) - 1,  caKeyword);
+    memset(sql, 0, sizeof(sql));
+    sprintf(sql, "select sum(lcount),mtype from ictchargecount group by mtype");
+    psDbHead = utPltInitDb();
+
+    psCur = pasDbOpenSql(sql, 0);
+    if(psCur)
+    {
+        iReturn = pasDbFetchInto(psCur,
+                                 UT_TYPE_LONG, 4, &lNumber,
+                                 UT_TYPE_LONG, 4, &lMtype);
+        int iNum = 0;
+        while((iReturn == 0) || (iReturn == 1405))
+        {
+            sumNum += lNumber;
+            iNum ++;
+            utPltPutLoopVarF(psDbHead, "collect_number", iNum, "%lu", lNumber);
+            utPltPutLoopVarF(psDbHead, "collect_name", iNum, "%lu", lMtype);
+            if(iNum > 1)
+            {
+                utPltPutLoopVar(psDbHead, "dh", iNum, ",");
+            }
+
+            iReturn = pasDbFetchInto(psCur,
+                                     UT_TYPE_LONG, 4, &lNumber,
+                                     UT_TYPE_LONG, 4, &lMtype);
+        }
+        pasDbCloseCursor(psCur);
+        utPltPutVar(psDbHead, "result", "0");
+        utPltPutVarF(psDbHead, "sumNum", "%lu", sumNum);
+    }
+    else
+    {
+        utPltPutVar(psDbHead, "result", "1");
+    }
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "ict/frontPage/ictOrderType.htm");
+    return 0;
+}
+
+
+uint8 getYearFirstDay(uint8 lltime)
+{
+    char caStemptime[56] = "";
+    snprintf(caStemptime, sizeof(caStemptime) - 1, "%s/%02d/%02d 00:00", utTimFormat("%Y", lltime), 1, 1);
+    pasLogs(1066, 1603, "caStemptime=[%s]\n", caStemptime);
+    return utTimStrToLong("%Y/%m/%d %H:%M", caStemptime);
+}
+
+int calcGapTimeByType(char* reqType, uint8* pStart, uint8* pEnd)
+{
+    uint8 lls = 0, lle = 0;
+    uint8 llTime = time(0);
+    pasLogs(1066, 1603, "recv type=[%s]", reqType);
+    if(strcmp(reqType, "thisMonth") == 0)
+    {
+        lls = getMonthFirstDay(llTime);
+        lle = llTime;
+    }
+    else if(strcmp(reqType, "lastMonth") == 0)
+    {
+        lle = getMonthFirstDay(llTime) - 1;
+        lls = getMonthFirstDay(lle);
+    }
+    else if(strcmp(reqType, "thisYear") == 0)
+    {
+        lls = getYearFirstDay(llTime);
+        lle = llTime;
+    }
+    else if(strcmp(reqType, "lastYear") == 0)
+    {
+        lle = getYearFirstDay(llTime) - 1;
+        lls = getYearFirstDay(lle);
+    }
+    else
+    {
+        return -1;
+    }
+    *pStart = lls;
+    *pEnd = lle;
+    return 0;
+}
+
+int ictFrontPageChart22(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+    utMsgOutMsgToLog(1066, 1603, psMsgHead, "[ictFrontPageChart22] \n");
+    utPltDbHead *psDbHead;
+    char request_type[32] = "";
+    uint8 llStart = 0, llEnd = 0;
+    char sql[1024] = "";
+    char caUsername[32] = "";
+    char caMname[32] = "";
+    char caSumHour[32] = "";
+    int iReturn = 0;
+    pasDbCursor *psCur;
+    iReturn = utMsgGetSomeNVar(psMsgHead, 1,
+                               "request_type", UT_TYPE_STRING, sizeof(request_type) - 1, request_type);
+    iReturn = calcGapTimeByType(request_type, &llStart, &llEnd);
+    if(iReturn)
+    {
+        pasLogs(1066, 1603, "type not correct");
+        //客户端传送的类型不正确
+        utPltPutVar(psDbHead, "result", "1");
+    }
+    else
+    {
+        memset(sql, 0, sizeof(sql));
+        // snprintf(sql, sizeof(sql)-1, "select username,username, 0 from ncsrvuserlog where starttime>=%llu and starttime<=%llu group by username limit 10", llStart, llEnd);
+
+        snprintf(sql, sizeof(sql) - 1, "select aa.username,ifnull(bb.mname, '暂无'),sum((endtime-starttime)/3600) sumHours from ncsrvuserlog aa left join ncsrvuserex bb on aa.username=bb.username where starttime>=%llu and starttime<=%llu group by aa.username order by sumHours desc limit 10", llStart, llEnd);
+        pasLogs(1066, 1603, "sql=[%s]", sql);
+        psDbHead = utPltInitDb();
+        psCur = pasDbOpenSql(sql, 0);
+        if(psCur)
+        {
+            pasLogs(1066, 1603, "psCur is not NULL");
+            iReturn = pasDbFetchInto(psCur,
+                                     UT_TYPE_STRING, sizeof(caUsername) - 1, caUsername,
+                                     UT_TYPE_STRING, sizeof(caMname) - 1, caMname,
+                                     UT_TYPE_STRING, sizeof(caSumHour) - 1, caSumHour);
+            int iNum = 0;
+            pasLogs(1066, 1603, "iReturn=%d", iReturn);
+            while((iReturn == 0) || (iReturn == 1405))
+            {
+                iNum ++;
+                pasLogs(1066, 1603, "caSumHour = [%s]", caSumHour);
+                pasLogs(1066, 1603, "caMname = [%s]", caMname);
+                pasLogs(1066, 1603, "caUsername = [%s]", caUsername);
+                utPltPutLoopVar(psDbHead, "sumhour", iNum, caSumHour);
+                utPltPutLoopVar(psDbHead, "realname", iNum, convert("GBK", "UTF-8", caMname));
+                utPltPutLoopVar(psDbHead, "username", iNum, caUsername);
+                memset(caMname, 0, sizeof(caMname));
+                memset(caUsername, 0, sizeof(caUsername));
+                memset(caSumHour, 0, sizeof(caSumHour));
+                if(iNum > 1)
+                {
+                    utPltPutLoopVar(psDbHead, "dh", iNum, ",");
+                }
+                iReturn = pasDbFetchInto(psCur,
+                                         UT_TYPE_STRING, sizeof(caUsername) - 1, caUsername,
+                                         UT_TYPE_STRING, sizeof(caMname) - 1, caMname,
+                                         UT_TYPE_STRING, sizeof(caSumHour) - 1, caSumHour);
+
+            }
+            pasDbCloseCursor(psCur);
+            utPltPutVar(psDbHead, "result", "0");
+
+        }
+        else
+        {
+            //数据库执行失败
+            utPltPutVar(psDbHead, "result", "2");
+        }
+    }
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "ict/frontPage/rangeData.htm");
+    return 0;
+}
+
 int ictFrontPageChart21(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
 {
-	utMsgOutMsgToLog(1066, 0001, psMsgHead, "[ictFrontPageChart21] \n");
+    utMsgOutMsgToLog(1066, 1600, psMsgHead, "[ictFrontPageChart21] \n");
 
     utPltDbHead *psDbHead = utPltInitDb();
     char caUsername[32] = "";
@@ -3940,8 +4281,8 @@ int ictFrontPageChart21(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
         {
             memset(sql, 0, sizeof(sql));
             snprintf(sql, sizeof(sql), "select ifnull(count(*), 0) from ncsrvuserlog where starttime>=%llu and starttime<=%llu", lstime, lttime);
-			pasLogs(1066, 1600, "sql=[%s]", sql);
-			iReturn = pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &collect_number);
+            pasLogs(1066, 1600, "sql=[%s]", sql);
+            iReturn = pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &collect_number);
             if(iReturn != 0)
             {
                 utPltPutVar(psDbHead, "result", "0");
@@ -4015,13 +4356,153 @@ int ictFrontPageChart21(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
     return 0;
 }
 
+int getChargeCount(ulong* ltoday, ulong* ltotal)
+{
+    ulong ltd = 0, ltt = 0;
+    int iReturn = 0;
+    uint8 lTodayFirst = 0;
+    char sql[1024] = "";
+    char caStemptime[32] = "";
+    uint8 lTime = time(0);
+
+    memset(sql, 0, sizeof(sql));
+    snprintf(sql, sizeof(sql), "select ifnull(sum(lcount), 0) from ictchargecount");
+    pasLogs(1066, 1603, "sql=[%s]", sql);
+    iReturn = pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &ltt);
+    //今日新增数量
+    sprintf(caStemptime, "%s 00:00", utTimFormat("%Y/%m/%d", lTime));
+    pasLogs(1066, 1603, "zero time caStemptime%s\n", caStemptime);
+    //当天的0点
+    lTodayFirst = utTimStrToLong("%Y/%m/%d %H:%M", caStemptime);
+    memset(sql, 0, sizeof(sql));
+    snprintf(sql, sizeof(sql), "select ifnull(sum(money), 0) from rechargelog_%s where timeval>=%llu", utTimFormat("%Y%m", lTime), lTodayFirst);
+    pasLogs(1066, 1603, "sql=[%s]", sql);
+    iReturn = pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &ltd);
+    *ltoday = ltd;
+    *ltotal = ltt;
+    return 0;
+}
+
+int getPackageCount(ulong* ltoday, ulong* ltotal)
+{
+    ulong ltd = 0, ltt = 0;
+    int iReturn = 0;
+    uint8 lTodayFirst = 0;
+    char sql[1024] = "";
+    char caStemptime[32] = "";
+    uint8 lTime = time(0);
+    //总订购数
+    memset(sql, 0, sizeof(sql));
+    snprintf(sql, sizeof(sql), "select ifnull(sum(lcount), 0) from ictpackagecount");
+    pasLogs(1066, 1603, "sql=[%s]", sql);
+    iReturn = pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &ltt);
+    //今日新增数量
+    sprintf(caStemptime, "%s 00:00", utTimFormat("%Y/%m/%d", lTime));
+    pasLogs(1066, 1603, "zero time caStemptime%s\n", caStemptime);
+    //当天的0点
+    lTodayFirst = utTimStrToLong("%Y/%m/%d %H:%M", caStemptime);
+    memset(sql, 0, sizeof(sql));
+    snprintf(sql, sizeof(sql), "select ifnull(count(*), 0) from userorderlog_%s where timeval>=%llu", utTimFormat("%Y%m", lTime), lTodayFirst);
+    pasLogs(1066, 1603, "sql=[%s]", sql);
+    iReturn = pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &ltd);
+    *ltoday = ltd;
+    *ltotal = ltt;
+    return 0;
+}
+
+int getUserCount(ulong* ltoday, ulong* ltotal)
+{
+    ulong ltd = 0, ltt = 0;
+    int iReturn = 0;
+    uint8 lTodayFirst = 0;
+    char sql[1024] = "";
+    char caStemptime[32] = "";
+    uint8 lTime = time(0);
+    //总人数
+    memset(sql, 0, sizeof(sql));
+    snprintf(sql, sizeof(sql), "select ifnull(count(*), 0) from ncsrvuser");
+    pasLogs(1066, 1603, "sql=[%s]", sql);
+    iReturn = pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &ltt);
+    //今日新增数量
+    sprintf(caStemptime, "%s 00:00", utTimFormat("%Y/%m/%d", lTime));
+    pasLogs(1066, 1603, "zero time caStemptime%s\n", caStemptime);
+    //当天的0点
+    lTodayFirst = utTimStrToLong("%Y/%m/%d %H:%M", caStemptime);
+    memset(sql, 0, sizeof(sql));
+    snprintf(sql, sizeof(sql), "select ifnull(count(*), 0) from ncsrvuser where addtime>=%llu", lTodayFirst);
+    pasLogs(1066, 1603, "sql=[%s]", sql);
+    iReturn = pasDbOneRecord(sql, 0, UT_TYPE_LONG, 4, &ltd);
+    *ltoday = ltd;
+    *ltotal = ltt;
+    return 0;
+}
+
+
+int ictGetTopBlock(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+    ulong lOnlineUser = 0;
+    ulong lTodayUser = 0, lTotalUser = 0;
+    ulong lTodayCharge = 0, lTotalCharge = 0;
+    ulong lTodayPackage = 0, lTotalPackage = 0;
+    utMsgOutMsgToLog(1066, 1602, psMsgHead, "[ictGetTopBlock] \n");
+    utPltDbHead *psDbHead = utPltInitDb();
+    //在线用户数量
+    lOnlineUser = getOnlineUser(psShmHead);
+    //今日新增用户以及用户总数
+    getUserCount(&lTodayUser, &lTotalUser);
+    //今日订购套餐数和套餐总数
+    getPackageCount(&lTodayPackage, &lTotalPackage);
+    //今日充值数和充值总数
+    getChargeCount(&lTodayCharge, &lTotalCharge);
+    //返回数据给前端
+    utPltPutVar(psDbHead, "result", "0");
+    utPltPutVarF(psDbHead, "onlineUser", "%lu", lOnlineUser);
+    utPltPutVarF(psDbHead, "todayUser", "%lu", lTodayUser);
+    utPltPutVarF(psDbHead, "totalUser", "%lu", lTotalUser);
+    utPltPutVarF(psDbHead, "todayCharge", "%lu", lTodayCharge);
+    utPltPutVarF(psDbHead, "totalCharge", "%lu", lTotalCharge);
+    utPltPutVarF(psDbHead, "todayPackage", "%lu", lTodayPackage);
+    utPltPutVarF(psDbHead, "totalPackage", "%lu", lTotalPackage);
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "ict/frontPage/topBlock.htm");
+    return 0;
+}
+
+int ictGetTsidByIp(utShmHead *psShmHead, int iFd, utMsgHead *psMsgHead)
+{
+    int iReturn = 0;
+    utMsgPrintMsg(psMsgHead);
+    char caIctIp[64] = "";
+
+    iReturn = utMsgGetSomeNVar(psMsgHead, 1,
+                               "ictip",   UT_TYPE_STRING, sizeof(caIctIp) - 1, caIctIp);
+    utStrDelSpaces(caIctIp);
+    utPltDbHead* psDbHead = utPltInitDb();
+
+    uint8 llTsid = getTsidByIp(psShmHead, caIctIp);
+    if(llTsid > 0)
+    {
+        //查询一下该用户是否在共享内存
+        utPltPutVarF(psDbHead, "result", "%d", 0);
+    }
+    else
+    {
+        utPltPutVarF(psDbHead, "result", "%d", 1);
+    }
+    utPltPutVarF(psDbHead, "tsid", "%llu", llTsid);
+
+    utPltOutToHtml(iFd, psMsgHead, psDbHead, "school/login/login.htm");
+    return 0;
+}
+
+
+
 
 int ictInitWebFun_wp(utShmHead * psShmHead)
 {
     pasSetTcpFunName("ictFirstDispAd", ictFirstDispAd, 0);
     pasSetTcpFunName("ictGetUserLoginInfo", ictGetUserLoginInfo, 0);
     //投放模版
-    pasSetTcpFunName("ictAdplatelist_v9", ictAdplatelist_v9, 0);
+    // pasSetTcpFunName("ictAdplatelist_v9", ictAdplatelist_v9, 0);
     pasSetTcpFunName("ictAdindexlist_v9", ictAdindexlist_v9, 0);
     pasSetTcpFunName("ictAdDefAd_upload_v9", ictAdDefAd_upload_v9, 0);
     pasSetTcpFunName("ictAdPlateTerm_Save_v9", ictAdPlateTerm_Save_v9, 0);
@@ -4042,15 +4523,22 @@ int ictInitWebFun_wp(utShmHead * psShmHead)
     pasSetTcpFunName("ictAlipayIndex", ictAlipayIndex, 0);
     //支付宝提交订单
     pasSetTcpFunName("ictAlipayapi", ictAlipayapi, 0);
+    pasSetTcpFunName("showAlipayRet", showAlipayRet, 0);
+    pasSetTcpFunName("showWechatRet", showWechatRet, 0);
     //查询流量统计报表
     pasSetTcpFunName("ictGetTraffic", ictGetTraffic, 0);
     //警务通登录
     pasSetTcpFunName("jwtLogin", jwtLogin, 0);
-	//单位管理
-	pasSetTcpFunName("ict_websrvgroup_list", ict_websrvgroup_list, 0);
-	//首页统计接口
-	pasSetTcpFunName("ictFrontPageChart21", ictFrontPageChart21, 0);
-	
+    //单位管理
+    pasSetTcpFunName("ict_websrvgroup_list", ict_websrvgroup_list, 0);
+    //首页统计接口
+    pasSetTcpFunName("ictFrontPageChart11", ictFrontPageChart11, 0);
+    pasSetTcpFunName("ictFrontPageChart12", ictFrontPageChart12, 0);
+    pasSetTcpFunName("ictFrontPageChart21", ictFrontPageChart21, 0);
+    pasSetTcpFunName("ictGetTopBlock", ictGetTopBlock, 0);
+    pasSetTcpFunName("ictFrontPageChart22", ictFrontPageChart22, 0);
+    //根据IP 获取tsid
+    pasSetTcpFunName("ictGetTsidByIp", ictGetTsidByIp, 0);
     return 0;
 }
 

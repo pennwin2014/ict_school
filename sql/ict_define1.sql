@@ -90,7 +90,19 @@ create table package(
 	cuser char(31) default '',                       -- 编辑用户
     content char(127) default '',                    -- 备注
 	discountid int(11) default 0,                    -- 优惠推广ID  20160114添加
-    UNIQUE KEY nameex1(mark,name)                    -- wu
+    UNIQUE KEY nameex1(mark,name,namech)                    -- wu
+)ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- 套餐类型表
+drop table if exists tPacType;
+create table tPacType(
+	id int(11) auto_increment primary key,
+	mark char(128) default '',                       -- 产品标识(参照非经单位编码)
+	namech char(31) NOT NULL,                        -- 套餐中文名称
+	pdays int(11) default 0,                         -- 套餐天数
+	timeval int(11) default 0,                       -- 编辑时间
+	cuser char(31) default '',                       -- 编辑用户
+	UNIQUE KEY tPacTypeIdx1(mark,namech,pdays)     
 )ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- 优惠活动表
@@ -164,6 +176,18 @@ create table userorderlog_201511(
 	KEY userorderlog_l2(timeval)				
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- 订购套餐统计表
+drop table if exists ictpackagecount;   
+CREATE TABLE ictpackagecount (
+  sid int(10) unsigned NOT NULL AUTO_INCREMENT,
+  packageid int(11) NOT NULL,                          -- 订购套餐id
+  mark char(128) default '',                           -- 产品标识(参照非经单位编码)
+  lcount int(10) unsigned DEFAULT 0,
+  sdate char(10) COLLATE latin1_bin DEFAULT NULL,
+  PRIMARY KEY (sid),
+  KEY ictpackagecount_ind1(sdate)
+) ENGINE=MyISAM AUTO_INCREMENT=968 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+
 -- 充值流水表
 drop table if exists rechargeTransdtl;
 create table rechargeTransdtl(
@@ -198,6 +222,18 @@ create table rechargelog_201511(
 	KEY rechargelog_l1(mark),
 	KEY rechargelog_l2(timeval)			
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- 用户充值统计表
+drop table if exists ictchargecount;   
+CREATE TABLE ictchargecount (
+  sid int(10) unsigned NOT NULL AUTO_INCREMENT,
+  mark char(128) default '',                              -- 产品标识(参照非经单位编码)
+  mtype int(11) default 0,                                -- 充值方式（1 微信 2 支付宝 ）
+  lcount int(11) unsigned DEFAULT 0,
+  sdate char(10) COLLATE latin1_bin DEFAULT NULL,
+  PRIMARY KEY (sid),
+  KEY ictchargecount_ind1(sdate)
+) ENGINE=MyISAM AUTO_INCREMENT=968 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 
 -- 客户互动日志
 drop table if exists feedback;
@@ -286,6 +322,8 @@ CREATE TABLE tDepartment (
   depCode char(16) default '',      -- 编码
   depLevel char default 0,          -- 等级 0：学院 1：系别 2:班级
   pid int(11) default 0,            -- 父级的id
+  addtime int(11) default 0,                       -- 添加时间
+  moditime int(11) default 0,                       -- 操作时间
   mark char(128) default ''                              -- 产品标识(参照非经单位编码)	
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -353,7 +391,7 @@ create table jwtuserinfo (
 create unique index jwtuserinfo_i1 on jwtuserinfo (username, mark);
 
 -- 上网用户数量统计表
-drop table if exists jwtuserinfo;   
+drop table if exists ictusercount;   
 CREATE TABLE ictusercount (
   sid int(10) unsigned NOT NULL AUTO_INCREMENT,
   groupcode char(32) COLLATE latin1_bin DEFAULT NULL,
@@ -364,8 +402,21 @@ CREATE TABLE ictusercount (
   luniqmac int(11) DEFAULT 0,
   luniqssid int(11) DEFAULT 0,
   PRIMARY KEY (sid),
-  KEY ictusercount_ind1 (sdate)
+  KEY ictusercount_ind1(sdate)
 ) ENGINE=MyISAM AUTO_INCREMENT=968 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+
+
+
+
+
+-- 保存上回信息的表
+drop table if exists paslastinfo; 
+CREATE TABLE paslastinfo (
+  nc_name char(32) COLLATE latin1_bin NOT NULL DEFAULT '',
+  nc_value char(255) COLLATE latin1_bin DEFAULT NULL,
+  PRIMARY KEY (nc_name)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+
 
 insert into tDepartment(depName, depCode, depLevel, pid) values('人文学院', '01', 0, 0);
 insert into tDepartment(depName, depCode, depLevel, pid) values('信息工程学院', '02', 0, 0);
@@ -374,6 +425,10 @@ insert into tDepartment(depName, depCode, depLevel, pid) values('英文系', '0102'
 
 insert into tDepartment(depName, depCode, depLevel, pid) values('计算机系', '0201', 1, 2);
 insert into tDepartment(depName, depCode, depLevel, pid) values('电子系', '0202', 1, 2);
+
+insert into tDepartment(depName, depCode, depLevel, pid) values('电子071', '020201', 2, 6);
+insert into tDepartment(depName, depCode, depLevel, pid) values('电子081', '020202', 2, 6);
+insert into tDepartment(depName, depCode, depLevel, pid) values('计算机071', '020101', 2, 5);
 
 insert into package(name,mark,namech,namedes,ptype,pdays,money,timeval,picture) values('pweek','1','7天套餐','描述7天套餐',1,7,10,unix_timestamp(now()),'/school/photo/package/pweek.png');
 insert into package(name,mark,namech,namedes,ptype,pdays,money,timeval,picture) values('pmonth','1','包月套餐','描述套餐',2,30,20,unix_timestamp(now()),'/school/photo/package/pmonth.png');

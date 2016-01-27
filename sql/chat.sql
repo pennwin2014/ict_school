@@ -75,7 +75,18 @@ CREATE TABLE ncsrvims(
 	KEY ncsrvims_i3 (mark,timeval)
 )ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-
+-- 准朋友表
+drop table if exists ncsrvpfriend;
+CREATE TABLE ncsrvpfriend(
+    id int(11) auto_increment primary key,
+    mark char(128) default '',                      -- 产品标识(参照非经单位编码)
+    username char(32) default NULL,                 -- 帐号
+    friend char(32) default NULL,                   -- 准朋友
+    havnewmsg char default 0,                       -- 有新消息 1 有新消息
+    recvok char default 0,                          -- 是否同意加 1 同意加入
+    timeval int(11) unsigned default 0,             -- 时间  （取系统时间
+    UNIQUE KEY ncsrvpfriend(mark,username,friend)
+)ENGINE=MyISAM DEFAULT CHARSET=latin1;
 	
 -- 朋友圈表
 drop table if exists ncsrvfriend;
